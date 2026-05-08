@@ -1,0 +1,13 @@
+{
+  "name": "prime-one-ds",
+  "version": "1.0.0",
+  "description": "PrimeOne Design System - Component library based on PrimeNG",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "primeng": ">=17.0.0",
+    "@angular/core": ">=17.0.0"
+  }
+}
