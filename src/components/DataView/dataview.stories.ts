@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [DataView, Tag] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Grid', 'Empty'],
   },
   args: {
     layout: 'list',

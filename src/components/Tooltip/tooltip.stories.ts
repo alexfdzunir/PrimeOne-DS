@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Tooltip, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Focus', 'Delay'],
   },
   args: {
     tooltip: 'Información adicional',

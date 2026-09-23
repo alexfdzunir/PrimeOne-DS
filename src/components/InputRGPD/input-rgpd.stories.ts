@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneInputRgpd] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Marketing', 'Invalid'],
   },
   argTypes: {
     showText: { control: 'boolean', table: { defaultValue: { summary: 'true' } } },

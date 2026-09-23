@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Rating] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Ten', 'ReadOnly'],
   },
   args: {
     onRate: fn(),

@@ -24,6 +24,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneSidebar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Collapsed', 'Mobile'],
     layout: 'fullscreen',
   },
   args: {

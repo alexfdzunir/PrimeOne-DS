@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTopbar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Contrast', 'Mobile'],
   },
   args: {
     heading: 'Mis asignaturas',

@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, ColorPicker] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Inline'],
   },
   args: {
     onChange: fn(),

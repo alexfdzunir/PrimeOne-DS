@@ -16,6 +16,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneBottomBar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Editor'],
   },
   args: {
     type: 'paginator',

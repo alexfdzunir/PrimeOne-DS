@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, InputNumber] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Currency', 'Buttons', 'Suffix', 'Invalid'],
   },
   args: {
     mode: 'decimal',

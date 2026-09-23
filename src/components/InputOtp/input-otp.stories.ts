@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, InputOtp] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Mask', 'Six'],
   },
   args: {
     length: 4,

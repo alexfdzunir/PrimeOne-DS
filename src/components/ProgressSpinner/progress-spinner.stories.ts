@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [ProgressSpinner] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Thin'],
   },
   args: {
     strokeWidth: '4',

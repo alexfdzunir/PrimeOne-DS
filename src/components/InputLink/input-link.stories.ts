@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneInputLink] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Invalid', 'Small'],
   },
   args: {
     label: 'Enlace',

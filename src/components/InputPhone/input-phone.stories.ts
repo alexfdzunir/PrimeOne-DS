@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneInputPhone] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'FloatLabel', 'Invalid'],
   },
   argTypes: {
     defaultCountry: { control: 'text', description: 'ISO code of the prefix shown when there is no value.', table: { defaultValue: { summary: 'ES' } } },

@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneHistoryItem] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Active'],
   },
   args: {
     label: 'Resumen del tema 3',

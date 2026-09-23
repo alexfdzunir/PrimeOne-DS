@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Divider] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Dashed', 'Vertical', 'Left'],
   },
   args: {
     content: 'O',

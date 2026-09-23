@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Secondary', 'Outlined', 'Text', 'Link', 'Danger', 'IconOnly', 'Loading', 'Small', 'Large'],
   },
   args: {
     label: 'Guardar',

@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, RadioButton] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Filled', 'Invalid', 'Small'],
   },
   args: {
     onClick: fn(),

@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Avatar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Icon', 'Square', 'XLarge'],
   },
   args: {
     label: 'LM',

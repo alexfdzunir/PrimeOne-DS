@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [ProgressBar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Indeterminate', 'NoValue'],
   },
   args: {
     value: 60,

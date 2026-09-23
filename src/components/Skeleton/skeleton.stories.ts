@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Skeleton] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Circle', 'Static'],
   },
   args: {
     width: '16rem',

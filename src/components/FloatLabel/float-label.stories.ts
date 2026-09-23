@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, FloatLabel, InputText] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'In', 'On'],
   },
   args: {
     label: 'Nombre',

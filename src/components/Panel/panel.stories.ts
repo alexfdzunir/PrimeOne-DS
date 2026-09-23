@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Panel] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Collapsed', 'HeaderToggler'],
   },
   args: {
     header: 'Encabezado',

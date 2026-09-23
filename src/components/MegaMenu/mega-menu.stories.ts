@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [MegaMenu] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Vertical'],
     docs: { story: { inline: false, height: '320px' } },
   },
   args: {

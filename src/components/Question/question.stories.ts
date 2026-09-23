@@ -16,6 +16,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneQuestion] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Multiple', 'Text', 'Corrected', 'Error', 'Teacher'],
   },
   args: {
     statement: '¿Cuál es la dimensión del espacio de matrices 2x2?',

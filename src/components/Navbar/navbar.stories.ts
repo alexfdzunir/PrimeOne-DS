@@ -15,6 +15,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneNavbar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Contrast', 'Mobile'],
   },
   args: {
     heading: 'Campus virtual',

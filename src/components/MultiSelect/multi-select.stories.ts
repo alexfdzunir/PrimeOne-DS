@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, MultiSelect] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Chips', 'Filled', 'Invalid'],
   },
   args: {
     placeholder: 'Selecciona ciudades',

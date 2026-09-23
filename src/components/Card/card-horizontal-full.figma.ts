@@ -1,10 +1,10 @@
 // url=<PRIMEONE>?node-id=18401-23008
-// source=https://github.com/primefaces/primeng/blob/master/packages/primeng/src/card/card.ts
-// component=Card
+// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/Card/card.ts
+// component=PrimeOneCard
 import figma from 'figma'
 import { cardTemplate } from '../../figma/templates/card'
 
-const { example, imports } = cardTemplate(figma.selectedInstance, { image: true })
+const { example, imports } = cardTemplate(figma.selectedInstance, 'horizontal-full')
 
 export default {
   example,

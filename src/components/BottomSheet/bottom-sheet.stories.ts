@@ -17,6 +17,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneBottomSheet, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Search', 'TwoButtons'],
     docs: { story: { inline: false, height: '520px' } },
   },
   args: {

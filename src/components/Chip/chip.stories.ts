@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Chip] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Removable', 'Disabled'],
   },
   args: {
     label: 'Angular',

@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Tag] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Success', 'Danger', 'Rounded', 'Icon'],
   },
   args: {
     value: 'Nuevo',

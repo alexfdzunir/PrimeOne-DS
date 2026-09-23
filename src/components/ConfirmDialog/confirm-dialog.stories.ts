@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [ConfirmDialog, ConfirmTrigger] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Top'],
     docs: { story: { inline: false, height: '360px' }, description: { component: '`ConfirmTrigger` (solo stories) llama a `ConfirmationService.confirm()`; el contenido sale de los inputs de `p-confirmdialog`.' } },
   },
   args: {

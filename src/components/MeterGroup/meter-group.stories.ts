@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [MeterGroup] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'LabelStart', 'Vertical'],
   },
   argTypes: {
     min: { control: 'number', description: 'Mininum boundary value.' },

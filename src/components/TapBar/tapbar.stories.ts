@@ -16,6 +16,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTapbar] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'IconsOnly'],
   },
   args: {
     active: 'home',

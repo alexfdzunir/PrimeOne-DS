@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [TableModule, Tag] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Gridlines', 'Striped', 'Small', 'Scrollable', 'Loading'],
   },
   args: {
     paginator: true,

@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PanelMenu] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Multiple'],
   },
   argTypes: {
     multiple: { control: 'boolean', description: 'Whether multiple tabs can be activated at the same time or not.' },

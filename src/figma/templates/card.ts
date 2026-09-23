@@ -1,50 +1,142 @@
 import figma from 'figma'
-import type { InstanceHandle } from 'figma'
-import { isInstance, part, prop, text } from '../helpers'
+import type { InstanceHandle, TextHandle } from 'figma'
+import { attr, bind, firstText, isInstance, jsText, part, phIcon, prop, swapIcon, text } from '../helpers'
 import { P } from '../props'
 
-// `true` unless the card defines the boolean and it is off
+export type CardKind = 'default' | 'expandable' | 'product' | 'horizontal' | 'horizontal-full'
+
+const SEVERITY: Record<string, string | undefined> = {
+  Primary: undefined,
+  Secondary: 'secondary',
+  Success: 'success',
+  Info: 'info',
+  Warn: 'warn',
+  Danger: 'danger',
+  Contrast: 'contrast',
+}
+// Layers of the header that are not the left/right icons
+const NOT_ICON = /^(avatar-ds|card-content|tag|Caret|button-|Icon button|Ellipse)/
+
+// `true` unless the card defines one of the booleans and it is off
 function on(instance: InstanceHandle, ...names: string[]): boolean {
   return names.every((name) => prop(instance, name) !== false)
 }
 
-// Shared by the DS card family: blocks come from the nested `card-content` parts
-export function cardTemplate(instance: InstanceHandle, options: { expandable?: boolean; image?: boolean } = {}) {
+function isText(handle: unknown): handle is TextHandle {
+  return !!handle && (handle as { type?: string }).type === 'TEXT'
+}
+
+const quote = (value: string) => `'${jsText(value)}'`
+const list = (values: string[]) => (values.length ? `[${values.map(quote).join(', ')}]` : undefined)
+
+// Shared by the five DS card sets: one `prime-one-card` with every block that is visible in the instance
+export function cardTemplate(instance: InstanceHandle, kind: CardKind) {
   const blocks = instance.findLayers((node) => node.name === 'card-content').filter(isInstance)
-  const blockText = (type: string) => {
-    const block = blocks.find((b) => b.getPropertyValue('type') === type)
-    return block ? text(block, type === 'title' || type === 'metric' ? 'Title' : 'Description Text') : undefined
+  const ofType = (type: string, size?: string) => blocks.filter((b) => prop(b, 'type') === type && (!size || prop(b, 'size') === size))
+  const first = (type: string, layer: string) => {
+    const block = ofType(type)[0]
+    return block ? text(block, layer) : undefined
   }
-  const title = on(instance, P.nestedTitle) ? blockText('title') : undefined
-  const subtitle = on(instance, 'Subtitle', P.nestedSubtitle) ? blockText('subtitle') : undefined
-  const body = on(instance, 'Content', P.nestedShowText) ? blockText('text') : undefined
-  const bullet = on(instance, 'Content', P.nestedShowBullets) ? blockText('bullet') : undefined
-  const metric = on(instance, 'Content', P.nestedShowNumber) ? blockText('metric') : undefined
-  const tag = on(instance, 'Tag', P.nestedTag) ? part(instance, 'tag') : undefined
-  const image = options.image && on(instance, 'Show Image')
-  const buttons = on(instance, 'Show Footer', P.deepShowButton)
-    ? instance.findLayers((node) => node.name === 'button-large' || node.name === 'button-small').filter(isInstance)
+
+  const headerPath = kind === 'default' ? 'list-row' : 'header'
+  const header = on(instance, 'Header')
+  const icons = instance
+    .findLayers((node) => isInstance(node) && !NOT_ICON.test(node.name), { path: [headerPath] })
+    .filter(isInstance)
+  const leftOn = header && on(instance, P.nestedIconLeft, 'Icon Left', 'Show Icon')
+  const rightOn = header && kind === 'default' && on(instance, P.nestedIconRight)
+  const avatarLayer = header && on(instance, P.nestedAvatar) ? part(instance, 'avatar-ds') : undefined
+  const headerTag = header && on(instance, P.nestedTag, 'Tag')
+    ? instance.findLayers((node) => node.name === 'tag', { path: [headerPath] }).filter(isInstance)[0]
+    : undefined
+
+  const content = on(instance, 'Content')
+  const tagsRow = content && on(instance, P.nestedShowTagsRow)
+    ? instance.findLayers((node) => node.name === 'tag', { path: ['Tag Row'] }).filter(isInstance)
     : []
-  const link = on(instance, 'Show Footer', P.nestedShowLink)
+  const itemTags = on(instance, P.nestedShowItems) ? instance.findLayers((node) => node.name === 'tag', { path: ['Tags'] }).filter(isInstance) : []
+  const itemTexts = on(instance, P.nestedShowItems) ? instance.findLayers((node) => node.name === 'Tag Item').filter(isText) : []
+  const itemIcons = itemTexts.length ? instance.findLayers((node) => isInstance(node), { path: ['Item'] }).filter(isInstance) : []
 
-  const lines: string[] = []
-  if (image) lines.push('  <ng-template #header>\n    <img alt="Imagen" src="assets/card.jpg" />\n  </ng-template>')
-  if (title) lines.push(`  <ng-template #title>${title}</ng-template>`)
-  if (subtitle) lines.push(`  <ng-template #subtitle>${subtitle}</ng-template>`)
-  const content: string[] = []
-  if (tag) content.push(`<p-tag value="${tag.getString('Text')}" />`)
-  if (metric) content.push(`<strong>${metric}</strong>`)
-  if (body) content.push(`<p>${body}</p>`)
-  if (bullet) content.push(`<ul>\n  <li>${bullet}</li>\n</ul>`)
-  const indented = content.join('\n').split('\n').map((l) => (options.expandable ? '    ' : '  ') + l).join('\n')
-  if (content.length) lines.push(options.expandable ? `  @if (expanded) {\n${indented}\n  }` : indented)
-  const footer: string[] = buttons.slice(0, 2).map((b) => `    <p-button label="${b.getString('Text')}" />`)
-  if (link) footer.push('    <a href="#">Ver más</a>')
-  if (options.expandable) footer.push(`    <p-button [icon]="expanded ? 'ph ph-caret-up' : 'ph ph-caret-down'" (click)="expanded = !expanded" text rounded />`)
-  if (footer.length) lines.push(`  <ng-template #footer>\n${footer.join('\n')}\n  </ng-template>`)
+  const footer = on(instance, 'Show Footer')
+  const guide = footer && on(instance, P.nestedShowLink)
+  const linkButton = guide && on(instance, P.deepShowButton)
+    ? instance.findLayers((node) => node.name === 'button-large', { path: ['Cards guide'] }).filter(isInstance)[0]
+    : undefined
+  const labelBlock = guide && on(instance, P.deepShowLabel) ? ofType('label', 'l')[0] : undefined
+  const pager = guide && on(instance, P.deepShowPaginator)
+    ? instance.findLayers((node) => isText(node) && /\d+\s*de\s*\d+/.test(node.textContent)).filter(isText)[0]
+    : undefined
+  const [, page, pages] = pager?.textContent.match(/(\d+)\s*de\s*(\d+)/) ?? [undefined, '1', '2']
 
-  const imports = ["import { Card } from 'primeng/card';"]
-  if (tag) imports.push("import { Tag } from 'primeng/tag';")
-  if (buttons.length || options.expandable) imports.push("import { Button } from 'primeng/button';")
-  return { example: figma.code`<p-card>\n${lines.join('\n')}\n</p-card>`, imports }
+  const size = prop(instance, 'Size')
+  const state = prop(instance, 'State')
+  const title = header && on(instance, P.nestedTitle) ? first('title', 'Title') : undefined
+  const subtitle = header && on(instance, P.nestedSubtitle, 'Subtitle') ? first('subtitle', 'Description Text') : undefined
+  const body = content && on(instance, P.nestedShowText) ? first('text', 'Description Text') : undefined
+  const bullets = content && on(instance, P.nestedShowBullets)
+    ? ofType('bullet').map((b) => text(b, 'Description Text')).filter((t): t is string => !!t)
+    : []
+  const metric = content && on(instance, P.nestedShowNumber) ? first('metric', 'Title') : undefined
+  const metricUnit = metric ? (text(instance, 'Metric Unit') ?? text(instance, 'Metric Label')) : undefined
+  const captions = footer && on(instance, P.nestedShowCaption)
+    ? ofType('label', 'm').map((b) => text(b, 'Description Text')).filter((t): t is string => !!t)
+    : []
+  const author = footer && on(instance, P.nestedShowAuthor) ? text(instance, 'Author Name') : undefined
+  const labelValues = labelBlock
+    ? labelBlock.findLayers((node) => isText(node) && node.name === 'Title').filter(isText).map((t) => t.textContent)
+    : []
+  const tags = tagsRow.map((t) => {
+    const severity = SEVERITY[String(prop(t, 'Severity'))]
+    return `{ value: ${quote(t.getString('Text'))}${severity ? `, severity: '${severity}'` : ''} }`
+  })
+  const items = itemTags.length
+    ? itemTags.map((t) => {
+        const icon = prop(t, 'Show Icon') !== false ? swapIcon(t, 'Icon') : undefined
+        return `{ label: ${quote(t.getString('Text'))}${icon ? `, icon: '${icon}'` : ''} }`
+      })
+    : itemTexts.map((t, i) => {
+        const icon = phIcon(itemIcons[i])
+        return `{ label: ${quote(t.textContent)}${icon ? `, icon: '${icon}'` : ''} }`
+      })
+
+  const attrs = [
+    attr('type', kind === 'default' ? undefined : kind),
+    attr('size', size === 'S' || size === 'Mobile' ? 's' : undefined),
+    attr('background', prop(instance, 'Background') === 'Grey' ? 'grey' : undefined),
+    bind('disabled', state === 'Disabled' && 'true'),
+    bind('interactive', (state === 'Hover' || state === 'Focus') && 'true'),
+    attr('image', kind !== 'default' && kind !== 'expandable' && on(instance, 'Show Image') ? 'assets/card.jpg' : undefined),
+    attr('avatar', avatarLayer ? firstText(avatarLayer) : undefined),
+    attr('icon', leftOn ? phIcon(icons[0]) : undefined),
+    attr('heading', title),
+    attr('subtitle', subtitle),
+    attr('tag', headerTag?.getString('Text')),
+    attr('tagSeverity', headerTag ? SEVERITY[String(prop(headerTag, 'Severity'))] : undefined),
+    attr('iconRight', rightOn ? phIcon(icons[icons.length - 1]) : undefined),
+    bind('expanded', kind === 'expandable' && prop(instance, 'Expanded') === 'True' && 'true'),
+    attr('text', body),
+    bind('bullets', list(bullets)),
+    attr('metric', metric),
+    attr('metricUnit', metricUnit),
+    bind('tags', tags.length > 0 && `[${tags.join(', ')}]`),
+    bind('items', items.length > 0 && `[${items.join(', ')}]`),
+    attr('author', author),
+    bind('captions', list(captions)),
+    attr('linkLabel', linkButton?.getString('Text')),
+    attr('labelCaption', labelBlock ? text(labelBlock, 'Description Text') : undefined),
+    bind('labelValues', list(labelValues)),
+    bind('page', pager || (guide && on(instance, P.deepShowPaginator)) ? page : undefined),
+    bind('pages', pager || (guide && on(instance, P.deepShowPaginator)) ? pages : undefined),
+  ]
+    .filter(Boolean)
+    .map((a) => `\n ${a}`)
+    .join('')
+
+  const slot = on(instance, 'Show Slot') ? instance.getSlot(P.nestedSlot) : undefined
+  const open = attrs ? `${attrs}\n` : ''
+  const example = slot
+    ? figma.code`<prime-one-card${open}>\n  ${slot}\n</prime-one-card>`
+    : figma.code`<prime-one-card${open}${attrs ? '' : ' '}/>`
+  return { example, imports: ["import { PrimeOneCard } from 'prime-one-ds';"] }
 }

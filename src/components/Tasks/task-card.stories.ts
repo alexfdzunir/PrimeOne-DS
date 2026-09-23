@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTaskCard] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Completed', 'Mobile'],
   },
   args: {
     priority: 'high',

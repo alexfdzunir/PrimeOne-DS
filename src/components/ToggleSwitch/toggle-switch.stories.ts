@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, ToggleSwitch] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Invalid', 'Disabled'],
   },
   args: {
     onChange: fn(),

@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Knob] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Large', 'ReadOnly'],
   },
   args: {
     onChange: fn(),

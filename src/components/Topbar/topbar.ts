@@ -16,7 +16,9 @@ import { Menu } from 'primeng/menu';
   },
   template: `
     @if (showBack()) {
-      <p-button icon="ph ph-arrow-circle-left" text rounded ariaLabel="Volver" class="po-topbar__back" (onClick)="back.emit()" />
+      <button type="button" class="po-topbar__back" aria-label="Volver" (click)="back.emit()">
+        <i class="ph-bold ph-arrow-left" aria-hidden="true"></i>
+      </button>
     }
     <div class="po-topbar__text">
       <h2 class="po-topbar__title">{{ heading() }}</h2>
@@ -60,6 +62,28 @@ import { Menu } from 'primeng/menu';
       color: var(--p-text-color);
     }
     :host(.po-topbar--contrast) { background: var(--p-primary-color); color: var(--p-primary-contrast-color); }
+    /* Figma _topbar-button: 30px outlined circle with ArrowLeft bold 16px. */
+    .po-topbar__back {
+      display: grid;
+      place-items: center;
+      flex: 0 0 30px;
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border: 1px solid var(--p-primary-color);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--p-primary-color);
+      font-size: 16px;
+      cursor: pointer;
+      transition: background var(--p-transition-duration, 0.2s), color var(--p-transition-duration, 0.2s), border-color var(--p-transition-duration, 0.2s);
+    }
+    .po-topbar__back:hover { background: var(--p-content-hover-background); }
+    .po-topbar__back:active { background: var(--p-primary-color); color: var(--p-primary-contrast-color); }
+    .po-topbar__back:focus-visible { outline: 1px solid var(--p-focus-ring-color); outline-offset: 2px; }
+    :host(.po-topbar--contrast) .po-topbar__back { border-color: var(--p-primary-contrast-color); color: var(--p-primary-contrast-color); }
+    :host(.po-topbar--contrast) .po-topbar__back:hover { background: var(--p-primary-900); border-color: var(--p-primary-900); }
+    :host(.po-topbar--contrast) .po-topbar__back:active { background: var(--p-primary-950); border-color: var(--p-primary-950); }
     :host(.po-topbar--mobile) { border-radius: 0; }
     .po-topbar__text { flex: 1; min-width: 0; }
     .po-topbar__title { margin: 0; font-size: 1.25rem; font-weight: 500; line-height: 1.75rem; }

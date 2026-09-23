@@ -16,6 +16,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTaskColumn] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Completed', 'Overdue'],
   },
   args: {
     type: 'pending',

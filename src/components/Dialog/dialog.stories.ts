@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Dialog, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Maximizable', 'Top', 'NotModal'],
     docs: { story: { inline: false, height: '460px' } },
   },
   args: {

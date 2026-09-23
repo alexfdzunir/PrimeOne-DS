@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneDocumentType] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'FloatLabel', 'Invalid'],
   },
   argTypes: {
     placeholder: { control: 'text', table: { defaultValue: { summary: 'Tipo de documento' } } },

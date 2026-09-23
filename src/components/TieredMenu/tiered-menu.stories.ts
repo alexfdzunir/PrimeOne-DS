@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [TieredMenu, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Popup'],
     docs: { story: { inline: false, height: '360px' } },
   },
   args: {

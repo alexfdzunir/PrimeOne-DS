@@ -1,0 +1,153 @@
+/* Global styles of the explorer. Everything visual comes from the PrimeNG design tokens (--p-*). */
+
+:root {
+  --po-sidebar-width: 272px;
+  --po-panel-width: 340px;
+  --po-navbar-height: 56px;
+  --po-bar-height: 56px;
+  --po-radius: 12px;
+  --po-radius-sm: 8px;
+  /* Side surfaces slightly separated from the content background. */
+  --po-surface-2: var(--p-surface-50);
+  --po-surface-3: var(--p-surface-100);
+  --po-stage-dot: var(--p-surface-300);
+  color-scheme: light;
+}
+
+html.po-dark {
+  --po-surface-2: var(--p-surface-950);
+  --po-surface-3: var(--p-surface-800);
+  --po-stage-dot: var(--p-surface-700);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--p-content-background);
+  color: var(--p-text-color);
+  font-family: 'Proeduca Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--p-primary-color);
+}
+
+/* Shell: navbar on top of catalogue | stage | controls. The side columns collapse to 0. */
+.po-shell {
+  --po-catalog-track: var(--po-sidebar-width);
+  --po-panel-track: var(--po-panel-width);
+  display: grid;
+  grid-template-rows: var(--po-navbar-height) minmax(0, 1fr);
+  grid-template-columns: var(--po-catalog-track) minmax(0, 1fr) var(--po-panel-track);
+  grid-template-areas:
+    'navbar navbar navbar'
+    'catalog stage panel';
+  height: 100dvh;
+  overflow: hidden;
+  transition: grid-template-columns 220ms ease;
+}
+
+.po-shell--catalog-closed {
+  --po-catalog-track: 0px;
+}
+
+.po-shell--panel-closed {
+  --po-panel-track: 0px;
+}
+
+.po-shell > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+.po-shell__navbar {
+  grid-area: navbar;
+}
+
+.po-shell__stage {
+  grid-area: stage;
+}
+
+/* The column clips its content, which keeps its open width, so collapsing slides it out without reflowing. */
+.po-shell__side {
+  display: flex;
+  overflow: hidden;
+}
+
+.po-shell__side--catalog {
+  grid-area: catalog;
+  justify-content: flex-end;
+}
+
+.po-shell__side--panel {
+  grid-area: panel;
+  justify-content: flex-start;
+}
+
+.po-shell__side > po-sidebar {
+  flex: 0 0 var(--po-sidebar-width);
+  width: var(--po-sidebar-width);
+  height: 100%;
+}
+
+.po-shell__side > po-controls-panel {
+  flex: 0 0 var(--po-panel-width);
+  width: var(--po-panel-width);
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .po-shell {
+    transition: none;
+  }
+}
+
+/* Shared text styles */
+.po-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--p-text-muted-color);
+}
+
+.po-muted {
+  color: var(--p-text-muted-color);
+}
+
+.po-scroll {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--p-surface-300) transparent;
+}
+
+html.po-dark .po-scroll {
+  scrollbar-color: var(--p-surface-700) transparent;
+}
+
+/* Helpers used inside the story templates */
+.sb-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sb-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 28rem;
+}

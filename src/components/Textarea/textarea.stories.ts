@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Textarea] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'AutoResize', 'Filled', 'Invalid'],
   },
   args: {
     placeholder: 'Escribe un comentario',

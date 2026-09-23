@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, InputText] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Filled', 'Invalid', 'Small', 'Large', 'Disabled'],
   },
   args: {
     placeholder: 'Nombre y apellidos',

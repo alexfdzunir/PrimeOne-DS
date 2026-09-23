@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Slider] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Range', 'Step', 'Vertical'],
   },
   args: {
     onChange: fn(),

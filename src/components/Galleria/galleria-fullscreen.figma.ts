@@ -8,7 +8,7 @@ const example = figma.code`<p-galleria [value]="images" [(visible)]="visible" [f
     <img [src]="item.itemImageSrc" [alt]="item.alt" style="width: 100%" />
   </ng-template>
 </p-galleria>`
-const imports = ["import { Galleria } from 'primeng/galleria';"]
+const imports = ["import { GalleriaModule } from 'primeng/galleria';"]
 
 export default {
   example,

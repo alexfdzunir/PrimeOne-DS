@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneInputChat] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Attachment', 'Busy', 'Recording', 'Mobile'],
   },
   args: {
     withAttachment: false,

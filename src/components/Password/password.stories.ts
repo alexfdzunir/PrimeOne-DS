@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Password] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'NoFeedback', 'Invalid'],
   },
   args: {
     placeholder: 'Contraseña',

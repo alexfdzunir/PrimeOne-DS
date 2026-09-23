@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Menubar, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'AutoDisplay'],
     docs: { story: { inline: false, height: '320px' } },
   },
   argTypes: {

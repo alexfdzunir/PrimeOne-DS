@@ -7,6 +7,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Stepper, StepList, Step, StepPanels, StepPanel, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Linear'],
   },
   args: {
     value: 1,

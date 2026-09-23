@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneChatIaMessage] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Right'],
   },
   args: {
     showActions: true,

@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Fieldset] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Collapsed', 'Static'],
   },
   args: {
     legend: 'Datos personales',

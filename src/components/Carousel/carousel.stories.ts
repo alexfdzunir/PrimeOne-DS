@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Carousel, Tag] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Circular', 'Vertical'],
   },
   args: {
     numVisible: 3,

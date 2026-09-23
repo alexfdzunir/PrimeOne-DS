@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneProfile] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Expanded', 'Contrast'],
   },
   args: {
     name: 'Laura Martín',

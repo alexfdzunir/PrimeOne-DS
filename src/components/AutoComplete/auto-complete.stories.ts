@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, AutoComplete] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Dropdown', 'Multiple', 'Invalid'],
   },
   args: {
     placeholder: 'Busca una ciudad',

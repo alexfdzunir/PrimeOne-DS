@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [OrganizationChart] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Collapsible', 'Selectable'],
   },
   args: {
     onNodeSelect: fn(),

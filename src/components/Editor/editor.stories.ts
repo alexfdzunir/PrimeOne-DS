@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Editor] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'ReadOnly'],
   },
   args: {
     placeholder: 'Escribe aquí',

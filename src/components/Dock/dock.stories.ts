@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Dock] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Left', 'Top'],
   },
   args: {
     position: 'bottom',

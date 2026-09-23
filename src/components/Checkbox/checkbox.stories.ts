@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Checkbox] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Filled', 'Invalid', 'Small', 'Disabled'],
   },
   args: {
     onChange: fn(),

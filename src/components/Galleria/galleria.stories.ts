@@ -1,5 +1,5 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { Galleria } from 'primeng/galleria';
+import { GalleriaModule } from 'primeng/galleria';
 import { IMAGES } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
@@ -7,9 +7,10 @@ const INPUTS = ['numVisible', 'showItemNavigators', 'showThumbnailNavigators', '
 
 const meta: Meta = {
   title: 'Media/Galleria',
-  decorators: [moduleMetadata({ imports: [Galleria] })],
+  decorators: [moduleMetadata({ imports: [GalleriaModule] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Indicators', 'Autoplay', 'LeftThumbnails'],
   },
   args: {
     numVisible: 5,

@@ -19,6 +19,7 @@
             "port": 6006,
             "styles": [
               "node_modules/@phosphor-icons/web/src/regular/style.css",
+              "node_modules/@phosphor-icons/web/src/bold/style.css",
               "node_modules/@phosphor-icons/web/src/fill/style.css",
               ".storybook/preview.css"
             ]
@@ -34,10 +35,73 @@
             "outputDir": "storybook-static",
             "styles": [
               "node_modules/@phosphor-icons/web/src/regular/style.css",
+              "node_modules/@phosphor-icons/web/src/bold/style.css",
               "node_modules/@phosphor-icons/web/src/fill/style.css",
               ".storybook/preview.css"
             ]
           }
+        }
+      }
+    },
+    "explorer": {
+      "projectType": "application",
+      "root": "explorer",
+      "sourceRoot": "explorer/src",
+      "prefix": "po",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/explorer",
+            "index": "explorer/src/index.html",
+            "browser": "explorer/src/main.ts",
+            "tsConfig": "explorer/tsconfig.app.json",
+            "polyfills": [],
+            "styles": [
+              "node_modules/@phosphor-icons/web/src/regular/style.css",
+              "node_modules/@phosphor-icons/web/src/bold/style.css",
+              "node_modules/@phosphor-icons/web/src/fill/style.css",
+              "explorer/src/styles.css"
+            ],
+            "allowedCommonJsDependencies": [
+              "quill-delta"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all",
+              "optimization": {
+                "scripts": false,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
+              "sourceMap": false
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4300
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "explorer:build:production"
+            },
+            "development": {
+              "buildTarget": "explorer:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }

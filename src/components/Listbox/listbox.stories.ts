@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Listbox] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Multiple', 'Filter', 'Striped'],
   },
   args: {
     onChange: fn(),

@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FileUpload] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Basic', 'Auto'],
     docs: { description: { component: 'Subida simulada: `customUpload` emite `uploadHandler` sin enviar ficheros a ningún servidor.' } },
   },
   args: {

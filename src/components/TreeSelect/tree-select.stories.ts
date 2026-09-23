@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, TreeSelect] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Checkbox', 'Filter', 'Invalid'],
   },
   args: {
     placeholder: 'Selecciona un archivo',

@@ -24,6 +24,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneAgenda] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Day', 'Month', 'List'],
     layout: 'fullscreen',
   },
   args: {

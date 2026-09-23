@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [OrderList] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'DragDrop', 'Striped'],
   },
   args: {
     header: 'Asignaturas',

@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [SplitButton] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Secondary', 'Outlined', 'Small'],
   },
   args: {
     label: 'Guardar',

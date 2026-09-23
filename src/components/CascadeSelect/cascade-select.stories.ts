@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, CascadeSelect] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Filled', 'Invalid'],
   },
   args: {
     placeholder: 'Selecciona una ciudad',

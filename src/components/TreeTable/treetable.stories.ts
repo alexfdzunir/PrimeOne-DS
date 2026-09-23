@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [TreeTableModule] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Gridlines', 'Paginator'],
   },
   args: {
     onNodeExpand: fn(),

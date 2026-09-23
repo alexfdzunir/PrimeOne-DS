@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, SelectButton] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Multiple', 'Small', 'Invalid'],
   },
   args: {
     onOptionClick: fn(),

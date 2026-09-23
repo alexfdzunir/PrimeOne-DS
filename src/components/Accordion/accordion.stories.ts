@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Multiple'],
   },
   args: {
     onOpen: fn(),

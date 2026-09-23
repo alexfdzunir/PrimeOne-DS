@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Message] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Success', 'Warn', 'Error', 'Outlined', 'Simple', 'Closable'],
   },
   args: {
     severity: 'info',

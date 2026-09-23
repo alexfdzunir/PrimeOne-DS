@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [SpeedDial] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Circle', 'Mask'],
   },
   args: {
     direction: 'up',

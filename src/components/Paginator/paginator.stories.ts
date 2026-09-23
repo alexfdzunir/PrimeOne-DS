@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Paginator] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Report', 'JumpToPage', 'Compact'],
   },
   args: {
     rows: 10,

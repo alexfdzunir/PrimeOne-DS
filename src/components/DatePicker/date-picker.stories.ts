@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, DatePicker] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Inline', 'Range', 'Time', 'ButtonBar', 'Invalid'],
   },
   args: {
     placeholder: 'dd/mm/aaaa',

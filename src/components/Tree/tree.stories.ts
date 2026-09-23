@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Tree], providers: [TreeDragDropService] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Single', 'Checkbox', 'Filter', 'DragDrop'],
   },
   args: {
     onNodeSelect: fn(),

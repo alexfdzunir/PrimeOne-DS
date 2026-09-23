@@ -13,6 +13,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Inplace, InputText, Button] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Active', 'Disabled'],
   },
   args: {
     display: 'Haz clic para editar',

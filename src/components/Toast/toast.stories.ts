@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Toast, ToastTrigger] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Success', 'Error', 'BottomCenter'],
     docs: { story: { inline: false, height: '360px' }, description: { component: '`ToastTrigger` (solo stories) llama a `MessageService.add()` con los valores de los controles.' } },
   },
   args: {

@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Tabs, TabList, Tab, TabPanels, TabPanel] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Small', 'Scrollable'],
   },
   args: {
     small: false,

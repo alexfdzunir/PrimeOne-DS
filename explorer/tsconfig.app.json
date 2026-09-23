@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../dist/out-tsc/explorer",
+    "declaration": false,
+    "types": [],
+    "paths": {
+      "@storybook/angular": ["./src/shims/storybook-angular"],
+      "storybook/test": ["./src/shims/storybook-test"]
+    }
+  },
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.ts"],
+  "exclude": ["../src/**/*.figma.ts", "../src/figma/**"]
+}

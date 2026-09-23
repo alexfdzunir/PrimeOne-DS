@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneChatMessage] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Right', 'Grouped', 'Mobile'],
   },
   args: {
     author: 'Laura Martín',

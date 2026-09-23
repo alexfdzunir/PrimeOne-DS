@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Timeline] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Alternate', 'Horizontal'],
   },
   argTypes: {
     align: { control: 'select', options: [undefined, 'left', 'right', 'alternate', 'top', 'bottom'], description: 'Position of the timeline bar relative to the content.' },

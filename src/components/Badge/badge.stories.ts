@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Badge] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Danger', 'Large', 'Dot'],
   },
   args: {
     value: '8',

@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PickList] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'DragDrop', 'Filters'],
   },
   args: {
     sourceHeader: 'Disponibles',

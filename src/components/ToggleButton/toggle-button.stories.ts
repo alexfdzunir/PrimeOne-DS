@@ -11,6 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, ToggleButton] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Small', 'Invalid'],
   },
   args: {
     onLabel: 'Activado',

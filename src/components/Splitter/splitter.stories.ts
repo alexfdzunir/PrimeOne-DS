@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Splitter] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Vertical', 'WideGutter'],
   },
   args: {
     onResizeEnd: fn(),

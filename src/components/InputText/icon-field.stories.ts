@@ -12,6 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, InputText, IconField, InputIcon] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Right'],
   },
   args: {
     icon: 'ph ph-magnifying-glass',
