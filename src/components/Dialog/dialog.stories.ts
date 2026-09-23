@@ -11,13 +11,14 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Dialog, Button] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Maximizable', 'Top', 'NotModal'],
+    storyOrder: ['Default', 'Maximizable', 'Top', 'NotModal', 'NoFooter'],
     docs: { story: { inline: false, height: '460px' } },
   },
   args: {
     header: 'Editar perfil',
     modal: true,
     content: 'Contenido de ejemplo del componente. Cambia los controles del panel inferior para ver su comportamiento real con los tokens del tema seleccionado.',
+    footer: true,
     onShow: fn(),
     onHide: fn(),
     onMaximize: fn(),
@@ -44,6 +45,7 @@ const meta: Meta = {
     visible: { control: 'boolean', description: 'Specifies the visibility of the dialog.' },
     position: { control: 'select', options: [undefined, 'bottom', 'bottomleft', 'bottomright', 'center', 'left', 'right', 'top', 'topleft', 'topright'], description: 'Position of the dialog.' },
     content: { control: 'text' },
+    footer: { control: 'boolean', description: 'Pie con acciones (Footer en Figma).' },
     onShow: { action: 'onShow', table: { category: 'Eventos' } },
     onHide: { action: 'onHide', table: { category: 'Eventos' } },
     onMaximize: { action: 'onMaximize', table: { category: 'Eventos' } },
@@ -52,12 +54,9 @@ const meta: Meta = {
     props: { ...args, visible: true },
     template: `
       <p-button label="Abrir diálogo" icon="ph ph-arrow-square-out" (onClick)="visible = true" />
-      <p-dialog [(visible)]="visible" [style]="{ width: '28rem' }"${bind(args, INPUTS)} (onShow)="onShow($event)" (onHide)="onHide($event)" (onMaximize)="onMaximize($event)">
+      <p-dialog [(visible)]="visible" [style]="{ width: '28rem' }" [breakpoints]="{ '575px': '90vw' }"${bind(args, INPUTS)} (onShow)="onShow($event)" (onHide)="onHide($event)" (onMaximize)="onMaximize($event)">
         <p style="margin: 0">{{ content }}</p>
-        <ng-template #footer>
-          <p-button label="Cancelar" severity="secondary" variant="text" (onClick)="visible = false" />
-          <p-button label="Guardar" (onClick)="visible = false" />
-        </ng-template>
+        ${args['footer'] ? '<ng-template #footer>\n    <p-button label="Cancelar" variant="outlined" (onClick)="visible = false" />\n    <p-button label="Guardar" (onClick)="visible = false" />\n  </ng-template>' : ''}
       </p-dialog>
     `,
   }),
@@ -70,3 +69,4 @@ export const Default: Story = {};
 export const Maximizable: Story = { args: { maximizable: true } };
 export const Top: Story = { args: { position: 'top' } };
 export const NotModal: Story = { args: { modal: false } };
+export const NoFooter: Story = { args: { footer: false } };

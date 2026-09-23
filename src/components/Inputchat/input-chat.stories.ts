@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneInputChat] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Attachment', 'Busy', 'Recording', 'Mobile'],
+    storyOrder: ['Default', 'Attachment', 'Loading', 'Busy', 'Recording', 'Transcribing', 'Minimal', 'Mobile'],
   },
   args: {
     withAttachment: false,
@@ -55,6 +55,9 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Attachment: Story = { args: { withAttachment: true } };
+export const Loading: Story = { args: { loading: true } };
 export const Busy: Story = { args: { busy: true } };
 export const Recording: Story = { args: { recording: true, recordingTime: '0:12' } };
+export const Transcribing: Story = { args: { transcribing: true } };
+export const Minimal: Story = { args: { showAttach: false, showAudio: false } };
 export const Mobile: Story = { args: { mobile: true } };

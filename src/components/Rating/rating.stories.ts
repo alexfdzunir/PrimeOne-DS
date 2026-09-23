@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Rating] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Ten', 'ReadOnly'],
+    storyOrder: ['Default', 'Ten', 'ReadOnly', 'Disabled'],
   },
   args: {
     onRate: fn(),
@@ -41,3 +41,4 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Ten: Story = { args: { stars: 10 } };
 export const ReadOnly: Story = { args: { readonly: true } };
+export const Disabled: Story = { args: { disabled: true } };

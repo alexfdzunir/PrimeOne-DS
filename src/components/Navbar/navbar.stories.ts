@@ -2,9 +2,10 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { fn } from 'storybook/test';
 import { PrimeOneNavbar } from './navbar';
 import type { NavbarAction } from './navbar';
+import { UNIR_LOGO, UNIR_LOGO_NEGATIVE } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
-const INPUTS = ['heading', 'logo', 'logoAlt', 'showMenuButton', 'contrast', 'mobile'];
+const INPUTS = ['heading', 'showMenuButton', 'contrast', 'mobile'];
 const ACTIONS: NavbarAction[] = [
   { id: 'notifications', icon: 'ph ph-bell', label: 'Notificaciones', badge: 3 },
   { id: 'messages', icon: 'ph ph-chat-circle', label: 'Mensajes' },
@@ -15,7 +16,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneNavbar] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Contrast', 'Mobile'],
+    storyOrder: ['Default', 'Contrast', 'Mobile', 'MobileContrast'],
   },
   args: {
     heading: 'Campus virtual',
@@ -24,8 +25,6 @@ const meta: Meta = {
   },
   argTypes: {
     heading: { control: 'text' },
-    logo: { control: 'text', description: 'Brand image URL (UNIR, Qualentum...).' },
-    logoAlt: { control: 'text', table: { defaultValue: { summary: 'Logotipo' } } },
     showMenuButton: { control: 'boolean', table: { defaultValue: { summary: 'true' } } },
     contrast: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
     mobile: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
@@ -33,8 +32,8 @@ const meta: Meta = {
     actionClick: { action: 'actionClick', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, actions: ACTIONS },
-    template: `<prime-one-navbar [actions]="actions"${bind(args, INPUTS)} (menuToggle)="menuToggle($event)" (actionClick)="actionClick($event)" />`,
+    props: { ...args, actions: ACTIONS, logoSrc: args['contrast'] ? UNIR_LOGO_NEGATIVE : UNIR_LOGO },
+    template: `<prime-one-navbar [logo]="logoSrc" logoAlt="UNIR" [actions]="actions"${bind(args, INPUTS)} (menuToggle)="menuToggle($event)" (actionClick)="actionClick($event)" />`,
   }),
 };
 
@@ -44,3 +43,4 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Contrast: Story = { args: { contrast: true } };
 export const Mobile: Story = { args: { mobile: true } };
+export const MobileContrast: Story = { args: { mobile: true, contrast: true } };

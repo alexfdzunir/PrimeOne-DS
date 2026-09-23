@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneProfile] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Expanded', 'Contrast'],
+    storyOrder: ['Default', 'Expanded', 'Contrast', 'NoToggle'],
   },
   args: {
     name: 'Laura Martín',
@@ -43,3 +43,4 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Expanded: Story = { args: { expanded: true } };
 export const Contrast: Story = { args: { contrast: true } };
+export const NoToggle: Story = { args: { showToggle: false } };

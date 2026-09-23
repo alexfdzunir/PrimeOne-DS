@@ -101,8 +101,9 @@ export interface SidebarUser {
       overflow-y: auto;
     }
     :host(.po-sidebar--collapsed) { width: 5.5rem; align-items: center; }
-    :host(.po-sidebar--mobile) { width: 100%; }
+    :host(.po-sidebar--mobile) { width: 100%; border-radius: min(16px, calc(var(--p-content-border-radius) * 2)); }
     .po-sidebar__head { display: flex; align-items: center; justify-content: space-between; padding-inline: 0.25rem; }
+    .po-sidebar__head p-button { flex: 0 0 auto; }
     :host(.po-sidebar--collapsed) .po-sidebar__head { justify-content: center; }
     .po-sidebar__logo { height: 1.75rem; }
     .po-sidebar__section { display: flex; flex-direction: column; gap: 0.25rem; margin: 0; padding: 0 0 0.75rem; list-style: none; border-bottom: 1px solid var(--p-content-border-color); }
@@ -114,7 +115,7 @@ export interface SidebarUser {
       width: 100%;
       padding: 0.5rem 0.75rem;
       border: 0;
-      border-radius: var(--p-border-radius-md);
+      border-radius: var(--p-navigation-item-border-radius);
       background: none;
       color: var(--p-text-muted-color);
       font: inherit;
@@ -122,7 +123,7 @@ export interface SidebarUser {
       cursor: pointer;
     }
     .po-sidebar__section--primary .po-sidebar__item { color: var(--p-text-color); font-size: 1rem; }
-    .po-sidebar__item i { font-size: 1.25rem; }
+    .po-sidebar__item i { flex: 0 0 auto; font-size: 1.25rem; }
     .po-sidebar__item:hover { background: var(--p-content-background); }
     .po-sidebar__item--active { background: var(--p-highlight-background); color: var(--p-highlight-color); }
     .po-sidebar__item:focus-visible { outline: 1px solid var(--p-focus-ring-color); outline-offset: -1px; }

@@ -72,7 +72,7 @@ const TYPE: Record<TaskType, { label: string; icon: string }> = {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid transparent;
-      border-radius: var(--p-content-border-radius);
+      border-radius: var(--p-card-border-radius);
       background: var(--p-content-background);
       color: var(--p-text-color);
       font: inherit;
@@ -82,10 +82,10 @@ const TYPE: Record<TaskType, { label: string; icon: string }> = {
     .po-task:hover { border-color: var(--p-content-border-color); }
     .po-task:focus-visible { outline: 1px solid var(--p-focus-ring-color); outline-offset: 1px; }
     .po-task__title { display: flex; gap: 0.25rem; font-weight: 600; font-size: 0.875rem; line-height: 1.25rem; }
-    .po-task__done { color: var(--p-green-500); font-size: 1rem; }
+    .po-task__done { flex: 0 0 auto; color: var(--p-green-500); font-size: 1rem; }
     .po-task__subtitle { overflow: hidden; color: var(--p-text-muted-color); font-size: 0.75rem; text-overflow: ellipsis; white-space: nowrap; }
     .po-task__footer { display: flex; align-items: center; gap: 0.5rem; }
-    .po-task__type { margin-inline-start: auto; font-size: 1rem; }
+    .po-task__type { flex: 0 0 auto; margin-inline-start: auto; font-size: 1rem; }
     :host(.po-task--mobile) .po-task { padding: 0.5rem; }
   `,
 })

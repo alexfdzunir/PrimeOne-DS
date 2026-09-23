@@ -6,14 +6,14 @@ import { Tooltip } from 'primeng/tooltip';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, VIEWPORTS } from '../model';
 import { CodePanelComponent } from '../code/code-panel.component';
-import { StoryHostComponent } from '../story-host.component';
+import { StoryFrameComponent } from './story-frame.component';
 
 const CODE_PANEL_KEY = 'po-explorer.code';
 
 /** Stage of the selected component: header with tools, live render at the chosen width and copyable code. */
 @Component({
   selector: 'po-canvas',
-  imports: [FormsModule, Button, SelectButton, Tooltip, StoryHostComponent, CodePanelComponent],
+  imports: [FormsModule, Button, SelectButton, Tooltip, StoryFrameComponent, CodePanelComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="po-canvas__bar">
@@ -77,16 +77,9 @@ const CODE_PANEL_KEY = 'po-explorer.code';
     }
 
     <section class="po-canvas__stage po-scroll" #stage>
-      <div
-        class="po-canvas__frame"
-        [class.po-canvas__frame--padded]="layout() === 'padded'"
-        [class.po-canvas__frame--centered]="layout() === 'centered'"
-        [style.width]="frameWidth()"
-        [style.min-height]="minHeight()"
-        #frame
-      >
+      <div class="po-canvas__frame" [style.width]="frameWidth()" #frame>
         <span class="po-canvas__width">{{ measuredWidth() }} px</span>
-        <po-story-host [story]="state.rendered()" />
+        <po-story-frame [minHeight]="frameMinHeight()" />
       </div>
     </section>
 
@@ -102,6 +95,7 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       min-height: 0;
       height: 100%;
       background: var(--p-content-background);
+      container: po-canvas / inline-size;
     }
 
     .po-canvas__bar {
@@ -158,7 +152,7 @@ const CODE_PANEL_KEY = 'po-explorer.code';
     }
 
     .po-canvas__description code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-family: var(--po-font-mono);
       font-size: 0.8125rem;
     }
 
@@ -177,9 +171,10 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       background-size: 20px 20px;
     }
 
+    /* The device frame: its content box is exactly the viewport width the iframe gets */
     .po-canvas__frame {
       position: relative;
-      max-width: 100%;
+      box-sizing: content-box;
       margin: 0 auto;
       border: 1px solid var(--p-content-border-color);
       border-radius: var(--po-radius);
@@ -188,15 +183,9 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       transition: width 200ms ease;
     }
 
-    .po-canvas__frame--padded {
-      padding: 24px;
-    }
-
-    .po-canvas__frame--centered {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+    .po-canvas__frame po-story-frame {
+      overflow: hidden;
+      border-radius: inherit;
     }
 
     .po-canvas__width {
@@ -212,6 +201,41 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       outline: 2px solid var(--p-focus-ring-color);
       outline-offset: 2px;
     }
+
+    /* Narrow stage (small window or both columns open): the bar wraps and paddings shrink */
+    @container po-canvas (max-width: 719.98px) {
+      .po-canvas__bar {
+        flex-wrap: wrap;
+        flex-basis: auto;
+        row-gap: 8px;
+        padding: 8px 16px;
+      }
+
+      .po-canvas__tools {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+      }
+
+      .po-canvas__description {
+        padding: 10px 16px;
+      }
+
+      .po-canvas__stage {
+        padding: 16px;
+      }
+    }
+
+    /* Only the automatic width fits: the device selector would not change anything */
+    @container po-canvas (max-width: 439.98px) {
+      .po-canvas__tools p-selectbutton,
+      .po-canvas__width {
+        display: none;
+      }
+
+      .po-canvas__stage {
+        padding: 12px 8px;
+      }
+    }
   `,
 })
 export class CanvasComponent {
@@ -221,12 +245,14 @@ export class CanvasComponent {
   protected readonly showCode = signal(readCodePanel());
   protected readonly measuredWidth = signal(0);
 
-  protected readonly layout = computed(() => this.state.selected().layout);
-  protected readonly minHeight = computed(() => this.state.selected().height ?? '240px');
+  /** Inner height of the stage: the preview fills it so overlays and dropdowns have room. */
+  private readonly stageHeight = signal(0);
+  protected readonly frameMinHeight = computed(() => Math.max(parseInt(this.state.selected().height ?? '240', 10) || 240, this.stageHeight()));
   protected readonly categoryLabel = computed(() => CATEGORIES.find((c) => c.id === this.state.selected().category)?.label ?? '');
   protected readonly frameWidth = computed(() => {
     const width = VIEWPORTS.find((v) => v.id === this.state.viewport())?.width;
-    return width ? `${width}px` : 'min(100%, 1200px)';
+    // A device wider than the stage is clamped to the space there is
+    return width ? `min(${width}px, calc(100% - 2px))` : 'min(calc(100% - 2px), 1200px)';
   });
   /** Description split so the backtick fragments render as inline code. */
   protected readonly description = computed(() =>
@@ -246,8 +272,15 @@ export class CanvasComponent {
       this.stage().nativeElement.scrollTop = 0;
     });
     afterNextRender(() => {
-      const observer = new ResizeObserver((entries) => this.measuredWidth.set(Math.round(entries[0].contentRect.width)));
+      const observer = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.target === this.frame().nativeElement) this.measuredWidth.set(Math.round(entry.contentRect.width));
+          // 24px padding on each side of the stage, 2px of frame border
+          else this.stageHeight.set(Math.max(0, Math.floor(entry.contentRect.height) - 2));
+        }
+      });
       observer.observe(this.frame().nativeElement);
+      observer.observe(this.stage().nativeElement);
       destroyRef.onDestroy(() => observer.disconnect());
     });
   }

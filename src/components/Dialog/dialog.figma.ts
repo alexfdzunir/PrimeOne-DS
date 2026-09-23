@@ -2,14 +2,14 @@
 // source=https://github.com/primefaces/primeng/blob/master/packages/primeng/src/dialog/dialog.ts
 // component=Dialog
 import figma from 'figma'
-import { isInstance, prop } from '../../figma/helpers'
+import { isInstance, prop, slotCode } from '../../figma/helpers'
 import { P } from '../../figma/props'
 
 const instance = figma.selectedInstance
 const header = instance.getString(P.nestedHeader)
 const showHeader = instance.getBoolean('Show Header')
 const content = instance.getBoolean('Show Content') ? `\n  <p>${instance.getString(P.nestedContent)}</p>` : ''
-const slot = instance.getBoolean('Slot') ? instance.getSlot(P.nestedSlot) : undefined
+const slot = instance.getBoolean('Slot') ? slotCode(instance, P.nestedSlot) : undefined
 const width = instance.getEnum('Size', { M: '50rem', S: '25rem' })
 const buttons = instance.findLayers((node) => node.name === 'button').filter(isInstance)
 const labels = buttons.map((button) => button.getString('Text'))

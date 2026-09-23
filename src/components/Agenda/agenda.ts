@@ -153,7 +153,7 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
     }
   `,
   styles: `
-    :host { display: flex; flex-direction: column; gap: 1rem; color: var(--p-text-color); }
+    :host { display: flex; flex-direction: column; gap: 1rem; color: var(--p-text-color); container: po-agenda / inline-size; }
     [data-color='green'] { --po-agenda-color: var(--p-green-500); }
     [data-color='fuchsia'] { --po-agenda-color: var(--p-fuchsia-500); }
     [data-color='orange'] { --po-agenda-color: var(--p-orange-500); }
@@ -165,7 +165,7 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       display: grid;
       grid-template-columns: 4rem repeat(var(--po-agenda-days), minmax(0, 1fr));
       border: 1px solid var(--p-content-border-color);
-      border-radius: var(--p-content-border-radius);
+      border-radius: var(--p-border-radius-md);
       overflow: auto;
       max-height: 40rem;
     }
@@ -216,11 +216,11 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       white-space: nowrap;
       cursor: pointer;
     }
-    .po-agenda__month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--p-content-border-color); border-radius: var(--p-content-border-radius); }
+    .po-agenda__month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--p-content-border-color); border-radius: var(--p-border-radius-md); }
     .po-agenda__weekday { padding: 0.5rem; color: var(--p-text-muted-color); font-size: 0.75rem; text-transform: capitalize; }
     .po-agenda__cell { display: flex; flex-direction: column; gap: 0.25rem; min-height: 6.5rem; padding: 0.375rem; border-top: 1px solid var(--p-content-border-color); border-left: 1px solid var(--p-content-border-color); }
     .po-agenda__cell--out { background: var(--p-content-hover-background); color: var(--p-text-muted-color); }
-    .po-agenda__cell--today .po-agenda__cell-day { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--p-primary-color); color: var(--p-primary-contrast-color); }
+    .po-agenda__cell--today .po-agenda__cell-day { display: inline-grid; flex: 0 0 auto; place-items: center; width: 1.5rem; height: 1.5rem; aspect-ratio: 1; border-radius: 50%; background: var(--p-primary-color); color: var(--p-primary-contrast-color); }
     .po-agenda__cell-day { font-size: 0.75rem; font-weight: 600; }
     .po-agenda__more { color: var(--p-primary-color); font-size: 0.75rem; }
     .po-agenda__list { display: flex; flex-direction: column; gap: 1rem; }
@@ -243,6 +243,24 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
     .po-agenda__row + .po-agenda__row { margin-top: 0.5rem; }
     .po-agenda__row-time { flex: 0 0 7rem; color: var(--p-text-muted-color); font-size: 0.875rem; }
     .po-agenda__row-text { display: flex; flex-direction: column; }
+    /* Narrow containers (phones): title on its own row, scrollable day columns and dots in the month view */
+    @container po-agenda (max-width: 600px) {
+      .po-agenda__toolbar { flex-wrap: wrap; }
+      .po-agenda__title { order: -1; flex: 1 0 100%; margin: 0; font-size: 1rem; }
+      .po-agenda__toolbar p-select { margin-inline-start: auto; }
+      .po-agenda__grid { grid-template-columns: 3rem repeat(var(--po-agenda-days), minmax(6.5rem, 1fr)); }
+      .po-agenda__corner, .po-agenda__allday-label, .po-agenda__hours { position: sticky; left: 0; z-index: 2; background: var(--p-content-background); }
+      .po-agenda__corner { z-index: 3; }
+      .po-agenda__cell { min-height: 3.5rem; flex-flow: row wrap; align-content: flex-start; padding: 0.25rem; }
+      .po-agenda__cell-day { flex: 1 0 100%; }
+      /* Today keeps its circle: fixed size, and the margin still sends the dots to the next row */
+      .po-agenda__cell--today .po-agenda__cell-day { flex: 0 0 1.5rem; margin-inline-end: calc(100% - 1.5rem); }
+      .po-agenda__weekday { padding: 0.5rem 0.25rem; text-align: center; }
+      .po-agenda__month .po-agenda__chip { flex: 0 0 auto; width: 0.5rem; height: 0.5rem; padding: 0; border-radius: 50%; background: var(--po-agenda-color); font-size: 0; }
+      .po-agenda__more { font-size: 0.625rem; }
+      .po-agenda__row { flex-direction: column; gap: 0.25rem; }
+      .po-agenda__row-time { flex: none; }
+    }
     .po-agenda__row-text span { color: var(--p-text-muted-color); font-size: 0.875rem; }
     .po-agenda__empty { color: var(--p-text-muted-color); }
     button:focus-visible { outline: 1px solid var(--p-focus-ring-color); outline-offset: 1px; }

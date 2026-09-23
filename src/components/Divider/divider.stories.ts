@@ -9,7 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Divider] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Dashed', 'Vertical', 'Left'],
+    storyOrder: ['Default', 'Dashed', 'Left', 'Right', 'Vertical', 'VerticalTop', 'VerticalBottom'],
   },
   args: {
     content: 'O',
@@ -41,5 +41,8 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Dashed: Story = { args: { type: 'dashed', content: '' } };
-export const Vertical: Story = { args: { layout: 'vertical' } };
 export const Left: Story = { args: { align: 'left', content: 'Sección' } };
+export const Right: Story = { args: { align: 'right', content: 'Sección' } };
+export const Vertical: Story = { args: { layout: 'vertical' } };
+export const VerticalTop: Story = { args: { layout: 'vertical', align: 'top' } };
+export const VerticalBottom: Story = { args: { layout: 'vertical', align: 'bottom' } };

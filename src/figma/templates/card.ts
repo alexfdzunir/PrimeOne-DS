@@ -1,6 +1,6 @@
 import figma from 'figma'
 import type { InstanceHandle, TextHandle } from 'figma'
-import { attr, bind, firstText, isInstance, jsText, part, phIcon, prop, swapIcon, text } from '../helpers'
+import { attr, bind, firstText, isInstance, jsText, part, phIcon, prop, slotCode, swapIcon, text } from '../helpers'
 import { P } from '../props'
 
 export type CardKind = 'default' | 'expandable' | 'product' | 'horizontal' | 'horizontal-full'
@@ -16,6 +16,12 @@ const SEVERITY: Record<string, string | undefined> = {
 }
 // Layers of the header that are not the left/right icons
 const NOT_ICON = /^(avatar-ds|card-content|tag|Caret|button-|Icon button|Ellipse)/
+
+// Figma gives each layer the names of all its ancestor frames; the `path` option needs the whole chain,
+// which differs between the five sets, so blocks are found by one ancestor name instead
+function under(node: unknown, frame: string): boolean {
+  return ((node as { path?: string[] }).path ?? []).includes(frame)
+}
 
 // `true` unless the card defines one of the booleans and it is off
 function on(instance: InstanceHandle, ...names: string[]): boolean {
@@ -41,27 +47,27 @@ export function cardTemplate(instance: InstanceHandle, kind: CardKind) {
   const headerPath = kind === 'default' ? 'list-row' : 'header'
   const header = on(instance, 'Header')
   const icons = instance
-    .findLayers((node) => isInstance(node) && !NOT_ICON.test(node.name), { path: [headerPath] })
+    .findLayers((node) => isInstance(node) && !NOT_ICON.test(node.name) && under(node, headerPath))
     .filter(isInstance)
   const leftOn = header && on(instance, P.nestedIconLeft, 'Icon Left', 'Show Icon')
   const rightOn = header && kind === 'default' && on(instance, P.nestedIconRight)
   const avatarLayer = header && on(instance, P.nestedAvatar) ? part(instance, 'avatar-ds') : undefined
   const headerTag = header && on(instance, P.nestedTag, 'Tag')
-    ? instance.findLayers((node) => node.name === 'tag', { path: [headerPath] }).filter(isInstance)[0]
+    ? instance.findLayers((node) => node.name === 'tag' && under(node, headerPath)).filter(isInstance)[0]
     : undefined
 
   const content = on(instance, 'Content')
   const tagsRow = content && on(instance, P.nestedShowTagsRow)
-    ? instance.findLayers((node) => node.name === 'tag', { path: ['Tag Row'] }).filter(isInstance)
+    ? instance.findLayers((node) => node.name === 'tag' && under(node, 'Tag Row')).filter(isInstance)
     : []
-  const itemTags = on(instance, P.nestedShowItems) ? instance.findLayers((node) => node.name === 'tag', { path: ['Tags'] }).filter(isInstance) : []
+  const itemTags = on(instance, P.nestedShowItems) ? instance.findLayers((node) => node.name === 'tag' && under(node, 'Tags')).filter(isInstance) : []
   const itemTexts = on(instance, P.nestedShowItems) ? instance.findLayers((node) => node.name === 'Tag Item').filter(isText) : []
-  const itemIcons = itemTexts.length ? instance.findLayers((node) => isInstance(node), { path: ['Item'] }).filter(isInstance) : []
+  const itemIcons = itemTexts.length ? instance.findLayers((node) => isInstance(node) && under(node, 'Item')).filter(isInstance) : []
 
   const footer = on(instance, 'Show Footer')
   const guide = footer && on(instance, P.nestedShowLink)
   const linkButton = guide && on(instance, P.deepShowButton)
-    ? instance.findLayers((node) => node.name === 'button-large', { path: ['Cards guide'] }).filter(isInstance)[0]
+    ? instance.findLayers((node) => node.name === 'button-large' && under(node, 'Cards guide')).filter(isInstance)[0]
     : undefined
   const labelBlock = guide && on(instance, P.deepShowLabel) ? ofType('label', 'l')[0] : undefined
   const pager = guide && on(instance, P.deepShowPaginator)
@@ -133,7 +139,7 @@ export function cardTemplate(instance: InstanceHandle, kind: CardKind) {
     .map((a) => `\n ${a}`)
     .join('')
 
-  const slot = on(instance, 'Show Slot') ? instance.getSlot(P.nestedSlot) : undefined
+  const slot = on(instance, 'Show Slot') ? slotCode(instance, P.nestedSlot) : undefined
   const open = attrs ? `${attrs}\n` : ''
   const example = slot
     ? figma.code`<prime-one-card${open}>\n  ${slot}\n</prime-one-card>`

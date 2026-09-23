@@ -51,6 +51,7 @@ import { Tooltip } from 'primeng/tooltip';
             [disabled]="!!item.disabled"
             severity="secondary"
             text
+            rounded
             (onClick)="run(item, $event)"
           />
         }
@@ -58,7 +59,7 @@ import { Tooltip } from 'primeng/tooltip';
     </ng-template>
   `,
   styles: `
-    :host { display: block; }
+    :host { display: block; container: po-bottombar / inline-size; }
     .po-bottombar {
       display: flex;
       align-items: center;
@@ -75,7 +76,7 @@ import { Tooltip } from 'primeng/tooltip';
       place-items: center;
       min-width: 1.5rem;
       padding: 0 0.5rem;
-      border-radius: 999px;
+      border-radius: var(--p-border-radius-xs);
       background: var(--p-text-color);
       color: var(--p-content-background);
       font-weight: 600;
@@ -85,6 +86,13 @@ import { Tooltip } from 'primeng/tooltip';
     .po-bottombar__zoom { display: flex; align-items: center; gap: 0.25rem; }
     .po-bottombar__slider { width: 6rem; margin-inline: 0.5rem; }
     .po-bottombar__percent { min-width: 3rem; text-align: right; font-variant-numeric: tabular-nums; }
+    /* Narrow containers: the items wrap and the zoom takes a full row with a flexible slider */
+    @container po-bottombar (max-width: 640px) {
+      .po-bottombar { flex-wrap: wrap; row-gap: 0.25rem; overflow-x: visible; }
+      .po-bottombar__spacer { display: none; }
+      .po-bottombar__zoom { flex: 1 0 100%; }
+      .po-bottombar__slider { flex: 1; width: auto; }
+    }
   `,
 })
 export class PrimeOneBottomBar {

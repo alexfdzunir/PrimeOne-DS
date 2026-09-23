@@ -4,7 +4,7 @@ import { OrderList } from 'primeng/orderlist';
 import { PRODUCTS } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
-const INPUTS = ['header', 'filterPlaceholder', 'metaKeySelection', 'dragdrop', 'controlsPosition', 'ariaFilterLabel', 'filterMatchMode', 'stripedRows', 'disabled', 'scrollHeight'];
+const INPUTS = ['filterPlaceholder', 'metaKeySelection', 'dragdrop', 'controlsPosition', 'ariaFilterLabel', 'filterMatchMode', 'stripedRows', 'disabled', 'scrollHeight'];
 
 const meta: Meta = {
   title: 'Data/OrderList',
@@ -14,12 +14,10 @@ const meta: Meta = {
     storyOrder: ['Default', 'DragDrop', 'Striped'],
   },
   args: {
-    header: 'Asignaturas',
     onReorder: fn(),
     onSelectionChange: fn(),
   },
   argTypes: {
-    header: { control: 'text', description: 'Text for the caption.' },
     filterPlaceholder: { control: 'text', description: 'Placeholder of the filter input.' },
     metaKeySelection: { control: 'boolean', description: 'When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.' },
     dragdrop: { control: 'boolean', description: 'Whether to enable dragdrop based reordering.' },
@@ -33,9 +31,9 @@ const meta: Meta = {
     onSelectionChange: { action: 'onSelectionChange', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, products: PRODUCTS.slice(0, 6) },
+    props: { ...args, products: PRODUCTS.slice(0, 5) },
     template: `
-      <p-orderlist [value]="products" dataKey="code" [style]="{ maxWidth: '26rem' }"${bind(args, INPUTS)} (onReorder)="onReorder($event)" (onSelectionChange)="onSelectionChange($event)">
+      <p-orderlist [value]="products" dataKey="code" [responsive]="true" [style]="{ maxWidth: '26rem' }"${bind(args, INPUTS)} (onReorder)="onReorder($event)" (onSelectionChange)="onSelectionChange($event)">
         <ng-template #item let-item>{{ item.name }}</ng-template>
       </p-orderlist>
     `,

@@ -30,11 +30,15 @@ const meta: Meta = {
     onPage: { action: 'onPage', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, products: PRODUCTS },
+    props: { ...args, products: PRODUCTS.slice(0, 6) },
     template: `
-      <p-carousel [value]="products"${bind(args, INPUTS)} (onPage)="onPage($event)">
+      <p-carousel
+        [value]="products"
+        [responsiveOptions]="[{ breakpoint: '767px', numVisible: 2, numScroll: 1 }, { breakpoint: '575px', numVisible: 1, numScroll: 1 }]"
+        [verticalViewPortHeight]="orientation === 'vertical' ? '152px' : undefined"${bind(args, INPUTS)} (onPage)="onPage($event)"
+      >
         <ng-template #item let-product>
-          <div style="margin: 0.5rem; padding: 1rem; border: 1px solid var(--p-content-border-color); border-radius: var(--p-content-border-radius)">
+          <div style="box-sizing: border-box; height: calc(100% - 1rem); margin: 0.5rem; padding: 1rem; border: 1px solid var(--p-content-border-color); border-radius: var(--p-content-border-radius)">
             <p style="margin: 0 0 0.25rem; font-weight: 600">{{ product.name }}</p>
             <p style="margin: 0 0 0.75rem; color: var(--p-text-muted-color)">{{ product.category }}</p>
             <p-tag [value]="product.status" [severity]="product.severity" />

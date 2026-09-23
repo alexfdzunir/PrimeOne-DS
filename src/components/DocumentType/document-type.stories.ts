@@ -10,7 +10,10 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneDocumentType] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'FloatLabel', 'Invalid'],
+    storyOrder: ['Default', 'Selected', 'FloatLabel', 'Small', 'Invalid'],
+  },
+  args: {
+    selected: false,
   },
   argTypes: {
     placeholder: { control: 'text', table: { defaultValue: { summary: 'Tipo de documento' } } },
@@ -18,9 +21,10 @@ const meta: Meta = {
     size: { control: 'inline-radio', options: [undefined, 'large', 'small'], table: { defaultValue: { summary: 'undefined' } } },
     invalid: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
     disabled: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
+    selected: { control: 'boolean', description: 'Con un valor elegido (Figma: State=Selected).' },
   },
   render: (args) => ({
-    props: { ...args, value: null },
+    props: { ...args, value: args['selected'] ? 'passport' : null },
     template: `<prime-one-documenttype [(ngModel)]="value"${bind(args, INPUTS)} />`,
   }),
 };
@@ -29,5 +33,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Selected: Story = { args: { selected: true } };
 export const FloatLabel: Story = { args: { floatLabel: true } };
+export const Small: Story = { args: { size: 'small' } };
 export const Invalid: Story = { args: { invalid: true } };

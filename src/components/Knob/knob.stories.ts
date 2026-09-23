@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Knob] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Large', 'ReadOnly'],
+    storyOrder: ['Default', 'Large', 'ReadOnly', 'Disabled'],
   },
   args: {
     onChange: fn(),
@@ -43,3 +43,4 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Large: Story = { args: { size: 200, strokeWidth: 8 } };
 export const ReadOnly: Story = { args: { readonly: true } };
+export const Disabled: Story = { args: { disabled: true } };

@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTopbar] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Contrast', 'Mobile'],
+    storyOrder: ['Default', 'Contrast', 'Mobile', 'NoBack', 'NoAction'],
   },
   args: {
     heading: 'Mis asignaturas',
@@ -44,4 +44,6 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Contrast: Story = { args: { contrast: true } };
-export const Mobile: Story = { args: { mobile: true } };
+export const Mobile: Story = { args: { mobile: true, contrast: true, actionLabel: undefined, actionIcon: undefined } };
+export const NoBack: Story = { args: { showBack: false } };
+export const NoAction: Story = { args: { actionLabel: undefined, actionIcon: undefined } };

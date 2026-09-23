@@ -2,7 +2,7 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { fn } from 'storybook/test';
 import { PrimeOneCard } from './card';
 import type { CardItem, CardTag } from './card';
-import { IMAGES } from '../../stories/data';
+import { CARD_COVER } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
 const INPUTS = ['type', 'size', 'background', 'disabled', 'interactive', 'expanded', 'metricUnit', 'imageAlt', 'tagSeverity', 'page'];
@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneCard] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Expandable', 'Product', 'Horizontal', 'HorizontalFull', 'S', 'Grey', 'Disabled', 'Interactive'],
+    storyOrder: ['Default', 'Expandable', 'ExpandableCollapsed', 'Product', 'Horizontal', 'HorizontalFull', 'HorizontalMobile', 'S', 'Grey', 'Disabled', 'Interactive'],
     docs: { description: { component: 'Familia de cards del DS en un componente: `type` cambia entre los sets de Figma (card-content, card-expandable, card-product, card-horizontal y card-horizontal-full) y `size` entre M y S. Las horizontales pasan a su layout móvil por debajo de 520px de ancho (container query): estrecha el lienzo o activa `narrow`.' } },
   },
   args: {
@@ -35,7 +35,7 @@ const meta: Meta = {
     linkLabel: 'Ver más',
     labelCaption: 'Entrega',
     pages: 2,
-    imageAlt: 'Campus',
+    imageAlt: 'UNIR',
     narrow: false,
     showHeader: true,
     showAvatar: true,
@@ -116,7 +116,7 @@ const meta: Meta = {
     expandedChange: { action: 'expandedChange', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, media: ['product', 'horizontal', 'horizontal-full'].includes(args['type']), wide: ['horizontal', 'horizontal-full'].includes(args['type']), image: IMAGES[0].src, bullets: ['Clases en directo', 'Material descargable', 'Tutorías semanales'], tags: [
+    props: { ...args, media: ['product', 'horizontal', 'horizontal-full'].includes(args['type']), wide: ['horizontal', 'horizontal-full'].includes(args['type']), image: CARD_COVER, bullets: ['Clases en directo', 'Material descargable', 'Tutorías semanales'], tags: [
         { value: 'Activa' },
         { value: 'Online', severity: 'secondary' },
         { value: 'Aprobada', severity: 'success' },
@@ -166,9 +166,11 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Expandable: Story = { args: { type: 'expandable' } };
+export const ExpandableCollapsed: Story = { args: { type: 'expandable', expanded: false } };
 export const Product: Story = { args: { type: 'product' } };
 export const Horizontal: Story = { args: { type: 'horizontal' } };
 export const HorizontalFull: Story = { args: { type: 'horizontal-full' } };
+export const HorizontalMobile: Story = { args: { type: 'horizontal', narrow: true } };
 export const S: Story = { args: { size: 's' } };
 export const Grey: Story = { args: { background: 'grey' } };
 export const Disabled: Story = { args: { disabled: true } };

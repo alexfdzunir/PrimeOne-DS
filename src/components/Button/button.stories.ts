@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Button] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Secondary', 'Outlined', 'Text', 'Link', 'Danger', 'IconOnly', 'Loading', 'Small', 'Large'],
+    storyOrder: ['Default', 'Secondary', 'Contrast', 'Plain', 'Outlined', 'Text', 'Link', 'IconRight', 'IconOnly', 'Disabled', 'Success', 'SuccessOutlined', 'Danger', 'DangerOutlined', 'DangerText', 'Loading', 'Small', 'Large'],
   },
   args: {
     label: 'Guardar',
@@ -54,11 +54,19 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Secondary: Story = { args: { severity: 'secondary' } };
+export const Contrast: Story = { args: { severity: 'contrast' } };
+export const Plain: Story = { args: { plain: true, variant: 'outlined' } };
 export const Outlined: Story = { args: { variant: 'outlined' } };
 export const Text: Story = { args: { variant: 'text' } };
 export const Link: Story = { args: { link: true, icon: undefined } };
+export const IconRight: Story = { args: { label: 'Siguiente', icon: 'ph ph-arrow-right', iconPos: 'right' } };
+export const IconOnly: Story = { args: { label: undefined, icon: 'ph ph-plus' } };
+export const Disabled: Story = { args: { disabled: true } };
+export const Success: Story = { args: { severity: 'success', label: 'Aceptar', icon: 'ph ph-check' } };
+export const SuccessOutlined: Story = { args: { severity: 'success', variant: 'outlined', label: 'Aceptar', icon: 'ph ph-check' } };
 export const Danger: Story = { args: { severity: 'danger', label: 'Eliminar', icon: 'ph ph-trash' } };
-export const IconOnly: Story = { args: { label: undefined, rounded: true, icon: 'ph ph-plus' } };
+export const DangerOutlined: Story = { args: { severity: 'danger', variant: 'outlined', label: 'Eliminar', icon: 'ph ph-trash' } };
+export const DangerText: Story = { args: { severity: 'danger', variant: 'text', label: 'Eliminar', icon: 'ph ph-trash' } };
 export const Loading: Story = { args: { loading: true } };
 export const Small: Story = { args: { size: 'small' } };
 export const Large: Story = { args: { size: 'large' } };

@@ -16,10 +16,11 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTaskColumn] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Completed', 'Overdue'],
+    storyOrder: ['Default', 'Completed', 'Overdue', 'Empty'],
   },
   args: {
     type: 'pending',
+    empty: false,
     add: fn(),
     sort: fn(),
     taskClick: fn(),
@@ -27,12 +28,13 @@ const meta: Meta = {
   argTypes: {
     type: { control: 'inline-radio', options: ['completed', 'overdue', 'pending'], table: { defaultValue: { summary: 'pending' } } },
     mobile: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
+    empty: { control: 'boolean', description: 'Sin tareas (Figma: Empty=True).' },
     add: { action: 'add', table: { category: 'Eventos' } },
     sort: { action: 'sort', table: { category: 'Eventos' } },
     taskClick: { action: 'taskClick', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, tasks: TASKS },
+    props: { ...args, tasks: args['empty'] ? [] : TASKS },
     template: `
       <div style="max-width: 24rem">
         <prime-one-task-column [tasks]="tasks"${bind(args, INPUTS)} (add)="add($event)" (sort)="sort($event)" (taskClick)="taskClick($event)" />
@@ -47,3 +49,4 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Completed: Story = { args: { type: 'completed' } };
 export const Overdue: Story = { args: { type: 'overdue' } };
+export const Empty: Story = { args: { empty: true } };

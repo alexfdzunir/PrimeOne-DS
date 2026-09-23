@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneChatIaMessage] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Right'],
+    storyOrder: ['Default', 'Right', 'NoActions', 'Mobile'],
   },
   args: {
     showActions: true,
@@ -35,3 +35,5 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Right: Story = { args: { orientation: 'right', showActions: false } };
+export const NoActions: Story = { args: { showActions: false } };
+export const Mobile: Story = { args: { mobile: true } };

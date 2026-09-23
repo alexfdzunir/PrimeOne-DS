@@ -19,7 +19,7 @@ export interface BottomSheetAction {
   imports: [Button, Drawer, IconField, InputIcon, InputText],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p-drawer [(visible)]="visible" position="bottom" [showCloseIcon]="false" [style]="{ height: height() }" styleClass="po-bottomsheet">
+    <p-drawer [(visible)]="visible" position="bottom" [showCloseIcon]="false" [style]="{ height: height(), borderTopLeftRadius: 'var(--p-border-radius-2xl)', borderTopRightRadius: 'var(--p-border-radius-2xl)' }" styleClass="po-bottomsheet">
       <ng-template #header>
         <div class="po-bottomsheet__header">
           @if (showHandle()) {

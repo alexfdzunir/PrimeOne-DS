@@ -9,6 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [OverlayBadge] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Primary', 'Success', 'Info', 'Warn', 'Secondary', 'Contrast', 'Small', 'Large', 'XLarge'],
   },
   args: {
     value: '4',
@@ -23,9 +24,11 @@ const meta: Meta = {
   render: (args) => ({
     props: args,
     template: `
-      <p-overlaybadge [value]="value"${bind(args, INPUTS)}>
-        <i class="ph ph-bell" style="font-size: 2rem"></i>
-      </p-overlaybadge>
+      <div style="display: flex">
+        <p-overlaybadge [value]="value"${bind(args, INPUTS)}>
+          <i class="ph ph-bell" style="font-size: 2rem"></i>
+        </p-overlaybadge>
+      </div>
     `,
   }),
 };
@@ -34,3 +37,12 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Primary: Story = { args: { severity: undefined } };
+export const Success: Story = { args: { severity: 'success' } };
+export const Info: Story = { args: { severity: 'info' } };
+export const Warn: Story = { args: { severity: 'warn' } };
+export const Secondary: Story = { args: { severity: 'secondary' } };
+export const Contrast: Story = { args: { severity: 'contrast' } };
+export const Small: Story = { args: { badgeSize: 'small' } };
+export const Large: Story = { args: { badgeSize: 'large' } };
+export const XLarge: Story = { args: { badgeSize: 'xlarge' } };

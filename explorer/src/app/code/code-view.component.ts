@@ -48,7 +48,7 @@ import type { Line } from './tokens';
       margin: 0;
       padding: 12px 0 16px;
       overflow: auto;
-      font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+      font-family: var(--po-font-mono);
       font-size: 13px;
       line-height: 1.6;
       tab-size: 2;

@@ -105,10 +105,11 @@ export interface ChatAttachment {
       padding: 1rem;
       background: var(--p-content-background);
       border: 1px solid var(--p-form-field-border-color);
-      border-radius: var(--p-content-border-radius);
+      /* Figma inputchat/desktop/border/radius: 12 / 24 / 0 per theme = content radius x 1.5 */
+      border-radius: calc(var(--p-content-border-radius) * 1.5);
     }
     .po-inputchat:focus-within { border-color: var(--p-form-field-focus-border-color); }
-    .po-inputchat--mobile { padding: 0.75rem; }
+    .po-inputchat--mobile { padding: 0.75rem; border-radius: var(--p-content-border-radius); }
     .po-inputchat--disabled { background: var(--p-form-field-disabled-background); }
     .po-inputchat__attachments { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
     .po-inputchat__file {
@@ -120,13 +121,13 @@ export interface ChatAttachment {
       max-width: 17rem;
       padding: 0.75rem 2.5rem 0.75rem 0.75rem;
       border: 1px solid var(--p-content-border-color);
-      border-radius: var(--p-content-border-radius);
+      border-radius: var(--p-border-radius-md);
     }
     .po-inputchat__file-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .po-inputchat__file-remove { position: absolute; top: 0.25rem; right: 0.25rem; }
     .po-inputchat__text { width: 100%; border: 0; padding: 0; background: transparent; box-shadow: none; resize: none; }
     .po-inputchat__recording { display: flex; align-items: center; gap: 0.75rem; }
-    .po-inputchat__dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--p-red-500); }
+    .po-inputchat__dot { flex: 0 0 auto; width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--p-red-500); }
     .po-inputchat__time { font-variant-numeric: tabular-nums; }
     .po-inputchat__wave {
       flex: 1;

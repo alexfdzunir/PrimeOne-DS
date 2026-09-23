@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneInputLink] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Invalid', 'Small'],
+    storyOrder: ['Default', 'NoLabel', 'Small', 'Invalid'],
   },
   args: {
     label: 'Enlace',
@@ -32,5 +32,6 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
-export const Invalid: Story = { args: { invalid: true } };
+export const NoLabel: Story = { args: { label: undefined } };
 export const Small: Story = { args: { size: 'small' } };
+export const Invalid: Story = { args: { invalid: true } };

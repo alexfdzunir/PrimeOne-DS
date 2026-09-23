@@ -9,7 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Tag] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Success', 'Danger', 'Rounded', 'Icon'],
+    storyOrder: ['Default', 'Secondary', 'Success', 'Info', 'Warn', 'Danger', 'Contrast', 'Icon', 'Rounded'],
   },
   args: {
     value: 'Nuevo',
@@ -30,7 +30,11 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Secondary: Story = { args: { severity: 'secondary', value: 'Borrador' } };
 export const Success: Story = { args: { severity: 'success', value: 'Aprobado' } };
+export const Info: Story = { args: { severity: 'info', value: 'Info' } };
+export const Warn: Story = { args: { severity: 'warn', value: 'Pendiente' } };
 export const Danger: Story = { args: { severity: 'danger', value: 'Suspenso' } };
-export const Rounded: Story = { args: { rounded: true } };
+export const Contrast: Story = { args: { severity: 'contrast', value: 'Destacado' } };
 export const Icon: Story = { args: { icon: 'ph ph-star' } };
+export const Rounded: Story = { args: { rounded: true } };

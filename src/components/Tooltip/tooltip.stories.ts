@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Tooltip, Button] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Focus', 'Delay'],
+    storyOrder: ['Default', 'Right', 'Bottom', 'Left', 'Focus', 'Delay'],
   },
   args: {
     tooltip: 'Información adicional',
@@ -42,5 +42,8 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Right: Story = { args: { tooltipPosition: 'right' } };
+export const Bottom: Story = { args: { tooltipPosition: 'bottom' } };
+export const Left: Story = { args: { tooltipPosition: 'left' } };
 export const Focus: Story = { args: { tooltipEvent: 'focus' } };
 export const Delay: Story = { args: { showDelay: 500, hideDelay: 300 } };

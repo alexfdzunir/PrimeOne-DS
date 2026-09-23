@@ -54,7 +54,7 @@ export interface TapbarItem {
       font-size: 0.75rem;
       cursor: pointer;
     }
-    .po-tapbar__item i { font-size: 1.5rem; }
+    .po-tapbar__item i { flex: 0 0 auto; font-size: 1.5rem; }
     .po-tapbar__item--active { color: var(--p-primary-color); border-bottom-color: var(--p-primary-color); }
     .po-tapbar__item:focus-visible { outline: 1px solid var(--p-focus-ring-color); outline-offset: 2px; }
   `,

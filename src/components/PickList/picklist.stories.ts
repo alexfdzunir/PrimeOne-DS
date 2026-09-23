@@ -45,9 +45,9 @@ const meta: Meta = {
     onMoveAllToSource: { action: 'onMoveAllToSource', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, source: PRODUCTS.slice(0, 6), target: [] as Product[] },
+    props: { ...args, source: PRODUCTS.slice(0, 5), target: PRODUCTS.slice(5, 7) },
     template: `
-      <p-picklist [source]="source" [target]="target" dataKey="code"${bind(args, INPUTS)} (onMoveToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)" (onMoveAllToTarget)="onMoveAllToTarget($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
+      <p-picklist [source]="source" [target]="target" dataKey="code" [responsive]="true"${bind(args, INPUTS)} (onMoveToTarget)="onMoveToTarget($event)" (onMoveToSource)="onMoveToSource($event)" (onMoveAllToTarget)="onMoveAllToTarget($event)" (onMoveAllToSource)="onMoveAllToSource($event)">
         <ng-template #item let-item>{{ item.name }}</ng-template>
       </p-picklist>
     `,

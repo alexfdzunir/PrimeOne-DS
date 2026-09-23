@@ -9,11 +9,11 @@ const meta: Meta = {
     controls: { expanded: true },
   },
   render: (args) => ({
-    props: { ...args, left: IMAGES[0].src, right: IMAGES[1].src },
+    props: { ...args, before: IMAGES[0].src, after: IMAGES[1].src },
     template: `
-      <p-imagecompare style="max-width: 32rem">
-        <ng-template #left><img [src]="left" alt="Antes" /></ng-template>
-        <ng-template #right><img [src]="right" alt="Después" /></ng-template>
+      <p-imagecompare style="display: block; max-width: 40rem; border-radius: var(--p-content-border-radius)">
+        <ng-template #left><img [src]="before" alt="Antes" style="object-fit: cover" /></ng-template>
+        <ng-template #right><img [src]="after" alt="Después" style="object-fit: cover" /></ng-template>
       </p-imagecompare>
     `,
   }),

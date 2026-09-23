@@ -48,7 +48,7 @@ const meta: Meta = {
   render: (args) => ({
     props: args,
     template: `
-      <p-confirmdialog [style]="{ width: '26rem' }"${bind(args, INPUTS)} />
+      <p-confirmdialog [style]="{ width: '26rem' }" [breakpoints]="{ '575px': '90vw' }"${bind(args, INPUTS)} />
       <po-confirm-trigger (accepted)="accepted($event)" (rejected)="rejected($event)" />
     `,
   }),

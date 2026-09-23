@@ -9,7 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneChatMessage] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Right', 'Grouped', 'Mobile'],
+    storyOrder: ['Default', 'Right', 'OneToOne', 'Grouped', 'NoAvatar', 'Mobile'],
   },
   args: {
     author: 'Laura Martín',
@@ -39,5 +39,7 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Right: Story = { args: { orientation: 'right' } };
+export const OneToOne: Story = { args: { showName: false } };
 export const Grouped: Story = { args: { grouped: true } };
+export const NoAvatar: Story = { args: { showAvatar: false } };
 export const Mobile: Story = { args: { mobile: true } };

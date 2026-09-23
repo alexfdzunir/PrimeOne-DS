@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Drawer, Button] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Right', 'Bottom', 'FullScreen'],
+    storyOrder: ['Default', 'Right', 'Top', 'Bottom', 'FullScreen'],
     docs: { story: { inline: false, height: '460px' } },
   },
   args: {
@@ -50,5 +50,6 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Right: Story = { args: { position: 'right' } };
+export const Top: Story = { args: { position: 'top' } };
 export const Bottom: Story = { args: { position: 'bottom' } };
 export const FullScreen: Story = { args: { fullScreen: true } };

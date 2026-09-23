@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneTaskCard] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Completed', 'Mobile'],
+    storyOrder: ['Default', 'Completed', 'NoType', 'NoDate', 'Mobile'],
   },
   args: {
     priority: 'high',
@@ -44,4 +44,6 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Completed: Story = { args: { completed: true } };
+export const NoType: Story = { args: { showType: false } };
+export const NoDate: Story = { args: { showDate: false } };
 export const Mobile: Story = { args: { mobile: true } };

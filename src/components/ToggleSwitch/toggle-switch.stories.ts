@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, ToggleSwitch] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Invalid', 'Disabled'],
+    storyOrder: ['Default', 'Invalid', 'Disabled', 'ReadOnly'],
   },
   args: {
     onChange: fn(),
@@ -35,3 +35,4 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Invalid: Story = { args: { invalid: true } };
 export const Disabled: Story = { args: { disabled: true } };
+export const ReadOnly: Story = { args: { readonly: true } };

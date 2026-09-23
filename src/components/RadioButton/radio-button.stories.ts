@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, RadioButton] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Filled', 'Invalid', 'Small'],
+    storyOrder: ['Default', 'Filled', 'Invalid', 'Small', 'Large', 'Disabled'],
   },
   args: {
     onClick: fn(),
@@ -50,3 +50,5 @@ export const Default: Story = {};
 export const Filled: Story = { args: { variant: 'filled' } };
 export const Invalid: Story = { args: { invalid: true } };
 export const Small: Story = { args: { size: 'small' } };
+export const Large: Story = { args: { size: 'large' } };
+export const Disabled: Story = { args: { disabled: true } };

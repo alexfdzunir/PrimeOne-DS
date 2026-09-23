@@ -18,91 +18,92 @@ import * as m15 from '../../../src/components/CascadeSelect/cascade-select.stori
 import * as m16 from '../../../src/components/Chat/chat-ia-message.stories';
 import * as m17 from '../../../src/components/Chat/chat-message.stories';
 import * as m18 from '../../../src/components/Checkbox/checkbox.stories';
-import * as m19 from '../../../src/components/Chip/chip.stories';
-import * as m20 from '../../../src/components/ColorPicker/color-picker.stories';
-import * as m21 from '../../../src/components/ConfirmDialog/confirm-dialog.stories';
-import * as m22 from '../../../src/components/ConfirmPopup/confirm-popup.stories';
-import * as m23 from '../../../src/components/ContextMenu/context-menu.stories';
-import * as m24 from '../../../src/components/DataTable/datatable.stories';
-import * as m25 from '../../../src/components/DataView/dataview.stories';
-import * as m26 from '../../../src/components/DatePicker/date-picker.stories';
-import * as m27 from '../../../src/components/Dialog/dialog.stories';
-import * as m28 from '../../../src/components/Divider/divider.stories';
-import * as m29 from '../../../src/components/Dock/dock.stories';
-import * as m30 from '../../../src/components/DocumentType/document-type.stories';
-import * as m31 from '../../../src/components/Drawer/drawer.stories';
-import * as m32 from '../../../src/components/Editor/editor.stories';
-import * as m33 from '../../../src/components/Fieldset/fieldset.stories';
-import * as m34 from '../../../src/components/FileUpload/file-upload.stories';
-import * as m35 from '../../../src/components/FloatLabel/float-label.stories';
-import * as m36 from '../../../src/components/FloatLabel/ifta-label.stories';
-import * as m37 from '../../../src/components/Galleria/galleria.stories';
-import * as m38 from '../../../src/components/IaChat/history-item.stories';
-import * as m39 from '../../../src/components/Image/image.stories';
-import * as m40 from '../../../src/components/ImageCompare/image-compare.stories';
-import * as m41 from '../../../src/components/Inplace/inplace.stories';
-import * as m42 from '../../../src/components/Inputchat/input-chat.stories';
-import * as m43 from '../../../src/components/InputGroup/input-group.stories';
-import * as m44 from '../../../src/components/InputLink/input-link.stories';
-import * as m45 from '../../../src/components/InputNumber/input-number.stories';
-import * as m46 from '../../../src/components/InputOtp/input-otp.stories';
-import * as m47 from '../../../src/components/InputPhone/input-phone.stories';
-import * as m48 from '../../../src/components/InputRGPD/input-rgpd.stories';
-import * as m49 from '../../../src/components/InputText/icon-field.stories';
-import * as m50 from '../../../src/components/InputText/input-text.stories';
-import * as m51 from '../../../src/components/Knob/knob.stories';
-import * as m52 from '../../../src/components/Listbox/listbox.stories';
-import * as m53 from '../../../src/components/MegaMenu/mega-menu.stories';
-import * as m54 from '../../../src/components/Menu/menu.stories';
-import * as m55 from '../../../src/components/Menubar/menubar.stories';
-import * as m56 from '../../../src/components/Message/message.stories';
-import * as m57 from '../../../src/components/MeterGroup/meter-group.stories';
-import * as m58 from '../../../src/components/MultiSelect/multi-select.stories';
-import * as m59 from '../../../src/components/Navbar/navbar.stories';
-import * as m60 from '../../../src/components/OrderList/orderlist.stories';
-import * as m61 from '../../../src/components/OrganizationChart/organization-chart.stories';
-import * as m62 from '../../../src/components/Paginator/paginator.stories';
-import * as m63 from '../../../src/components/Panel/panel.stories';
-import * as m64 from '../../../src/components/PanelMenu/panel-menu.stories';
-import * as m65 from '../../../src/components/Password/password.stories';
-import * as m66 from '../../../src/components/PickList/picklist.stories';
-import * as m67 from '../../../src/components/Popover/popover.stories';
-import * as m68 from '../../../src/components/Profile/profile.stories';
-import * as m69 from '../../../src/components/ProgressBar/progress-bar.stories';
-import * as m70 from '../../../src/components/ProgressSpinner/progress-spinner.stories';
-import * as m71 from '../../../src/components/Question/question.stories';
-import * as m72 from '../../../src/components/RadioButton/radio-button.stories';
-import * as m73 from '../../../src/components/Rating/rating.stories';
-import * as m74 from '../../../src/components/ScrollPanel/scroll-panel.stories';
-import * as m75 from '../../../src/components/ScrollTop/scroll-top.stories';
-import * as m76 from '../../../src/components/Select/select.stories';
-import * as m77 from '../../../src/components/SelectButton/select-button.stories';
-import * as m78 from '../../../src/components/Sidebar/sidebar.stories';
-import * as m79 from '../../../src/components/Skeleton/skeleton.stories';
-import * as m80 from '../../../src/components/Slider/slider.stories';
-import * as m81 from '../../../src/components/SpeedDial/speed-dial.stories';
-import * as m82 from '../../../src/components/SplitButton/split-button.stories';
-import * as m83 from '../../../src/components/Splitter/splitter.stories';
-import * as m84 from '../../../src/components/Stepper/stepper.stories';
-import * as m85 from '../../../src/components/StepperMobile/stepper-mobile.stories';
-import * as m86 from '../../../src/components/Tabs/tabs.stories';
-import * as m87 from '../../../src/components/Tag/tag.stories';
-import * as m88 from '../../../src/components/TapBar/tapbar.stories';
-import * as m89 from '../../../src/components/Tasks/task-card.stories';
-import * as m90 from '../../../src/components/Tasks/task-column.stories';
-import * as m91 from '../../../src/components/Terminal/terminal.stories';
-import * as m92 from '../../../src/components/Textarea/textarea.stories';
-import * as m93 from '../../../src/components/TieredMenu/tiered-menu.stories';
-import * as m94 from '../../../src/components/Timeline/timeline.stories';
-import * as m95 from '../../../src/components/Toast/toast.stories';
-import * as m96 from '../../../src/components/ToggleButton/toggle-button.stories';
-import * as m97 from '../../../src/components/ToggleSwitch/toggle-switch.stories';
-import * as m98 from '../../../src/components/Toolbar/toolbar.stories';
-import * as m99 from '../../../src/components/Tooltip/tooltip.stories';
-import * as m100 from '../../../src/components/Topbar/topbar.stories';
-import * as m101 from '../../../src/components/Tree/tree.stories';
-import * as m102 from '../../../src/components/TreeSelect/tree-select.stories';
-import * as m103 from '../../../src/components/TreeTable/treetable.stories';
+import * as m19 from '../../../src/components/Chip/button-chip.stories';
+import * as m20 from '../../../src/components/Chip/chip.stories';
+import * as m21 from '../../../src/components/ColorPicker/color-picker.stories';
+import * as m22 from '../../../src/components/ConfirmDialog/confirm-dialog.stories';
+import * as m23 from '../../../src/components/ConfirmPopup/confirm-popup.stories';
+import * as m24 from '../../../src/components/ContextMenu/context-menu.stories';
+import * as m25 from '../../../src/components/DataTable/datatable.stories';
+import * as m26 from '../../../src/components/DataView/dataview.stories';
+import * as m27 from '../../../src/components/DatePicker/date-picker.stories';
+import * as m28 from '../../../src/components/Dialog/dialog.stories';
+import * as m29 from '../../../src/components/Divider/divider.stories';
+import * as m30 from '../../../src/components/Dock/dock.stories';
+import * as m31 from '../../../src/components/DocumentType/document-type.stories';
+import * as m32 from '../../../src/components/Drawer/drawer.stories';
+import * as m33 from '../../../src/components/Editor/editor.stories';
+import * as m34 from '../../../src/components/Fieldset/fieldset.stories';
+import * as m35 from '../../../src/components/FileUpload/file-upload.stories';
+import * as m36 from '../../../src/components/FloatLabel/float-label.stories';
+import * as m37 from '../../../src/components/FloatLabel/ifta-label.stories';
+import * as m38 from '../../../src/components/Galleria/galleria.stories';
+import * as m39 from '../../../src/components/IaChat/history-item.stories';
+import * as m40 from '../../../src/components/Image/image.stories';
+import * as m41 from '../../../src/components/ImageCompare/image-compare.stories';
+import * as m42 from '../../../src/components/Inplace/inplace.stories';
+import * as m43 from '../../../src/components/Inputchat/input-chat.stories';
+import * as m44 from '../../../src/components/InputGroup/input-group.stories';
+import * as m45 from '../../../src/components/InputLink/input-link.stories';
+import * as m46 from '../../../src/components/InputNumber/input-number.stories';
+import * as m47 from '../../../src/components/InputOtp/input-otp.stories';
+import * as m48 from '../../../src/components/InputPhone/input-phone.stories';
+import * as m49 from '../../../src/components/InputRGPD/input-rgpd.stories';
+import * as m50 from '../../../src/components/InputText/icon-field.stories';
+import * as m51 from '../../../src/components/InputText/input-text.stories';
+import * as m52 from '../../../src/components/Knob/knob.stories';
+import * as m53 from '../../../src/components/Listbox/listbox.stories';
+import * as m54 from '../../../src/components/MegaMenu/mega-menu.stories';
+import * as m55 from '../../../src/components/Menu/menu.stories';
+import * as m56 from '../../../src/components/Menubar/menubar.stories';
+import * as m57 from '../../../src/components/Message/message.stories';
+import * as m58 from '../../../src/components/MeterGroup/meter-group.stories';
+import * as m59 from '../../../src/components/MultiSelect/multi-select.stories';
+import * as m60 from '../../../src/components/Navbar/navbar.stories';
+import * as m61 from '../../../src/components/OrderList/orderlist.stories';
+import * as m62 from '../../../src/components/OrganizationChart/organization-chart.stories';
+import * as m63 from '../../../src/components/Paginator/paginator.stories';
+import * as m64 from '../../../src/components/Panel/panel.stories';
+import * as m65 from '../../../src/components/PanelMenu/panel-menu.stories';
+import * as m66 from '../../../src/components/Password/password.stories';
+import * as m67 from '../../../src/components/PickList/picklist.stories';
+import * as m68 from '../../../src/components/Popover/popover.stories';
+import * as m69 from '../../../src/components/Profile/profile.stories';
+import * as m70 from '../../../src/components/ProgressBar/progress-bar.stories';
+import * as m71 from '../../../src/components/ProgressSpinner/progress-spinner.stories';
+import * as m72 from '../../../src/components/Question/question.stories';
+import * as m73 from '../../../src/components/RadioButton/radio-button.stories';
+import * as m74 from '../../../src/components/Rating/rating.stories';
+import * as m75 from '../../../src/components/ScrollPanel/scroll-panel.stories';
+import * as m76 from '../../../src/components/ScrollTop/scroll-top.stories';
+import * as m77 from '../../../src/components/Select/select.stories';
+import * as m78 from '../../../src/components/SelectButton/select-button.stories';
+import * as m79 from '../../../src/components/Sidebar/sidebar.stories';
+import * as m80 from '../../../src/components/Skeleton/skeleton.stories';
+import * as m81 from '../../../src/components/Slider/slider.stories';
+import * as m82 from '../../../src/components/SpeedDial/speed-dial.stories';
+import * as m83 from '../../../src/components/SplitButton/split-button.stories';
+import * as m84 from '../../../src/components/Splitter/splitter.stories';
+import * as m85 from '../../../src/components/Stepper/stepper.stories';
+import * as m86 from '../../../src/components/StepperMobile/stepper-mobile.stories';
+import * as m87 from '../../../src/components/Tabs/tabs.stories';
+import * as m88 from '../../../src/components/Tag/tag.stories';
+import * as m89 from '../../../src/components/TapBar/tapbar.stories';
+import * as m90 from '../../../src/components/Tasks/task-card.stories';
+import * as m91 from '../../../src/components/Tasks/task-column.stories';
+import * as m92 from '../../../src/components/Terminal/terminal.stories';
+import * as m93 from '../../../src/components/Textarea/textarea.stories';
+import * as m94 from '../../../src/components/TieredMenu/tiered-menu.stories';
+import * as m95 from '../../../src/components/Timeline/timeline.stories';
+import * as m96 from '../../../src/components/Toast/toast.stories';
+import * as m97 from '../../../src/components/ToggleButton/toggle-button.stories';
+import * as m98 from '../../../src/components/ToggleSwitch/toggle-switch.stories';
+import * as m99 from '../../../src/components/Toolbar/toolbar.stories';
+import * as m100 from '../../../src/components/Tooltip/tooltip.stories';
+import * as m101 from '../../../src/components/Topbar/topbar.stories';
+import * as m102 from '../../../src/components/Tree/tree.stories';
+import * as m103 from '../../../src/components/TreeSelect/tree-select.stories';
+import * as m104 from '../../../src/components/TreeTable/treetable.stories';
 
 export const STORY_MODULES: { module: object; figmaUrl?: string; imports: string[] }[] = [
   { module: m0, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=232-9351', imports: ["import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'primeng/accordion';"] },
@@ -110,7 +111,7 @@ export const STORY_MODULES: { module: object; figmaUrl?: string; imports: string
   { module: m2, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=17343-53189', imports: ["import { PrimeOneAgenda } from 'prime-one-ds';"] },
   { module: m3, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6047-9515', imports: ["import { FormsModule } from '@angular/forms';","import { AutoComplete } from 'primeng/autocomplete';"] },
   { module: m4, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13219-82377', imports: ["import { Avatar } from 'primeng/avatar';","import { AvatarGroup } from 'primeng/avatargroup';"] },
-  { module: m5, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13219-82393', imports: ["import { Avatar } from 'primeng/avatar';"] },
+  { module: m5, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13219-82393', imports: ["import { Avatar } from 'primeng/avatar';","import { OverlayBadge } from 'primeng/overlaybadge';"] },
   { module: m6, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=330-13237', imports: ["import { Badge } from 'primeng/badge';"] },
   { module: m7, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6998-92179', imports: ["import { OverlayBadge } from 'primeng/overlaybadge';"] },
   { module: m8, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=334-12695', imports: ["import { BlockUI } from 'primeng/blockui';","import { Panel } from 'primeng/panel';"] },
@@ -124,89 +125,90 @@ export const STORY_MODULES: { module: object; figmaUrl?: string; imports: string
   { module: m16, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=16684-117406', imports: ["import { PrimeOneChatIaMessage } from 'prime-one-ds';"] },
   { module: m17, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=16335-12194', imports: ["import { PrimeOneChatMessage } from 'prime-one-ds';"] },
   { module: m18, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=148-6321', imports: ["import { FormsModule } from '@angular/forms';","import { Checkbox } from 'primeng/checkbox';"] },
-  { module: m19, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=334-13139', imports: ["import { Chip } from 'primeng/chip';"] },
-  { module: m20, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=248-9840', imports: ["import { FormsModule } from '@angular/forms';","import { ColorPicker } from 'primeng/colorpicker';"] },
-  { module: m21, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=323-12317', imports: ["import { ConfirmDialog } from 'primeng/confirmdialog';"] },
-  { module: m22, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=324-16867', imports: ["import { ConfirmPopup } from 'primeng/confirmpopup';"] },
-  { module: m23, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6580-26999', imports: ["import { ContextMenu } from 'primeng/contextmenu';"] },
-  { module: m24, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13683-34054', imports: ["import { TableModule } from 'primeng/table';","import { Tag } from 'primeng/tag';"] },
-  { module: m25, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=399-20261', imports: ["import { DataView } from 'primeng/dataview';","import { Tag } from 'primeng/tag';"] },
-  { module: m26, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12407-28953', imports: ["import { FormsModule } from '@angular/forms';","import { DatePicker } from 'primeng/datepicker';"] },
-  { module: m27, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=243-9556', imports: ["import { Button } from 'primeng/button';","import { Dialog } from 'primeng/dialog';"] },
-  { module: m28, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=302-11810', imports: ["import { Divider } from 'primeng/divider';"] },
-  { module: m29, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=507-30666', imports: ["import { Dock } from 'primeng/dock';"] },
-  { module: m30, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12160-28633', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneDocumentType } from 'prime-one-ds';"] },
-  { module: m31, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=4461-50366', imports: ["import { Button } from 'primeng/button';","import { Drawer } from 'primeng/drawer';"] },
-  { module: m32, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=276-10374', imports: ["import { FormsModule } from '@angular/forms';","import { Editor } from 'primeng/editor';"] },
-  { module: m33, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=306-11917', imports: ["import { Fieldset } from 'primeng/fieldset';"] },
-  { module: m34, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12371-104640', imports: ["import { FileUpload } from 'primeng/fileupload';"] },
-  { module: m35, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=7421-323985', imports: ["import { FormsModule } from '@angular/forms';","import { FloatLabel } from 'primeng/floatlabel';","import { InputText } from 'primeng/inputtext';"] },
-  { module: m36, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=7421-323985', imports: ["import { FormsModule } from '@angular/forms';","import { IftaLabel } from 'primeng/iftalabel';","import { InputText } from 'primeng/inputtext';"] },
-  { module: m37, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6641-26340', imports: ["import { GalleriaModule } from 'primeng/galleria';"] },
-  { module: m38, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=18630-263959', imports: ["import { PrimeOneHistoryItem } from 'prime-one-ds';"] },
-  { module: m39, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=503-31819', imports: ["import { Image } from 'primeng/image';"] },
-  { module: m40, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6977-102044', imports: ["import { ImageCompare } from 'primeng/imagecompare';"] },
-  { module: m41, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=340-12980', imports: ["import { FormsModule } from '@angular/forms';","import { Button } from 'primeng/button';","import { Inplace } from 'primeng/inplace';","import { InputText } from 'primeng/inputtext';"] },
-  { module: m42, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13549-29512', imports: ["import { PrimeOneInputChat } from 'prime-one-ds';"] },
-  { module: m43, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=263-10540', imports: ["import { FormsModule } from '@angular/forms';","import { InputGroup } from 'primeng/inputgroup';","import { InputGroupAddon } from 'primeng/inputgroupaddon';","import { InputText } from 'primeng/inputtext';"] },
-  { module: m44, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12095-8334', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneInputLink } from 'prime-one-ds';"] },
-  { module: m45, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=203-8804', imports: ["import { FormsModule } from '@angular/forms';","import { InputNumber } from 'primeng/inputnumber';"] },
-  { module: m46, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=7167-15865', imports: ["import { FormsModule } from '@angular/forms';","import { InputOtp } from 'primeng/inputotp';"] },
-  { module: m47, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12080-18079', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneInputPhone } from 'prime-one-ds';"] },
-  { module: m48, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12264-9078', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneInputRgpd } from 'prime-one-ds';"] },
-  { module: m49, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=23-835', imports: ["import { FormsModule } from '@angular/forms';","import { IconField } from 'primeng/iconfield';","import { InputIcon } from 'primeng/inputicon';","import { InputText } from 'primeng/inputtext';"] },
-  { module: m50, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=23-835', imports: ["import { FormsModule } from '@angular/forms';","import { InputText } from 'primeng/inputtext';"] },
-  { module: m51, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=277-10630', imports: ["import { FormsModule } from '@angular/forms';","import { Knob } from 'primeng/knob';"] },
-  { module: m52, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6212-6733', imports: ["import { FormsModule } from '@angular/forms';","import { Listbox } from 'primeng/listbox';"] },
-  { module: m53, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6590-27038', imports: ["import { MegaMenu } from 'primeng/megamenu';"] },
-  { module: m54, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=452-28358', imports: ["import { Button } from 'primeng/button';","import { Menu } from 'primeng/menu';"] },
-  { module: m55, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6598-27869', imports: ["import { Button } from 'primeng/button';","import { Menubar } from 'primeng/menubar';"] },
-  { module: m56, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=393-39252', imports: ["import { Message } from 'primeng/message';"] },
-  { module: m57, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6962-59067', imports: ["import { MeterGroup } from 'primeng/metergroup';"] },
-  { module: m58, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=11862-34206', imports: ["import { FormsModule } from '@angular/forms';","import { MultiSelect } from 'primeng/multiselect';"] },
-  { module: m59, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14037-135115', imports: ["import { PrimeOneNavbar } from 'prime-one-ds';"] },
-  { module: m60, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6408-44516', imports: ["import { OrderList } from 'primeng/orderlist';"] },
-  { module: m61, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=434-25271', imports: ["import { OrganizationChart } from 'primeng/organizationchart';"] },
-  { module: m62, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=599-33074', imports: ["import { Paginator } from 'primeng/paginator';"] },
-  { module: m63, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=229-10217', imports: ["import { Panel } from 'primeng/panel';"] },
-  { module: m64, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=462-27439', imports: ["import { PanelMenu } from 'primeng/panelmenu';"] },
-  { module: m65, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=287-10430', imports: ["import { FormsModule } from '@angular/forms';","import { Password } from 'primeng/password';"] },
-  { module: m66, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=397-18966', imports: ["import { PickList } from 'primeng/picklist';"] },
-  { module: m67, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=605-37190', imports: ["import { Button } from 'primeng/button';","import { Popover } from 'primeng/popover';"] },
-  { module: m68, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14685-27237', imports: ["import { PrimeOneProfile } from 'prime-one-ds';"] },
-  { module: m69, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=349-12860', imports: ["import { ProgressBar } from 'primeng/progressbar';"] },
-  { module: m70, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12786-169121', imports: ["import { ProgressSpinner } from 'primeng/progressspinner';"] },
-  { module: m71, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12273-14312', imports: ["import { PrimeOneQuestion } from 'prime-one-ds';"] },
-  { module: m72, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=140-5820', imports: ["import { FormsModule } from '@angular/forms';","import { RadioButton } from 'primeng/radiobutton';"] },
-  { module: m73, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=290-11082', imports: ["import { FormsModule } from '@angular/forms';","import { Rating } from 'primeng/rating';"] },
-  { module: m74, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=314-12216', imports: ["import { ScrollPanel } from 'primeng/scrollpanel';"] },
-  { module: m75, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13099', imports: ["import { ScrollTop } from 'primeng/scrolltop';"] },
-  { module: m76, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=11862-24364', imports: ["import { FormsModule } from '@angular/forms';","import { Select } from 'primeng/select';"] },
-  { module: m77, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=191-6703', imports: ["import { FormsModule } from '@angular/forms';","import { SelectButton } from 'primeng/selectbutton';"] },
-  { module: m78, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14309-26860', imports: ["import { PrimeOneSidebar } from 'prime-one-ds';"] },
-  { module: m79, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13726', imports: ["import { Skeleton } from 'primeng/skeleton';"] },
-  { module: m80, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=290-12331', imports: ["import { FormsModule } from '@angular/forms';","import { Slider } from 'primeng/slider';"] },
-  { module: m81, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12255-13183', imports: ["import { SpeedDial } from 'primeng/speeddial';"] },
-  { module: m82, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=223-8532', imports: ["import { SplitButton } from 'primeng/splitbutton';"] },
-  { module: m83, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=313-12050', imports: ["import { Splitter } from 'primeng/splitter';"] },
-  { module: m84, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6978-73977', imports: ["import { Button } from 'primeng/button';","import { Stepper, StepList, Step, StepPanels, StepPanel } from 'primeng/stepper';"] },
-  { module: m85, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12717-77340', imports: ["import { PrimeOneStepperMobile } from 'prime-one-ds';"] },
-  { module: m86, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=19254-256995', imports: ["import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';","import { tabsSm } from 'prime-one-ds';"] },
-  { module: m87, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13337', imports: ["import { Tag } from 'primeng/tag';"] },
-  { module: m88, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14343-208299', imports: ["import { PrimeOneTapbar } from 'prime-one-ds';"] },
-  { module: m89, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=19102-38374', imports: ["import { PrimeOneTaskCard } from 'prime-one-ds';"] },
-  { module: m90, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=19102-38482', imports: ["import { PrimeOneTaskColumn } from 'prime-one-ds';"] },
-  { module: m91, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13715', imports: ["import { Terminal, TerminalService } from 'primeng/terminal';"] },
-  { module: m92, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6209-7402', imports: ["import { FormsModule } from '@angular/forms';","import { Textarea } from 'primeng/textarea';"] },
-  { module: m93, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=452-28582', imports: ["import { Button } from 'primeng/button';","import { TieredMenu } from 'primeng/tieredmenu';"] },
-  { module: m94, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=442-29308', imports: ["import { Timeline } from 'primeng/timeline';"] },
-  { module: m95, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=393-42317', imports: ["import { Toast } from 'primeng/toast';"] },
-  { module: m96, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=187-6103', imports: ["import { FormsModule } from '@angular/forms';","import { ToggleButton } from 'primeng/togglebutton';"] },
-  { module: m97, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=260-11899', imports: ["import { FormsModule } from '@angular/forms';","import { ToggleSwitch } from 'primeng/toggleswitch';"] },
-  { module: m98, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13779-84262', imports: ["import { Button } from 'primeng/button';","import { SplitButton } from 'primeng/splitbutton';","import { Toolbar } from 'primeng/toolbar';"] },
-  { module: m99, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=327-12832', imports: ["import { Button } from 'primeng/button';","import { Tooltip } from 'primeng/tooltip';"] },
-  { module: m100, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14010-215017', imports: ["import { PrimeOneTopbar } from 'prime-one-ds';"] },
-  { module: m101, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=422-22831', imports: ["import { TreeDragDropService } from 'primeng/api';","import { Tree } from 'primeng/tree';"] },
-  { module: m102, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6653-17198', imports: ["import { FormsModule } from '@angular/forms';","import { TreeSelect } from 'primeng/treeselect';"] },
-  { module: m103, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=427-22270', imports: ["import { TreeTableModule } from 'primeng/treetable';"] },
+  { module: m19, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=18045-130597', imports: ["import { Button } from 'primeng/button';"] },
+  { module: m20, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=334-13139', imports: ["import { Chip } from 'primeng/chip';"] },
+  { module: m21, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=248-9840', imports: ["import { FormsModule } from '@angular/forms';","import { ColorPicker } from 'primeng/colorpicker';"] },
+  { module: m22, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=323-12317', imports: ["import { ConfirmDialog } from 'primeng/confirmdialog';"] },
+  { module: m23, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=324-16867', imports: ["import { ConfirmPopup } from 'primeng/confirmpopup';"] },
+  { module: m24, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6580-26999', imports: ["import { ContextMenu } from 'primeng/contextmenu';"] },
+  { module: m25, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13683-34054', imports: ["import { TableModule } from 'primeng/table';","import { Tag } from 'primeng/tag';"] },
+  { module: m26, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=399-20261', imports: ["import { DataView } from 'primeng/dataview';","import { Tag } from 'primeng/tag';"] },
+  { module: m27, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12407-28953', imports: ["import { FormsModule } from '@angular/forms';","import { DatePicker } from 'primeng/datepicker';"] },
+  { module: m28, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=243-9556', imports: ["import { Button } from 'primeng/button';","import { Dialog } from 'primeng/dialog';"] },
+  { module: m29, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=302-11810', imports: ["import { Divider } from 'primeng/divider';"] },
+  { module: m30, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=507-30666', imports: ["import { Dock } from 'primeng/dock';"] },
+  { module: m31, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12160-28633', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneDocumentType } from 'prime-one-ds';"] },
+  { module: m32, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=4461-50366', imports: ["import { Button } from 'primeng/button';","import { Drawer } from 'primeng/drawer';"] },
+  { module: m33, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=276-10374', imports: ["import { FormsModule } from '@angular/forms';","import { Editor } from 'primeng/editor';"] },
+  { module: m34, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=306-11917', imports: ["import { Fieldset } from 'primeng/fieldset';"] },
+  { module: m35, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12371-104640', imports: ["import { FileUpload } from 'primeng/fileupload';"] },
+  { module: m36, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=7421-323985', imports: ["import { FormsModule } from '@angular/forms';","import { FloatLabel } from 'primeng/floatlabel';","import { InputText } from 'primeng/inputtext';"] },
+  { module: m37, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=7421-323985', imports: ["import { FormsModule } from '@angular/forms';","import { IftaLabel } from 'primeng/iftalabel';","import { InputText } from 'primeng/inputtext';"] },
+  { module: m38, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6641-26340', imports: ["import { GalleriaModule } from 'primeng/galleria';"] },
+  { module: m39, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=18630-263959', imports: ["import { PrimeOneHistoryItem } from 'prime-one-ds';"] },
+  { module: m40, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=503-31819', imports: ["import { Image } from 'primeng/image';"] },
+  { module: m41, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6977-102044', imports: ["import { ImageCompare } from 'primeng/imagecompare';"] },
+  { module: m42, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=340-12980', imports: ["import { FormsModule } from '@angular/forms';","import { Button } from 'primeng/button';","import { Inplace } from 'primeng/inplace';","import { InputText } from 'primeng/inputtext';"] },
+  { module: m43, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13549-29512', imports: ["import { PrimeOneInputChat } from 'prime-one-ds';"] },
+  { module: m44, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=263-10540', imports: ["import { FormsModule } from '@angular/forms';","import { InputGroup } from 'primeng/inputgroup';","import { InputGroupAddon } from 'primeng/inputgroupaddon';","import { InputText } from 'primeng/inputtext';"] },
+  { module: m45, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12095-8334', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneInputLink } from 'prime-one-ds';"] },
+  { module: m46, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=203-8804', imports: ["import { FormsModule } from '@angular/forms';","import { InputNumber } from 'primeng/inputnumber';"] },
+  { module: m47, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=7167-15865', imports: ["import { FormsModule } from '@angular/forms';","import { InputOtp } from 'primeng/inputotp';"] },
+  { module: m48, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12080-18079', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneInputPhone } from 'prime-one-ds';"] },
+  { module: m49, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12264-9078', imports: ["import { FormsModule } from '@angular/forms';","import { PrimeOneInputRgpd } from 'prime-one-ds';"] },
+  { module: m50, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=23-835', imports: ["import { FormsModule } from '@angular/forms';","import { IconField } from 'primeng/iconfield';","import { InputIcon } from 'primeng/inputicon';","import { InputText } from 'primeng/inputtext';"] },
+  { module: m51, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=23-835', imports: ["import { FormsModule } from '@angular/forms';","import { InputText } from 'primeng/inputtext';"] },
+  { module: m52, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=277-10630', imports: ["import { FormsModule } from '@angular/forms';","import { Knob } from 'primeng/knob';"] },
+  { module: m53, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6212-6733', imports: ["import { FormsModule } from '@angular/forms';","import { Listbox } from 'primeng/listbox';"] },
+  { module: m54, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6590-27038', imports: ["import { MegaMenu } from 'primeng/megamenu';"] },
+  { module: m55, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=452-28358', imports: ["import { Button } from 'primeng/button';","import { Menu } from 'primeng/menu';"] },
+  { module: m56, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6598-27869', imports: ["import { Button } from 'primeng/button';","import { Menubar } from 'primeng/menubar';"] },
+  { module: m57, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=393-39252', imports: ["import { Message } from 'primeng/message';"] },
+  { module: m58, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6962-59067', imports: ["import { MeterGroup } from 'primeng/metergroup';"] },
+  { module: m59, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=11862-34206', imports: ["import { FormsModule } from '@angular/forms';","import { MultiSelect } from 'primeng/multiselect';"] },
+  { module: m60, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14037-135115', imports: ["import { PrimeOneNavbar } from 'prime-one-ds';"] },
+  { module: m61, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6408-44516', imports: ["import { OrderList } from 'primeng/orderlist';"] },
+  { module: m62, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=434-25271', imports: ["import { OrganizationChart } from 'primeng/organizationchart';"] },
+  { module: m63, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=599-33074', imports: ["import { Paginator } from 'primeng/paginator';"] },
+  { module: m64, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=229-10217', imports: ["import { Button } from 'primeng/button';","import { Panel } from 'primeng/panel';"] },
+  { module: m65, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=462-27439', imports: ["import { PanelMenu } from 'primeng/panelmenu';"] },
+  { module: m66, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=287-10430', imports: ["import { FormsModule } from '@angular/forms';","import { Password } from 'primeng/password';"] },
+  { module: m67, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=397-18966', imports: ["import { PickList } from 'primeng/picklist';"] },
+  { module: m68, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=605-37190', imports: ["import { Button } from 'primeng/button';","import { Popover } from 'primeng/popover';"] },
+  { module: m69, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14685-27237', imports: ["import { PrimeOneProfile } from 'prime-one-ds';"] },
+  { module: m70, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=349-12860', imports: ["import { ProgressBar } from 'primeng/progressbar';"] },
+  { module: m71, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12786-169121', imports: ["import { ProgressSpinner } from 'primeng/progressspinner';"] },
+  { module: m72, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12273-14312', imports: ["import { PrimeOneQuestion } from 'prime-one-ds';"] },
+  { module: m73, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=140-5820', imports: ["import { FormsModule } from '@angular/forms';","import { RadioButton } from 'primeng/radiobutton';"] },
+  { module: m74, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=290-11082', imports: ["import { FormsModule } from '@angular/forms';","import { Rating } from 'primeng/rating';"] },
+  { module: m75, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=314-12216', imports: ["import { ScrollPanel } from 'primeng/scrollpanel';"] },
+  { module: m76, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13099', imports: ["import { ScrollTop } from 'primeng/scrolltop';"] },
+  { module: m77, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=11862-24364', imports: ["import { FormsModule } from '@angular/forms';","import { Select } from 'primeng/select';"] },
+  { module: m78, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=191-6703', imports: ["import { FormsModule } from '@angular/forms';","import { SelectButton } from 'primeng/selectbutton';"] },
+  { module: m79, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14309-26860', imports: ["import { PrimeOneSidebar } from 'prime-one-ds';"] },
+  { module: m80, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13726', imports: ["import { Skeleton } from 'primeng/skeleton';"] },
+  { module: m81, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=290-12331', imports: ["import { FormsModule } from '@angular/forms';","import { Slider } from 'primeng/slider';"] },
+  { module: m82, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12255-13183', imports: ["import { SpeedDial } from 'primeng/speeddial';"] },
+  { module: m83, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=223-8532', imports: ["import { SplitButton } from 'primeng/splitbutton';"] },
+  { module: m84, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=313-12050', imports: ["import { Splitter } from 'primeng/splitter';"] },
+  { module: m85, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6978-73977', imports: ["import { Button } from 'primeng/button';","import { Stepper, StepList, Step, StepPanels, StepPanel, StepItem } from 'primeng/stepper';"] },
+  { module: m86, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=12717-77340', imports: ["import { PrimeOneStepperMobile } from 'prime-one-ds';"] },
+  { module: m87, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=19254-256995', imports: ["import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';","import { tabsSm } from 'prime-one-ds';"] },
+  { module: m88, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13337', imports: ["import { Tag } from 'primeng/tag';"] },
+  { module: m89, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14343-208299', imports: ["import { PrimeOneTapbar } from 'prime-one-ds';"] },
+  { module: m90, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=19102-38374', imports: ["import { PrimeOneTaskCard } from 'prime-one-ds';"] },
+  { module: m91, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=19102-38482', imports: ["import { PrimeOneTaskColumn } from 'prime-one-ds';"] },
+  { module: m92, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=373-13715', imports: ["import { Terminal, TerminalService } from 'primeng/terminal';"] },
+  { module: m93, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6209-7402', imports: ["import { FormsModule } from '@angular/forms';","import { Textarea } from 'primeng/textarea';"] },
+  { module: m94, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=452-28582', imports: ["import { Button } from 'primeng/button';","import { TieredMenu } from 'primeng/tieredmenu';"] },
+  { module: m95, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=442-29308', imports: ["import { Timeline } from 'primeng/timeline';"] },
+  { module: m96, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=393-42317', imports: ["import { Toast } from 'primeng/toast';"] },
+  { module: m97, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=187-6103', imports: ["import { FormsModule } from '@angular/forms';","import { ToggleButton } from 'primeng/togglebutton';"] },
+  { module: m98, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=260-11899', imports: ["import { FormsModule } from '@angular/forms';","import { ToggleSwitch } from 'primeng/toggleswitch';"] },
+  { module: m99, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=13779-84262', imports: ["import { Button } from 'primeng/button';","import { IconField } from 'primeng/iconfield';","import { InputIcon } from 'primeng/inputicon';","import { InputText } from 'primeng/inputtext';","import { Toolbar } from 'primeng/toolbar';"] },
+  { module: m100, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=327-12832', imports: ["import { Button } from 'primeng/button';","import { Tooltip } from 'primeng/tooltip';"] },
+  { module: m101, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=14010-215017', imports: ["import { PrimeOneTopbar } from 'prime-one-ds';"] },
+  { module: m102, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=422-22831', imports: ["import { TreeDragDropService } from 'primeng/api';","import { Tree } from 'primeng/tree';"] },
+  { module: m103, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=6653-17198', imports: ["import { FormsModule } from '@angular/forms';","import { TreeSelect } from 'primeng/treeselect';"] },
+  { module: m104, figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne?node-id=427-22270', imports: ["import { TreeTableModule } from 'primeng/treetable';"] },
 ];

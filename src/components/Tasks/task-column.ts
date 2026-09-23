@@ -41,15 +41,15 @@ const COLUMN: Record<TaskColumnType, { title: string; empty: string; color: stri
       gap: 0.75rem;
       min-width: 16rem;
       padding: 0.75rem;
-      border-radius: var(--p-content-border-radius);
+      border-radius: var(--p-border-radius-md);
       background: var(--p-content-hover-background);
     }
     .po-column__header { display: flex; align-items: center; gap: 0.5rem; }
-    .po-column__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; }
+    .po-column__dot { flex: 0 0 auto; width: 0.5rem; height: 0.5rem; border-radius: 50%; }
     .po-column__title { margin: 0; font-size: 0.875rem; font-weight: 600; }
     .po-column__count { flex: 1; color: var(--p-text-muted-color); font-size: 0.75rem; }
     .po-column__list { display: flex; flex-direction: column; gap: 0.5rem; max-height: var(--po-task-column-height, 32rem); overflow-y: auto; }
-    .po-column__empty { margin: 0; padding: 0.75rem; border-radius: var(--p-content-border-radius); background: var(--p-content-background); color: var(--p-text-muted-color); font-size: 0.75rem; }
+    .po-column__empty { margin: 0; padding: 0.75rem; border-radius: var(--p-border-radius-md); background: var(--p-content-background); color: var(--p-text-muted-color); font-size: 0.75rem; }
   `,
 })
 export class PrimeOneTaskColumn {

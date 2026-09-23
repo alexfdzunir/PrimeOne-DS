@@ -24,8 +24,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneAgenda] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Day', 'Month', 'List'],
-    layout: 'fullscreen',
+    storyOrder: ['Default', 'Day', 'ThreeDays', 'AcademicWeek', 'Month', 'List'],
   },
   args: {
     view: 'week',
@@ -50,5 +49,7 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Day: Story = { args: { view: 'day' } };
+export const ThreeDays: Story = { args: { view: 'three-days' } };
+export const AcademicWeek: Story = { args: { view: 'academic-week' } };
 export const Month: Story = { args: { view: 'month' } };
 export const List: Story = { args: { view: 'agenda' } };

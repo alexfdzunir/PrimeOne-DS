@@ -4,24 +4,25 @@ import { OrganizationChart } from 'primeng/organizationchart';
 import { ORG_CHART } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
-const INPUTS = ['selectionMode', 'collapsible'];
+const INPUTS = ['collapsible', 'selectionMode'];
 
 const meta: Meta = {
   title: 'Data/OrganizationChart',
   decorators: [moduleMetadata({ imports: [OrganizationChart] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Collapsible', 'Selectable'],
+    storyOrder: ['Default', 'Static', 'Selectable'],
   },
   args: {
+    collapsible: true,
     onNodeSelect: fn(),
     onNodeUnselect: fn(),
     onNodeExpand: fn(),
     onNodeCollapse: fn(),
   },
   argTypes: {
-    selectionMode: { control: 'inline-radio', options: [undefined, 'multiple', 'single'], description: 'Defines the selection mode.' },
     collapsible: { control: 'boolean', description: 'Whether the nodes can be expanded or toggled.' },
+    selectionMode: { control: 'inline-radio', options: [undefined, 'multiple', 'single'], description: 'Defines the selection mode.' },
     onNodeSelect: { action: 'onNodeSelect', table: { category: 'Eventos' } },
     onNodeUnselect: { action: 'onNodeUnselect', table: { category: 'Eventos' } },
     onNodeExpand: { action: 'onNodeExpand', table: { category: 'Eventos' } },
@@ -29,7 +30,11 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, nodes: structuredClone(ORG_CHART) },
-    template: `<p-organizationchart [value]="nodes"${bind(args, INPUTS)} (onNodeSelect)="onNodeSelect($event)" (onNodeUnselect)="onNodeUnselect($event)" (onNodeExpand)="onNodeExpand($event)" (onNodeCollapse)="onNodeCollapse($event)" />`,
+    template: `
+      <div style="overflow-x: auto">
+        <p-organizationchart [value]="nodes"${bind(args, INPUTS)} (onNodeSelect)="onNodeSelect($event)" (onNodeUnselect)="onNodeUnselect($event)" (onNodeExpand)="onNodeExpand($event)" (onNodeCollapse)="onNodeCollapse($event)" />
+      </div>
+    `,
   }),
 };
 
@@ -37,5 +42,5 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
-export const Collapsible: Story = { args: { collapsible: true } };
+export const Static: Story = { args: { collapsible: false } };
 export const Selectable: Story = { args: { selectionMode: 'single' } };

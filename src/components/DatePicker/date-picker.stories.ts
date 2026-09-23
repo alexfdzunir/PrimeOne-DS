@@ -4,19 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { DatePicker } from 'primeng/datepicker';
 import { bind } from '../../stories/helpers';
 
-const INPUTS = ['placeholder', 'dateFormat', 'showIcon', 'invalid', 'disabled', 'fluid', 'variant', 'size', 'iconDisplay', 'multipleSeparator', 'rangeSeparator', 'inline', 'showOtherMonths', 'selectOtherMonths', 'icon', 'readonlyInput', 'hourFormat', 'timeOnly', 'stepHour', 'stepMinute', 'stepSecond', 'showSeconds', 'showOnFocus', 'showWeek', 'startWeekFromFirstDayOfYear', 'showClear', 'dataType', 'selectionMode', 'maxDateCount', 'showButtonBar', 'keepInvalid', 'hideOnDateTimeSelect', 'touchUI', 'timeSeparator', 'focusTrap', 'showTime', 'numberOfMonths', 'firstDayOfWeek', 'view'];
+const INPUTS = ['placeholder', 'dateFormat', 'showIcon', 'iconDisplay', 'invalid', 'disabled', 'fluid', 'variant', 'size', 'multipleSeparator', 'rangeSeparator', 'inline', 'showOtherMonths', 'selectOtherMonths', 'icon', 'readonlyInput', 'hourFormat', 'timeOnly', 'stepHour', 'stepMinute', 'stepSecond', 'showSeconds', 'showOnFocus', 'showWeek', 'startWeekFromFirstDayOfYear', 'showClear', 'dataType', 'selectionMode', 'maxDateCount', 'showButtonBar', 'keepInvalid', 'hideOnDateTimeSelect', 'touchUI', 'timeSeparator', 'focusTrap', 'showTime', 'numberOfMonths', 'firstDayOfWeek', 'view'];
 
 const meta: Meta = {
   title: 'Form/DatePicker',
   decorators: [moduleMetadata({ imports: [FormsModule, DatePicker] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Inline', 'Range', 'Time', 'ButtonBar', 'Invalid'],
+    storyOrder: ['Default', 'Inline', 'Range', 'Time', 'TimeOnly', 'Month', 'Year', 'Week', 'ButtonBar', 'Small', 'Invalid'],
   },
   args: {
     placeholder: 'dd/mm/aaaa',
     dateFormat: 'dd/mm/yy',
     showIcon: true,
+    iconDisplay: 'input',
     onFocus: fn(),
     onBlur: fn(),
     onClose: fn(),
@@ -34,12 +35,12 @@ const meta: Meta = {
     placeholder: { control: 'text', description: 'Placeholder text for the input.' },
     dateFormat: { control: 'text', description: 'Format of the date which can also be defined at locale settings.' },
     showIcon: { control: 'boolean', description: 'When enabled, displays a button with icon next to input.' },
+    iconDisplay: { control: 'inline-radio', options: ['button', 'input'] },
     invalid: { control: 'boolean', description: 'When present, it specifies that the component should have invalid state style.', table: { defaultValue: { summary: 'false' } } },
     disabled: { control: 'boolean', description: 'When present, it specifies that the component should have disabled state style.', table: { defaultValue: { summary: 'false' } } },
     fluid: { control: 'boolean', description: 'Spans 100% width of the container when enabled.', table: { defaultValue: { summary: 'false' } } },
     variant: { control: 'inline-radio', options: [undefined, 'filled', 'outlined'], description: 'Specifies the input variant of the component.', table: { defaultValue: { summary: 'outlined' } } },
     size: { control: 'inline-radio', options: [undefined, 'large', 'small'], description: 'Specifies the size of the component.', table: { defaultValue: { summary: 'undefined' } } },
-    iconDisplay: { control: 'inline-radio', options: [undefined, 'button', 'input'] },
     multipleSeparator: { control: 'text', description: 'Separator for multiple selection mode.' },
     rangeSeparator: { control: 'text', description: 'Separator for joining start and end dates on range selection mode.' },
     inline: { control: 'boolean', description: 'When enabled, displays the datepicker as inline. Default is false for popup mode.' },
@@ -96,5 +97,10 @@ export const Default: Story = {};
 export const Inline: Story = { args: { inline: true, showIcon: false } };
 export const Range: Story = { args: { selectionMode: 'range' } };
 export const Time: Story = { args: { showTime: true } };
+export const TimeOnly: Story = { args: { timeOnly: true, hourFormat: '12', placeholder: 'hh:mm' } };
+export const Month: Story = { args: { view: 'month', dateFormat: 'mm/yy', placeholder: 'mm/aaaa' } };
+export const Year: Story = { args: { view: 'year', dateFormat: 'yy', placeholder: 'aaaa' } };
+export const Week: Story = { args: { inline: true, showIcon: false, showWeek: true } };
 export const ButtonBar: Story = { args: { showButtonBar: true } };
+export const Small: Story = { args: { size: 'small' } };
 export const Invalid: Story = { args: { invalid: true } };

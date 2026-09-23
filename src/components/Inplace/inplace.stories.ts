@@ -16,7 +16,7 @@ const meta: Meta = {
     storyOrder: ['Default', 'Active', 'Disabled'],
   },
   args: {
-    display: 'Haz clic para editar',
+    text: 'Haz clic para editar',
     onActivate: fn(),
     onDeactivate: fn(),
   },
@@ -24,7 +24,7 @@ const meta: Meta = {
     active: { control: 'boolean', description: 'Whether the content is displayed or not.' },
     disabled: { control: 'boolean', description: 'When present, it specifies that the element should be disabled.' },
     preventClick: { control: 'boolean', description: 'Allows to prevent clicking.' },
-    display: { control: 'text' },
+    text: { control: 'text' },
     onActivate: { action: 'onActivate', table: { category: 'Eventos' } },
     onDeactivate: { action: 'onDeactivate', table: { category: 'Eventos' } },
   },
@@ -33,12 +33,12 @@ const meta: Meta = {
     template: `
       <p-inplace${bind(args, INPUTS)} (onActivate)="onActivate($event)" (onDeactivate)="onDeactivate($event)">
         <ng-template #display>
-          <span class="sb-row"><i class="ph ph-pencil-simple"></i> {{ display }}</span>
+          <span class="sb-row"><i class="ph ph-pencil-simple"></i> {{ text }}</span>
         </ng-template>
         <ng-template #content let-closeCallback="closeCallback">
           <span class="sb-row">
             <input pInputText [(ngModel)]="value" />
-            <p-button icon="ph ph-x" variant="text" severity="danger" ariaLabel="Cerrar" (onClick)="closeCallback($event)" />
+            <p-button icon="ph ph-x" variant="text" severity="danger" [rounded]="true" ariaLabel="Cerrar" (onClick)="closeCallback($event)" />
           </span>
         </ng-template>
       </p-inplace>

@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, TreeSelect] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Checkbox', 'Filter', 'Invalid'],
+    storyOrder: ['Default', 'Checkbox', 'Filter', 'Invalid', 'Disabled'],
   },
   args: {
     placeholder: 'Selecciona un archivo',
@@ -73,3 +73,4 @@ export const Default: Story = {};
 export const Checkbox: Story = { args: { selectionMode: 'checkbox', display: 'chip' } };
 export const Filter: Story = { args: { filter: true } };
 export const Invalid: Story = { args: { invalid: true } };
+export const Disabled: Story = { args: { disabled: true } };

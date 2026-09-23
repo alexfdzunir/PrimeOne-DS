@@ -4,7 +4,7 @@ import { Image } from 'primeng/image';
 import { IMAGES } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
-const INPUTS = ['alt', 'width', 'preview', 'loading'];
+const INPUTS = ['alt', 'preview', 'loading'];
 
 const meta: Meta = {
   title: 'Media/Image',
@@ -14,7 +14,6 @@ const meta: Meta = {
   },
   args: {
     alt: 'Campus',
-    width: '320',
     preview: true,
     onShow: fn(),
     onHide: fn(),
@@ -22,7 +21,6 @@ const meta: Meta = {
   },
   argTypes: {
     alt: { control: 'text', description: 'Attribute of the preview image element.' },
-    width: { control: 'text', description: 'Attribute of the image element.' },
     preview: { control: 'boolean', description: 'Controls the preview functionality.' },
     loading: { control: 'inline-radio', options: [undefined, 'eager', 'lazy'], description: 'Attribute of the image element.' },
     onShow: { action: 'onShow', table: { category: 'Eventos' } },
@@ -31,7 +29,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, src: IMAGES[0].src },
-    template: `<p-image [src]="src"${bind(args, INPUTS)} (onShow)="onShow($event)" (onHide)="onHide($event)" (onImageError)="onImageError($event)" />`,
+    template: `<p-image [src]="src" style="display: block; max-width: 30rem" [imageStyle]="{ display: 'block', width: '100%', height: 'auto', borderRadius: 'var(--p-content-border-radius)' }"${bind(args, INPUTS)} (onShow)="onShow($event)" (onHide)="onHide($event)" (onImageError)="onImageError($event)" />`,
   }),
 };
 

@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Select] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Filter', 'Clear', 'Filled', 'Invalid', 'Loading', 'Small'],
+    storyOrder: ['Default', 'Filter', 'Clear', 'Filled', 'Invalid', 'Loading', 'Small', 'Disabled'],
   },
   args: {
     placeholder: 'Selecciona una ciudad',
@@ -80,3 +80,4 @@ export const Filled: Story = { args: { variant: 'filled' } };
 export const Invalid: Story = { args: { invalid: true } };
 export const Loading: Story = { args: { loading: true } };
 export const Small: Story = { args: { size: 'small' } };
+export const Disabled: Story = { args: { disabled: true } };

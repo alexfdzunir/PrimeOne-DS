@@ -1,8 +1,11 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, ElementRef, inject, viewChild } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { ExplorerState } from '../explorer-state';
+import { CATEGORIES, type CategoryId } from '../model';
+
+const COLLAPSED_KEY = 'po-explorer.collapsed';
 
 /** Catalogue of the DS: search and the components grouped by category. Width and collapse are owned by the shell. */
 @Component({
@@ -36,29 +39,59 @@ import { ExplorerState } from '../explorer-state';
       </p-iconfield>
     </div>
 
+    <div class="po-sidebar__bar">
+      <span>Componentes</span>
+      @if (!state.query()) {
+        <button
+          type="button"
+          class="po-sidebar__all"
+          [attr.aria-label]="allCollapsed() ? 'Desplegar todas las secciones' : 'Plegar todas las secciones'"
+          [title]="allCollapsed() ? 'Desplegar todas' : 'Plegar todas'"
+          (click)="toggleAll()"
+        >
+          <i [class]="allCollapsed() ? 'ph ph-arrows-out-line-vertical' : 'ph ph-arrows-in-line-vertical'" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
+
     <nav #list class="po-sidebar__list po-scroll" aria-label="Componentes">
       @for (group of state.groups(); track group.id) {
         <section class="po-sidebar__group">
-          <h2 class="po-sidebar__group-title">
-            <i [class]="group.icon" aria-hidden="true"></i>
-            <span>{{ group.label }}</span>
-            <span class="po-sidebar__group-count">{{ group.entries.length }}</span>
+          <h2 class="po-sidebar__group-heading">
+            <button
+              type="button"
+              class="po-sidebar__group-title"
+              [attr.aria-expanded]="isOpen(group.id)"
+              [attr.aria-controls]="'po-group-' + group.id"
+              (click)="toggle(group.id)"
+            >
+              <i class="ph ph-caret-down po-sidebar__caret" aria-hidden="true"></i>
+              <i [class]="group.icon" aria-hidden="true"></i>
+              <span>{{ group.label }}</span>
+              <span class="po-sidebar__group-count">{{ group.entries.length }}</span>
+            </button>
           </h2>
-          <ul class="po-sidebar__items">
-            @for (entry of group.entries; track entry.id) {
-              <li>
-                <button
-                  type="button"
-                  class="po-sidebar__item"
-                  [class.po-sidebar__item--active]="entry.id === state.selectedId()"
-                  [attr.aria-current]="entry.id === state.selectedId() ? 'page' : null"
-                  (click)="state.select(entry.id)"
-                >
-                  {{ entry.title }}
-                </button>
-              </li>
-            }
-          </ul>
+          <div
+            class="po-sidebar__collapse"
+            [class.po-sidebar__collapse--closed]="!isOpen(group.id)"
+            [attr.inert]="isOpen(group.id) ? null : ''"
+          >
+            <ul class="po-sidebar__items" [id]="'po-group-' + group.id">
+              @for (entry of group.entries; track entry.id) {
+                <li>
+                  <button
+                    type="button"
+                    class="po-sidebar__item"
+                    [class.po-sidebar__item--active]="entry.id === state.selectedId()"
+                    [attr.aria-current]="entry.id === state.selectedId() ? 'page' : null"
+                    (click)="state.select(entry.id)"
+                  >
+                    {{ entry.title }}
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
         </section>
       } @empty {
         <p class="po-sidebar__empty">Sin resultados para «{{ state.query() }}»</p>
@@ -138,17 +171,104 @@ import { ExplorerState } from '../explorer-state';
       margin-top: 0.75rem;
     }
 
-    .po-sidebar__group-title {
+    .po-sidebar__bar {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin: 0 0 0.25rem;
-      padding: 0.25rem 0.5rem;
+      justify-content: space-between;
+      min-height: 1.75rem;
+      padding: 0 1rem 0 1.25rem;
       color: var(--p-text-muted-color);
       font-size: 0.6875rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+    }
+
+    .po-sidebar__all {
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      padding: 0;
+      border: 0;
+      border-radius: var(--po-radius-sm);
+      background: transparent;
+      color: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 150ms, color 150ms;
+    }
+
+    .po-sidebar__all:hover {
+      background: var(--p-content-hover-background);
+      color: var(--p-text-color);
+    }
+
+    .po-sidebar__group-heading {
+      margin: 0 0 0.25rem;
+      font: inherit;
+    }
+
+    .po-sidebar__group-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.375rem 0.5rem;
+      border: 0;
+      border-radius: var(--po-radius-sm);
+      background: transparent;
+      color: var(--p-text-muted-color);
+      font: inherit;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-align: start;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 150ms, color 150ms;
+    }
+
+    .po-sidebar__group-title:hover {
+      background: var(--p-content-hover-background);
+      color: var(--p-text-color);
+    }
+
+    .po-sidebar__group-title:focus-visible,
+    .po-sidebar__all:focus-visible {
+      outline: 2px solid var(--p-focus-ring-color);
+      outline-offset: -2px;
+    }
+
+    .po-sidebar__caret {
+      transition: transform 200ms ease;
+    }
+
+    .po-sidebar__group-title[aria-expanded='false'] .po-sidebar__caret {
+      transform: rotate(-90deg);
+    }
+
+    /* Height animation without measuring: the grid row goes from 1fr to 0fr */
+    .po-sidebar__collapse {
+      display: grid;
+      grid-template-rows: 1fr;
+      transition: grid-template-rows 200ms ease;
+    }
+
+    .po-sidebar__collapse--closed {
+      grid-template-rows: 0fr;
+    }
+
+    .po-sidebar__collapse > .po-sidebar__items {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .po-sidebar__collapse,
+      .po-sidebar__caret {
+        transition: none;
+      }
     }
 
     .po-sidebar__group-title i {
@@ -258,11 +378,43 @@ import { ExplorerState } from '../explorer-state';
 export class SidebarComponent {
   protected readonly state = inject(ExplorerState);
 
+  /** Folded categories, remembered per browser. While searching every group with results is open. */
+  private readonly collapsed = signal<ReadonlySet<CategoryId>>(readCollapsed());
+  protected readonly allCollapsed = computed(() => CATEGORIES.every((category) => this.collapsed().has(category.id)));
+
   private readonly search = viewChild.required<ElementRef<HTMLInputElement>>('search');
   private readonly list = viewChild.required<ElementRef<HTMLElement>>('list');
 
   constructor() {
+    // The category of the component opened from the URL is always unfolded
+    this.open(this.state.selected().category);
+    effect(() => writeCollapsed(this.collapsed()));
     afterNextRender(() => this.list().nativeElement.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'center' }));
+  }
+
+  protected isOpen(id: CategoryId): boolean {
+    return !!this.state.query() || !this.collapsed().has(id);
+  }
+
+  protected toggle(id: CategoryId): void {
+    if (this.state.query()) return;
+    this.collapsed.update((set) => {
+      const next = new Set(set);
+      if (!next.delete(id)) next.add(id);
+      return next;
+    });
+  }
+
+  protected toggleAll(): void {
+    this.collapsed.set(this.allCollapsed() ? new Set() : new Set(CATEGORIES.map((category) => category.id)));
+  }
+
+  private open(id: CategoryId): void {
+    this.collapsed.update((set) => {
+      const next = new Set(set);
+      next.delete(id);
+      return next;
+    });
   }
 
   /** "/" focuses the search from anywhere, unless the user is already typing. */
@@ -277,5 +429,23 @@ export class SidebarComponent {
   protected clear(): void {
     this.state.query.set('');
     this.search().nativeElement.focus();
+  }
+}
+
+function readCollapsed(): ReadonlySet<CategoryId> {
+  try {
+    const ids = JSON.parse(localStorage.getItem(COLLAPSED_KEY) ?? '[]') as unknown;
+    const known = new Set(CATEGORIES.map((category) => category.id));
+    return new Set(Array.isArray(ids) ? ids.filter((id): id is CategoryId => known.has(id)) : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function writeCollapsed(ids: ReadonlySet<CategoryId>): void {
+  try {
+    localStorage.setItem(COLLAPSED_KEY, JSON.stringify([...ids]));
+  } catch {
+    // Storage unavailable: the folded sections are just not remembered.
   }
 }

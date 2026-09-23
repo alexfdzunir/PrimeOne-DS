@@ -16,7 +16,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneQuestion] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Multiple', 'Text', 'Corrected', 'Error', 'Teacher'],
+    storyOrder: ['Default', 'Multiple', 'Text', 'Success', 'Error', 'Unanswered', 'Corrected', 'Teacher', 'Mobile'],
   },
   args: {
     statement: '¿Cuál es la dimensión del espacio de matrices 2x2?',
@@ -46,7 +46,7 @@ const meta: Meta = {
     remove: { action: 'remove', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, options: OPTIONS, answer: null },
+    props: { ...args, options: OPTIONS, answer: args['type'] !== 'single' ? null : args['state'] === 'error' ? 'a' : args['state'] === 'success' || args['state'] === 'corrected' ? 'b' : null },
     template: `<prime-one-question [options]="options" [(answer)]="answer"${bind(args, INPUTS)} (regenerate)="regenerate($event)" (edit)="edit($event)" (favorite)="favorite($event)" (remove)="remove($event)" />`,
   }),
 };
@@ -57,6 +57,9 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Multiple: Story = { args: { type: 'multiple' } };
 export const Text: Story = { args: { type: 'text' } };
-export const Corrected: Story = { args: { state: 'corrected' } };
+export const Success: Story = { args: { state: 'success' } };
 export const Error: Story = { args: { state: 'error' } };
+export const Unanswered: Story = { args: { state: 'unanswered' } };
+export const Corrected: Story = { args: { state: 'corrected' } };
 export const Teacher: Story = { args: { role: 'teacher' } };
+export const Mobile: Story = { args: { mobile: true } };

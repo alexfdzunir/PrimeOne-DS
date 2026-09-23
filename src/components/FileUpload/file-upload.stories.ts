@@ -56,7 +56,11 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: args,
-    template: `<p-fileupload [customUpload]="true"${bind(args, INPUTS)} (onSelect)="onSelect($event)" (onClear)="onClear($event)" (onRemove)="onRemove($event)" (uploadHandler)="uploadHandler($event)" />`,
+    template: `
+      <p-fileupload [customUpload]="true"${bind(args, INPUTS)} (onSelect)="onSelect($event)" (onClear)="onClear($event)" (onRemove)="onRemove($event)" (uploadHandler)="uploadHandler($event)">
+        <ng-template #empty>Arrastra y suelta aquí los archivos para subirlos.</ng-template>
+      </p-fileupload>
+    `,
   }),
 };
 

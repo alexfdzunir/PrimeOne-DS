@@ -2,12 +2,12 @@
 // source=https://github.com/primefaces/primeng/blob/master/packages/primeng/src/fieldset/fieldset.ts
 // component=Fieldset
 import figma from 'figma'
-import { is, part } from '../../figma/helpers'
+import { is, part, slotCode } from '../../figma/helpers'
 
 const instance = figma.selectedInstance
 const legend = part(instance, '_fieldset-legend')
 const toggleable = is(instance, 'Toggleable')
-const slot = instance.getBoolean('Show Slot') ? instance.getSlot('Slot') : undefined
+const slot = instance.getBoolean('Show Slot') ? slotCode(instance, 'Slot') : undefined
 const text = instance.getBoolean('Show Text') ? '\n  <p>Contenido</p>' : ''
 
 const example = figma.code`<p-fieldset legend="${legend ? legend.getString('Header') : 'Legend'}"${toggleable ? ' [toggleable]="true"' : ''}${toggleable && is(instance, 'Collapsed') ? ' [collapsed]="true"' : ''}>${text}${slot ? figma.code`\n  ${slot}` : ''}

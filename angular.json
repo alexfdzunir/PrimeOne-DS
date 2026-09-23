@@ -65,6 +65,13 @@
             ],
             "allowedCommonJsDependencies": [
               "quill-delta"
+            ],
+            "assets": [
+              {
+                "glob": "favicon.svg",
+                "input": "explorer/src",
+                "output": "/"
+              }
             ]
           },
           "configurations": {

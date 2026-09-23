@@ -9,7 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Badge] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Danger', 'Large', 'Dot'],
+    storyOrder: ['Default', 'Success', 'Info', 'Warn', 'Danger', 'Secondary', 'Contrast', 'Small', 'Large', 'XLarge', 'Dot'],
   },
   args: {
     value: '8',
@@ -30,6 +30,13 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Success: Story = { args: { severity: 'success' } };
+export const Info: Story = { args: { severity: 'info' } };
+export const Warn: Story = { args: { severity: 'warn' } };
 export const Danger: Story = { args: { severity: 'danger' } };
+export const Secondary: Story = { args: { severity: 'secondary' } };
+export const Contrast: Story = { args: { severity: 'contrast' } };
+export const Small: Story = { args: { size: 'small' } };
 export const Large: Story = { args: { size: 'large' } };
+export const XLarge: Story = { args: { size: 'xlarge' } };
 export const Dot: Story = { args: { value: undefined } };

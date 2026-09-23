@@ -11,22 +11,31 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, FloatLabel, InputText] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'In', 'On'],
+    storyOrder: ['Default', 'In', 'Over', 'Filled', 'Invalid', 'Disabled'],
   },
   args: {
+    variant: 'on',
     label: 'Nombre',
+    value: '',
+    invalid: false,
+    disabled: false,
   },
   argTypes: {
-    variant: { control: 'inline-radio', options: [undefined, 'in', 'on', 'over'], description: 'Defines the positioning of the label relative to the input.' },
+    variant: { control: 'inline-radio', options: ['in', 'on', 'over'], description: 'Defines the positioning of the label relative to the input.' },
     label: { control: 'text' },
+    value: { control: 'text' },
+    invalid: { control: 'boolean' },
+    disabled: { control: 'boolean' },
   },
   render: (args) => ({
-    props: { ...args, value: '' },
+    props: args,
     template: `
-      <p-floatlabel${bind(args, INPUTS)}>
-        <input pInputText id="po-float" [(ngModel)]="value" autocomplete="off" />
-        <label for="po-float">{{ label }}</label>
-      </p-floatlabel>
+      <div style="padding-top: 1rem">
+        <p-floatlabel${bind(args, INPUTS)}>
+          <input pInputText id="po-float" [(ngModel)]="value" [invalid]="invalid" [disabled]="disabled" autocomplete="off" />
+          <label for="po-float">{{ label }}</label>
+        </p-floatlabel>
+      </div>
     `,
   }),
 };
@@ -36,4 +45,7 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const In: Story = { args: { variant: 'in' } };
-export const On: Story = { args: { variant: 'on' } };
+export const Over: Story = { args: { variant: 'over' } };
+export const Filled: Story = { args: { value: 'Ana García' } };
+export const Invalid: Story = { args: { invalid: true } };
+export const Disabled: Story = { args: { disabled: true } };

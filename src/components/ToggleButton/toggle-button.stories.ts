@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, ToggleButton] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Small', 'Invalid'],
+    storyOrder: ['Default', 'Small', 'Large', 'IconRight', 'Invalid', 'Disabled'],
   },
   args: {
     onLabel: 'Activado',
@@ -44,4 +44,7 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Small: Story = { args: { size: 'small' } };
+export const Large: Story = { args: { size: 'large' } };
+export const IconRight: Story = { args: { iconPos: 'right' } };
 export const Invalid: Story = { args: { invalid: true } };
+export const Disabled: Story = { args: { disabled: true } };

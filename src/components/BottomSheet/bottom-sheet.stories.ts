@@ -17,7 +17,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [PrimeOneBottomSheet, Button] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Search', 'TwoButtons'],
+    storyOrder: ['Default', 'Tall', 'Full', 'Search', 'TwoButtons', 'NoHandle'],
     docs: { story: { inline: false, height: '520px' } },
   },
   args: {
@@ -58,5 +58,8 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Tall: Story = { args: { height: '420px' } };
+export const Full: Story = { args: { height: '100%' } };
 export const Search: Story = { args: { showSearch: true } };
 export const TwoButtons: Story = { args: { secondaryLabel: 'Cancelar' } };
+export const NoHandle: Story = { args: { showHandle: false } };

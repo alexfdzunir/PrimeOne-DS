@@ -218,7 +218,7 @@ export interface CardItem {
       display: block;
       container: po-card / inline-size;
       color: var(--p-text-color);
-      border-radius: var(--p-border-radius-lg);
+      border-radius: var(--p-card-border-radius);
       outline: none;
     }
     :host(.po-card--s) {
@@ -246,7 +246,6 @@ export interface CardItem {
 
     .po-card__surface {
       --p-card-background: var(--po-card-bg);
-      --p-card-border-radius: var(--p-border-radius-lg);
       --p-card-shadow: none;
       --p-card-body-padding: var(--po-card-padding);
       --p-card-body-gap: 0;
@@ -261,7 +260,7 @@ export interface CardItem {
     .po-card__cover {
       flex: 0 0 180px;
       overflow: hidden;
-      border-radius: var(--p-border-radius-lg);
+      border-radius: var(--p-content-border-radius);
       background: var(--p-content-hover-background);
     }
     :host([data-type='horizontal']) .po-card__cover,
@@ -276,6 +275,7 @@ export interface CardItem {
     :host(:not([data-type='default'])) .po-card__header { gap: 8px; align-items: center; }
     .po-card__identity { display: flex; flex: 1 1 auto; align-items: flex-start; gap: 8px; min-width: 0; }
     .po-card__heading { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .po-card__avatar { flex: 0 0 auto; }
     .po-card__icon { flex: 0 0 auto; font-size: var(--po-card-icon); line-height: 1; color: var(--p-primary-color); }
     .po-card__title { margin: 0; font-size: 1.125rem; line-height: 1.375rem; font-weight: 600; overflow-wrap: anywhere; }
     .po-card__subtitle { margin: 0; font-size: 0.75rem; line-height: 1rem; color: var(--p-text-muted-color); }
@@ -320,8 +320,10 @@ export interface CardItem {
 
     .po-card__slot:empty { display: none; }
 
-    .po-card__items { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    /* Separators sit in the column gap; the list clips the one of the first item of each wrapped line */
+    .po-card__items { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0; padding: 0; list-style: none; overflow: hidden; }
     .po-card__item {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 4px;
@@ -330,12 +332,15 @@ export interface CardItem {
       font-weight: 600;
       color: var(--p-tag-secondary-color, var(--p-text-muted-color));
     }
-    .po-card__item i { font-size: 1rem; }
+    .po-card__item i { flex: 0 0 auto; font-size: 1rem; }
     .po-card__item + .po-card__item::before {
       content: '';
+      position: absolute;
+      top: 50%;
+      left: -6.5px;
       width: 1px;
       height: 11px;
-      margin-right: 4px;
+      transform: translateY(-50%);
       background: var(--p-content-border-color);
     }
 

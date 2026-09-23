@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Checkbox] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Filled', 'Invalid', 'Small', 'Disabled'],
+    storyOrder: ['Default', 'Filled', 'Invalid', 'Small', 'Large', 'Disabled'],
   },
   args: {
     onChange: fn(),
@@ -53,4 +53,5 @@ export const Default: Story = {};
 export const Filled: Story = { args: { variant: 'filled' } };
 export const Invalid: Story = { args: { invalid: true } };
 export const Small: Story = { args: { size: 'small' } };
+export const Large: Story = { args: { size: 'large' } };
 export const Disabled: Story = { args: { disabled: true } };

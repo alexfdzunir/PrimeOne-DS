@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, PrimeOneInputRgpd] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Marketing', 'Invalid'],
+    storyOrder: ['Default', 'OneCheck', 'TwoChecks', 'OnlyChecks', 'Invalid'],
   },
   argTypes: {
     showText: { control: 'boolean', table: { defaultValue: { summary: 'true' } } },
@@ -31,5 +31,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
-export const Marketing: Story = { args: { marketingCheck: true } };
-export const Invalid: Story = { args: { invalid: true } };
+export const OneCheck: Story = { args: { legalCheck: true } };
+export const TwoChecks: Story = { args: { legalCheck: true, marketingCheck: true } };
+export const OnlyChecks: Story = { args: { showText: false, legalCheck: true, marketingCheck: true } };
+export const Invalid: Story = { args: { legalCheck: true, invalid: true } };

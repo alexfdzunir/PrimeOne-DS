@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, MultiSelect] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Chips', 'Filled', 'Invalid'],
+    storyOrder: ['Default', 'Chips', 'Filled', 'Invalid', 'Small', 'Disabled'],
   },
   args: {
     placeholder: 'Selecciona ciudades',
@@ -92,3 +92,5 @@ export const Default: Story = {};
 export const Chips: Story = { args: { display: 'chip' } };
 export const Filled: Story = { args: { variant: 'filled' } };
 export const Invalid: Story = { args: { invalid: true } };
+export const Small: Story = { args: { size: 'small' } };
+export const Disabled: Story = { args: { disabled: true } };

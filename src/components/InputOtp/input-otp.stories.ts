@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, InputOtp] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Mask', 'Six'],
+    storyOrder: ['Default', 'Mask', 'Six', 'Small', 'Large'],
   },
   args: {
     length: 4,
@@ -44,3 +44,5 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Mask: Story = { args: { mask: true } };
 export const Six: Story = { args: { length: 6, integerOnly: true } };
+export const Small: Story = { args: { size: 'small' } };
+export const Large: Story = { args: { size: 'large' } };

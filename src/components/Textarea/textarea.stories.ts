@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Textarea] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'AutoResize', 'Filled', 'Invalid'],
+    storyOrder: ['Default', 'AutoResize', 'Filled', 'Invalid', 'Small', 'Large', 'Disabled'],
   },
   args: {
     placeholder: 'Escribe un comentario',
@@ -43,3 +43,6 @@ export const Default: Story = {};
 export const AutoResize: Story = { args: { autoResize: true } };
 export const Filled: Story = { args: { variant: 'filled' } };
 export const Invalid: Story = { args: { invalid: true } };
+export const Small: Story = { args: { pSize: 'small' } };
+export const Large: Story = { args: { pSize: 'large' } };
+export const Disabled: Story = { args: { disabled: true } };

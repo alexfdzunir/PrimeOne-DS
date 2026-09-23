@@ -1,3 +1,4 @@
+import figma from 'figma'
 import type { InstanceHandle, SelectorOptions } from 'figma'
 
 // Figma "Phosphor Icons PRO" weight variant -> @phosphor-icons/web base class
@@ -81,4 +82,16 @@ export function jsText(value: string): string {
 export function firstText(instance: InstanceHandle): string | undefined {
   const node = instance.findLayers((layer) => layer.type === 'TEXT')[0]
   return node && node.type === 'TEXT' ? node.textContent : undefined
+}
+
+/**
+ * Code for a SLOT property: the snippets of the DS components placed in it (each one has its own Code
+ * Connect), or a comment when it only holds free design, which Figma can only export as JSX.
+ */
+export function slotCode(instance: InstanceHandle, name: string, indent = '  ') {
+  const components = instance.getSlot(name)?.connectedInstances ?? []
+  if (!components.length) return '<!-- Contenido del slot -->'
+  return components
+    .map((component) => component.executeTemplate().example)
+    .reduce((code, example, i) => (i === 0 ? figma.code`${example}` : figma.code`${code}\n${indent}${example}`), figma.code``)
 }

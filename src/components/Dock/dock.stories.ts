@@ -9,7 +9,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Dock] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Left', 'Top'],
+    storyOrder: ['Default', 'Top', 'Left', 'Right'],
   },
   args: {
     position: 'bottom',
@@ -40,5 +40,6 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
-export const Left: Story = { args: { position: 'left' } };
 export const Top: Story = { args: { position: 'top' } };
+export const Left: Story = { args: { position: 'left' } };
+export const Right: Story = { args: { position: 'right' } };

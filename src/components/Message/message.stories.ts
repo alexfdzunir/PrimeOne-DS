@@ -10,7 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Message] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Success', 'Warn', 'Error', 'Outlined', 'Simple', 'Closable'],
+    storyOrder: ['Default', 'Success', 'Warn', 'Error', 'Secondary', 'Contrast', 'Outlined', 'Simple', 'Small', 'Large', 'NoIcon', 'Closable'],
   },
   args: {
     severity: 'info',
@@ -40,8 +40,13 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Success: Story = { args: { severity: 'success', icon: 'ph ph-check-circle' } };
-export const Warn: Story = { args: { severity: 'warn', icon: 'ph ph-warning' } };
-export const Error: Story = { args: { severity: 'error', icon: 'ph ph-x-circle' } };
+export const Warn: Story = { args: { severity: 'warn', icon: 'ph ph-warning', content: 'Tu sesión caducará en 5 minutos.' } };
+export const Error: Story = { args: { severity: 'error', icon: 'ph ph-x-circle', content: 'No se ha podido enviar la solicitud.' } };
+export const Secondary: Story = { args: { severity: 'secondary', icon: 'ph ph-info', content: 'Hay una nueva versión del temario.' } };
+export const Contrast: Story = { args: { severity: 'contrast', icon: 'ph ph-info', content: 'Hay una nueva versión del temario.' } };
 export const Outlined: Story = { args: { variant: 'outlined' } };
 export const Simple: Story = { args: { variant: 'simple' } };
+export const Small: Story = { args: { size: 'small' } };
+export const Large: Story = { args: { size: 'large' } };
+export const NoIcon: Story = { args: { icon: undefined } };
 export const Closable: Story = { args: { closable: true } };

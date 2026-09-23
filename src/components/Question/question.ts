@@ -110,13 +110,15 @@ const FEEDBACK: Record<Exclude<QuestionState, 'default'>, { severity: 'success' 
     }
   `,
   styles: `
-    :host { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border-radius: var(--p-content-border-radius); background: var(--p-content-hover-background); }
+    :host { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem; border-radius: var(--p-overlay-modal-border-radius); background: var(--p-content-hover-background); }
     :host(.po-question--mobile) { padding: 1rem; }
-    .po-question__head { display: flex; align-items: flex-start; gap: 1rem; }
-    .po-question__statement { flex: 1; margin: 0; font-size: 1rem; font-weight: 500; color: var(--p-text-color); }
-    .po-question__actions { display: flex; }
+    /* Narrow cards: the teacher actions wrap under the statement, aligned to the end */
+    .po-question__head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 0.5rem 1rem; }
+    .po-question__statement { flex: 1 1 14rem; min-width: 0; margin: 0; font-size: 1rem; font-weight: 500; color: var(--p-text-color); }
+    .po-question__actions { display: flex; flex: 0 0 auto; margin-inline-start: auto; }
     .po-question__options { display: flex; flex-direction: column; gap: 0.75rem; }
     .po-question__option { display: flex; align-items: center; gap: 0.5rem; }
+    .po-question__option p-radiobutton, .po-question__option p-checkbox, .po-question__mark { flex: 0 0 auto; }
     .po-question__option[data-mark='correct'] .po-question__mark { color: var(--p-green-500); }
     .po-question__option[data-mark='wrong'] .po-question__mark { color: var(--p-red-500); }
     .po-question__feedback { display: flex; flex-direction: column; gap: 0.25rem; }

@@ -2,11 +2,11 @@
 // source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/BottomSheet/bottom-sheet.ts
 // component=PrimeOneBottomSheet
 import figma from 'figma'
-import { firstText } from '../../figma/helpers'
+import { firstText, slotCode } from '../../figma/helpers'
 
 const instance = figma.selectedInstance
 const title = instance.getBoolean('Show Title') ? firstText(instance) ?? 'Bottom Sheet title' : ''
-const slot = instance.getSlot('Slot')
+const slot = slotCode(instance, 'Slot')
 const attrs = [
   title ? ` heading="${title}"` : '',
   instance.getBoolean('Show Handle') ? '' : ' [showHandle]="false"',

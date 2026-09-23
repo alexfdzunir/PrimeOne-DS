@@ -40,6 +40,7 @@ import { Avatar } from 'primeng/avatar';
   styles: `
     :host { display: flex; align-items: flex-end; gap: 0.5rem; max-width: 100%; }
     :host(.po-chat--right) { justify-content: flex-end; }
+    .po-chat__avatar { flex: 0 0 auto; }
     .po-chat__avatar--hidden { visibility: hidden; }
     .po-chat__body { display: flex; flex-direction: column; gap: 0.25rem; max-width: min(36rem, 80%); }
     :host(.po-chat--right) .po-chat__body { align-items: flex-end; }

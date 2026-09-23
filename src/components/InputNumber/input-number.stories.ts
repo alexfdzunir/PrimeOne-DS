@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, InputNumber] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Currency', 'Buttons', 'Suffix', 'Invalid'],
+    storyOrder: ['Default', 'Currency', 'Buttons', 'Stacked', 'Vertical', 'Suffix', 'Invalid'],
   },
   args: {
     mode: 'decimal',
@@ -72,5 +72,7 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Currency: Story = { args: { mode: 'currency' } };
 export const Buttons: Story = { args: { showButtons: true, buttonLayout: 'horizontal' } };
+export const Stacked: Story = { args: { showButtons: true, buttonLayout: 'stacked' } };
+export const Vertical: Story = { args: { showButtons: true, buttonLayout: 'vertical' } };
 export const Suffix: Story = { args: { suffix: ' %', min: 0, max: 100 } };
 export const Invalid: Story = { args: { invalid: true } };

@@ -7,6 +7,8 @@
   --po-bar-height: 56px;
   --po-radius: 12px;
   --po-radius-sm: 8px;
+  /* Code: JetBrains Mono (Google Fonts, loaded in index.html) with system fallbacks. */
+  --po-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   /* Side surfaces slightly separated from the content background. */
   --po-surface-2: var(--p-surface-50);
   --po-surface-3: var(--p-surface-100);
@@ -42,6 +44,17 @@ body {
 
 a {
   color: var(--p-primary-color);
+}
+
+/* Preview iframe: the document grows with its content, so the explorer can size the iframe */
+html.po-frame-doc,
+html.po-frame-doc body {
+  height: auto;
+  min-height: 0;
+}
+
+html.po-frame-doc {
+  background: var(--p-content-background);
 }
 
 /* Shell: navbar on top of catalogue | stage | controls. The side columns collapse to 0. */
@@ -108,8 +121,68 @@ a {
   height: 100%;
 }
 
-@media (prefers-reduced-motion: reduce) {
+.po-shell__backdrop {
+  display: none;
+}
+
+/* Narrow windows: single column; catalogue and controls slide over the stage */
+@media (max-width: 1023.98px) {
   .po-shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'navbar'
+      'stage';
+    transition: none;
+  }
+
+  .po-shell__side {
+    position: fixed;
+    top: var(--po-navbar-height);
+    bottom: 0;
+    z-index: 30;
+    grid-area: auto;
+    width: min(var(--po-sidebar-width), 88vw);
+    box-shadow: 0 12px 32px -8px rgb(0 0 0 / 0.28);
+    transition: transform 220ms ease, visibility 220ms;
+  }
+
+  .po-shell__side--catalog {
+    left: 0;
+  }
+
+  .po-shell__side--panel {
+    right: 0;
+    width: min(var(--po-panel-width), 100vw);
+  }
+
+  .po-shell__side > po-sidebar,
+  .po-shell__side > po-controls-panel {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .po-shell--catalog-closed .po-shell__side--catalog {
+    transform: translateX(-100%);
+    visibility: hidden;
+  }
+
+  .po-shell--panel-closed .po-shell__side--panel {
+    transform: translateX(100%);
+    visibility: hidden;
+  }
+
+  .po-shell__backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--po-navbar-height) 0 0 0;
+    z-index: 25;
+    background: rgb(0 0 0 / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .po-shell,
+  .po-shell__side {
     transition: none;
   }
 }

@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, CascadeSelect] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Filled', 'Invalid'],
+    storyOrder: ['Default', 'Filled', 'Invalid', 'Small', 'Disabled'],
   },
   args: {
     placeholder: 'Selecciona una ciudad',
@@ -67,3 +67,5 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const Filled: Story = { args: { variant: 'filled' } };
 export const Invalid: Story = { args: { invalid: true } };
+export const Small: Story = { args: { size: 'small' } };
+export const Disabled: Story = { args: { disabled: true } };

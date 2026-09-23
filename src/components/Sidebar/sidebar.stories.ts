@@ -2,9 +2,10 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { fn } from 'storybook/test';
 import { PrimeOneSidebar } from './sidebar';
 import type { SidebarSection, SidebarUser } from './sidebar';
+import { UNIR_LOGO } from '../../stories/data';
 import { bind } from '../../stories/helpers';
 
-const INPUTS = ['logoAlt', 'collapsed', 'mobile', 'showLogout', 'logoutLabel'];
+const INPUTS = ['collapsed', 'mobile', 'showLogout', 'logoutLabel'];
 const SECTIONS: SidebarSection[] = [
   {
     primary: true,
@@ -33,7 +34,6 @@ const meta: Meta = {
     logout: fn(),
   },
   argTypes: {
-    logoAlt: { control: 'text', table: { defaultValue: { summary: 'Logotipo' } } },
     collapsed: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
     mobile: { control: 'boolean', table: { defaultValue: { summary: 'false' } } },
     showLogout: { control: 'boolean', table: { defaultValue: { summary: 'true' } } },
@@ -43,10 +43,10 @@ const meta: Meta = {
     logout: { action: 'logout', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, sections: SECTIONS, user: USER },
+    props: { ...args, sections: SECTIONS, user: USER, logoSrc: UNIR_LOGO },
     template: `
       <div style="height: 560px; display: flex">
-        <prime-one-sidebar [sections]="sections" [user]="user"${bind(args, INPUTS)} (itemClick)="itemClick($event)" (profileClick)="profileClick($event)" (logout)="logout($event)" />
+        <prime-one-sidebar [logo]="logoSrc" logoAlt="UNIR" [sections]="sections" [user]="user"${bind(args, INPUTS)} (itemClick)="itemClick($event)" (profileClick)="profileClick($event)" (logout)="logout($event)" />
       </div>
     `,
   }),

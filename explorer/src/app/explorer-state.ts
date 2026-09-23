@@ -8,6 +8,10 @@ const PRESETS = { estudiantes: PrimeOneEstudiantes, prodi: PrimeOneProdi, founda
 const MAX_EVENTS = 50;
 const CATALOG_KEY = 'po-explorer.catalog';
 const PANEL_KEY = 'po-explorer.panel';
+/** Same breakpoint as the drawer layout in styles.css; below it the preview switches to the tablet device. */
+const COMPACT_QUERY = '(max-width: 1023.98px)';
+/** Below it the preview switches to the mobile device (same breakpoint as the navbar theme dropdown). */
+const MOBILE_QUERY = '(max-width: 767.98px)';
 
 function readFlag(key: string, fallback: boolean): boolean {
   try {
@@ -43,6 +47,8 @@ export class ExplorerState {
   /** Side columns; remembered per browser. */
   readonly catalogOpen = signal(readFlag(CATALOG_KEY, true));
   readonly panelOpen = signal(readFlag(PANEL_KEY, true));
+  /** Narrow window: the side columns become drawers over the stage, closed by default. */
+  readonly compact = signal(false);
 
   readonly selected = computed(() => this.entries.find((e) => e.id === this.selectedId()) ?? this.entries[0]);
 
@@ -75,8 +81,14 @@ export class ExplorerState {
       usePreset(PRESETS[this.theme()]);
       document.documentElement.classList.toggle('po-dark', this.scheme() === 'dark');
     });
-    effect(() => writeFlag(CATALOG_KEY, this.catalogOpen()));
-    effect(() => writeFlag(PANEL_KEY, this.panelOpen()));
+    this.watchWidth();
+    // Only the wide layout is remembered: drawers always start closed
+    effect(() => {
+      if (!this.compact()) writeFlag(CATALOG_KEY, this.catalogOpen());
+    });
+    effect(() => {
+      if (!this.compact()) writeFlag(PANEL_KEY, this.panelOpen());
+    });
     effect(() => {
       const url = new URL(location.href);
       url.searchParams.set('c', this.selectedId());
@@ -89,6 +101,7 @@ export class ExplorerState {
   select(id: string): void {
     const entry = this.entries.find((e) => e.id === id);
     if (!entry) return;
+    if (this.compact()) this.catalogOpen.set(false);
     this.selectedId.set(entry.id);
     this.applyPreset('Default');
     this.events.set([]);
@@ -117,6 +130,33 @@ export class ExplorerState {
 
   clearEvents(): void {
     this.events.set([]);
+  }
+
+  closeDrawers(): void {
+    this.catalogOpen.set(false);
+    this.panelOpen.set(false);
+  }
+
+  /** Layout and preview device follow the window; the device can still be changed until the next breakpoint. */
+  private watchWidth(): void {
+    const compact = matchMedia(COMPACT_QUERY);
+    const mobile = matchMedia(MOBILE_QUERY);
+    const applyLayout = () => {
+      this.compact.set(compact.matches);
+      if (compact.matches) this.closeDrawers();
+      else {
+        this.catalogOpen.set(readFlag(CATALOG_KEY, true));
+        this.panelOpen.set(readFlag(PANEL_KEY, true));
+      }
+    };
+    const applyViewport = () => this.viewport.set(mobile.matches ? 'mobile' : compact.matches ? 'tablet' : 'auto');
+    applyLayout();
+    applyViewport();
+    compact.addEventListener('change', () => {
+      applyLayout();
+      applyViewport();
+    });
+    mobile.addEventListener('change', applyViewport);
   }
 
   private handlersFor(entry: ComponentEntry): Record<string, (payload: unknown) => void> {

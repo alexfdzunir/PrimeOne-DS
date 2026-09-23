@@ -12,7 +12,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Listbox] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Multiple', 'Filter', 'Striped'],
+    storyOrder: ['Default', 'Multiple', 'Filter', 'Striped', 'Invalid', 'Disabled'],
   },
   args: {
     onChange: fn(),
@@ -75,3 +75,5 @@ export const Default: Story = {};
 export const Multiple: Story = { args: { multiple: true, checkbox: true } };
 export const Filter: Story = { args: { filter: true } };
 export const Striped: Story = { args: { striped: true } };
+export const Invalid: Story = { args: { invalid: true } };
+export const Disabled: Story = { args: { disabled: true } };

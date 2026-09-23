@@ -31,8 +31,9 @@ import { Button } from 'primeng/button';
     }
   `,
   styles: `
-    :host { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; border-radius: var(--p-content-border-radius); }
+    :host { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; border-radius: var(--p-form-field-border-radius); }
     :host(.po-profile--contrast) { background: var(--p-content-hover-background); }
+    p-avatar, p-button { flex: 0 0 auto; }
     .po-profile__text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
     .po-profile__name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; color: var(--p-text-color); }
     .po-profile__link { padding: 0; border: 0; background: none; color: var(--p-primary-color); font: inherit; font-size: 0.875rem; text-align: start; cursor: pointer; }

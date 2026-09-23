@@ -2,12 +2,12 @@
 // source=https://github.com/primefaces/primeng/blob/master/packages/primeng/src/panel/panel.ts
 // component=Panel
 import figma from 'figma'
-import { is, part, swapIcon } from '../../figma/helpers'
+import { is, part, slotCode, swapIcon } from '../../figma/helpers'
 
 const instance = figma.selectedInstance
 const toggleable = is(instance, 'Toggleable')
 const collapsed = toggleable && is(instance, 'Toggle Status', 'Collapsed')
-const slot = instance.getBoolean('Show Slot') ? instance.getSlot('Slot') : undefined
+const slot = instance.getBoolean('Show Slot') ? slotCode(instance, 'Slot') : undefined
 const button = part(instance, 'button')
 const icons = instance.getBoolean('Show Custom Icon') && is(instance, 'Custom Icon')
   ? `\n  <ng-template #icons>\n    <p-button icon="${(button && swapIcon(button, 'Icon')) ?? 'ph ph-gear'}" severity="secondary" rounded text />\n  </ng-template>`

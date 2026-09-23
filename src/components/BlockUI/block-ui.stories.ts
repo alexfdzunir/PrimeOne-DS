@@ -10,6 +10,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [BlockUI, Panel] })],
   parameters: {
     controls: { expanded: true },
+    storyOrder: ['Default', 'Unblocked'],
   },
   args: {
     blocked: true,
@@ -34,3 +35,4 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Unblocked: Story = { args: { blocked: false } };

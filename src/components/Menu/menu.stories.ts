@@ -12,20 +12,22 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [Menu, Button] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'Popup'],
+    storyOrder: ['Default', 'Popup', 'Dividers'],
     docs: { story: { inline: false, height: '360px' } },
   },
   args: {
+    dividers: false,
     onShow: fn(),
     onHide: fn(),
   },
   argTypes: {
     popup: { control: 'boolean', description: 'Defines if menu would displayed as a popup.' },
+    dividers: { control: 'boolean', description: 'Separadores entre grupos (Figma: Dividers).' },
     onShow: { action: 'onShow', table: { category: 'Eventos' } },
     onHide: { action: 'onHide', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, items: FLAT_MENU_ITEMS },
+    props: { ...args, items: args['dividers'] ? FLAT_MENU_ITEMS.flatMap((group, i) => (i ? [{ separator: true }, group] : [group])) : FLAT_MENU_ITEMS },
     template: `
       @if (popup) {
         <p-button label="Abrir menú" icon="ph ph-list" (onClick)="menu.toggle($event)" />
@@ -40,3 +42,4 @@ type Story = StoryObj;
 
 export const Default: Story = {};
 export const Popup: Story = { args: { popup: true } };
+export const Dividers: Story = { args: { dividers: true } };

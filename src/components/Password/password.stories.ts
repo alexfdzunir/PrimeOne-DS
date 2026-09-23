@@ -11,7 +11,7 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [FormsModule, Password] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'NoFeedback', 'Invalid'],
+    storyOrder: ['Default', 'NoFeedback', 'Invalid', 'Small', 'NoToggleMask'],
   },
   args: {
     placeholder: 'Contraseña',
@@ -58,3 +58,5 @@ type Story = StoryObj;
 export const Default: Story = {};
 export const NoFeedback: Story = { args: { feedback: false } };
 export const Invalid: Story = { args: { invalid: true } };
+export const Small: Story = { args: { size: 'small' } };
+export const NoToggleMask: Story = { args: { toggleMask: false } };

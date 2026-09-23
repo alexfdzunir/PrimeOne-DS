@@ -86,9 +86,29 @@ import { Menu } from 'primeng/menu';
     :host(.po-topbar--contrast) .po-topbar__back:active { background: var(--p-primary-950); border-color: var(--p-primary-950); }
     :host(.po-topbar--mobile) { border-radius: 0; }
     .po-topbar__text { flex: 1; min-width: 0; }
-    .po-topbar__title { margin: 0; font-size: 1.25rem; font-weight: 500; line-height: 1.75rem; }
+    .po-topbar__action { flex: 0 0 auto; }
+    .po-topbar__title { margin: 0; overflow: hidden; font-size: 1.25rem; font-weight: 500; line-height: 1.75rem; text-overflow: ellipsis; white-space: nowrap; }
     :host(.po-topbar--mobile) .po-topbar__title { font-size: 1rem; font-weight: 600; }
     .po-topbar__subtitle { display: flex; align-items: center; gap: 0.25rem; font-size: 0.75rem; }
+    .po-topbar__subtitle span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .po-topbar__subtitle p-button { flex: 0 0 auto; }
+    /* Contrast: the section and action buttons invert so they stay visible on the primary background */
+    :host(.po-topbar--contrast) .po-topbar__subtitle p-button {
+      --p-button-text-primary-color: var(--p-primary-contrast-color);
+      --p-button-text-primary-hover-background: color-mix(in srgb, var(--p-primary-contrast-color) 16%, transparent);
+      --p-button-text-primary-active-background: color-mix(in srgb, var(--p-primary-contrast-color) 24%, transparent);
+    }
+    :host(.po-topbar--contrast) .po-topbar__action {
+      --p-button-primary-background: var(--p-primary-contrast-color);
+      --p-button-primary-hover-background: color-mix(in srgb, var(--p-primary-contrast-color) 88%, var(--p-primary-color));
+      --p-button-primary-active-background: color-mix(in srgb, var(--p-primary-contrast-color) 76%, var(--p-primary-color));
+      --p-button-primary-border-color: var(--p-primary-contrast-color);
+      --p-button-primary-hover-border-color: var(--p-primary-contrast-color);
+      --p-button-primary-active-border-color: var(--p-primary-contrast-color);
+      --p-button-primary-color: var(--p-primary-color);
+      --p-button-primary-hover-color: var(--p-primary-color);
+      --p-button-primary-active-color: var(--p-primary-color);
+    }
   `,
 })
 export class PrimeOneTopbar {

@@ -9,7 +9,10 @@ const meta: Meta = {
   decorators: [moduleMetadata({ imports: [MeterGroup] })],
   parameters: {
     controls: { expanded: true },
-    storyOrder: ['Default', 'LabelStart', 'Vertical'],
+    storyOrder: ['Default', 'Basic', 'LabelStart', 'LabelVertical', 'Vertical'],
+  },
+  args: {
+    single: false,
   },
   argTypes: {
     min: { control: 'number', description: 'Mininum boundary value.' },
@@ -17,9 +20,10 @@ const meta: Meta = {
     orientation: { control: 'inline-radio', options: [undefined, 'horizontal', 'vertical'], description: 'Specifies the layout of the component, valid values are \'horizontal\' and \'vertical\'.' },
     labelPosition: { control: 'inline-radio', options: [undefined, 'end', 'start'], description: 'Specifies the label position of the component, valid values are \'start\' and \'end\'.' },
     labelOrientation: { control: 'inline-radio', options: [undefined, 'horizontal', 'vertical'], description: 'Specifies the label orientation of the component, valid values are \'horizontal\' and \'vertical\'.' },
+    single: { control: 'boolean', description: 'Un solo valor (Figma: Type=Basic).' },
   },
   render: (args) => ({
-    props: { ...args, meters: [
+    props: { ...args, meters: args['single'] ? [{ label: 'Progreso', value: 60, color: 'var(--p-primary-color)', icon: 'ph ph-chart-bar' }] : [
         { label: 'Aprobadas', value: 45, color: 'var(--p-green-500)', icon: 'ph ph-check' },
         { label: 'En curso', value: 25, color: 'var(--p-primary-color)', icon: 'ph ph-spinner' },
         { label: 'Pendientes', value: 15, color: 'var(--p-orange-500)', icon: 'ph ph-clock' },
@@ -32,5 +36,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
+export const Basic: Story = { args: { single: true } };
 export const LabelStart: Story = { args: { labelPosition: 'start' } };
+export const LabelVertical: Story = { args: { labelOrientation: 'vertical' } };
 export const Vertical: Story = { args: { orientation: 'vertical', labelOrientation: 'vertical' } };

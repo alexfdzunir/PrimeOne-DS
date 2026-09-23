@@ -68,6 +68,7 @@ export interface NavbarAction {
     :host(.po-navbar--mobile) { gap: 0.5rem; padding-inline: 1rem; }
     .po-navbar__icon {
       display: grid;
+      flex: 0 0 auto;
       place-items: center;
       width: 2.5rem;
       height: 2.5rem;
@@ -80,9 +81,11 @@ export interface NavbarAction {
     }
     .po-navbar__icon:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
     .po-navbar__icon:focus-visible { outline: 1px solid currentColor; outline-offset: 2px; }
-    .po-navbar__logo { height: 2rem; }
+    p-overlay-badge { flex: 0 0 auto; }
+    /* The logo scales down (never distorts) when the bar runs out of room */
+    .po-navbar__logo { flex: 0 1 auto; min-width: 5rem; height: 2rem; object-fit: contain; object-position: left center; }
     .po-navbar__divider { align-self: stretch; width: 1px; background: currentColor; opacity: 0.4; }
-    .po-navbar__title { margin: 0; font-size: 1rem; font-weight: 500; }
+    .po-navbar__title { min-width: 0; margin: 0; overflow: hidden; font-size: 1rem; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
     .po-navbar__spacer { flex: 1; }
   `,
 })
