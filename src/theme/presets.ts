@@ -78,6 +78,16 @@ const BUTTON_CSS = `
 .p-button-lg.p-button-icon-only { height: var(--p-button-lg-icon-only-width); }
 `;
 
+/** Terminal as a code console: code font, prompt in the primary colour, output muted and multi-line. */
+const TERMINAL_CSS = `
+.p-terminal { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; line-height: 1.5; }
+.p-terminal-welcome-message { color: var(--p-primary-color); font-weight: 600; }
+.p-terminal-prompt-label { color: var(--p-primary-color); font-weight: 600; }
+.p-terminal-command-value { color: var(--p-text-color); font-weight: 500; }
+.p-terminal-command-response { color: var(--p-text-muted-color); white-space: pre-wrap; }
+.p-terminal-prompt-value { font: inherit; color: var(--p-text-color); }
+`;
+
 const RADIUS_ESTUDIANTES: ThemeRadius = {
   content: '{border.radius.md}',
   formField: '{border.radius.sm}',
@@ -131,6 +141,7 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
       card: { root: { borderRadius: radius.card } },
       // Aura lets the horizontal marker shrink next to the 100% wide connector, so it turns into an oval
       timeline: { css: '.p-timeline-horizontal .p-timeline-event-marker { flex-shrink: 0; }' },
+      terminal: { css: TERMINAL_CSS },
       ...themeComponents,
     },
     semantic: {

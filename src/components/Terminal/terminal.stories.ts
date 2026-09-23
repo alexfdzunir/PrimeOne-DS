@@ -22,8 +22,8 @@ const meta: Meta = {
   render: (args) => ({
     props: args,
     template: `
-      <p-terminal${bind(args, INPUTS)} />
-      <po-terminal-responder />
+      <p-terminal #terminal${bind(args, INPUTS)} />
+      <po-terminal-responder [terminal]="terminal" />
     `,
   }),
 };
