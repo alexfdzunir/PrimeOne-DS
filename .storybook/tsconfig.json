@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "include": ["../src/**/*.stories.ts", "../src/**/*.ts", "./preview.ts"],
+  "exclude": ["../src/**/*.figma.ts", "../src/figma/**"]
+}

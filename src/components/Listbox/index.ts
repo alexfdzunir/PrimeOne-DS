@@ -1,2 +1,1 @@
-// Listbox component - PrimeOne Design System
-export const ListboxUsage = `<p-listbox [options]="options" [(ngModel)]="selectedOption" optionLabel="name" />`;
+export { Listbox } from 'primeng/listbox';

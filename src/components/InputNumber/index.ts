@@ -1,2 +1,1 @@
-// InputNumber component - PrimeOne Design System
-export const InputNumberUsage = `<p-inputnumber [(ngModel)]="value" placeholder="0" />`;
+export { InputNumber } from 'primeng/inputnumber';

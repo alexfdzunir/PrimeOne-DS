@@ -1,0 +1,29 @@
+html {
+  color-scheme: light;
+}
+
+html.po-dark {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--p-content-background);
+  color: var(--p-text-color);
+  font-family: 'Proeduca Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.875rem;
+}
+
+.sb-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sb-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 28rem;
+}

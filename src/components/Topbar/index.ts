@@ -1,0 +1,1 @@
+export { PrimeOneTopbar } from './topbar';

@@ -1,0 +1,10 @@
+{
+  "codeConnect": {
+    "include": ["src/**/*.figma.ts"],
+    "label": "Angular",
+    "language": "html",
+    "documentUrlSubstitutions": {
+      "<PRIMEONE>": "https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne"
+    }
+  }
+}

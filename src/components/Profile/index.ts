@@ -1,0 +1,1 @@
+export { PrimeOneProfile } from './profile';

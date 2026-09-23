@@ -1,2 +1,2 @@
-// InputRGPD component - PrimeOne Design System
-export const InputRGPDUsage = `<prime-one-inputrgpd [(ngModel)]="accepted" />`;
+export { PrimeOneInputRgpd, RGPD_DEFAULT_TEXT } from './input-rgpd';
+export type { RgpdConsent } from './input-rgpd';

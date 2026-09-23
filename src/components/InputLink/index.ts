@@ -1,2 +1,1 @@
-// InputLink component - PrimeOne Design System
-export const InputLinkUsage = `<prime-one-inputlink [(ngModel)]="url" placeholder="https://" />`;
+export { PrimeOneInputLink } from './input-link';

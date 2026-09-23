@@ -1,2 +1,1 @@
-// Menu component - PrimeOne Design System
-export const MenuUsage = `<p-menu [model]="items" />`;
+export { Menu } from 'primeng/menu';

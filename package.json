@@ -4,10 +4,45 @@
   "description": "PrimeOne Design System - Component library based on PrimeNG",
   "main": "src/index.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json",
+    "figma:parse": "figma connect parse",
+    "figma:publish": "figma connect publish",
+    "storybook": "ng run prime-one-ds:storybook",
+    "build-storybook": "ng run prime-one-ds:build-storybook"
   },
   "peerDependencies": {
-    "primeng": ">=17.0.0",
-    "@angular/core": ">=17.0.0"
+    "@angular/common": "^21.0.0",
+    "@angular/core": "^21.0.0",
+    "@angular/forms": "^21.0.0",
+    "@phosphor-icons/web": "^2.1.0",
+    "@primeuix/themes": "^2.0.0",
+    "primeng": ">=21.0.0 <22.0.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.2.0",
+    "@angular/animations": "^21.2.0",
+    "@angular/cdk": "^21.2.0",
+    "@angular/cli": "^21.2.0",
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/compiler-cli": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-browser-dynamic": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@figma/code-connect": "^2.0.1",
+    "@phosphor-icons/web": "^2.1.0",
+    "@primeuix/themes": "^2.0.3",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/angular": "^10.6.0",
+    "ng-packagr": "^21.2.0",
+    "primeng": "21.1.10",
+    "quill": "^2.0.3",
+    "rxjs": "^7.8.1",
+    "storybook": "^10.6.0",
+    "tslib": "^2.3.0",
+    "typescript": "~5.9.0",
+    "zone.js": "^0.16.3"
   }
 }

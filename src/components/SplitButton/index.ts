@@ -1,2 +1,1 @@
-// SplitButton component - PrimeOne Design System
-export const SplitButtonUsage = `<p-splitbutton label="Save" [model]="items" />`;
+export { SplitButton } from 'primeng/splitbutton';

@@ -1,2 +1,1 @@
-// Password component - PrimeOne Design System
-export const PasswordUsage = `<p-password [(ngModel)]="password" [feedback]="true" placeholder="Password" />`;
+export { Password } from 'primeng/password';

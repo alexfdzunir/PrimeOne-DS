@@ -1,2 +1,1 @@
-// Chip component - PrimeOne Design System
-export const ChipUsage = `<p-chip label="Label" />`;
+export { Chip } from 'primeng/chip';

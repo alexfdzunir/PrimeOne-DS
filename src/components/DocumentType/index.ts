@@ -1,2 +1,2 @@
-// DocumentType component - PrimeOne Design System
-export const DocumentTypeUsage = `<prime-one-documenttype [(ngModel)]="value" />`;
+export { PrimeOneDocumentType, DOCUMENT_TYPES } from './document-type';
+export type { DocumentTypeOption } from './document-type';

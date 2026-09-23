@@ -1,2 +1,1 @@
-// Message component - PrimeOne Design System
-export const MessageUsage = `<p-message severity="info" text="Message content" />`;
+export { Message } from 'primeng/message';

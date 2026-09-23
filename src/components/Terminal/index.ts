@@ -1,2 +1,1 @@
-// Terminal component - PrimeOne Design System
-export const TerminalUsage = `<p-terminal welcomeMessage="Welcome" prompt="$" />`;
+export { Terminal, TerminalService } from 'primeng/terminal';

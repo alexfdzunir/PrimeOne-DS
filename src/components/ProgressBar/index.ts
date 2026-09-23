@@ -1,2 +1,1 @@
-// ProgressBar component - PrimeOne Design System
-export const ProgressBarUsage = `<p-progressbar [value]="50" />`;
+export { ProgressBar } from 'primeng/progressbar';

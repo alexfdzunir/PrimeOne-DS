@@ -1,2 +1,2 @@
-// InputPhone component - PrimeOne Design System
-export const InputPhoneUsage = `<prime-one-inputphone [(ngModel)]="phone" placeholder="+34 000 000 000" />`;
+export { PrimeOneInputPhone, PHONE_COUNTRIES } from './input-phone';
+export type { PhoneCountry } from './input-phone';

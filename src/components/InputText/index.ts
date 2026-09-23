@@ -1,2 +1,3 @@
-// InputText component - PrimeOne Design System
-export const InputTextUsage = `<input pInputText type="text" [(ngModel)]="value" placeholder="Label" />`;
+export { InputText } from 'primeng/inputtext';
+export { IconField } from 'primeng/iconfield';
+export { InputIcon } from 'primeng/inputicon';

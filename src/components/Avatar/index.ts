@@ -1,2 +1,2 @@
-// Avatar component - PrimeOne Design System
-export const AvatarUsage = `<p-avatar label="A" shape="circle" />`;
+export { Avatar } from 'primeng/avatar';
+export { AvatarGroup } from 'primeng/avatargroup';
