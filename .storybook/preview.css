@@ -14,6 +14,14 @@ body {
   font-size: 0.875rem;
 }
 
+/* Native controls do not inherit the font by default */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 .sb-row {
   display: flex;
   flex-wrap: wrap;
