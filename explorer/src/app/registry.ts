@@ -1,4 +1,5 @@
 import type { ArgType, Meta, StoryObj } from '../shims/storybook-angular';
+import { groupControls, repeatsAppearance } from './controls/control-groups';
 import { CATEGORIES, type CategoryId, type ComponentEntry, type ControlDef, type ControlKind, type EventDef, type PresetDef } from './model';
 import { STORY_MODULES } from './stories-index';
 
@@ -66,7 +67,7 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
   const providers = decorators.flatMap((d) => d.moduleMetadata?.providers ?? []);
   const docs = meta.parameters?.['docs'];
 
-  return {
+  const entry: ComponentEntry = {
     id: slug(meta.title),
     title,
     category: (CATEGORY_ORDER.includes(category as CategoryId) ? category : 'Misc') as CategoryId,
@@ -86,6 +87,15 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
       return { template: result.template ?? '', props: result.props ?? {}, imports, providers };
     },
   };
+  // Ejemplos only keeps what the Apariencia choices cannot show from Default or from another kept example. The
+  // simplest examples are weighed first, so the combination is the one left out (Right = NoActions + orientation).
+  const groups = groupControls(entry);
+  const kept = new Set<PresetDef>();
+  for (const preset of [...presets].sort((a, b) => Object.keys(a.args).length - Object.keys(b.args).length)) {
+    if (preset.id === 'Default' || ![...kept].some((from) => repeatsAppearance(entry, preset, from, groups))) kept.add(preset);
+  }
+  entry.presets = presets.filter((preset) => kept.has(preset));
+  return entry;
 }
 
 /** All components of the DS, in catalogue order. */

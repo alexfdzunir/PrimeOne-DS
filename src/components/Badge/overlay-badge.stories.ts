@@ -16,7 +16,7 @@ const meta: Meta = {
     severity: 'danger',
   },
   argTypes: {
-    severity: { control: 'select', options: ['contrast', 'danger', 'info', 'secondary', 'success', 'warn'], description: 'Severity type of the badge.' },
+    severity: { control: 'select', options: [undefined, 'contrast', 'danger', 'info', 'secondary', 'success', 'warn'], description: 'Severity type of the badge.' },
     badgeSize: { control: 'inline-radio', options: [undefined, 'large', 'small', 'xlarge'], description: 'Size of the badge, valid options are "large" and "xlarge".' },
     badgeDisabled: { control: 'boolean', description: 'When specified, disables the component.' },
     value: { control: 'text', description: 'Value to display inside the badge.' },

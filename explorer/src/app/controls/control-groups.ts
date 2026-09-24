@@ -1,4 +1,4 @@
-import type { ComponentEntry, ControlDef } from '../model';
+import type { ComponentEntry, ControlDef, PresetDef } from '../model';
 import { PRIMENG_DEFAULTS } from './primeng-defaults';
 
 /**
@@ -681,10 +681,13 @@ function enumField(entry: ComponentEntry, control: ControlDef, label: string): C
 
 /** Avatar: XS and XL of the DS live in `extraSize`, outside PrimeNG `size`; both go into one size choice. */
 function mergeExtraSize(field: ChoiceField, extra: ControlDef): void {
+  // XS builds on the smallest PrimeNG size and XL on the largest, as the ExtraSmall and ExtraLarge stories do
+  const smallest = { ...field.options[0]?.args };
+  const largest = { ...field.options[field.options.length - 1]?.args };
   for (const option of field.options) option.args[extra.name] = undefined;
   for (const value of extra.options ?? []) {
     if (value === undefined) continue;
-    const option = { label: String(value).toUpperCase(), args: { [extra.name]: value } };
+    const option = { label: String(value).toUpperCase(), args: { ...(value === 'xs' ? smallest : largest), [extra.name]: value } };
     if (value === 'xs') field.options.unshift(option);
     else field.options.push(option);
   }
@@ -740,4 +743,33 @@ export function groupControls(entry: ComponentEntry): ControlGroups {
     else groups.advanced.push(control);
   }
   return groups;
+}
+
+/** Same arg value: identical, same JSON, or unset against the effective value of the unset arg. */
+function sameArg(a: unknown, b: unknown, fallback?: unknown): boolean {
+  if (a === b) return true;
+  if (a === undefined || b === undefined) return fallback !== undefined && (a ?? b) === fallback;
+  return typeof a === 'object' && typeof b === 'object' && JSON.stringify(a) === JSON.stringify(b);
+}
+
+/**
+ * A preset that, texts and icons aside, only differs from `from` (Default or another example) in choices of the
+ * Apariencia section repeats the panel: Button `Danger outlined`, Galleria `Indicators top` (from `Indicators`).
+ * A preset that also changes anything else (state, elements, data) is a real example.
+ */
+export function repeatsAppearance(entry: ComponentEntry, preset: PresetDef, from: PresetDef, groups: ControlGroups = groupControls(entry)): boolean {
+  const content = new Set(groups.content.map((item) => item.control.name));
+  const target = { ...entry.baseArgs, ...preset.args };
+  const start = { ...entry.baseArgs, ...from.args };
+  const changed = [...new Set([...Object.keys(preset.args), ...Object.keys(from.args)])].filter(
+    (name) => !content.has(name) && !sameArg(target[name], start[name]),
+  );
+  return (
+    changed.length > 0 &&
+    changed.every((name) =>
+      groups.appearance.some((field) =>
+        field.options.some((option) => name in option.args && Object.entries(option.args).every(([arg, set]) => sameArg(set, target[arg], field.fallbacks[arg]))),
+      ),
+    )
+  );
 }
