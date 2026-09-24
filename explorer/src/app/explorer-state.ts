@@ -1,7 +1,7 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
 import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../src/theme/presets';
-import { CATEGORIES, type CategoryGroup, type ComponentEntry, type EventRecord, type RenderedStory, type SchemeId, type ThemeId, type ViewportId } from './model';
+import { CATEGORIES, type CategoryGroup, type CategoryId, type ComponentEntry, type EventRecord, type ExplorerView, type RenderedStory, type SchemeId, type ThemeId, type ViewportId } from './model';
 import { buildRegistry } from './registry';
 
 const PRESETS = { estudiantes: PrimeOneEstudiantes, prodi: PrimeOneProdi, foundations: PrimeOneFoundations };
@@ -36,6 +36,8 @@ export class ExplorerState {
   readonly entries: ComponentEntry[] = buildRegistry();
 
   readonly query = signal('');
+  /** Home by default; `?s=` opens a section and `?c=` a component. */
+  readonly view = signal<ExplorerView>({ kind: 'home' });
   readonly selectedId = signal(this.entries[0]?.id ?? '');
   readonly presetId = signal('Default');
   /** Current values of the controls; missing keys fall back to the story base args. */
@@ -89,22 +91,40 @@ export class ExplorerState {
     effect(() => {
       if (!this.compact()) writeFlag(PANEL_KEY, this.panelOpen());
     });
+    // A new page goes into the history (back and forward work); a new preset only replaces the entry
     effect(() => {
+      const view = this.view();
       const url = new URL(location.href);
-      url.searchParams.set('c', this.selectedId());
-      if (this.presetId() !== 'Default') url.searchParams.set('p', this.presetId());
-      else url.searchParams.delete('p');
-      history.replaceState(null, '', url);
+      for (const key of ['c', 'p', 's']) url.searchParams.delete(key);
+      if (view.kind === 'section') url.searchParams.set('s', view.id);
+      if (view.kind === 'component') {
+        url.searchParams.set('c', this.selectedId());
+        if (this.presetId() !== 'Default') url.searchParams.set('p', this.presetId());
+      }
+      if (pageKey(url) === pageKey(new URL(location.href))) history.replaceState(null, '', url);
+      else history.pushState(null, '', url);
     });
+    window.addEventListener('popstate', () => this.readUrl());
   }
 
   select(id: string): void {
     const entry = this.entries.find((e) => e.id === id);
     if (!entry) return;
-    if (this.compact()) this.catalogOpen.set(false);
+    this.closeCatalogIfCompact();
+    this.view.set({ kind: 'component' });
     this.selectedId.set(entry.id);
     this.applyPreset('Default');
     this.events.set([]);
+  }
+
+  goHome(): void {
+    this.closeCatalogIfCompact();
+    this.view.set({ kind: 'home' });
+  }
+
+  openSection(id: CategoryId): void {
+    this.closeCatalogIfCompact();
+    this.view.set({ kind: 'section', id });
   }
 
   applyPreset(presetId: string): void {
@@ -130,6 +150,10 @@ export class ExplorerState {
 
   clearEvents(): void {
     this.events.set([]);
+  }
+
+  private closeCatalogIfCompact(): void {
+    if (this.compact()) this.catalogOpen.set(false);
   }
 
   closeDrawers(): void {
@@ -171,9 +195,23 @@ export class ExplorerState {
   private readUrl(): void {
     const params = new URLSearchParams(location.search);
     const id = params.get('c');
-    if (id && this.entries.some((e) => e.id === id)) this.selectedId.set(id);
+    const section = CATEGORIES.find((c) => c.id === params.get('s'));
+    if (id && this.entries.some((e) => e.id === id)) {
+      if (id !== this.selectedId()) this.events.set([]);
+      this.selectedId.set(id);
+      this.view.set({ kind: 'component' });
+    } else if (section) {
+      this.view.set({ kind: 'section', id: section.id });
+    } else {
+      this.view.set({ kind: 'home' });
+    }
     this.applyPreset(params.get('p') ?? 'Default');
   }
+}
+
+/** The page a URL points to, ignoring the preset. */
+function pageKey(url: URL): string {
+  return `${url.searchParams.get('c') ?? ''}|${url.searchParams.get('s') ?? ''}`;
 }
 
 function normalize(text: string): string {

@@ -55,17 +55,40 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
     </div>
 
     <nav #list class="po-sidebar__list po-scroll" aria-label="Componentes">
+      @if (!state.query()) {
+        <button
+          type="button"
+          class="po-sidebar__item po-sidebar__item--page po-sidebar__home"
+          [class.po-sidebar__item--active]="state.view().kind === 'home'"
+          [attr.aria-current]="state.view().kind === 'home' ? 'page' : null"
+          (click)="state.goHome()"
+        >
+          <i class="ph ph-house" aria-hidden="true"></i>
+          Inicio
+        </button>
+      }
       @for (group of state.groups(); track group.id) {
         <section class="po-sidebar__group">
+          <!-- The caret folds the group; the title opens the section overview -->
           <h2 class="po-sidebar__group-heading">
             <button
               type="button"
-              class="po-sidebar__group-title"
+              class="po-sidebar__group-toggle"
               [attr.aria-expanded]="isOpen(group.id)"
               [attr.aria-controls]="'po-group-' + group.id"
+              [attr.aria-label]="(isOpen(group.id) ? 'Plegar ' : 'Desplegar ') + group.label"
               (click)="toggle(group.id)"
             >
               <i class="ph ph-caret-down po-sidebar__caret" aria-hidden="true"></i>
+            </button>
+            @let overview = isSectionActive(group.id);
+            <button
+              type="button"
+              class="po-sidebar__group-title"
+              [class.po-sidebar__group-title--active]="overview"
+              [attr.aria-current]="overview ? 'page' : null"
+              (click)="state.openSection(group.id)"
+            >
               <i [class]="group.icon" aria-hidden="true"></i>
               <span>{{ group.label }}</span>
               <span class="po-sidebar__group-count">{{ group.entries.length }}</span>
@@ -78,12 +101,13 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
           >
             <ul class="po-sidebar__items" [id]="'po-group-' + group.id">
               @for (entry of group.entries; track entry.id) {
+                @let active = isComponentActive(entry.id);
                 <li>
                   <button
                     type="button"
                     class="po-sidebar__item"
-                    [class.po-sidebar__item--active]="entry.id === state.selectedId()"
-                    [attr.aria-current]="entry.id === state.selectedId() ? 'page' : null"
+                    [class.po-sidebar__item--active]="active"
+                    [attr.aria-current]="active ? 'page' : null"
                     (click)="state.select(entry.id)"
                   >
                     {{ entry.title }}
@@ -205,15 +229,40 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
     }
 
     .po-sidebar__group-heading {
+      display: flex;
+      align-items: center;
+      gap: 2px;
       margin: 0 0 0.25rem;
       font: inherit;
     }
 
+    .po-sidebar__group-toggle {
+      display: grid;
+      flex: none;
+      place-items: center;
+      width: 1.5rem;
+      height: 1.75rem;
+      padding: 0;
+      border: 0;
+      border-radius: var(--po-radius-sm);
+      background: transparent;
+      color: var(--p-text-muted-color);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background 150ms, color 150ms;
+    }
+
+    .po-sidebar__group-toggle:hover {
+      background: var(--p-content-hover-background);
+      color: var(--p-text-color);
+    }
+
     .po-sidebar__group-title {
       display: flex;
+      flex: 1;
       align-items: center;
       gap: 0.5rem;
-      width: 100%;
+      min-width: 0;
       padding: 0.375rem 0.5rem;
       border: 0;
       border-radius: var(--po-radius-sm);
@@ -234,7 +283,14 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
       color: var(--p-text-color);
     }
 
+    .po-sidebar__group-title--active,
+    .po-sidebar__group-title--active:hover {
+      background: var(--p-highlight-background);
+      color: var(--p-highlight-color);
+    }
+
     .po-sidebar__group-title:focus-visible,
+    .po-sidebar__group-toggle:focus-visible,
     .po-sidebar__all:focus-visible {
       outline: 2px solid var(--p-focus-ring-color);
       outline-offset: -2px;
@@ -244,7 +300,7 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
       transition: transform 200ms ease;
     }
 
-    .po-sidebar__group-title[aria-expanded='false'] .po-sidebar__caret {
+    .po-sidebar__group-toggle[aria-expanded='false'] .po-sidebar__caret {
       transform: rotate(-90deg);
     }
 
@@ -304,6 +360,23 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
       text-align: start;
       cursor: pointer;
       transition: background 150ms, color 150ms;
+    }
+
+    .po-sidebar__item--page {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--p-text-muted-color);
+    }
+
+    .po-sidebar__item--page i {
+      font-size: 1rem;
+    }
+
+    .po-sidebar__home {
+      margin-top: 0.25rem;
+      color: var(--p-text-color);
+      font-weight: 500;
     }
 
     .po-sidebar__item::before {
@@ -386,10 +459,20 @@ export class SidebarComponent {
   private readonly list = viewChild.required<ElementRef<HTMLElement>>('list');
 
   constructor() {
-    // The category of the component opened from the URL is always unfolded
-    this.open(this.state.selected().category);
+    // The section (or the category of the component) opened from the URL is always unfolded
+    const view = this.state.view();
+    if (view.kind !== 'home') this.open(view.kind === 'section' ? view.id : this.state.selected().category);
     effect(() => writeCollapsed(this.collapsed()));
     afterNextRender(() => this.list().nativeElement.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'center' }));
+  }
+
+  protected isComponentActive(id: string): boolean {
+    return this.state.view().kind === 'component' && this.state.selectedId() === id;
+  }
+
+  protected isSectionActive(id: CategoryId): boolean {
+    const view = this.state.view();
+    return view.kind === 'section' && view.id === id;
   }
 
   protected isOpen(id: CategoryId): boolean {

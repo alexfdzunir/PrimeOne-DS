@@ -46,6 +46,15 @@ a {
   color: var(--p-primary-color);
 }
 
+/* Native controls do not inherit the font by default */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+
 /* Preview iframe: the document grows with its content, so the explorer can size the iframe */
 html.po-frame-doc,
 html.po-frame-doc body {
@@ -223,4 +232,101 @@ html.po-dark .po-scroll {
   flex-direction: column;
   gap: 1rem;
   max-width: 28rem;
+}
+
+/* Pages (home and sections): scrolling column with centred content */
+.po-page {
+  display: block;
+  height: 100%;
+  background: var(--po-surface-2);
+}
+
+.po-page__inner {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: 32px 32px 48px;
+}
+
+@media (max-width: 767.98px) {
+  .po-page__inner {
+    padding: 20px 16px 32px;
+  }
+}
+
+/* Coloured art of a section or component card: tint of the accent (`--po-accent`, set by the page on the
+   card or the tile), dot pattern and the icon */
+.po-tile {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 12%, color-mix(in srgb, var(--po-accent) 24%, transparent), transparent 60%),
+    linear-gradient(135deg, color-mix(in srgb, var(--po-accent) 16%, var(--p-content-background)), color-mix(in srgb, var(--po-accent) 5%, var(--p-content-background)));
+  color: var(--po-accent);
+}
+
+.po-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(color-mix(in srgb, var(--po-accent) 30%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+  mask-image: linear-gradient(135deg, transparent 30%, #000);
+}
+
+.po-tile > i {
+  position: relative;
+  line-height: 1;
+}
+
+html.po-dark .po-tile {
+  color: color-mix(in srgb, var(--po-accent) 70%, #fff);
+}
+
+/* Clickable card shared by the pages */
+.po-link-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--p-content-border-color);
+  border-radius: var(--po-radius);
+  background: var(--p-content-background);
+  color: var(--p-text-color);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.po-link-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--po-accent, var(--p-primary-color)) 45%, var(--p-content-border-color));
+  box-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.28);
+}
+
+.po-link-card:focus-visible {
+  outline: 2px solid var(--p-focus-ring-color);
+  outline-offset: 2px;
+}
+
+.po-link-card .po-tile > i {
+  transition: transform 220ms ease;
+}
+
+.po-link-card:hover .po-tile > i {
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .po-link-card,
+  .po-link-card .po-tile > i {
+    transition: none;
+  }
+
+  .po-link-card:hover {
+    transform: none;
+  }
 }

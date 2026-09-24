@@ -26,7 +26,7 @@ import { UnirLogoComponent } from './unir-logo.component';
         [attr.aria-pressed]="state.catalogOpen()"
         (onClick)="state.catalogOpen.set(!state.catalogOpen())"
       />
-      <a class="po-navbar__brand" href="./" aria-label="PrimeOne Design System, inicio">
+      <a class="po-navbar__brand" href="./" aria-label="PrimeOne Design System, inicio" (click)="goHome($event)">
         <po-unir-logo />
         <span class="po-navbar__divider" aria-hidden="true"></span>
         <span class="po-navbar__title"><strong>PrimeOne</strong> Design System</span>
@@ -77,18 +77,20 @@ import { UnirLogoComponent } from './unir-logo.component';
       >
         <i class="ph ph-github-logo"></i>
       </a>
-      <span class="po-navbar__divider" aria-hidden="true"></span>
-      <p-button
-        icon="ph ph-sliders-horizontal"
-        variant="text"
-        severity="secondary"
-        [rounded]="true"
-        [ariaLabel]="state.panelOpen() ? 'Ocultar panel de control' : 'Mostrar panel de control'"
-        [pTooltip]="state.panelOpen() ? 'Ocultar panel de control' : 'Mostrar panel de control'"
-        tooltipPosition="bottom"
-        [attr.aria-pressed]="state.panelOpen()"
-        (onClick)="state.panelOpen.set(!state.panelOpen())"
-      />
+      @if (state.view().kind === 'component') {
+        <span class="po-navbar__divider" aria-hidden="true"></span>
+        <p-button
+          icon="ph ph-sliders-horizontal"
+          variant="text"
+          severity="secondary"
+          [rounded]="true"
+          [ariaLabel]="state.panelOpen() ? 'Ocultar panel de control' : 'Mostrar panel de control'"
+          [pTooltip]="state.panelOpen() ? 'Ocultar panel de control' : 'Mostrar panel de control'"
+          tooltipPosition="bottom"
+          [attr.aria-pressed]="state.panelOpen()"
+          (onClick)="state.panelOpen.set(!state.panelOpen())"
+        />
+      }
     </div>
   `,
   styles: `
@@ -251,4 +253,11 @@ import { UnirLogoComponent } from './unir-logo.component';
 export class NavbarComponent {
   protected readonly state = inject(ExplorerState);
   protected readonly themes = THEMES;
+
+  /** In-app navigation; a modified click still opens the home in a new tab. */
+  protected goHome(event: MouseEvent): void {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+    event.preventDefault();
+    this.state.goHome();
+  }
 }

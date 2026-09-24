@@ -18,7 +18,9 @@ const CODE_PANEL_KEY = 'po-explorer.code';
   template: `
     <header class="po-canvas__bar">
       <div class="po-canvas__heading">
-        <span class="po-eyebrow">{{ categoryLabel() }}</span>
+        <button type="button" class="po-eyebrow po-canvas__section" (click)="state.openSection(state.selected().category)">
+          {{ categoryLabel() }}
+        </button>
         <div class="po-canvas__title">
           <h1>{{ state.selected().title }}</h1>
           @if (state.selected().figmaUrl) {
@@ -113,6 +115,20 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       flex-direction: column;
       min-width: 0;
       line-height: 1.2;
+    }
+
+    .po-canvas__section {
+      align-self: flex-start;
+      padding: 0;
+      border: 0;
+      background: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .po-canvas__section:hover {
+      color: var(--p-primary-color);
+      text-decoration: underline;
     }
 
     .po-canvas__title {
