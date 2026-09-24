@@ -78,6 +78,20 @@ const BUTTON_CSS = `
 .p-button-lg.p-button-icon-only { height: var(--p-button-lg-icon-only-width); }
 `;
 
+/**
+ * Horizontal alternate timeline: three rows (above, line, below) with equal halves, so every marker sits on the same
+ * line whatever each side holds. PrimeNG only lines them up when both sides are one line tall (`&nbsp;` in `opposite`).
+ */
+const TIMELINE_CSS = `
+.p-timeline-horizontal .p-timeline-event-marker { flex-shrink: 0; }
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event { display: grid; grid-template-rows: 1fr auto 1fr; }
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event-separator { grid-row: 2; }
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-opposite,
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-content { grid-row: 1; align-self: end; }
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-content,
+.p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite { grid-row: 3; align-self: start; }
+`;
+
 /** Terminal as a code console: code font, prompt in the primary colour, output muted and multi-line. */
 const TERMINAL_CSS = `
 .p-terminal { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; line-height: 1.5; }
@@ -140,7 +154,7 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
       button: { root: { ...BUTTON_SIZES, ...themeButton?.root }, css: BUTTON_CSS },
       card: { root: { borderRadius: radius.card } },
       // Aura lets the horizontal marker shrink next to the 100% wide connector, so it turns into an oval
-      timeline: { css: '.p-timeline-horizontal .p-timeline-event-marker { flex-shrink: 0; }' },
+      timeline: { css: TIMELINE_CSS },
       terminal: { css: TERMINAL_CSS },
       ...themeComponents,
     },
