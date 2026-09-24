@@ -1,4 +1,4 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, Injector, signal, untracked, viewChild } from '@angular/core';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
@@ -6,6 +6,8 @@ import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, type CategoryId } from '../model';
 
 const COLLAPSED_KEY = 'po-explorer.collapsed';
+/** Unfold transition of `.po-sidebar__collapse` (200ms) plus a frame. */
+const UNFOLD_MS = 220;
 
 /** Catalogue of the DS: search and the components grouped by category. Width and collapse are owned by the shell. */
 @Component({
@@ -131,11 +133,17 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
   `,
   styles: `
     :host {
+      /* Current page: a primary tint that reads in both schemes (highlight.background is primary.50, almost white) */
+      --po-sidebar-active: color-mix(in srgb, var(--p-primary-color) 12%, transparent);
       display: flex;
       flex-direction: column;
       height: 100%;
       background: var(--po-surface-2);
       border-right: 1px solid var(--p-content-border-color);
+    }
+
+    :host-context(html.po-dark) {
+      --po-sidebar-active: color-mix(in srgb, var(--p-primary-color) 20%, transparent);
     }
 
     .po-sidebar__search {
@@ -285,7 +293,7 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
 
     .po-sidebar__group-title--active,
     .po-sidebar__group-title--active:hover {
-      background: var(--p-highlight-background);
+      background: var(--po-sidebar-active);
       color: var(--p-highlight-color);
     }
 
@@ -403,7 +411,7 @@ const COLLAPSED_KEY = 'po-explorer.collapsed';
 
     .po-sidebar__item--active,
     .po-sidebar__item--active:hover {
-      background: var(--p-highlight-background);
+      background: var(--po-sidebar-active);
       color: var(--p-highlight-color);
       font-weight: 600;
     }
@@ -455,6 +463,7 @@ export class SidebarComponent {
   private readonly collapsed = signal<ReadonlySet<CategoryId>>(readCollapsed());
   protected readonly allCollapsed = computed(() => CATEGORIES.every((category) => this.collapsed().has(category.id)));
 
+  private readonly injector = inject(Injector);
   private readonly search = viewChild.required<ElementRef<HTMLInputElement>>('search');
   private readonly list = viewChild.required<ElementRef<HTMLElement>>('list');
 
@@ -464,6 +473,16 @@ export class SidebarComponent {
     if (view.kind !== 'home') this.open(view.kind === 'section' ? view.id : this.state.selected().category);
     effect(() => writeCollapsed(this.collapsed()));
     afterNextRender(() => this.list().nativeElement.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'center' }));
+    // Opening a component from anywhere (card, pager, back button) unfolds its group and brings it into view
+    effect(() => {
+      if (this.state.view().kind !== 'component') return;
+      const category = this.state.selected().category;
+      untracked(() => this.reveal(category));
+    });
+    // Arriving at the home folds every group; they can still be unfolded while there
+    effect(() => {
+      if (this.state.view().kind === 'home') untracked(() => this.collapsed.set(new Set(CATEGORIES.map((category) => category.id))));
+    });
   }
 
   protected isComponentActive(id: string): boolean {
@@ -490,6 +509,24 @@ export class SidebarComponent {
 
   protected toggleAll(): void {
     this.collapsed.set(this.allCollapsed() ? new Set() : new Set(CATEGORIES.map((category) => category.id)));
+  }
+
+  /** Unfolds the group and, once rendered and unfolded, scrolls the list just enough to show the current item. */
+  private reveal(id: CategoryId): void {
+    const folded = !this.isOpen(id);
+    this.open(id);
+    afterNextRender(() => setTimeout(() => this.scrollToCurrent(), folded ? UNFOLD_MS : 0), { injector: this.injector });
+  }
+
+  /** An item out of sight is centred in the list, so its section shows too. Only the list scrolls (never the page or the drawer). */
+  private scrollToCurrent(): void {
+    const list = this.list().nativeElement;
+    const item = list.querySelector<HTMLElement>('.po-sidebar__items [aria-current="page"]');
+    if (!item) return;
+    const bounds = list.getBoundingClientRect();
+    const rect = item.getBoundingClientRect();
+    if (rect.top >= bounds.top && rect.bottom <= bounds.bottom) return;
+    list.scrollTop += rect.top + rect.height / 2 - (bounds.top + bounds.height / 2);
   }
 
   private open(id: CategoryId): void {
