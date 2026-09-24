@@ -67,21 +67,19 @@ export interface CategoryDef {
   icon: string;
   /** One line for the home and the section page. */
   description: string;
-  /** Palette of the section tiles: a PrimeNG colour name (`--p-<accent>-500`). */
-  accent: string;
 }
 
 export const CATEGORIES: CategoryDef[] = [
-  { id: 'Button', label: 'Botones', icon: 'ph ph-cursor-click', accent: 'blue', description: 'Acciones principales y secundarias: botones, split buttons y speed dial.' },
-  { id: 'Form', label: 'Formulario', icon: 'ph ph-textbox', accent: 'indigo', description: 'Campos de entrada, selección y etiquetas para construir formularios.' },
-  { id: 'Data', label: 'Datos', icon: 'ph ph-table', accent: 'teal', description: 'Tablas, listas, árboles y paginación para mostrar y ordenar información.' },
-  { id: 'Panel', label: 'Paneles', icon: 'ph ph-layout', accent: 'violet', description: 'Contenedores y estructura: cards, pestañas, acordeones y separadores.' },
-  { id: 'Overlay', label: 'Superposición', icon: 'ph ph-stack', accent: 'fuchsia', description: 'Capas sobre el contenido: diálogos, drawers, popovers y confirmaciones.' },
-  { id: 'Menu', label: 'Menús', icon: 'ph ph-list', accent: 'sky', description: 'Navegación: breadcrumb, menubar, menú contextual, mega menú y dock.' },
-  { id: 'Messages', label: 'Mensajes', icon: 'ph ph-chat-circle-dots', accent: 'amber', description: 'Mensajes en línea y notificaciones toast por nivel de gravedad.' },
-  { id: 'Media', label: 'Media', icon: 'ph ph-image', accent: 'rose', description: 'Imágenes, galerías, carruseles y comparadores de imágenes.' },
-  { id: 'Misc', label: 'Varios', icon: 'ph ph-puzzle-piece', accent: 'emerald', description: 'Avatares, badges, chips, tags, indicadores de progreso y utilidades.' },
-  { id: 'Proeduca', label: 'Proeduca', icon: 'ph ph-graduation-cap', accent: 'primary', description: 'Patrones propios de Proeduca: chat IA, agenda, tareas, navegación móvil y campos.' },
+  { id: 'Button', label: 'Botones', icon: 'ph ph-cursor-click', description: 'Acciones principales y secundarias: botones, split buttons y speed dial.' },
+  { id: 'Form', label: 'Formulario', icon: 'ph ph-textbox', description: 'Campos de entrada, selección y etiquetas para construir formularios.' },
+  { id: 'Data', label: 'Datos', icon: 'ph ph-table', description: 'Tablas, listas, árboles y paginación para mostrar y ordenar información.' },
+  { id: 'Panel', label: 'Paneles', icon: 'ph ph-layout', description: 'Contenedores y estructura: cards, pestañas, acordeones y separadores.' },
+  { id: 'Overlay', label: 'Superposición', icon: 'ph ph-stack', description: 'Capas sobre el contenido: diálogos, drawers, popovers y confirmaciones.' },
+  { id: 'Menu', label: 'Menús', icon: 'ph ph-list', description: 'Navegación: breadcrumb, menubar, menú contextual, mega menú y dock.' },
+  { id: 'Messages', label: 'Mensajes', icon: 'ph ph-chat-circle-dots', description: 'Mensajes en línea y notificaciones toast por nivel de gravedad.' },
+  { id: 'Media', label: 'Media', icon: 'ph ph-image', description: 'Imágenes, galerías, carruseles y comparadores de imágenes.' },
+  { id: 'Misc', label: 'Varios', icon: 'ph ph-puzzle-piece', description: 'Avatares, badges, chips, tags, indicadores de progreso y utilidades.' },
+  { id: 'Proeduca', label: 'Proeduca', icon: 'ph ph-graduation-cap', description: 'Patrones propios de Proeduca: chat IA, agenda, tareas, navegación móvil y campos.' },
 ];
 
 /** What the stage shows: the home, the overview of a section or the selected component. */

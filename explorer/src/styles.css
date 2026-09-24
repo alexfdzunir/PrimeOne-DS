@@ -13,6 +13,8 @@
   --po-surface-2: var(--p-surface-50);
   --po-surface-3: var(--p-surface-100);
   --po-stage-dot: var(--p-surface-300);
+  /* Colour of the section and component tiles: the primary blue of the active theme */
+  --po-accent: var(--p-primary-500);
   color-scheme: light;
 }
 
@@ -253,8 +255,7 @@ html.po-dark .po-scroll {
   }
 }
 
-/* Coloured art of a section or component card: tint of the accent (`--po-accent`, set by the page on the
-   card or the tile), dot pattern and the icon */
+/* Art of a section or component card: tint of the accent (`--po-accent`), dot pattern and the icon */
 .po-tile {
   position: relative;
   display: grid;
@@ -303,7 +304,7 @@ html.po-dark .po-tile {
 
 .po-link-card:hover {
   transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--po-accent, var(--p-primary-color)) 45%, var(--p-content-border-color));
+  border-color: color-mix(in srgb, var(--po-accent) 45%, var(--p-content-border-color));
   box-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.28);
 }
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject } from '@angular/core';
-import { accentColor, componentMeta } from '../catalog-meta';
+import { componentMeta } from '../catalog-meta';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES } from '../model';
 
@@ -7,7 +7,7 @@ import { CATEGORIES } from '../model';
 @Component({
   selector: 'po-section',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { class: 'po-page po-scroll', '[style.--po-accent]': 'accent()' },
+  host: { class: 'po-page po-scroll' },
   template: `
     <div class="po-page__inner">
       <nav class="po-section__crumbs" aria-label="Ruta">
@@ -322,7 +322,6 @@ export class SectionComponent {
     const view = this.state.view();
     return CATEGORIES.find((c) => view.kind === 'section' && c.id === view.id) ?? CATEGORIES[0];
   });
-  protected readonly accent = computed(() => accentColor(this.section().accent));
   private readonly index = computed(() => CATEGORIES.indexOf(this.section()));
   protected readonly previous = computed(() => CATEGORIES[this.index() - 1]);
   protected readonly next = computed(() => CATEGORIES[this.index() + 1]);

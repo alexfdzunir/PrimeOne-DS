@@ -128,8 +128,3 @@ export function componentMeta(title: string, fallbackIcon: string): ComponentMet
   const meta = META[title];
   return meta ? { icon: `ph ph-${meta[0]}`, summary: meta[1] } : { icon: fallbackIcon, summary: '' };
 }
-
-/** CSS colour of a section accent (see `CategoryDef.accent`). */
-export function accentColor(accent: string): string {
-  return `var(--p-${accent}-500)`;
-}

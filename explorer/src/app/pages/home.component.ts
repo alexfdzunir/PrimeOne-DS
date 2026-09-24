@@ -13,22 +13,33 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
   template: `
     <header class="po-hero">
       <div class="po-hero__inner">
-        <span class="po-hero__eyebrow"><i class="ph ph-graduation-cap" aria-hidden="true"></i> Proeduca · UNIR</span>
-        <h1>PrimeOne <span>Design System</span></h1>
-        <p class="po-hero__lead">
-          Componentes Angular sobre PrimeNG 21 con los temas de Proeduca, conectados a Figma con Code Connect. Un único
-          lenguaje visual para Estudiantes, Prodi y Foundations, en claro y oscuro.
-        </p>
-        <div class="po-hero__actions">
-          <button type="button" class="po-cta po-cta--solid" (click)="state.openSection(firstSection)">
-            Explorar componentes <i class="ph ph-arrow-right" aria-hidden="true"></i>
-          </button>
-          <a class="po-cta po-cta--ghost" [href]="figmaUrl" target="_blank" rel="noopener">
-            <i class="ph ph-figma-logo" aria-hidden="true"></i> Abrir en Figma
-          </a>
-          <a class="po-cta po-cta--ghost" [href]="repoUrl" target="_blank" rel="noopener">
-            <i class="ph ph-github-logo" aria-hidden="true"></i> Repositorio
-          </a>
+        <div class="po-hero__copy">
+          <span class="po-hero__eyebrow"><i class="ph ph-graduation-cap" aria-hidden="true"></i> Proeduca · UNIR</span>
+          <h1>PrimeOne <span>Design System</span></h1>
+          <p class="po-hero__lead">
+            Componentes Angular sobre PrimeNG 21 con los temas de Proeduca, conectados a Figma con Code Connect. Un único
+            lenguaje visual para Estudiantes, Prodi y Foundations, en claro y oscuro.
+          </p>
+          <div class="po-hero__actions">
+            <button type="button" class="po-cta po-cta--solid" (click)="state.openSection(firstSection)">
+              Explorar componentes <i class="ph ph-arrow-right" aria-hidden="true"></i>
+            </button>
+            <a class="po-cta po-cta--ghost" [href]="figmaUrl" target="_blank" rel="noopener">
+              <i class="ph ph-figma-logo" aria-hidden="true"></i> Abrir en Figma
+            </a>
+            <a class="po-cta po-cta--ghost" [href]="repoUrl" target="_blank" rel="noopener">
+              <i class="ph ph-github-logo" aria-hidden="true"></i> Repositorio
+            </a>
+          </div>
+        </div>
+        <div class="po-hero__art" aria-hidden="true">
+          @for (tile of heroTiles; track $index) {
+            <span class="po-hero__tile" [class]="'po-hero__tile--' + tile.kind" [style.--po-delay]="$index * -0.7 + 's'">
+              @if (tile.icon) {
+                <i [class]="tile.icon"></i>
+              }
+            </span>
+          }
         </div>
         <dl class="po-hero__figures">
           @for (figure of figures(); track figure.label) {
@@ -42,14 +53,13 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
     </header>
 
     <div class="po-page__inner po-home__body">
-
       <section aria-labelledby="po-home-sections">
         <h2 class="po-eyebrow" id="po-home-sections">Secciones</h2>
         <ul class="po-home__sections">
           @for (section of sections(); track section.id) {
             <li>
               <button type="button" class="po-home__section" (click)="state.openSection(section.id)">
-                <i [class]="section.icon + ' po-home__icon'" aria-hidden="true"></i>
+                <span class="po-home__icon" aria-hidden="true"><i [class]="section.icon"></i></span>
                 <span class="po-home__title">
                   {{ section.label }}
                   <span class="po-home__count">{{ section.count }}</span>
@@ -98,11 +108,80 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
       mask-image: linear-gradient(to right, transparent 10%, #000 75%);
     }
 
+    /* Copy on the left, tile mosaic on the right, figures across */
     .po-hero__inner {
       position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: 48px;
       width: min(100%, 1200px);
       margin: 0 auto;
       padding: 72px 32px 48px;
+    }
+
+    .po-hero__copy {
+      min-width: 0;
+    }
+
+    /* Decorative mosaic of glass tiles with DS icons; alternate columns are offset and every tile floats */
+    .po-hero__art {
+      display: grid;
+      grid-template-columns: repeat(4, 84px);
+      gap: 16px;
+      /* Room for the offset columns, and a soft fade at the corners only */
+      padding: 12px 12px 44px;
+      mask-image: radial-gradient(ellipse at 55% 50%, #000 62%, transparent 100%);
+    }
+
+    .po-hero__tile {
+      display: grid;
+      place-items: center;
+      width: 84px;
+      height: 84px;
+      border-radius: 22px;
+      font-size: 36px;
+      animation: po-float 6s ease-in-out infinite;
+      animation-delay: var(--po-delay, 0s);
+    }
+
+    .po-hero__tile:nth-child(4n + 2),
+    .po-hero__tile:nth-child(4n + 4) {
+      translate: 0 28px;
+    }
+
+    .po-hero__tile--glass {
+      border: 1px solid rgb(255 255 255 / 0.28);
+      background: linear-gradient(145deg, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.06));
+      box-shadow: 0 12px 28px -14px rgb(0 0 0 / 0.35);
+      backdrop-filter: blur(6px);
+      color: #fff;
+    }
+
+    .po-hero__tile--solid {
+      background: #fff;
+      box-shadow: 0 18px 36px -14px rgb(0 0 0 / 0.45);
+      color: var(--p-primary-600);
+    }
+
+    .po-hero__tile--ghost {
+      border: 1px dashed rgb(255 255 255 / 0.3);
+    }
+
+    :host-context(html.po-dark) .po-hero__tile--solid {
+      background: var(--p-primary-400);
+      color: var(--p-primary-950);
+    }
+
+    @keyframes po-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .po-hero__tile {
+        animation: none;
+      }
     }
 
     .po-hero__eyebrow {
@@ -192,6 +271,7 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
     }
 
     .po-hero__figures {
+      grid-column: 1 / -1;
       display: flex;
       flex-wrap: wrap;
       gap: 24px 56px;
@@ -257,8 +337,8 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
     }
 
     .po-home__section:hover {
-      border-color: var(--p-text-muted-color);
-      background: var(--po-surface-2);
+      border-color: color-mix(in srgb, var(--po-accent) 45%, var(--p-content-border-color));
+      background: color-mix(in srgb, var(--po-accent) 4%, transparent);
     }
 
     .po-home__section:focus-visible {
@@ -267,13 +347,22 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
     }
 
     .po-home__icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
       margin-bottom: 12px;
-      color: var(--p-text-muted-color);
-      font-size: 1.5rem;
-      transition: color 150ms;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--po-accent) 12%, transparent);
+      color: var(--po-accent);
+      font-size: 1.375rem;
     }
 
-    .po-home__section:hover .po-home__icon,
+    :host-context(html.po-dark) .po-home__icon {
+      background: color-mix(in srgb, var(--po-accent) 22%, transparent);
+      color: color-mix(in srgb, var(--po-accent) 70%, #fff);
+    }
+
     .po-home__section:hover .po-home__arrow {
       color: var(--p-primary-color);
     }
@@ -325,6 +414,16 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
       outline-offset: 2px;
     }
 
+    @media (max-width: 1023.98px) {
+      .po-hero__inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .po-hero__art {
+        display: none;
+      }
+    }
+
     @media (max-width: 767.98px) {
       .po-hero__inner {
         padding: 40px 16px 32px;
@@ -355,6 +454,21 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
 export class HomeComponent {
   protected readonly state = inject(ExplorerState);
   protected readonly firstSection = CATEGORIES[0].id;
+  /** Hero mosaic: section and component icons, one solid tile and a few empty ones for rhythm. */
+  protected readonly heroTiles = [
+    { kind: 'ghost', icon: '' },
+    { kind: 'glass', icon: 'ph ph-cursor-click' },
+    { kind: 'glass', icon: 'ph ph-textbox' },
+    { kind: 'ghost', icon: '' },
+    { kind: 'glass', icon: 'ph ph-toggle-right' },
+    { kind: 'solid', icon: 'ph ph-graduation-cap' },
+    { kind: 'glass', icon: 'ph ph-table' },
+    { kind: 'glass', icon: 'ph ph-calendar-dots' },
+    { kind: 'glass', icon: 'ph ph-chat-circle-dots' },
+    { kind: 'glass', icon: 'ph ph-layout' },
+    { kind: 'ghost', icon: '' },
+    { kind: 'glass', icon: 'ph ph-image' },
+  ];
   protected readonly figmaUrl = FIGMA_URL;
   protected readonly repoUrl = REPO_URL;
 
