@@ -28,15 +28,16 @@ export const CHAT_IA_ACTIONS: ActionButtonItem[] = [
     }
   `,
   styles: `
-    :host { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    :host { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
     :host(.po-chatia--right) { align-items: flex-end; }
-    .po-chatia__content { max-width: min(40rem, 90%); color: var(--p-text-color); line-height: 1.5rem; overflow-wrap: anywhere; }
+    .po-chatia__content { max-width: min(40rem, 90%); color: var(--p-text-color); font-size: 1rem; line-height: 1.375rem; overflow-wrap: anywhere; }
     :host(.po-chatia--right) .po-chatia__content {
-      padding: 0.5rem 0.75rem;
+      padding: 0.375rem 0.5rem 0.375rem 0.75rem;
+      line-height: 1.625rem;
       border-radius: var(--p-content-border-radius);
-      background: var(--p-highlight-background);
+      background: var(--p-highlight-focus-background);
     }
-    :host(.po-chatia--mobile) .po-chatia__content { font-size: 0.875rem; line-height: 1.25rem; }
+    :host(.po-chatia--mobile) .po-chatia__content { line-height: 1.375rem; }
   `,
 })
 export class PrimeOneChatIaMessage {

@@ -27,7 +27,7 @@ export interface ActionButtonItem {
         severity="secondary"
         size="small"
         text
-        rounded
+        plain
         (onClick)="actionClick.emit(action)"
       />
     }

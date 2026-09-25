@@ -9,7 +9,6 @@ const INPUTS = ['heading', 'primaryLabel', 'height', 'showHandle', 'showClose', 
 const ACTIONS: BottomSheetAction[] = [
   { id: 'download', icon: 'ph ph-download-simple', label: 'Descargar' },
   { id: 'share', icon: 'ph ph-share-network', label: 'Compartir' },
-  { id: 'delete', icon: 'ph ph-trash', label: 'Eliminar' },
 ];
 
 const meta: Meta = {

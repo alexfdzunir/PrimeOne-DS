@@ -17,13 +17,15 @@ import { Tooltip } from 'primeng/tooltip';
   template: `
     <div class="po-bottombar" role="toolbar" [attr.aria-label]="type() === 'editor' ? 'Herramientas de edición' : 'Barra del documento'">
       @if (type() === 'paginator') {
-        <span>Página <span class="po-bottombar__pill">{{ page() }}</span> de {{ totalPages() }}</span>
-        @if (words() !== undefined) {
-          <span><span class="po-bottombar__pill">{{ words() }}</span> palabras</span>
-        }
-        @for (status of statuses(); track status) {
-          <span>{{ status }}</span>
-        }
+        <div class="po-bottombar__status">
+          <span>Página <span class="po-bottombar__pill">{{ page() }}</span> de {{ totalPages() }}</span>
+          @if (words() !== undefined) {
+            <span><span class="po-bottombar__pill">{{ words() }}</span> palabras</span>
+          }
+          @for (status of statuses(); track status) {
+            <span>{{ status }}</span>
+          }
+        </div>
         <span class="po-bottombar__spacer"></span>
         <ng-container [ngTemplateOutlet]="tools" />
         <div class="po-bottombar__zoom">
@@ -63,12 +65,13 @@ import { Tooltip } from 'primeng/tooltip';
     .po-bottombar {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 1.5rem;
       padding: 0.5rem 1rem;
       background: var(--p-content-background);
       border-top: 1px solid var(--p-content-border-color);
       color: var(--p-text-color);
-      font-size: 0.875rem;
+      font-size: 0.75rem;
+      font-weight: 500;
       overflow-x: auto;
     }
     .po-bottombar__pill {
@@ -83,7 +86,8 @@ import { Tooltip } from 'primeng/tooltip';
     }
     .po-bottombar__spacer { flex: 1; }
     .po-bottombar__divider { align-self: stretch; width: 1px; background: var(--p-content-border-color); }
-    .po-bottombar__zoom { display: flex; align-items: center; gap: 0.25rem; }
+    .po-bottombar__status { display: flex; align-items: center; gap: 2rem; }
+    .po-bottombar__zoom { display: flex; align-items: center; gap: 0.5rem; }
     .po-bottombar__slider { width: 6rem; margin-inline: 0.5rem; }
     .po-bottombar__percent { min-width: 3rem; text-align: right; font-variant-numeric: tabular-nums; }
     /* Narrow containers: the items wrap and the zoom takes a full row with a flexible slider */

@@ -23,7 +23,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: args,
-    template: `<p-button [label]="label" [icon]="iconLeft ?? iconRight" [iconPos]="!iconLeft && iconRight ? 'right' : 'left'" [rounded]="true" size="small" severity="secondary" [variant]="active ? undefined : 'outlined'" />`,
+    template: `<p-button [label]="label" [icon]="iconLeft ?? iconRight" [iconPos]="!iconLeft && iconRight ? 'right' : 'left'" size="small" severity="secondary" variant="outlined" [styleClass]="active ? 'p-buttonchip p-buttonchip-active' : 'p-buttonchip'" />`,
   }),
 };
 

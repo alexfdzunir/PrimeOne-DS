@@ -76,6 +76,54 @@ const BUTTON_CSS = `
 .p-button-icon-only { height: var(--p-button-icon-only-width); padding-block: 0; }
 .p-button-sm.p-button-icon-only { height: var(--p-button-sm-icon-only-width); }
 .p-button-lg.p-button-icon-only { height: var(--p-button-lg-icon-only-width); }
+.p-button.p-buttonchip { border-radius: var(--p-button-border-radius); font-size: 0.75rem; padding-block: 0.25rem; }
+.p-button.p-buttonchip:not(.p-buttonchip-active) { color: var(--p-button-chip-color); border-color: var(--p-button-chip-border-color); }
+.p-button.p-buttonchip:not(.p-buttonchip-active):not(:disabled):hover { color: var(--p-button-chip-color); border-color: var(--p-button-chip-border-color); background: var(--p-button-chip-hover-background); }
+.p-button.p-buttonchip.p-buttonchip-active,
+.p-button.p-buttonchip.p-buttonchip-active:not(:disabled):hover { color: var(--p-button-chip-color); border-color: var(--p-primary-color); background: var(--p-button-chip-active-background); }
+`;
+
+/** Figma "buttonchip": filter chip on a small secondary button (class `p-buttonchip`, `p-buttonchip-active` when on). */
+const BUTTON_CHIP_TOKENS = {
+  light: { chip: { color: '{surface.800}', borderColor: '{content.border.color}', hoverBackground: '{surface.100}', activeBackground: '#eff6ff' } },
+  dark: { chip: { color: '{text.color}', borderColor: '{content.border.color}', hoverBackground: '{surface.800}', activeBackground: '{highlight.background}' } },
+};
+
+/**
+ * Stepper as in Figma: steps before the active one are "past" (primary border and a check instead of the number).
+ * PrimeNG 21 has no completed state, so they are found with `:has()` (horizontal steps and vertical step items).
+ */
+const STEPPER_CSS = `
+.p-step-header { font-size: inherit; }
+.p-step:has(~ .p-step-active) .p-step-number,
+.p-stepitem:has(~ .p-stepitem-active) .p-step-number { border-color: var(--p-primary-color); color: transparent; font-size: 0; }
+.p-step:has(~ .p-step-active) .p-step-number::before,
+.p-stepitem:has(~ .p-stepitem-active) .p-step-number::before { content: "\\e182"; font-family: "Phosphor"; font-size: 1rem; line-height: 1; color: var(--p-primary-color); }
+`;
+
+/**
+ * Accordion toggle as in Figma: 20px, primary in both states and pointing down when open. The collapsed icon of
+ * PrimeNG 21 lacks the toggle-icon class, so it is styled by attribute.
+ */
+const ACCORDION_CSS = `
+.p-accordionheader [data-p-icon] { width: 1.25rem; height: 1.25rem; transform: rotate(180deg); color: var(--p-accordion-header-toggle-icon-color); }
+.p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader [data-p-icon] { color: var(--p-accordion-header-toggle-icon-active-color); }
+`;
+
+/** Breadcrumb separator (and default item icon) at the 14px of Figma. */
+const BREADCRUMB_CSS = `
+.p-breadcrumb-item-icon svg, .p-breadcrumb-separator svg { width: 0.875rem; height: 0.875rem; }
+`;
+
+/** Avatar initials and counters are Medium (500) in Figma; Aura has no token for it. */
+const AVATAR_CSS = `
+.p-avatar { font-weight: 500; }
+`;
+
+/** Checked and invalid checkbox: filled with the invalid colour, as in Figma (Aura only changes the border). */
+const CHECKBOX_CSS = `
+.p-checkbox-checked.p-invalid .p-checkbox-box { background: var(--p-checkbox-invalid-border-color); border-color: var(--p-checkbox-invalid-border-color); }
+.p-checkbox-checked.p-invalid .p-checkbox-icon { color: var(--p-checkbox-icon-checked-color); }
 `;
 
 /**
@@ -119,6 +167,7 @@ const RADIUS_ESTUDIANTES: ThemeRadius = {
   overlayModal: '{border.radius.lg}',
   card: '{content.border.radius}',
   components: {
+    accordion: { header: { first: { topBorderRadius: '{border.radius.lg}' }, last: { bottomBorderRadius: '{border.radius.lg}' } } },
     tag: { root: { borderRadius: '{border.radius.md}' } },
     toast: { root: { borderRadius: '{border.radius.lg}' } },
     badge: { root: { borderRadius: '{border.radius.lg}' } },
@@ -154,22 +203,59 @@ const RADIUS_FOUNDATIONS: ThemeRadius = {
   },
 };
 
+/**
+ * Component tokens and CSS shared by every theme, from the Figma "Component/Common" and "Component/Color Scheme"
+ * collections. Sizes in rem assume the 16px root of the apps.
+ */
+const COMPONENTS = {
+  accordion: { header: { toggleIcon: { color: '{primary.color}', activeColor: '{primary.color}' } }, css: ACCORDION_CSS },
+  autocomplete: { list: { gap: '0.25rem' } },
+  avatar: {
+    root: { fontSize: '0.75rem' },
+    lg: { fontSize: '0.875rem', icon: { size: '1.25rem' }, group: { offset: '-0.75rem' } },
+    xl: { fontSize: '1rem' },
+    css: AVATAR_CSS,
+  },
+  breadcrumb: { css: BREADCRUMB_CSS },
+  button: { root: BUTTON_SIZES, colorScheme: BUTTON_CHIP_TOKENS, css: BUTTON_CSS },
+  checkbox: { css: CHECKBOX_CSS },
+  chip: {
+    root: { paddingY: '0.625rem', gap: '0.875rem' },
+    colorScheme: { light: { icon: { color: '{primary.color}' } }, dark: { icon: { color: '{primary.color}' } } },
+  },
+  dialog: { css: DIALOG_CSS },
+  stepper: {
+    step: { padding: '0.625rem', gap: '27px' },
+    stepHeader: { gap: '0.625rem', borderRadius: '{border.radius.2xl}' },
+    stepTitle: { color: '{text.color}' },
+    stepNumber: { fontSize: '1rem', activeBackground: '{primary.color}', activeBorderColor: '{primary.color}', activeColor: '{primary.contrast.color}' },
+    steppanels: { padding: '1.125rem 0.5rem 1.6875rem 0.5rem' },
+    css: STEPPER_CSS,
+  },
+  terminal: { css: TERMINAL_CSS },
+  // Aura lets the horizontal marker shrink next to the 100% wide connector, so it turns into an oval
+  timeline: { css: TIMELINE_CSS },
+};
+
+type Tokens = Record<string, unknown>;
+const isTokens = (value: unknown): value is Tokens => typeof value === 'object' && value !== null && !Array.isArray(value);
+
+/** Deep merge: a theme overrides single tokens of a component without dropping the shared ones. */
+function mergeTokens(base: Tokens, extra: Tokens = {}): Tokens {
+  const out: Tokens = { ...base };
+  for (const [key, value] of Object.entries(extra)) out[key] = isTokens(out[key]) && isTokens(value) ? mergeTokens(out[key] as Tokens, value) : value;
+  return out;
+}
+
 function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRadius) {
-  const { button: themeButton, ...themeComponents } = (radius.components ?? {}) as { button?: { root?: object } };
   return definePreset(Aura, {
     primitive: { borderRadius: BORDER_RADIUS },
-    components: {
-      button: { root: { ...BUTTON_SIZES, ...themeButton?.root }, css: BUTTON_CSS },
-      card: { root: { borderRadius: radius.card } },
-      // Aura lets the horizontal marker shrink next to the 100% wide connector, so it turns into an oval
-      timeline: { css: TIMELINE_CSS },
-      dialog: { css: DIALOG_CSS },
-      terminal: { css: TERMINAL_CSS },
-      ...themeComponents,
-    },
+    // Loose record from the merge: the token shapes are checked by the Figma audit, not by the type
+    components: mergeTokens(mergeTokens(COMPONENTS, { card: { root: { borderRadius: radius.card } } }), radius.components as Tokens) as never,
     semantic: {
       primary,
-      formField: { borderRadius: radius.formField },
+      // Figma form fields: 42px high like the md button (padding 10px), 34 small and 50 large
+      formField: { borderRadius: radius.formField, paddingY: '0.625rem', sm: { paddingY: '0.5rem' }, lg: { fontSize: '1rem', paddingY: '0.875rem' } },
       content: { borderRadius: radius.content },
       list: { option: { borderRadius: radius.listOption } },
       navigation: { item: { borderRadius: radius.navigationItem } },
@@ -195,7 +281,16 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
           },
           text: { color: '{surface.950}', mutedColor: '{surface.500}' },
           content: { borderColor: '{surface.300}' },
-          formField: { background: '{surface.0}', borderColor: '{surface.500}' },
+          formField: {
+            background: '{surface.0}',
+            borderColor: '{surface.500}',
+            hoverBorderColor: '{primary.color}',
+            placeholderColor: '{surface.700}',
+            invalidBorderColor: '{red.700}',
+            invalidPlaceholderColor: '{red.700}',
+            disabledBackground: '#e5e7eb',
+            disabledColor: '#1f2937',
+          },
         },
         dark: {
           surface: { 0: '#ffffff', ...SURFACE_DARK },
@@ -213,7 +308,7 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
           },
           text: { color: '{surface.0}', mutedColor: '{surface.400}' },
           content: { borderColor: '{surface.700}' },
-          formField: { background: '{surface.950}', borderColor: '{surface.200}' },
+          formField: { background: '{surface.950}', borderColor: '{surface.200}', hoverBorderColor: '{primary.color}' },
         },
       },
     },

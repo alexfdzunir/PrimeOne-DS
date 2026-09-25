@@ -78,7 +78,12 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
             <div class="po-agenda__cell" role="gridcell" [class.po-agenda__cell--out]="!cell.inMonth" [class.po-agenda__cell--today]="cell.today">
               <span class="po-agenda__cell-day">{{ cell.day.getDate() }}</span>
               @for (event of cell.events.slice(0, 3); track event.id) {
-                <button type="button" class="po-agenda__chip" [attr.data-color]="event.color ?? 'green'" (click)="eventClick.emit(event)">{{ event.title }}</button>
+                <button type="button" class="po-agenda__chip" [attr.data-color]="event.color ?? 'green'" (click)="eventClick.emit(event)">
+                  @if (!event.allDay) {
+                    <span class="po-agenda__chip-time">{{ startTime(event) }}</span>
+                  }
+                  {{ event.title }}
+                </button>
               }
               @if (cell.events.length > 3) {
                 <span class="po-agenda__more">+{{ cell.events.length - 3 }} más</span>
@@ -159,7 +164,7 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
     [data-color='orange'] { --po-agenda-color: var(--p-orange-500); }
     [data-color='red'] { --po-agenda-color: var(--p-red-500); }
     .po-agenda__toolbar { display: flex; align-items: center; gap: 0.5rem; }
-    .po-agenda__title { flex: 1; margin: 0 0 0 0.5rem; font-size: 1.125rem; font-weight: 600; }
+    .po-agenda__title { flex: 1; margin: 0 0 0 0.5rem; font-size: 1.125rem; line-height: 1.375rem; font-weight: 600; }
     .po-agenda__title::first-letter, .po-agenda__list-day::first-letter { text-transform: uppercase; }
     .po-agenda__grid {
       display: grid;
@@ -172,8 +177,9 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
     .po-agenda__corner, .po-agenda__dayhead { position: sticky; top: 0; z-index: 1; background: var(--p-content-background); }
     .po-agenda__dayhead { display: flex; flex-direction: column; padding: 0.5rem; border-left: 1px solid var(--p-content-border-color); font-size: 0.75rem; text-transform: capitalize; }
     .po-agenda__dayhead strong { font-size: 1.25rem; }
+    .po-agenda__dayhead--today { background: var(--p-primary-50); }
     .po-agenda__dayhead--today strong { color: var(--p-primary-color); }
-    .po-agenda__allday-label, .po-agenda__hour { padding: 0.25rem; color: var(--p-text-muted-color); font-size: 0.6875rem; }
+    .po-agenda__allday-label, .po-agenda__hour { padding: 0.25rem; color: var(--p-surface-400); font-size: 0.6875rem; }
     .po-agenda__allday { display: flex; flex-direction: column; gap: 0.25rem; padding: 0.25rem; border-left: 1px solid var(--p-content-border-color); border-bottom: 1px solid var(--p-content-border-color); }
     .po-agenda__allday-label { border-bottom: 1px solid var(--p-content-border-color); }
     .po-agenda__hours { display: grid; grid-auto-rows: 56px; }
@@ -194,7 +200,7 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       border: 0;
       border-left: 3px solid var(--po-agenda-color);
       border-radius: var(--p-border-radius-md);
-      background: color-mix(in srgb, var(--po-agenda-color) 12%, var(--p-content-background));
+      background: var(--p-content-background);
       color: var(--p-text-color);
       font: inherit;
       font-size: 0.75rem;
@@ -206,8 +212,9 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       overflow: hidden;
       padding: 0.125rem 0.375rem;
       border: 0;
+      border-left: 3px solid var(--po-agenda-color);
       border-radius: var(--p-border-radius-md);
-      background: color-mix(in srgb, var(--po-agenda-color) 16%, var(--p-content-background));
+      background: var(--p-content-background);
       color: var(--p-text-color);
       font: inherit;
       font-size: 0.75rem;
@@ -217,6 +224,8 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       cursor: pointer;
     }
     .po-agenda__month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border: 1px solid var(--p-content-border-color); border-radius: var(--p-border-radius-md); }
+    .po-agenda__month .po-agenda__chip { border-radius: 4px; }
+    .po-agenda__chip-time { margin-inline-end: 0.25rem; color: var(--p-text-muted-color); }
     .po-agenda__weekday { padding: 0.5rem; color: var(--p-text-muted-color); font-size: 0.75rem; text-transform: capitalize; }
     .po-agenda__cell { display: flex; flex-direction: column; gap: 0.25rem; min-height: 6.5rem; padding: 0.375rem; border-top: 1px solid var(--p-content-border-color); border-left: 1px solid var(--p-content-border-color); }
     .po-agenda__cell--out { background: var(--p-content-hover-background); color: var(--p-text-muted-color); }
@@ -234,14 +243,14 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       border: 0;
       border-left: 3px solid var(--po-agenda-color);
       border-radius: var(--p-border-radius-md);
-      background: var(--p-content-hover-background);
+      background: var(--p-content-background);
       color: var(--p-text-color);
       font: inherit;
       text-align: start;
       cursor: pointer;
     }
     .po-agenda__row + .po-agenda__row { margin-top: 0.5rem; }
-    .po-agenda__row-time { flex: 0 0 7rem; color: var(--p-text-muted-color); font-size: 0.875rem; }
+    .po-agenda__row-time { flex: 0 0 7rem; color: var(--p-surface-400); font-size: 0.875rem; }
     .po-agenda__row-text { display: flex; flex-direction: column; }
     /* Narrow containers (phones): title on its own row, scrollable day columns and dots in the month view */
     @container po-agenda (max-width: 600px) {
@@ -256,7 +265,7 @@ function overlaps(event: AgendaEvent, from: Date, to: Date): boolean {
       /* Today keeps its circle: fixed size, and the margin still sends the dots to the next row */
       .po-agenda__cell--today .po-agenda__cell-day { flex: 0 0 1.5rem; margin-inline-end: calc(100% - 1.5rem); }
       .po-agenda__weekday { padding: 0.5rem 0.25rem; text-align: center; }
-      .po-agenda__month .po-agenda__chip { flex: 0 0 auto; width: 0.5rem; height: 0.5rem; padding: 0; border-radius: 50%; background: var(--po-agenda-color); font-size: 0; }
+      .po-agenda__month .po-agenda__chip { flex: 0 0 auto; width: 0.5rem; height: 0.5rem; padding: 0; border: 0; border-radius: 50%; background: var(--po-agenda-color); font-size: 0; }
       .po-agenda__more { font-size: 0.625rem; }
       .po-agenda__row { flex-direction: column; gap: 0.25rem; }
       .po-agenda__row-time { flex: none; }
@@ -350,7 +359,10 @@ export class PrimeOneAgenda {
       .filter((group) => group.events.length > 0);
   });
 
-  protected readonly weekdays = computed(() => [0, 1, 2, 3, 4, 5, 6].map((i) => this.weekdayName(addDays(startOfWeek(new Date()), i))));
+  protected readonly weekdays = computed(() => {
+    const format = new Intl.DateTimeFormat(this.locale(), { weekday: 'long' });
+    return [0, 1, 2, 3, 4, 5, 6].map((i) => format.format(addDays(startOfWeek(new Date()), i)));
+  });
 
   protected readonly title = computed(() => {
     const locale = this.locale();
@@ -376,6 +388,10 @@ export class PrimeOneAgenda {
 
   protected longDay(day: Date): string {
     return new Intl.DateTimeFormat(this.locale(), { weekday: 'long', day: 'numeric', month: 'long' }).format(day);
+  }
+
+  protected startTime(event: AgendaEvent): string {
+    return new Intl.DateTimeFormat(this.locale(), { hour: '2-digit', minute: '2-digit' }).format(event.start);
   }
 
   protected timeRange(event: AgendaEvent): string {

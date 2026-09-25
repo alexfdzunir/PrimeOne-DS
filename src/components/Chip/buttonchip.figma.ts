@@ -10,7 +10,7 @@ const right = instance.getBoolean('Show Icon Right') ? swapIcon(instance, 'Icon 
 const label = text(instance, 'Text') ?? 'Chip'
 const active = is(instance, 'State', 'Active')
 
-const example = figma.code`<p-button label="${label}"${attr('icon', left ?? right)}${attr('iconPos', !left && right ? 'right' : undefined)} rounded size="small" severity="secondary"${active ? '' : ' variant="outlined"'} />`
+const example = figma.code`<p-button label="${label}"${attr('icon', left ?? right)}${attr('iconPos', !left && right ? 'right' : undefined)} size="small" severity="secondary" variant="outlined" styleClass="p-buttonchip${active ? ' p-buttonchip-active' : ''}" />`
 const imports = ["import { Button } from 'primeng/button';"]
 
 export default {

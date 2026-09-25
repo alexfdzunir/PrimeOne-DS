@@ -35,7 +35,7 @@ const meta: Meta = {
       <p-carousel
         [value]="products"
         [responsiveOptions]="[{ breakpoint: '767px', numVisible: 2, numScroll: 1 }, { breakpoint: '575px', numVisible: 1, numScroll: 1 }]"
-        [verticalViewPortHeight]="orientation === 'vertical' ? '152px' : undefined"${bind(args, INPUTS)} (onPage)="onPage($event)"
+        [verticalViewPortHeight]="orientation === 'vertical' ? '368px' : undefined"${bind(args, INPUTS)} (onPage)="onPage($event)"
       >
         <ng-template #item let-product>
           <div style="box-sizing: border-box; height: calc(100% - 1rem); margin: 0.5rem; padding: 1rem; border: 1px solid var(--p-content-border-color); border-radius: var(--p-content-border-radius)">

@@ -15,7 +15,7 @@ const meta: Meta = {
     onItemClick: { action: 'onItemClick', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, home: { icon: 'ph ph-house-line' }, items: [{ label: 'Estudios' }, { label: 'Grados' }, { label: 'Informática' }] },
+    props: { ...args, home: { icon: 'ph ph-house-line' }, items: [{ label: 'Estudios' }, { label: 'Grados', icon: 'ph ph-graduation-cap' }, { label: 'Informática' }] },
     template: `<p-breadcrumb [home]="home" [model]="items" (onItemClick)="onItemClick($event)" />`,
   }),
 };

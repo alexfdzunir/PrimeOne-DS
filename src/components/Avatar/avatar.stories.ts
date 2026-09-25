@@ -42,12 +42,12 @@ const meta: Meta = {
     template: `
       <div style="display: inline-flex; flex-direction: column; align-items: center; gap: 0.375rem">
         @if (badge) {
-          <p-overlaybadge [value]="badge" [severity]="dark ? 'contrast' : undefined">
+          <p-overlaybadge [value]="badge" [severity]="dark ? 'contrast' : undefined" [badgeSize]="extraSize === 'xl' ? 'xlarge' : size === 'xlarge' ? 'large' : 'small'">
             <p-avatar
               [image]="photo ? photoSrc : undefined"
               [style.width]="extraSize === 'xs' ? '24px' : extraSize === 'xl' ? '100px' : null"
               [style.height]="extraSize === 'xs' ? '24px' : extraSize === 'xl' ? '100px' : null"
-              [style.font-size]="extraSize === 'xs' ? '0.625rem' : extraSize === 'xl' ? '2.5rem' : null"
+              [style.font-size]="extraSize === 'xs' ? '0.625rem' : extraSize === 'xl' ? '1.4375rem' : null"
               [style.background]="dark ? 'var(--p-primary-color)' : null"
               [style.color]="dark ? 'var(--p-primary-contrast-color)' : null"${bind(args, INPUTS)} (onImageError)="onImageError($event)"
             />
@@ -57,7 +57,7 @@ const meta: Meta = {
             [image]="photo ? photoSrc : undefined"
             [style.width]="extraSize === 'xs' ? '24px' : extraSize === 'xl' ? '100px' : null"
             [style.height]="extraSize === 'xs' ? '24px' : extraSize === 'xl' ? '100px' : null"
-            [style.font-size]="extraSize === 'xs' ? '0.625rem' : extraSize === 'xl' ? '2.5rem' : null"
+            [style.font-size]="extraSize === 'xs' ? '0.625rem' : extraSize === 'xl' ? '1.4375rem' : null"
             [style.background]="dark ? 'var(--p-primary-color)' : null"
             [style.color]="dark ? 'var(--p-primary-contrast-color)' : null"${bind(args, INPUTS)} (onImageError)="onImageError($event)"
           />

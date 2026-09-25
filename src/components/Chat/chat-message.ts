@@ -38,24 +38,24 @@ import { Avatar } from 'primeng/avatar';
     </div>
   `,
   styles: `
-    :host { display: flex; align-items: flex-end; gap: 0.5rem; max-width: 100%; }
+    :host { display: flex; align-items: flex-end; gap: 0.25rem; max-width: 100%; }
     :host(.po-chat--right) { justify-content: flex-end; }
     .po-chat__avatar { flex: 0 0 auto; }
     .po-chat__avatar--hidden { visibility: hidden; }
     .po-chat__body { display: flex; flex-direction: column; gap: 0.25rem; max-width: min(36rem, 80%); }
     :host(.po-chat--right) .po-chat__body { align-items: flex-end; }
-    .po-chat__meta { display: flex; gap: 0.5rem; color: var(--p-text-muted-color); font-size: 0.75rem; }
+    .po-chat__meta { display: flex; gap: 0.5rem; color: var(--p-text-muted-color); font-size: 0.625rem; line-height: 0.875rem; }
     .po-chat__bubble {
-      padding: 0.5rem 0.75rem;
+      padding: 0.375rem 0.5rem 0.375rem 0.75rem;
       border-radius: var(--p-content-border-radius);
       background: var(--p-content-hover-background);
       color: var(--p-text-color);
       font-size: 1rem;
-      line-height: 1.5rem;
+      line-height: 1.375rem;
       overflow-wrap: anywhere;
     }
-    :host(.po-chat--right) .po-chat__bubble { background: var(--p-highlight-background); }
-    :host(.po-chat--mobile) .po-chat__bubble { font-size: 0.875rem; line-height: 1.25rem; }
+    :host(.po-chat--right) .po-chat__bubble { background: var(--p-highlight-focus-background); }
+    :host(.po-chat--mobile) .po-chat__meta { line-height: 0.75rem; }
   `,
 })
 export class PrimeOneChatMessage {

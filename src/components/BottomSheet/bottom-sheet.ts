@@ -64,13 +64,16 @@ export interface BottomSheetAction {
   `,
   styles: `
     .po-bottomsheet__header { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
-    .po-bottomsheet__handle { align-self: center; width: 3rem; height: 0.25rem; border-radius: 999px; background: var(--p-text-color); }
-    .po-bottomsheet__title-row { display: flex; align-items: center; gap: 0.25rem; }
-    .po-bottomsheet__title { flex: 1; margin: 0; font-size: 1rem; font-weight: 600; }
-    .po-bottomsheet__search { display: flex; align-items: center; gap: 0.5rem; }
+    .po-bottomsheet__handle { align-self: center; width: 4rem; height: 0.25rem; border-radius: 999px; background: var(--p-surface-800); }
+    .po-bottomsheet__title-row { display: flex; align-items: center; gap: 0.5rem; }
+    .po-bottomsheet__title { flex: 1; margin: 0; font-size: 1.125rem; line-height: 1.4375rem; font-weight: 600; }
+    .po-bottomsheet__search { display: flex; align-items: center; gap: 1rem; }
     .po-bottomsheet__search p-iconfield { flex: 1; }
     .po-bottomsheet__search input { width: 100%; }
     .po-bottomsheet__buttons { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+    /* Drawer paddings (16px in Figma) and the outlined footer button: elements of the PrimeNG templates */
+    ::ng-deep .p-drawer.po-bottomsheet { --p-drawer-header-padding: 1rem; --p-drawer-content-padding: 0 1rem 1rem 1rem; --p-drawer-footer-padding: 1rem; }
+    ::ng-deep .po-bottomsheet .po-bottomsheet__buttons .p-button-outlined { border-color: var(--p-primary-color); }
   `,
 })
 export class PrimeOneBottomSheet {
