@@ -21,6 +21,9 @@ export class ConfirmTrigger {
   readonly icon = input<string>();
   readonly acceptLabel = input<string>();
   readonly rejectLabel = input<string>();
+  /** Props of the dialog buttons (`severity`, `variant`...): ConfirmDialog only takes them from `confirm()`. */
+  readonly acceptButtonProps = input<Confirmation['acceptButtonProps']>();
+  readonly rejectButtonProps = input<Confirmation['rejectButtonProps']>();
   readonly accepted = output<void>();
   readonly rejected = output<void>();
 
@@ -30,7 +33,7 @@ export class ConfirmTrigger {
       accept: () => this.accepted.emit(),
       reject: () => this.rejected.emit(),
     };
-    for (const key of ['message', 'icon', 'acceptLabel', 'rejectLabel'] as const) {
+    for (const key of ['message', 'icon', 'acceptLabel', 'rejectLabel', 'acceptButtonProps', 'rejectButtonProps'] as const) {
       const value = this[key]();
       if (value !== undefined) options[key] = value;
     }

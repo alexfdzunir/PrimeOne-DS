@@ -92,6 +92,14 @@ const TIMELINE_CSS = `
 .p-timeline-horizontal.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite { grid-row: 3; align-self: start; }
 `;
 
+/**
+ * Dialogs never touch the screen edges: at least 16px on each side (maximized ones aside). The `breakpoints` input
+ * does not reach ConfirmDialog in PrimeNG 21 (its media rule targets another element id).
+ */
+const DIALOG_CSS = `
+.p-dialog:not(.p-dialog-maximized) { max-width: calc(100% - 2rem); }
+`;
+
 /** Terminal as a code console: code font, prompt in the primary colour, output muted and multi-line. */
 const TERMINAL_CSS = `
 .p-terminal { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; line-height: 1.5; }
@@ -155,6 +163,7 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
       card: { root: { borderRadius: radius.card } },
       // Aura lets the horizontal marker shrink next to the 100% wide connector, so it turns into an oval
       timeline: { css: TIMELINE_CSS },
+      dialog: { css: DIALOG_CSS },
       terminal: { css: TERMINAL_CSS },
       ...themeComponents,
     },

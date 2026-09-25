@@ -12,7 +12,7 @@ const meta: Meta = {
   parameters: {
     controls: { expanded: true },
     storyOrder: ['Default', 'Top'],
-    docs: { story: { inline: false, height: '360px' }, description: { component: '`ConfirmTrigger` (solo stories) llama a `ConfirmationService.confirm()`; el contenido sale de los inputs de `p-confirmdialog`.' } },
+    docs: { story: { inline: false, height: '360px' }, description: { component: '`ConfirmTrigger` (solo stories) llama a `ConfirmationService.confirm()`; el contenido sale de los inputs de `p-confirmdialog`. Los botones se configuran en `confirm()`: eliminar con `acceptButtonProps: { severity: \'danger\' }` y cancelar con `rejectButtonProps: { variant: \'outlined\' }`.' } },
   },
   args: {
     header: 'Confirmar eliminación',
@@ -48,8 +48,8 @@ const meta: Meta = {
   render: (args) => ({
     props: args,
     template: `
-      <p-confirmdialog [style]="{ width: '26rem' }" [breakpoints]="{ '575px': '90vw' }"${bind(args, INPUTS)} />
-      <po-confirm-trigger (accepted)="accepted($event)" (rejected)="rejected($event)" />
+      <p-confirmdialog [style]="{ width: '26rem' }"${bind(args, INPUTS)} />
+      <po-confirm-trigger [acceptButtonProps]="{ severity: 'danger' }" [rejectButtonProps]="{ variant: 'outlined' }" (accepted)="accepted($event)" (rejected)="rejected($event)" />
     `,
   }),
 };
