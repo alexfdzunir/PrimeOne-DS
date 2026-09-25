@@ -3,7 +3,7 @@ import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../../src/theme/presets';
 import { describe } from '../explorer-state';
 import { collectTokens } from './collect-tokens';
-import { clearOverlay, measure } from './measure';
+import { clearOverlay, measure, trackPointer } from './measure';
 import type { ComponentEntry, RenderedStory } from '../model';
 import { buildRegistry } from '../registry';
 import { StoryHostComponent } from '../story-host.component';
@@ -151,6 +151,7 @@ export class FrameRootComponent {
     clearTimeout(this.measureTimer);
     this.measureTimer = setTimeout(() => {
       const inspect = this.inspect;
+      trackPointer(!!inspect?.enabled);
       if (!inspect?.enabled) {
         clearOverlay();
         this.lastMeasure = '';

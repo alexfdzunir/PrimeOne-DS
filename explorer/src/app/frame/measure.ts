@@ -101,15 +101,56 @@ function defaultIndex(list: Element[]): number {
   return Math.max(0, list.indexOf(el));
 }
 
+/** Last measured and list-highlighted elements, kept so the pointer can redraw the overlay on its own. */
+let lastTarget: Element | undefined;
+let lastHovered: Element | undefined;
+let pointerEl: Element | null = null;
+let pointerFrame = 0;
+
 /** List of elements, the measured one (root by default) and its box model; draws the overlay when enabled. */
 export function measure(index: number | null, hover: number | null, overlay: boolean): MeasureData {
   const list = measurableElements();
   const selected = index !== null && index < list.length ? index : defaultIndex(list);
   const elements: MeasureElement[] = list.map((el, i) => ({ index: i, label: label(el), depth: depthOf(el, list) }));
   const target = list[selected];
-  if (overlay) drawOverlay(target, hover !== null && hover !== selected ? list[hover] : undefined);
+  lastTarget = target;
+  lastHovered = hover !== null && hover !== selected ? list[hover] : undefined;
+  if (overlay) drawOverlay(target, lastHovered ?? pointerEl ?? undefined);
   else clearOverlay();
   return { elements, selected, box: target ? measureBox(target) : null };
+}
+
+/** Element under the pointer inside the component (an icon counts as a whole, not its paths). */
+function pointed(event: PointerEvent): Element | null {
+  let el = document.elementFromPoint(event.clientX, event.clientY);
+  if (el instanceof SVGElement && !(el instanceof SVGSVGElement)) el = el.ownerSVGElement ?? el;
+  const story = document.querySelector('po-story');
+  if (!el || !story || el === document.body || el === document.documentElement) return null;
+  return story.contains(el) || !el.closest('po-root') ? el : null;
+}
+
+const onPointerMove = (event: PointerEvent) => {
+  const el = pointed(event);
+  if (el === pointerEl) return;
+  pointerEl = el;
+  cancelAnimationFrame(pointerFrame);
+  pointerFrame = requestAnimationFrame(() => drawOverlay(lastTarget, lastHovered ?? pointerEl ?? undefined));
+};
+const onPointerLeave = () => {
+  pointerEl = null;
+  drawOverlay(lastTarget, lastHovered);
+};
+
+/** Figma-style hover: while measuring, any nested element under the pointer shows its size and its distances. */
+export function trackPointer(enabled: boolean): void {
+  document.removeEventListener('pointermove', onPointerMove);
+  document.documentElement.removeEventListener('pointerleave', onPointerLeave);
+  if (!enabled) {
+    pointerEl = null;
+    return;
+  }
+  document.addEventListener('pointermove', onPointerMove, { passive: true });
+  document.documentElement.addEventListener('pointerleave', onPointerLeave);
 }
 
 export function clearOverlay(): void {
@@ -159,48 +200,81 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
   if (pl) box(layer, inner.x, inner.y + pt, pl, inner.h - pt - pb, band);
   if (pr) box(layer, inner.x + inner.w - pr, inner.y + pt, pr, inner.h - pt - pb, band);
 
-  // Children dashed; each gap is shaded and its value hangs from dashed guides outside the element,
-  // below it in a row and to the right in a column (the component itself stays readable)
-  const kids = Array.from(target.children).filter(sized).map((el) => el.getBoundingClientRect());
+  // Children dashed. Lanes outside the element (right in a column, below in a row): size of each child, then the
+  // gaps between them, then the total as a dimension line, so the component itself stays readable
+  // Through single-child wrappers (a list container and its <ul>) down to the level that holds the items
+  let holder: Element = target;
+  for (let only = Array.from(holder.children).filter(sized); only.length === 1 && only[0].children.length; only = Array.from(holder.children).filter(sized)) holder = only[0];
+  const kids = Array.from(holder.children).filter(sized).map((el) => el.getBoundingClientRect());
   for (const k of kids) box(layer, k.left + sx, k.top + sy, k.width, k.height, `outline:1px dashed ${BLUE};`);
-  const row = m.display.includes('flex') ? !m.direction.startsWith('column') : kids.length > 1 && Math.abs(kids[1].top - kids[0].top) < 2;
-  const guide = `border-left:1px dashed ${BLUE};`;
-  let lane = 0;
-  for (let i = 1; i < kids.length; i++) {
-    const a = kids[i - 1];
-    const b = kids[i];
-    const gap = row ? b.left - a.right : b.top - a.bottom;
-    if (gap < 1) continue;
+  const hs = getComputedStyle(holder);
+  const row = hs.display.includes('flex') ? !hs.flexDirection.startsWith('column') : kids.length > 1 && Math.abs(kids[1].top - kids[0].top) < 2;
+  const gaps = kids.slice(1).map((b, i) => ({ a: kids[i], b, gap: row ? b.left - kids[i].right : b.top - kids[i].bottom })).filter((g) => g.gap >= 1);
+  const showKids = kids.length > 1 || (kids.length === 1 && (Math.abs(kids[0].width - r.width) > 1 || Math.abs(kids[0].height - r.height) > 1));
+  const lanes = [showKids, gaps.length > 0];
+  const laneAt = (n: number) => (row ? y + r.height + 14 + n * 24 : x + r.width + 12 + n * 44);
+  const laneKids = laneAt(0);
+  const laneGaps = laneAt(lanes[0] ? 1 : 0);
+  const laneTotal = row ? y - 18 : laneAt(lanes.filter(Boolean).length);
+
+  if (showKids) {
+    for (const k of kids) {
+      if (row) pill(layer, k.left + sx + k.width / 2, laneKids, fmt(k.width), BLUE);
+      else pill(layer, laneKids, k.top + sy + k.height / 2, fmt(k.height), BLUE, 'left');
+    }
+  }
+  for (const { a, b, gap } of gaps) {
     if (row) {
       const top = Math.max(a.top, b.top) + sy;
       const h = Math.max(4, Math.min(a.bottom, b.bottom) + sy - top);
       box(layer, a.right + sx, top, gap, h, `background:${PINK}40;`);
-      const drop = y + r.height + 18 + (lane++ % 2) * 20;
-      box(layer, a.right + sx, top + h, 0, drop - top - h, guide);
-      box(layer, b.left + sx, top + h, 0, drop - top - h, guide);
-      pill(layer, a.right + sx + gap / 2, drop, fmt(gap), PINK);
+      box(layer, a.right + sx, top + h, 0, laneGaps - top - h, `border-left:1px dashed ${PINK};`);
+      box(layer, b.left + sx, top + h, 0, laneGaps - top - h, `border-left:1px dashed ${PINK};`);
+      pill(layer, a.right + sx + gap / 2, laneGaps, fmt(gap), PINK);
     } else {
       const left = Math.max(a.left, b.left) + sx;
       const w = Math.max(4, Math.min(a.right, b.right) + sx - left);
       box(layer, left, a.bottom + sy, w, gap, `background:${PINK}40;`);
-      const out = x + r.width + 56 + (lane++ % 2) * 36;
-      box(layer, left + w, a.bottom + sy, out - left - w, 0, `border-top:1px dashed ${BLUE};`);
-      box(layer, left + w, b.top + sy, out - left - w, 0, `border-top:1px dashed ${BLUE};`);
-      pill(layer, out, a.bottom + sy + gap / 2, fmt(gap), PINK, 'left');
+      box(layer, left + w, a.bottom + sy, laneGaps - left - w, 0, `border-top:1px dashed ${PINK};`);
+      box(layer, left + w, b.top + sy, laneGaps - left - w, 0, `border-top:1px dashed ${PINK};`);
+      pill(layer, laneGaps, a.bottom + sy + gap / 2, fmt(gap), PINK, 'left');
     }
   }
 
-  // Outline with corner handles, width above and height on the right
+  // Outline with corner handles; width and height as dimension lines with end ticks
   box(layer, x, y, r.width, r.height, `outline:1px solid ${PINK};`);
   for (const [cx, cy] of [[x, y], [x + r.width, y], [x, y + r.height], [x + r.width, y + r.height]]) {
     box(layer, cx - 3, cy - 3, 6, 6, `border:1px solid ${PINK};border-radius:50%;background:#fff;`);
   }
-  pill(layer, x + r.width / 2, y - 14, `${fmt(r.width)}px`, PINK);
-  pill(layer, x + r.width + 8, y + r.height / 2, `${fmt(r.height)}px`, PINK, 'left');
+  const top = y - 14;
+  box(layer, x, top, r.width, 0, `border-top:1px solid ${PINK};`);
+  box(layer, x, top - 4, 0, 8, `border-left:1px solid ${PINK};`);
+  box(layer, x + r.width, top - 4, 0, 8, `border-left:1px solid ${PINK};`);
+  pill(layer, x + r.width / 2, top, `${fmt(r.width)}px`, PINK);
+  const side = row ? x + r.width + 14 : laneTotal;
+  box(layer, side, y, 0, r.height, `border-left:1px solid ${PINK};`);
+  box(layer, side - 4, y, 8, 0, `border-top:1px solid ${PINK};`);
+  box(layer, side - 4, y + r.height, 8, 0, `border-top:1px solid ${PINK};`);
+  pill(layer, side, y + r.height / 2, `${fmt(r.height)}px`, PINK);
 
-  if (hovered) {
-    const h = hovered.getBoundingClientRect();
-    box(layer, h.left + sx, h.top + sy, h.width, h.height, `outline:2px solid ${BLUE};background:${BLUE}14;`);
-    pill(layer, h.left + sx + h.width / 2, h.bottom + sy + 12, `${fmt(h.width)} × ${fmt(h.height)}`, BLUE);
-  }
+  if (hovered) drawHovered(layer, hovered, target, sx, sy);
+}
+
+/** Hovered element: outline, its size and, when it sits inside the measured element, the distance to each edge. */
+function drawHovered(layer: HTMLElement, hovered: Element, target: Element, sx: number, sy: number): void {
+  const h = hovered.getBoundingClientRect();
+  const t = target.getBoundingClientRect();
+  box(layer, h.left + sx, h.top + sy, h.width, h.height, `outline:2px solid ${BLUE};background:${BLUE}14;`);
+  pill(layer, h.left + sx + h.width / 2, h.bottom + sy + 12, `${fmt(h.width)} × ${fmt(h.height)}`, BLUE);
+  if (hovered === target || !target.contains(hovered)) return;
+  const cx = h.left + sx + h.width / 2;
+  const cy = h.top + sy + h.height / 2;
+  const line = `background:${PINK};`;
+  const distances: [number, () => void][] = [
+    [h.top - t.top, () => { box(layer, cx, t.top + sy, 1, h.top - t.top, line); pill(layer, cx + 4, t.top + sy + (h.top - t.top) / 2, fmt(h.top - t.top), PINK, 'left'); }],
+    [t.bottom - h.bottom, () => { box(layer, cx, h.bottom + sy, 1, t.bottom - h.bottom, line); pill(layer, cx + 4, h.bottom + sy + (t.bottom - h.bottom) / 2, fmt(t.bottom - h.bottom), PINK, 'left'); }],
+    [h.left - t.left, () => { box(layer, t.left + sx, cy, h.left - t.left, 1, line); pill(layer, t.left + sx + (h.left - t.left) / 2, cy - 10, fmt(h.left - t.left), PINK); }],
+    [t.right - h.right, () => { box(layer, h.right + sx, cy, t.right - h.right, 1, line); pill(layer, h.right + sx + (t.right - h.right) / 2, cy - 10, fmt(t.right - h.right), PINK); }],
+  ];
+  for (const [distance, draw] of distances) if (distance >= 1) draw();
 }
