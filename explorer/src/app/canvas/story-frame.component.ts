@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, DestroyRef, effect, type ElementRef, inject, input, signal, viewChild } from '@angular/core';
 import { ExplorerState } from '../explorer-state';
-import { cloneableArgs, type FrameMessage, type RenderMessage } from '../frame/frame-protocol';
+import { cloneableArgs, type FrameMessage, type InspectMessage, type RenderMessage } from '../frame/frame-protocol';
 
 /** Iframe that renders the selected story at the real device width (see `FrameRootComponent`). */
 @Component({
@@ -31,6 +31,7 @@ export class StoryFrameComponent {
       else if (data.type === 'size') this.contentHeight.set(data.height);
       else if (data.type === 'event') this.state.logEvent(data.name, data.payload);
       else if (data.type === 'tokens') this.state.tokens.set(data.tokens);
+      else if (data.type === 'measure') this.state.measure.set(data.data);
     };
     window.addEventListener('message', onMessage);
     inject(DestroyRef).onDestroy(() => window.removeEventListener('message', onMessage));
@@ -44,6 +45,11 @@ export class StoryFrameComponent {
         theme: this.state.theme(),
         scheme: this.state.scheme(),
       };
+      if (this.ready()) this.iframe().nativeElement.contentWindow?.postMessage(message, location.origin);
+    });
+
+    effect(() => {
+      const message: InspectMessage = { source: 'po-explorer', type: 'inspect', ...this.state.inspect() };
       if (this.ready()) this.iframe().nativeElement.contentWindow?.postMessage(message, location.origin);
     });
   }

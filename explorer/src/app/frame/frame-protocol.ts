@@ -1,4 +1,4 @@
-import type { SchemeId, ThemeId, TokenRecord } from '../model';
+import type { MeasureData, SchemeId, ThemeId, TokenRecord } from '../model';
 
 /*
  * The stage renders the story inside a same-origin iframe of the explorer itself (`./?frame=1`), so media
@@ -15,12 +15,23 @@ export interface RenderMessage {
   scheme: SchemeId;
 }
 
+/** Explorer -> frame: measure mode (overlay on the component) and the element to measure or highlight. */
+export interface InspectMessage {
+  source: 'po-explorer';
+  type: 'inspect';
+  enabled: boolean;
+  /** Element to measure; null picks the component root. */
+  index: number | null;
+  hover: number | null;
+}
+
 /** Frame -> explorer: lifecycle, content height, story events and the design tokens in use. */
 export type FrameMessage =
   | { source: 'po-frame'; type: 'ready' }
   | { source: 'po-frame'; type: 'size'; height: number }
   | { source: 'po-frame'; type: 'event'; name: string; payload: string }
-  | { source: 'po-frame'; type: 'tokens'; tokens: TokenRecord[] };
+  | { source: 'po-frame'; type: 'tokens'; tokens: TokenRecord[] }
+  | { source: 'po-frame'; type: 'measure'; data: MeasureData };
 
 export function isFrameMode(): boolean {
   return new URLSearchParams(location.search).has('frame');

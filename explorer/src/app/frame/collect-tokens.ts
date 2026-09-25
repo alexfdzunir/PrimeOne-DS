@@ -12,7 +12,7 @@ export function collectTokens(): TokenRecord[] {
   const story = document.querySelector('po-story');
   if (!story) return [];
   // The story and whatever it appended to <body> (dialogs, panels, tooltips)
-  const scopes = [story, ...Array.from(document.body.children).filter((el) => !['PO-ROOT', 'SCRIPT', 'STYLE'].includes(el.tagName))];
+  const scopes = [story, ...Array.from(document.body.children).filter((el) => !['PO-ROOT', 'SCRIPT', 'STYLE'].includes(el.tagName) && el.id !== 'po-measure-overlay')];
   const applies = (selectorText: string) =>
     selectorText.split(',').some((part) => {
       const selector = part.replace(PSEUDO, '').trim() || '*';

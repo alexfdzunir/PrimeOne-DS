@@ -96,6 +96,38 @@ export interface TokenRecord {
   value: string;
 }
 
+/** Element of the rendered component that can be measured. */
+export interface MeasureElement {
+  index: number;
+  label: string;
+  depth: number;
+}
+
+/** Box model and layout of the measured element, in px. Sides are [top, right, bottom, left]. */
+export interface BoxMeasure {
+  label: string;
+  width: number;
+  height: number;
+  content: [number, number];
+  padding: number[];
+  border: number[];
+  margin: number[];
+  /** [top-left, top-right, bottom-right, bottom-left]. */
+  radius: number[];
+  boxSizing: string;
+  display: string;
+  direction: string;
+  gap: [number, number];
+  font: { family: string; size: number; lineHeight: string; weight: string };
+  children: number;
+}
+
+export interface MeasureData {
+  elements: MeasureElement[];
+  selected: number;
+  box: BoxMeasure | null;
+}
+
 export interface EventRecord {
   id: number;
   name: string;

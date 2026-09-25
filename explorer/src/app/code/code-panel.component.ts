@@ -1,12 +1,14 @@
-import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, ElementRef, inject, output, signal } from '@angular/core';
+import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyRef, effect, ElementRef, inject, output, signal, untracked } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ExplorerState } from '../explorer-state';
+import type { BoxMeasure } from '../model';
 import { htmlSnippet, tsSnippet } from '../snippet';
 import { CodeViewComponent } from './code-view.component';
+import { MeasureViewComponent } from './measure-view.component';
 import { TokensViewComponent } from './tokens-view.component';
 import { linesToText } from './tokens';
 
-type TabId = 'html' | 'ts' | 'tokens';
+type TabId = 'html' | 'ts' | 'tokens' | 'measure';
 
 const TAB_KEY = 'po-explorer.code-tab';
 const HEIGHT_KEY = 'po-explorer.code-height';
@@ -18,7 +20,7 @@ const KEY_STEP = 24;
 /** Bottom panel of the stage with the component code (HTML template and TypeScript) and its design tokens, resizable. */
 @Component({
   selector: 'po-code-panel',
-  imports: [Button, CodeViewComponent, TokensViewComponent],
+  imports: [Button, CodeViewComponent, MeasureViewComponent, TokensViewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[style.height.px]': 'height()' },
   template: `
@@ -76,6 +78,8 @@ const KEY_STEP = 24;
     </header>
     @if (active() === 'tokens') {
       <po-tokens-view role="tabpanel" id="po-code-tokens" [tokens]="state.tokens()" />
+    } @else if (active() === 'measure') {
+      <po-measure-view role="tabpanel" id="po-code-measure" />
     } @else {
       <po-code-view
         role="tabpanel"
@@ -205,9 +209,10 @@ export class CodePanelComponent {
     { id: 'html', label: 'HTML', icon: 'ph ph-file-html' },
     { id: 'ts', label: 'TypeScript', icon: 'ph ph-file-ts' },
     { id: 'tokens', label: 'Tokens', icon: 'ph ph-swatches' },
+    { id: 'measure', label: 'Medidas', icon: 'ph ph-ruler' },
   ];
   protected readonly minHeight = MIN_HEIGHT;
-  protected readonly active = signal<TabId>(((['html', 'ts', 'tokens'] as const).find((tab) => tab === read(TAB_KEY)) ?? 'html') as TabId);
+  protected readonly active = signal<TabId>(((['html', 'ts', 'tokens', 'measure'] as const).find((tab) => tab === read(TAB_KEY)) ?? 'html') as TabId);
   protected readonly height = signal(Number(read(HEIGHT_KEY)) || DEFAULT_HEIGHT);
   protected readonly maxHeight = signal(MIN_HEIGHT);
   protected readonly copied = signal(false);
@@ -220,7 +225,15 @@ export class CodePanelComponent {
   private copyTimer?: ReturnType<typeof setTimeout>;
 
   constructor() {
-    inject(DestroyRef).onDestroy(() => clearTimeout(this.copyTimer));
+    // The measure overlay lives on the stage only while the Medidas tab is open
+    effect(() => {
+      const enabled = this.active() === 'measure';
+      untracked(() => this.state.inspect.update((inspect) => ({ ...inspect, enabled })));
+    });
+    inject(DestroyRef).onDestroy(() => {
+      clearTimeout(this.copyTimer);
+      this.state.inspect.update((inspect) => ({ ...inspect, enabled: false }));
+    });
     afterNextRender(() => this.resize(this.height()));
   }
 
@@ -231,7 +244,12 @@ export class CodePanelComponent {
 
   protected async copy(): Promise<void> {
     try {
-      const text = this.active() === 'tokens' ? this.state.tokens().map((t) => `${t.name}: ${t.value}`).join('\n') : linesToText(this.lines());
+      const text =
+        this.active() === 'tokens'
+          ? this.state.tokens().map((t) => `${t.name}: ${t.value}`).join('\n')
+          : this.active() === 'measure'
+            ? measureText(this.state.measure()?.box ?? null)
+            : linesToText(this.lines());
       await navigator.clipboard.writeText(text);
     } catch {
       return;
@@ -290,4 +308,19 @@ function write(key: string, value: string): void {
   } catch {
     // Storage unavailable: the preference is just not remembered.
   }
+}
+
+/** Plain text of the measured box for the Copy button. */
+function measureText(box: BoxMeasure | null): string {
+  if (!box) return '';
+  const sides = (values: number[]) => values.map((v) => `${v}px`).join(' ');
+  return [
+    `${box.label}: ${box.width} × ${box.height}px (contenido ${box.content[0]} × ${box.content[1]}px)`,
+    `padding: ${sides(box.padding)}`,
+    `border: ${sides(box.border)}`,
+    `border-radius: ${sides(box.radius)}`,
+    `margin: ${sides(box.margin)}`,
+    `gap: ${box.gap[0]}px ${box.gap[1]}px`,
+    `font: ${box.font.weight} ${box.font.size}px/${box.font.lineHeight} ${box.font.family}`,
+  ].join('\n');
 }

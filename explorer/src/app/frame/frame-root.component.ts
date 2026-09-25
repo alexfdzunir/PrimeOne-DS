@@ -3,10 +3,11 @@ import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../../src/theme/presets';
 import { describe } from '../explorer-state';
 import { collectTokens } from './collect-tokens';
+import { clearOverlay, measure } from './measure';
 import type { ComponentEntry, RenderedStory } from '../model';
 import { buildRegistry } from '../registry';
 import { StoryHostComponent } from '../story-host.component';
-import type { FrameMessage, RenderMessage } from './frame-protocol';
+import type { FrameMessage, InspectMessage, RenderMessage } from './frame-protocol';
 
 const PRESETS = { estudiantes: PrimeOneEstudiantes, prodi: PrimeOneProdi, foundations: PrimeOneFoundations };
 
@@ -64,14 +65,22 @@ export class FrameRootComponent {
   });
 
   private tokensTimer?: ReturnType<typeof setTimeout>;
+  private measureTimer?: ReturnType<typeof setTimeout>;
+  private lastMeasure = '';
+  private inspect: InspectMessage | null = null;
   private lastTokens = '';
 
   constructor() {
     const destroyRef = inject(DestroyRef);
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== location.origin || event.source !== window.parent) return;
-      const data = event.data as RenderMessage | undefined;
-      if (data?.source === 'po-explorer' && data.type === 'render') this.request.set(data);
+      const data = event.data as RenderMessage | InspectMessage | undefined;
+      if (data?.source !== 'po-explorer') return;
+      if (data.type === 'render') this.request.set(data);
+      else if (data.type === 'inspect') {
+        this.inspect = data;
+        this.scheduleMeasure();
+      }
     };
     window.addEventListener('message', onMessage);
     destroyRef.onDestroy(() => window.removeEventListener('message', onMessage));
@@ -82,6 +91,7 @@ export class FrameRootComponent {
       usePreset(PRESETS[request.theme]);
       document.documentElement.classList.toggle('po-dark', request.scheme === 'dark');
       this.scheduleTokens();
+      this.scheduleMeasure();
     });
 
     afterNextRender(() => {
@@ -104,16 +114,22 @@ export class FrameRootComponent {
       };
       const resize = new ResizeObserver(schedule);
       resize.observe(document.body);
-      const mutations = new MutationObserver(() => {
+      // Changes of the measure overlay itself do not count (it would redraw forever)
+      const mutations = new MutationObserver((records) => {
+        const own = (node: Node) => node instanceof Element && (node.id === 'po-measure-overlay' || !!node.closest('#po-measure-overlay'));
+        if (records.every((r) => own(r.target) || [...Array.from(r.addedNodes), ...Array.from(r.removedNodes)].some(own))) return;
         schedule();
         this.scheduleTokens();
+        this.scheduleMeasure();
       });
       mutations.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
       destroyRef.onDestroy(() => {
         resize.disconnect();
         mutations.disconnect();
         clearTimeout(this.tokensTimer);
+        clearTimeout(this.measureTimer);
       });
+      addEventListener('resize', () => this.scheduleMeasure());
       post({ type: 'ready' });
     });
   }
@@ -128,5 +144,23 @@ export class FrameRootComponent {
       this.lastTokens = key;
       post({ type: 'tokens', tokens });
     }, 400);
+  }
+
+  /** Measures (and draws the overlay) while the Medidas tab is open; only sends the data when it changes. */
+  private scheduleMeasure(): void {
+    clearTimeout(this.measureTimer);
+    this.measureTimer = setTimeout(() => {
+      const inspect = this.inspect;
+      if (!inspect?.enabled) {
+        clearOverlay();
+        this.lastMeasure = '';
+        return;
+      }
+      const data = measure(inspect.index, inspect.hover, true);
+      const key = JSON.stringify(data);
+      if (key === this.lastMeasure) return;
+      this.lastMeasure = key;
+      post({ type: 'measure', data });
+    }, 120);
   }
 }

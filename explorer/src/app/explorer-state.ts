@@ -1,7 +1,7 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
 import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../src/theme/presets';
-import { CATEGORIES, type CategoryGroup, type CategoryId, type ComponentEntry, type EventRecord, type ExplorerView, type RenderedStory, type SchemeId, type ThemeId, type TokenRecord, type ViewportId } from './model';
+import { CATEGORIES, type CategoryGroup, type CategoryId, type ComponentEntry, type EventRecord, type ExplorerView, type MeasureData, type RenderedStory, type SchemeId, type ThemeId, type TokenRecord, type ViewportId } from './model';
 import { buildRegistry } from './registry';
 
 const PRESETS = { estudiantes: PrimeOneEstudiantes, prodi: PrimeOneProdi, foundations: PrimeOneFoundations };
@@ -48,6 +48,9 @@ export class ExplorerState {
   readonly events = signal<EventRecord[]>([]);
   /** Design tokens of the rendered component, reported by the preview frame. */
   readonly tokens = signal<TokenRecord[]>([]);
+  /** Medidas tab: overlay on the component, element to measure and element highlighted from the list. */
+  readonly inspect = signal<{ enabled: boolean; index: number | null; hover: number | null }>({ enabled: false, index: null, hover: null });
+  readonly measure = signal<MeasureData | null>(null);
   /** Side columns; remembered per browser. */
   readonly catalogOpen = signal(readFlag(CATALOG_KEY, true));
   readonly panelOpen = signal(readFlag(PANEL_KEY, true));
@@ -112,6 +115,8 @@ export class ExplorerState {
   select(id: string): void {
     const entry = this.entries.find((e) => e.id === id);
     if (!entry) return;
+    // Another component: measure its root again
+    this.inspect.update((inspect) => ({ ...inspect, index: null, hover: null }));
     this.closeCatalogIfCompact();
     this.view.set({ kind: 'component' });
     this.selectedId.set(entry.id);
