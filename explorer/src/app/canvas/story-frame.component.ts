@@ -30,6 +30,7 @@ export class StoryFrameComponent {
       if (data.type === 'ready') this.ready.set(true);
       else if (data.type === 'size') this.contentHeight.set(data.height);
       else if (data.type === 'event') this.state.logEvent(data.name, data.payload);
+      else if (data.type === 'tokens') this.state.tokens.set(data.tokens);
     };
     window.addEventListener('message', onMessage);
     inject(DestroyRef).onDestroy(() => window.removeEventListener('message', onMessage));

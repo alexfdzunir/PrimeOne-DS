@@ -89,6 +89,13 @@ export interface CategoryGroup extends CategoryDef {
   entries: ComponentEntry[];
 }
 
+/** Design token used by the rendered component: Figma-style name, CSS variable and resolved value. */
+export interface TokenRecord {
+  name: string;
+  cssVar: string;
+  value: string;
+}
+
 export interface EventRecord {
   id: number;
   name: string;

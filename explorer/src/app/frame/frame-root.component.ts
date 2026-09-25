@@ -2,6 +2,7 @@ import { afterNextRender, ChangeDetectionStrategy, Component, computed, DestroyR
 import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../../src/theme/presets';
 import { describe } from '../explorer-state';
+import { collectTokens } from './collect-tokens';
 import type { ComponentEntry, RenderedStory } from '../model';
 import { buildRegistry } from '../registry';
 import { StoryHostComponent } from '../story-host.component';
@@ -62,6 +63,9 @@ export class FrameRootComponent {
     return request && entry ? entry.render(request.args, this.handlers()) : null;
   });
 
+  private tokensTimer?: ReturnType<typeof setTimeout>;
+  private lastTokens = '';
+
   constructor() {
     const destroyRef = inject(DestroyRef);
     const onMessage = (event: MessageEvent) => {
@@ -77,6 +81,7 @@ export class FrameRootComponent {
       if (!request) return;
       usePreset(PRESETS[request.theme]);
       document.documentElement.classList.toggle('po-dark', request.scheme === 'dark');
+      this.scheduleTokens();
     });
 
     afterNextRender(() => {
@@ -99,13 +104,29 @@ export class FrameRootComponent {
       };
       const resize = new ResizeObserver(schedule);
       resize.observe(document.body);
-      const mutations = new MutationObserver(schedule);
+      const mutations = new MutationObserver(() => {
+        schedule();
+        this.scheduleTokens();
+      });
       mutations.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
       destroyRef.onDestroy(() => {
         resize.disconnect();
         mutations.disconnect();
+        clearTimeout(this.tokensTimer);
       });
       post({ type: 'ready' });
     });
+  }
+
+  /** Tokens in use, once the render (overlays and theme included) has settled; only sent when they change. */
+  private scheduleTokens(): void {
+    clearTimeout(this.tokensTimer);
+    this.tokensTimer = setTimeout(() => {
+      const tokens = collectTokens();
+      const key = JSON.stringify(tokens);
+      if (key === this.lastTokens) return;
+      this.lastTokens = key;
+      post({ type: 'tokens', tokens });
+    }, 400);
   }
 }

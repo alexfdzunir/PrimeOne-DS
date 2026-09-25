@@ -1,4 +1,4 @@
-import type { SchemeId, ThemeId } from '../model';
+import type { SchemeId, ThemeId, TokenRecord } from '../model';
 
 /*
  * The stage renders the story inside a same-origin iframe of the explorer itself (`./?frame=1`), so media
@@ -15,11 +15,12 @@ export interface RenderMessage {
   scheme: SchemeId;
 }
 
-/** Frame -> explorer: lifecycle, content height and story events. */
+/** Frame -> explorer: lifecycle, content height, story events and the design tokens in use. */
 export type FrameMessage =
   | { source: 'po-frame'; type: 'ready' }
   | { source: 'po-frame'; type: 'size'; height: number }
-  | { source: 'po-frame'; type: 'event'; name: string; payload: string };
+  | { source: 'po-frame'; type: 'event'; name: string; payload: string }
+  | { source: 'po-frame'; type: 'tokens'; tokens: TokenRecord[] };
 
 export function isFrameMode(): boolean {
   return new URLSearchParams(location.search).has('frame');

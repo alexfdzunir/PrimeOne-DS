@@ -1,7 +1,7 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
 import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../src/theme/presets';
-import { CATEGORIES, type CategoryGroup, type CategoryId, type ComponentEntry, type EventRecord, type ExplorerView, type RenderedStory, type SchemeId, type ThemeId, type ViewportId } from './model';
+import { CATEGORIES, type CategoryGroup, type CategoryId, type ComponentEntry, type EventRecord, type ExplorerView, type RenderedStory, type SchemeId, type ThemeId, type TokenRecord, type ViewportId } from './model';
 import { buildRegistry } from './registry';
 
 const PRESETS = { estudiantes: PrimeOneEstudiantes, prodi: PrimeOneProdi, foundations: PrimeOneFoundations };
@@ -46,6 +46,8 @@ export class ExplorerState {
   readonly scheme = signal<SchemeId>('light');
   readonly viewport = signal<ViewportId>('auto');
   readonly events = signal<EventRecord[]>([]);
+  /** Design tokens of the rendered component, reported by the preview frame. */
+  readonly tokens = signal<TokenRecord[]>([]);
   /** Side columns; remembered per browser. */
   readonly catalogOpen = signal(readFlag(CATALOG_KEY, true));
   readonly panelOpen = signal(readFlag(PANEL_KEY, true));

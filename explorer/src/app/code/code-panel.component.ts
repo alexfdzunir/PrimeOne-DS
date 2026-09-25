@@ -3,9 +3,10 @@ import { Button } from 'primeng/button';
 import { ExplorerState } from '../explorer-state';
 import { htmlSnippet, tsSnippet } from '../snippet';
 import { CodeViewComponent } from './code-view.component';
+import { TokensViewComponent } from './tokens-view.component';
 import { linesToText } from './tokens';
 
-type TabId = 'html' | 'ts';
+type TabId = 'html' | 'ts' | 'tokens';
 
 const TAB_KEY = 'po-explorer.code-tab';
 const HEIGHT_KEY = 'po-explorer.code-height';
@@ -14,10 +15,10 @@ const MAX_RATIO = 0.55;
 const DEFAULT_HEIGHT = 320;
 const KEY_STEP = 24;
 
-/** Bottom panel of the stage with the component code (HTML template and TypeScript), resizable. */
+/** Bottom panel of the stage with the component code (HTML template and TypeScript) and its design tokens, resizable. */
 @Component({
   selector: 'po-code-panel',
-  imports: [Button, CodeViewComponent],
+  imports: [Button, CodeViewComponent, TokensViewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[style.height.px]': 'height()' },
   template: `
@@ -47,6 +48,9 @@ const KEY_STEP = 24;
           >
             <i [class]="tab.icon" aria-hidden="true"></i>
             {{ tab.label }}
+            @if (tab.id === 'tokens' && state.tokens().length) {
+              <span class="po-code__count">{{ state.tokens().length }}</span>
+            }
           </button>
         }
       </div>
@@ -70,12 +74,16 @@ const KEY_STEP = 24;
         />
       </div>
     </header>
-    <po-code-view
-      role="tabpanel"
-      [id]="'po-code-' + active()"
-      [lines]="lines()"
-      [label]="active() === 'html' ? 'Plantilla HTML' : 'Componente TypeScript'"
-    />
+    @if (active() === 'tokens') {
+      <po-tokens-view role="tabpanel" id="po-code-tokens" [tokens]="state.tokens()" />
+    } @else {
+      <po-code-view
+        role="tabpanel"
+        [id]="'po-code-' + active()"
+        [lines]="lines()"
+        [label]="active() === 'html' ? 'Plantilla HTML' : 'Componente TypeScript'"
+      />
+    }
   `,
   styles: `
     :host {
@@ -157,6 +165,15 @@ const KEY_STEP = 24;
       color: var(--p-text-color);
     }
 
+    .po-code__count {
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--po-surface-3);
+      color: var(--p-text-muted-color);
+      font-size: 0.6875rem;
+      font-variant-numeric: tabular-nums;
+    }
+
     .po-code__tab--active {
       border-bottom-color: var(--p-primary-color);
       color: var(--p-primary-color);
@@ -187,17 +204,16 @@ export class CodePanelComponent {
   protected readonly tabs: { id: TabId; label: string; icon: string }[] = [
     { id: 'html', label: 'HTML', icon: 'ph ph-file-html' },
     { id: 'ts', label: 'TypeScript', icon: 'ph ph-file-ts' },
+    { id: 'tokens', label: 'Tokens', icon: 'ph ph-swatches' },
   ];
   protected readonly minHeight = MIN_HEIGHT;
-  protected readonly active = signal<TabId>(read(TAB_KEY) === 'ts' ? 'ts' : 'html');
+  protected readonly active = signal<TabId>(((['html', 'ts', 'tokens'] as const).find((tab) => tab === read(TAB_KEY)) ?? 'html') as TabId);
   protected readonly height = signal(Number(read(HEIGHT_KEY)) || DEFAULT_HEIGHT);
   protected readonly maxHeight = signal(MIN_HEIGHT);
   protected readonly copied = signal(false);
 
   protected readonly lines = computed(() =>
-    this.active() === 'html'
-      ? htmlSnippet(this.state.selected(), this.state.rendered(), this.state.args())
-      : tsSnippet(this.state.selected()),
+    this.active() === 'ts' ? tsSnippet(this.state.selected()) : htmlSnippet(this.state.selected(), this.state.rendered(), this.state.args()),
   );
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
@@ -215,7 +231,8 @@ export class CodePanelComponent {
 
   protected async copy(): Promise<void> {
     try {
-      await navigator.clipboard.writeText(linesToText(this.lines()));
+      const text = this.active() === 'tokens' ? this.state.tokens().map((t) => `${t.name}: ${t.value}`).join('\n') : linesToText(this.lines());
+      await navigator.clipboard.writeText(text);
     } catch {
       return;
     }
