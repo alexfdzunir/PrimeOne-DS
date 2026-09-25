@@ -2,6 +2,18 @@
 
 Librería Angular del design system PrimeOne: componentes PrimeNG 21 (licencia MIT) con los presets del DS y componentes propios de Proeduca (`prime-one-*`), conectados a Figma con Code Connect.
 
+## Capturas
+
+Explorador del DS (`npm run explorer`).
+
+![Home del explorador: cifras del DS y secciones del catálogo](docs/screenshots/home.png)
+
+| Sección | Componente |
+| --- | --- |
+| ![Sección Formulario con una ficha por componente](docs/screenshots/seccion.png) | ![Card con el panel de control y el código HTML listo para copiar](docs/screenshots/componente.png) |
+
+![Agenda en modo oscuro](docs/screenshots/modo-oscuro.png)
+
 ## Requisitos
 
 - Node.js `^20.19.0`, `^22.12.0` o `>=24` (requisito de Angular 21)
