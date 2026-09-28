@@ -13,6 +13,38 @@ const sized = (el: Element) => {
   return r.width > 0 && r.height > 0;
 };
 
+/** Own paint of an element: padding, border, background or shadow. Without it, its box is not visible. */
+function boxed(el: Element): boolean {
+  const cs = getComputedStyle(el);
+  return (
+    ['padding-top', 'padding-right', 'padding-bottom', 'padding-left', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width'].some(
+      (p) => px(cs.getPropertyValue(p)) > 0,
+    ) ||
+    cs.backgroundColor !== 'rgba(0, 0, 0, 0)' ||
+    cs.backgroundImage !== 'none' ||
+    cs.boxShadow !== 'none'
+  );
+}
+
+/** Union of the boxes of the sized children, or null when there are none. */
+function contentRect(el: Element): DOMRect | null {
+  const rects = Array.from(el.children).filter(sized).map((kid) => kid.getBoundingClientRect());
+  if (!rects.length) return null;
+  const left = Math.min(...rects.map((r) => r.left));
+  const top = Math.min(...rects.map((r) => r.top));
+  return new DOMRect(left, top, Math.max(...rects.map((r) => r.right)) - left, Math.max(...rects.map((r) => r.bottom)) - top);
+}
+
+/**
+ * Box as seen: an element without paint of its own that is larger than what it holds (a block host such as
+ * `p-inputotp` or `p-avatar-group` stretched to the container) hugs its content, as a frame does in Figma.
+ */
+function visualRect(el: Element): DOMRect {
+  const r = el.getBoundingClientRect();
+  if (boxed(el)) return r;
+  return contentRect(el) ?? r;
+}
+
 /** Component root: the first sized element of the story with a DS class (`p-*`, `po-*`) or a `prime-one-*` tag. */
 function componentRoot(story: Element): Element | null {
   const all = Array.from(story.querySelectorAll('*')).filter(sized);
@@ -56,7 +88,7 @@ function depthOf(el: Element, list: Element[]): number {
 
 function measureBox(el: Element): BoxMeasure {
   const cs = getComputedStyle(el);
-  const r = el.getBoundingClientRect();
+  const r = visualRect(el);
   const sides = (prop: string, suffix = '') => ['top', 'right', 'bottom', 'left'].map((side) => px(cs.getPropertyValue(`${prop}-${side}${suffix}`)));
   const padding = sides('padding');
   const border = sides('border', '-width');
@@ -82,21 +114,24 @@ function measureBox(el: Element): BoxMeasure {
   };
 }
 
+const near = (a: { left: number; top: number; right: number; bottom: number }, b: typeof a) =>
+  Math.abs(a.left - b.left) <= 1 && Math.abs(a.top - b.top) <= 1 && Math.abs(a.right - b.right) <= 1 && Math.abs(a.bottom - b.bottom) <= 1;
+
 /**
- * Default element: the root, unless it only wraps a same-size child (host elements such as `prime-one-card` or
- * `p-card`), then the first element down that chain with its own box (padding or border).
+ * Default element: the root, unless it is a wrapper without a box of its own (padding, border, background or
+ * shadow) around its content: a host that only wraps a same-size child (`prime-one-card`, `p-card`), or a block
+ * wider than what it holds (`p-iconfield` around its input). Then the child that covers that content, down the chain.
  */
 function defaultIndex(list: Element[]): number {
   let el = list[0];
   while (el) {
-    const cs = getComputedStyle(el);
-    const boxed = ['padding-top', 'padding-left', 'border-top-width', 'border-left-width'].some((p) => px(cs.getPropertyValue(p)) > 0);
+    // An icon or a chart is measured as a whole, not by its paths
+    const content = boxed(el) || el instanceof SVGSVGElement ? null : contentRect(el);
+    if (!content) break;
     const kids = Array.from(el.children).filter(sized);
-    if (boxed || kids.length !== 1) break;
-    const a = el.getBoundingClientRect();
-    const b = kids[0].getBoundingClientRect();
-    if (Math.abs(a.width - b.width) > 1 || Math.abs(a.height - b.height) > 1) break;
-    el = kids[0];
+    const cover = kids.find((kid) => near(kid.getBoundingClientRect(), content));
+    if (!cover || (kids.length > 1 && near(el.getBoundingClientRect(), content))) break;
+    el = cover;
   }
   return Math.max(0, list.indexOf(el));
 }
@@ -185,7 +220,7 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
   document.body.appendChild(layer);
   const sx = scrollX;
   const sy = scrollY;
-  const r = target.getBoundingClientRect();
+  const r = visualRect(target);
   const x = r.left + sx;
   const y = r.top + sy;
   const m = measureBox(target);
@@ -263,7 +298,7 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
 /** Hovered element: outline, its size and, when it sits inside the measured element, the distance to each edge. */
 function drawHovered(layer: HTMLElement, hovered: Element, target: Element, sx: number, sy: number): void {
   const h = hovered.getBoundingClientRect();
-  const t = target.getBoundingClientRect();
+  const t = visualRect(target);
   box(layer, h.left + sx, h.top + sy, h.width, h.height, `outline:2px solid ${BLUE};background:${BLUE}14;`);
   pill(layer, h.left + sx + h.width / 2, h.bottom + sy + 12, `${fmt(h.width)} × ${fmt(h.height)}`, BLUE);
   if (hovered === target || !target.contains(hovered)) return;

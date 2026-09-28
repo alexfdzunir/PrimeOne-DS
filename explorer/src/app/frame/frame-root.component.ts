@@ -29,6 +29,7 @@ function post(message: Outgoing): void {
     class: 'po-frame',
     '[class.po-frame--padded]': "layout() === 'padded'",
     '[class.po-frame--centered]': "layout() === 'centered'",
+    '[class.po-frame--measuring]': 'measuring()',
   },
   template: `
     @if (story(); as story) {
@@ -41,6 +42,11 @@ function post(message: Outgoing): void {
     :host(.po-frame--centered) { display: flex; align-items: center; justify-content: center; }
     @media (max-width: 599px) {
       :host(.po-frame--padded), :host(.po-frame--centered) { padding: 16px; }
+    }
+    /* Room for the measures drawn outside the component: widths above, per-child lanes to the right and below */
+    :host(.po-frame--measuring) { padding: 40px 160px 96px 24px; }
+    @media (max-width: 599px) {
+      :host(.po-frame--measuring) { padding: 40px 128px 96px 16px; }
     }
   `,
 })
@@ -58,6 +64,8 @@ export class FrameRootComponent {
   );
 
   protected readonly layout = computed(() => this.entry()?.layout ?? 'padded');
+  /** Medidas tab open: the frame leaves room around the component for the measures. */
+  protected readonly measuring = signal(false);
   protected readonly story = computed<RenderedStory | null>(() => {
     const request = this.request();
     const entry = this.entry();
@@ -79,6 +87,7 @@ export class FrameRootComponent {
       if (data.type === 'render') this.request.set(data);
       else if (data.type === 'inspect') {
         this.inspect = data;
+        this.measuring.set(data.enabled);
         this.scheduleMeasure();
       }
     };
