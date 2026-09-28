@@ -223,17 +223,8 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
   const r = visualRect(target);
   const x = r.left + sx;
   const y = r.top + sy;
-  const m = measureBox(target);
-  const [pt, pr, pb, pl] = m.padding;
-  const [bt, br, bb, bl] = m.border;
 
-  // Padding bands
-  const inner = { x: x + bl, y: y + bt, w: r.width - bl - br, h: r.height - bt - bb };
-  const band = `background:repeating-linear-gradient(45deg,${BLUE}33 0 4px,${BLUE}1a 4px 8px);`;
-  if (pt) box(layer, inner.x, inner.y, inner.w, pt, band);
-  if (pb) box(layer, inner.x, inner.y + inner.h - pb, inner.w, pb, band);
-  if (pl) box(layer, inner.x, inner.y + pt, pl, inner.h - pt - pb, band);
-  if (pr) box(layer, inner.x + inner.w - pr, inner.y + pt, pr, inner.h - pt - pb, band);
+  paddingBands(layer, target, r, sx, sy);
 
   // Children dashed. Lanes outside the element (right in a column, below in a row): size of each child, then the
   // gaps between them, then the total as a dimension line, so the component itself stays readable
@@ -295,21 +286,76 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
   if (hovered) drawHovered(layer, hovered, target, sx, sy);
 }
 
-/** Hovered element: outline, its size and, when it sits inside the measured element, the distance to each edge. */
+/** Padding of an element as hatched bands, each with its value. */
+function paddingBands(layer: HTMLElement, el: Element, r: DOMRect, sx: number, sy: number): void {
+  const { padding, border } = measureBox(el);
+  const [pt, pr, pb, pl] = padding;
+  const [bt, br, bb, bl] = border;
+  const x = r.left + sx + bl;
+  const y = r.top + sy + bt;
+  const w = r.width - bl - br;
+  const h = r.height - bt - bb;
+  const band = `background:repeating-linear-gradient(45deg,${BLUE}33 0 4px,${BLUE}1a 4px 8px);`;
+  const bands: [number, number, number, number, number][] = [
+    [pt, x, y, w, pt],
+    [pb, x, y + h - pb, w, pb],
+    [pl, x, y + pt, pl, h - pt - pb],
+    [pr, x + w - pr, y + pt, pr, h - pt - pb],
+  ];
+  for (const [value, bx, by, bw, bh] of bands) {
+    if (value < 1) continue;
+    box(layer, bx, by, bw, bh, band);
+    pill(layer, bx + bw / 2, by + bh / 2, fmt(value), BLUE);
+  }
+}
+
+/**
+ * Hovered element: outline, size and padding, and its spacing: on each side, the distance to the nearest sibling
+ * (the gap between items) or, when there is none, to the edge of its container (the inset of the container).
+ */
 function drawHovered(layer: HTMLElement, hovered: Element, target: Element, sx: number, sy: number): void {
   const h = hovered.getBoundingClientRect();
-  const t = visualRect(target);
+  paddingBands(layer, hovered, h, sx, sy);
   box(layer, h.left + sx, h.top + sy, h.width, h.height, `outline:2px solid ${BLUE};background:${BLUE}14;`);
-  pill(layer, h.left + sx + h.width / 2, h.bottom + sy + 12, `${fmt(h.width)} × ${fmt(h.height)}`, BLUE);
-  if (hovered === target || !target.contains(hovered)) return;
-  const cx = h.left + sx + h.width / 2;
+  if (hovered === target || !target.contains(hovered)) {
+    pill(layer, h.left + sx + h.width / 2, h.bottom + sy + 12, `${fmt(h.width)} × ${fmt(h.height)}`, BLUE);
+    return;
+  }
+  // Size below, a bit to the left, so it does not cover the distance below (drawn at three quarters)
+  pill(layer, h.left + sx + h.width * 0.35, h.bottom + sy + 12, `${fmt(h.width)} × ${fmt(h.height)}`, BLUE);
+
+  // Up through wrappers of the same size, so the container is the one that actually spaces it
+  let node: Element = hovered;
+  while (node.parentElement && node.parentElement !== target && near(node.parentElement.getBoundingClientRect(), h)) node = node.parentElement;
+  const parent = node.parentElement;
+  const inside = !!parent && (parent === target || target.contains(parent));
+  const frame = inside ? visualRect(parent) : visualRect(target);
+  const siblings = inside ? Array.from(parent.children).filter((el) => el !== node && sized(el)).map((el) => el.getBoundingClientRect()) : [];
+  const acrossX = (s: DOMRect) => s.left < h.right - 0.5 && s.right > h.left + 0.5;
+  const acrossY = (s: DOMRect) => s.top < h.bottom - 0.5 && s.bottom > h.top + 0.5;
+  const nearest = (values: number[], pick: (...n: number[]) => number, fallback: number) => (values.length ? pick(...values) : fallback);
+  const up = nearest(siblings.filter((s) => acrossX(s) && s.bottom <= h.top + 0.5).map((s) => s.bottom), Math.max, frame.top);
+  const down = nearest(siblings.filter((s) => acrossX(s) && s.top >= h.bottom - 0.5).map((s) => s.top), Math.min, frame.bottom);
+  const left = nearest(siblings.filter((s) => acrossY(s) && s.right <= h.left + 0.5).map((s) => s.right), Math.max, frame.left);
+  const right = nearest(siblings.filter((s) => acrossY(s) && s.left >= h.right - 0.5).map((s) => s.left), Math.min, frame.right);
+
+  const cx = h.left + sx + h.width * 0.75;
   const cy = h.top + sy + h.height / 2;
   const line = `background:${PINK};`;
-  const distances: [number, () => void][] = [
-    [h.top - t.top, () => { box(layer, cx, t.top + sy, 1, h.top - t.top, line); pill(layer, cx + 4, t.top + sy + (h.top - t.top) / 2, fmt(h.top - t.top), PINK, 'left'); }],
-    [t.bottom - h.bottom, () => { box(layer, cx, h.bottom + sy, 1, t.bottom - h.bottom, line); pill(layer, cx + 4, h.bottom + sy + (t.bottom - h.bottom) / 2, fmt(t.bottom - h.bottom), PINK, 'left'); }],
-    [h.left - t.left, () => { box(layer, t.left + sx, cy, h.left - t.left, 1, line); pill(layer, t.left + sx + (h.left - t.left) / 2, cy - 10, fmt(h.left - t.left), PINK); }],
-    [t.right - h.right, () => { box(layer, h.right + sx, cy, t.right - h.right, 1, line); pill(layer, h.right + sx + (t.right - h.right) / 2, cy - 10, fmt(t.right - h.right), PINK); }],
-  ];
-  for (const [distance, draw] of distances) if (distance >= 1) draw();
+  if (h.top - up >= 1) {
+    box(layer, cx, up + sy, 1, h.top - up, line);
+    pill(layer, cx + 4, up + sy + (h.top - up) / 2, fmt(h.top - up), PINK, 'left');
+  }
+  if (down - h.bottom >= 1) {
+    box(layer, cx, h.bottom + sy, 1, down - h.bottom, line);
+    pill(layer, cx + 4, h.bottom + sy + (down - h.bottom) / 2, fmt(down - h.bottom), PINK, 'left');
+  }
+  if (h.left - left >= 1) {
+    box(layer, left + sx, cy, h.left - left, 1, line);
+    pill(layer, left + sx + (h.left - left) / 2, cy - 10, fmt(h.left - left), PINK);
+  }
+  if (right - h.right >= 1) {
+    box(layer, h.right + sx, cy, right - h.right, 1, line);
+    pill(layer, h.right + sx + (right - h.right) / 2, cy - 10, fmt(right - h.right), PINK);
+  }
 }
