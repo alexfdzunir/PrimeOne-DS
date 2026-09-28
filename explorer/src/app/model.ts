@@ -83,7 +83,7 @@ export const CATEGORIES: CategoryDef[] = [
 ];
 
 /** What the stage shows: the home, the overview of a section or the selected component. */
-export type ExplorerView = { kind: 'home' } | { kind: 'section'; id: CategoryId } | { kind: 'component' };
+export type ExplorerView = { kind: 'home' } | { kind: 'foundations' } | { kind: 'section'; id: CategoryId } | { kind: 'component' };
 
 export interface CategoryGroup extends CategoryDef {
   entries: ComponentEntry[];

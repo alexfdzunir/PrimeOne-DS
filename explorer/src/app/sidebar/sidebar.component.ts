@@ -4,10 +4,14 @@ import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, type CategoryId } from '../model';
+import { FOUNDATION_SECTIONS } from '../pages/foundations.component';
 
 const COLLAPSED_KEY = 'po-explorer.collapsed';
 /** Unfold transition of `.po-sidebar__collapse` (200ms) plus a frame. */
 const UNFOLD_MS = 220;
+/** Groups of the sidebar: Foundations and the component categories. */
+type GroupId = CategoryId | 'foundations';
+const GROUP_IDS: GroupId[] = ['foundations', ...CATEGORIES.map((category) => category.id)];
 
 /** Catalogue of the DS: search and the components grouped by category. Width and collapse are owned by the shell. */
 @Component({
@@ -68,6 +72,54 @@ const UNFOLD_MS = 220;
           <i class="ph ph-house" aria-hidden="true"></i>
           Inicio
         </button>
+        <section class="po-sidebar__group">
+          <h2 class="po-sidebar__group-heading">
+            <button
+              type="button"
+              class="po-sidebar__group-toggle"
+              [attr.aria-expanded]="isOpen('foundations')"
+              aria-controls="po-group-foundations"
+              [attr.aria-label]="(isOpen('foundations') ? 'Plegar ' : 'Desplegar ') + 'Foundations'"
+              (click)="toggle('foundations')"
+            >
+              <i class="ph ph-caret-down po-sidebar__caret" aria-hidden="true"></i>
+            </button>
+            @let foundations = state.view().kind === 'foundations' && !state.foundationsTarget();
+            <button
+              type="button"
+              class="po-sidebar__group-title"
+              [class.po-sidebar__group-title--active]="foundations"
+              [attr.aria-current]="foundations ? 'page' : null"
+              (click)="state.openFoundations()"
+            >
+              <i class="ph ph-palette" aria-hidden="true"></i>
+              <span>Foundations</span>
+              <span class="po-sidebar__group-count">{{ foundationSections.length }}</span>
+            </button>
+          </h2>
+          <div
+            class="po-sidebar__collapse"
+            [class.po-sidebar__collapse--closed]="!isOpen('foundations')"
+            [attr.inert]="isOpen('foundations') ? null : ''"
+          >
+            <ul class="po-sidebar__items" id="po-group-foundations">
+              @for (section of foundationSections; track section.id) {
+                @let active = state.view().kind === 'foundations' && state.foundationsTarget()?.id === section.id;
+                <li>
+                  <button
+                    type="button"
+                    class="po-sidebar__item"
+                    [class.po-sidebar__item--active]="active"
+                    [attr.aria-current]="active ? 'page' : null"
+                    (click)="state.openFoundations(section.id)"
+                  >
+                    {{ section.label }}
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        </section>
       }
       @for (group of state.groups(); track group.id) {
         <section class="po-sidebar__group">
@@ -460,8 +512,9 @@ export class SidebarComponent {
   protected readonly state = inject(ExplorerState);
 
   /** Folded categories, remembered per browser. While searching every group with results is open. */
-  private readonly collapsed = signal<ReadonlySet<CategoryId>>(readCollapsed());
-  protected readonly allCollapsed = computed(() => CATEGORIES.every((category) => this.collapsed().has(category.id)));
+  protected readonly foundationSections = FOUNDATION_SECTIONS;
+  private readonly collapsed = signal<ReadonlySet<GroupId>>(readCollapsed());
+  protected readonly allCollapsed = computed(() => GROUP_IDS.every((id) => this.collapsed().has(id)));
 
   private readonly injector = inject(Injector);
   private readonly search = viewChild.required<ElementRef<HTMLInputElement>>('search');
@@ -470,10 +523,14 @@ export class SidebarComponent {
   constructor() {
     // The section (or the category of the component) opened from the URL is always unfolded
     const view = this.state.view();
-    if (view.kind !== 'home') this.open(view.kind === 'section' ? view.id : this.state.selected().category);
+    if (view.kind === 'foundations') this.open('foundations');
+    else if (view.kind !== 'home') this.open(view.kind === 'section' ? view.id : this.state.selected().category);
     effect(() => writeCollapsed(this.collapsed()));
     afterNextRender(() => this.list().nativeElement.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'center' }));
     // Opening a component from anywhere (card, pager, back button) unfolds its group and brings it into view
+    effect(() => {
+      if (this.state.view().kind === 'foundations') untracked(() => this.open('foundations'));
+    });
     effect(() => {
       if (this.state.view().kind !== 'component') return;
       const category = this.state.selected().category;
@@ -481,7 +538,7 @@ export class SidebarComponent {
     });
     // Arriving at the home folds every group; they can still be unfolded while there
     effect(() => {
-      if (this.state.view().kind === 'home') untracked(() => this.collapsed.set(new Set(CATEGORIES.map((category) => category.id))));
+      if (this.state.view().kind === 'home') untracked(() => this.collapsed.set(new Set(GROUP_IDS)));
     });
   }
 
@@ -494,11 +551,11 @@ export class SidebarComponent {
     return view.kind === 'section' && view.id === id;
   }
 
-  protected isOpen(id: CategoryId): boolean {
+  protected isOpen(id: GroupId): boolean {
     return !!this.state.query() || !this.collapsed().has(id);
   }
 
-  protected toggle(id: CategoryId): void {
+  protected toggle(id: GroupId): void {
     if (this.state.query()) return;
     this.collapsed.update((set) => {
       const next = new Set(set);
@@ -508,11 +565,11 @@ export class SidebarComponent {
   }
 
   protected toggleAll(): void {
-    this.collapsed.set(this.allCollapsed() ? new Set() : new Set(CATEGORIES.map((category) => category.id)));
+    this.collapsed.set(this.allCollapsed() ? new Set() : new Set(GROUP_IDS));
   }
 
   /** Unfolds the group and, once rendered and unfolded, scrolls the list just enough to show the current item. */
-  private reveal(id: CategoryId): void {
+  private reveal(id: GroupId): void {
     const folded = !this.isOpen(id);
     this.open(id);
     afterNextRender(() => setTimeout(() => this.scrollToCurrent(), folded ? UNFOLD_MS : 0), { injector: this.injector });
@@ -529,7 +586,7 @@ export class SidebarComponent {
     list.scrollTop += rect.top + rect.height / 2 - (bounds.top + bounds.height / 2);
   }
 
-  private open(id: CategoryId): void {
+  private open(id: GroupId): void {
     this.collapsed.update((set) => {
       const next = new Set(set);
       next.delete(id);
@@ -552,17 +609,17 @@ export class SidebarComponent {
   }
 }
 
-function readCollapsed(): ReadonlySet<CategoryId> {
+function readCollapsed(): ReadonlySet<GroupId> {
   try {
     const ids = JSON.parse(localStorage.getItem(COLLAPSED_KEY) ?? '[]') as unknown;
-    const known = new Set(CATEGORIES.map((category) => category.id));
-    return new Set(Array.isArray(ids) ? ids.filter((id): id is CategoryId => known.has(id)) : []);
+    const known = new Set<unknown>(GROUP_IDS);
+    return new Set(Array.isArray(ids) ? ids.filter((id): id is GroupId => known.has(id)) : []);
   } catch {
     return new Set();
   }
 }
 
-function writeCollapsed(ids: ReadonlySet<CategoryId>): void {
+function writeCollapsed(ids: ReadonlySet<GroupId>): void {
   try {
     localStorage.setItem(COLLAPSED_KEY, JSON.stringify([...ids]));
   } catch {

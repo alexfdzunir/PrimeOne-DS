@@ -38,6 +38,8 @@ export class ExplorerState {
   readonly query = signal('');
   /** Home by default; `?s=` opens a section and `?c=` a component. */
   readonly view = signal<ExplorerView>({ kind: 'home' });
+  /** Section of Foundations last picked (a new object each time, so picking it again scrolls again). */
+  readonly foundationsTarget = signal<{ id: string } | null>(null);
   readonly selectedId = signal(this.entries[0]?.id ?? '');
   readonly presetId = signal('Default');
   /** Current values of the controls; missing keys fall back to the story base args. */
@@ -101,6 +103,7 @@ export class ExplorerState {
       const view = this.view();
       const url = new URL(location.href);
       for (const key of ['c', 'p', 's']) url.searchParams.delete(key);
+      if (view.kind === 'foundations') url.searchParams.set('s', 'foundations');
       if (view.kind === 'section') url.searchParams.set('s', view.id);
       if (view.kind === 'component') {
         url.searchParams.set('c', this.selectedId());
@@ -127,6 +130,13 @@ export class ExplorerState {
   goHome(): void {
     this.closeCatalogIfCompact();
     this.view.set({ kind: 'home' });
+  }
+
+  /** Opens Foundations, scrolled to one of its sections when given. */
+  openFoundations(section?: string): void {
+    this.closeCatalogIfCompact();
+    this.view.set({ kind: 'foundations' });
+    this.foundationsTarget.set(section ? { id: section } : null);
   }
 
   openSection(id: CategoryId): void {
@@ -207,6 +217,8 @@ export class ExplorerState {
       if (id !== this.selectedId()) this.events.set([]);
       this.selectedId.set(id);
       this.view.set({ kind: 'component' });
+    } else if (params.get('s') === 'foundations') {
+      this.view.set({ kind: 'foundations' });
     } else if (section) {
       this.view.set({ kind: 'section', id: section.id });
     } else {

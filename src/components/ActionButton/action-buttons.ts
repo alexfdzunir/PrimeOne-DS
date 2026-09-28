@@ -7,6 +7,8 @@ export interface ActionButtonItem {
   icon: string;
   /** Accessible name and tooltip. */
   label: string;
+  /** Negative action (delete, discard): red on hover. */
+  danger?: boolean;
   id?: string;
 }
 
@@ -21,6 +23,7 @@ export interface ActionButtonItem {
     @for (action of actions(); track action.id ?? action.label) {
       <p-button
         [icon]="action.icon"
+        [styleClass]="action.danger ? 'po-danger' : undefined"
         [ariaLabel]="action.label"
         [pTooltip]="action.label"
         [tooltipPosition]="tooltipPosition()"

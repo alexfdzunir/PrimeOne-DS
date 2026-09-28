@@ -9,7 +9,7 @@ const ACTIONS: ActionButtonItem[] = [
   { id: 'copy', icon: 'ph ph-copy', label: 'Copiar' },
   { id: 'edit', icon: 'ph ph-pencil-simple', label: 'Editar' },
   { id: 'share', icon: 'ph ph-share-network', label: 'Compartir' },
-  { id: 'delete', icon: 'ph ph-trash', label: 'Eliminar' },
+  { id: 'delete', icon: 'ph ph-trash', label: 'Eliminar', danger: true },
 ];
 
 const meta: Meta = {

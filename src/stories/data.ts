@@ -97,7 +97,7 @@ export const FLAT_MENU_ITEMS: MenuItem[] = [
     label: 'Perfil',
     items: [
       { label: 'Ajustes', icon: 'ph ph-gear' },
-      { label: 'Cerrar sesión', icon: 'ph ph-sign-out' },
+      { label: 'Cerrar sesión', icon: 'ph ph-sign-out', styleClass: 'po-danger' },
     ],
   },
 ];
@@ -106,7 +106,7 @@ export const ACTION_ITEMS: MenuItem[] = [
   { label: 'Actualizar', icon: 'ph ph-arrows-clockwise' },
   { label: 'Duplicar', icon: 'ph ph-copy' },
   { separator: true },
-  { label: 'Eliminar', icon: 'ph ph-trash' },
+  { label: 'Eliminar', icon: 'ph ph-trash', styleClass: 'po-danger' },
 ];
 
 export const MEGA_MENU_ITEMS: MegaMenuItem[] = [

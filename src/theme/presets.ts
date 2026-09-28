@@ -33,6 +33,43 @@ const SURFACE_DARK: Palette = {
 /** Radius scale of the Figma "Primitive" collection, mode "Base 16" (the one the DS uses). */
 const BORDER_RADIUS = { none: '0', xs: '4px', sm: '6px', md: '8px', lg: '12px', xl: '16px', '2xl': '24px' };
 
+/**
+ * Type scale of the Figma "typography" collection (and its text styles: headlines SemiBold, body/label Regular,
+ * Medium or SemiBold). Emitted as `--p-typography-*` through `extend`, the same in every theme.
+ */
+const TYPOGRAPHY = {
+  family: "'Proeduca Sans', system-ui, -apple-system, 'Segoe UI', sans-serif",
+  weight: { regular: '400', medium: '500', semibold: '600', bold: '700' },
+  letterSpacing: { tight: '-2px', snug: '-1px', normal: '0', wide: '1px' },
+  headline: {
+    h1: { size: '1.875rem', lineHeight: '2.25rem' },
+    h2: { size: '1.75rem', lineHeight: '2.125rem' },
+    h3: { size: '1.625rem', lineHeight: '1.9375rem' },
+    h4: { size: '1.5rem', lineHeight: '1.8125rem' },
+    h5: { size: '1.375rem', lineHeight: '1.625rem' },
+    h6: { size: '1.125rem', lineHeight: '1.375rem' },
+  },
+  body: {
+    m: { size: '1rem', lineHeight: '1.5rem' },
+    s: { size: '0.875rem', lineHeight: '1.25rem' },
+    xs: { size: '0.75rem', lineHeight: '1rem' },
+  },
+  label: {
+    l: { size: '1rem', lineHeight: '1.25rem' },
+    m: { size: '0.875rem', lineHeight: '1.25rem' },
+    s: { size: '0.75rem', lineHeight: '1rem' },
+  },
+  caption: { size: '0.625rem', lineHeight: '0.875rem' },
+};
+
+/** Spacing scale of the Figma "Primitive" collection (mode Base 16): `--p-scale-<rem>` with the rem as in Figma. */
+const SCALE = {
+  '0-125': '0.125rem', '0-25': '0.25rem', '0-375': '0.375rem', '0-5': '0.5rem', '0-625': '0.625rem', '0-75': '0.75rem',
+  '0-875': '0.875rem', '1': '1rem', '1-125': '1.125rem', '1-25': '1.25rem', '1-375': '1.375rem', '1-5': '1.5rem',
+  '1-625': '1.625rem', '1-75': '1.75rem', '1-875': '1.875rem', '2': '2rem', '2-25': '2.25rem', '2-5': '2.5rem',
+  '2-75': '2.75rem', '3': '3rem', '4': '4rem', '5': '5rem',
+};
+
 /** Radius roles of the Figma "Semantic/Common" and "Component/Common" collections, per theme. */
 interface ThemeRadius {
   content: string;
@@ -108,6 +145,26 @@ const STEPPER_CSS = `
 const ACCORDION_CSS = `
 .p-accordionheader [data-p-icon] { width: 1.25rem; height: 1.25rem; transform: rotate(180deg); color: var(--p-accordion-header-toggle-icon-color); }
 .p-accordionpanel:not(.p-disabled).p-accordionpanel-active > .p-accordionheader [data-p-icon] { color: var(--p-accordion-header-toggle-icon-active-color); }
+`;
+
+/**
+ * Negative actions (Eliminar, Cancelar, Cerrar sesión): `styleClass: 'po-danger'` on the menu item or button turns
+ * its hover and keyboard focus red, with a light red background. Shared by every menu type, SpeedDial and Button.
+ */
+const DANGER_CSS = `
+.po-danger.po-danger:not(.p-disabled) > [class*="-item-content"]:hover,
+.po-danger.po-danger.p-focus:not(.p-disabled) > [class*="-item-content"] { background: var(--p-danger-hover-background); color: var(--p-danger-color); }
+.po-danger.po-danger:not(.p-disabled) > [class*="-item-content"]:hover :is([class*="-item-icon"], [class*="-item-label"]),
+.po-danger.po-danger.p-focus:not(.p-disabled) > [class*="-item-content"] :is([class*="-item-icon"], [class*="-item-label"]) { color: var(--p-danger-color); }
+.p-button.po-danger:not(:disabled):hover, .po-danger .p-speeddial-action:not(:disabled):hover { background: var(--p-danger-hover-background); border-color: transparent; color: var(--p-danger-color); }
+`;
+
+/**
+ * PanelMenu as a tree: PrimeNG 21 wraps the root list in a bare <ul> that keeps the browser 40px padding. Without
+ * it, and with a 24px indent (caret + gap), each level lines up with the icon of its parent.
+ */
+const PANELMENU_CSS = `
+.p-panelmenu-content > ul:not([class]) { margin: 0; padding: 0; list-style: none; }
 `;
 
 /** Breadcrumb separator (and default item icon) at the 14px of Figma. */
@@ -217,13 +274,19 @@ const COMPONENTS = {
     css: AVATAR_CSS,
   },
   breadcrumb: { css: BREADCRUMB_CSS },
-  button: { root: BUTTON_SIZES, colorScheme: BUTTON_CHIP_TOKENS, css: BUTTON_CSS },
+  contextmenu: { css: DANGER_CSS },
+  button: { root: BUTTON_SIZES, colorScheme: BUTTON_CHIP_TOKENS, css: BUTTON_CSS + DANGER_CSS },
   checkbox: { css: CHECKBOX_CSS },
   chip: {
     root: { paddingY: '0.625rem', gap: '0.875rem' },
     colorScheme: { light: { icon: { color: '{primary.color}' } }, dark: { icon: { color: '{primary.color}' } } },
   },
   dialog: { css: DIALOG_CSS },
+  megamenu: { css: DANGER_CSS },
+  menu: { css: DANGER_CSS },
+  menubar: { css: DANGER_CSS },
+  panelmenu: { submenu: { indent: '1.5rem' }, css: PANELMENU_CSS + DANGER_CSS },
+  speeddial: { css: DANGER_CSS },
   stepper: {
     step: { padding: '0.625rem', gap: '27px' },
     stepHeader: { gap: '0.625rem', borderRadius: '{border.radius.2xl}' },
@@ -233,6 +296,7 @@ const COMPONENTS = {
     css: STEPPER_CSS,
   },
   terminal: { css: TERMINAL_CSS },
+  tieredmenu: { css: DANGER_CSS },
   // Aura lets the horizontal marker shrink next to the 100% wide connector, so it turns into an oval
   timeline: { css: TIMELINE_CSS },
 };
@@ -250,6 +314,7 @@ function mergeTokens(base: Tokens, extra: Tokens = {}): Tokens {
 function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRadius) {
   return definePreset(Aura, {
     primitive: { borderRadius: BORDER_RADIUS },
+    extend: { typography: TYPOGRAPHY, scale: SCALE },
     // Loose record from the merge: the token shapes are checked by the Figma audit, not by the type
     components: mergeTokens(mergeTokens(COMPONENTS, { card: { root: { borderRadius: radius.card } } }), radius.components as Tokens) as never,
     semantic: {
@@ -291,6 +356,7 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
             disabledBackground: '#e5e7eb',
             disabledColor: '#1f2937',
           },
+          danger: { color: '{red.600}', hoverBackground: '{red.50}' },
         },
         dark: {
           surface: { 0: '#ffffff', ...SURFACE_DARK },
@@ -309,6 +375,7 @@ function primeOnePreset(primary: Palette, lightSurface: Palette, radius: ThemeRa
           text: { color: '{surface.0}', mutedColor: '{surface.400}' },
           content: { borderColor: '{surface.700}' },
           formField: { background: '{surface.950}', borderColor: '{surface.200}', hoverBorderColor: '{primary.color}' },
+          danger: { color: '{red.400}', hoverBackground: 'rgba(248, 113, 113, 0.16)' },
         },
       },
     },

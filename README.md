@@ -42,7 +42,7 @@ providePrimeNG({ theme: { preset: PrimeOneEstudiantes, options: { darkModeSelect
 
 Presets disponibles: `PrimeOneEstudiantes`, `PrimeOneProdi`, `PrimeOneFoundations`. El modo oscuro se activa con la clase `po-dark` en `<html>`. Los iconos son de Phosphor (`@phosphor-icons/web`): los componentes usan los pesos regular, bold y fill, así que la app debe cargar `src/regular/style.css`, `src/bold/style.css` y `src/fill/style.css`.
 
-La tipografía es Proeduca Sans (`src/fonts/`, pesos 200 a 800 con cursivas). El explorador y Storybook la cargan desde `src/fonts/proeduca-sans.css`; una app que use el DS debe incluir ese CSS en sus `styles`.
+La tipografía es Proeduca Sans (`src/fonts/`, pesos 200 a 800 con cursivas). El explorador y Storybook la cargan desde `src/fonts/proeduca-sans.css`; una app que use el DS debe incluir ese CSS en sus `styles`. Los presets publican la escala tipográfica de Figma (`--p-typography-headline-h1-size`, `--p-typography-body-m-line-height`, `--p-typography-weight-semibold`...) y la de espaciado (`--p-scale-1` = `1rem`) como variables CSS globales.
 
 `p-editor` no se reexporta desde `prime-one-ds`: PrimeNG carga `quill` bajo demanda y quien lo use debe instalarlo (`npm install quill`).
 
@@ -55,6 +55,7 @@ Cada componente tiene una story con controles generados desde su API real (input
 App Angular propia (`explorer/`) para enseñar el DS: navbar con tema (Estudiantes, Prodi, Foundations) y modo claro u oscuro, catálogo a la izquierda, el componente real en el centro y el panel de control a la derecha (las dos columnas laterales se pliegan). Cada componente muestra sus variantes, todas sus propiedades, el registro de eventos y el código listo para copiar (HTML y TypeScript) con los valores actuales.
 
 - Arranca en una home (hero con las cifras del DS y las secciones del catálogo). Cada sección tiene una vista general con una ficha visual por componente (`?s=Form`); el componente se abre con `?c=<id>`. Atrás y adelante del navegador funcionan entre páginas. Iconos y resúmenes de las fichas en `explorer/src/app/catalog-meta.ts`.
+- Foundations (`?s=foundations`) es una sección más: ficha en la home y grupo en el catálogo con un acceso a cada apartado. Muestra los tokens reales del tema y modo activos, leídos de las variables CSS: tipografía (familia, pesos y la escala de estilos de Figma con `--p-typography-*`), paletas de color (primario, superficie y severidades), tokens semánticos (texto, contenido, resaltado, campos, acciones negativas, foco), radios primitivos y por rol, espaciado (`--p-scale-*`), sombras e iconos. Pulsar un token copia su `var()`.
 - El componente se renderiza en un iframe con el ancho del dispositivo elegido (escritorio, tablet o móvil), así que sus media queries responden como en un dispositivo real.
 - La propia app es responsive: por debajo de 1024px el catálogo y el panel de control pasan a paneles que se abren desde el navbar.
 - El dispositivo sigue a la ventana: por debajo de 1024px la vista pasa a tablet y por debajo de 768px a móvil, con el tema en un desplegable. Se puede cambiar a mano hasta el siguiente salto de ancho.

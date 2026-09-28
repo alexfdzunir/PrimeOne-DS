@@ -9,7 +9,7 @@ const ACTIONS: MenuItem[] = [
   { label: 'Editar', icon: 'ph ph-pencil-simple' },
   { label: 'Compartir', icon: 'ph ph-share-network' },
   { label: 'Descargar', icon: 'ph ph-download-simple' },
-  { label: 'Eliminar', icon: 'ph ph-trash' },
+  { label: 'Eliminar', icon: 'ph ph-trash', styleClass: 'po-danger' },
 ];
 /** Anchors the button where the chosen direction has room (as in the PrimeNG demos). */
 function speedDialPosition(type: string | undefined, direction: string | undefined): Record<string, string> {

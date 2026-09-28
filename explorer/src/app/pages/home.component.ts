@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, THEMES } from '../model';
+import { FOUNDATION_SECTIONS } from './foundations.component';
 
 const FIGMA_URL = 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne';
 const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
@@ -58,7 +59,7 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
         <ul class="po-home__sections">
           @for (section of sections(); track section.id) {
             <li>
-              <button type="button" class="po-home__section" (click)="state.openSection(section.id)">
+              <button type="button" class="po-home__section" (click)="section.id === 'foundations' ? state.openFoundations() : state.openSection(section.id)">
                 <span class="po-home__icon" aria-hidden="true"><i [class]="section.icon"></i></span>
                 <span class="po-home__title">
                   {{ section.label }}
@@ -472,11 +473,18 @@ export class HomeComponent {
   protected readonly figmaUrl = FIGMA_URL;
   protected readonly repoUrl = REPO_URL;
 
-  protected readonly sections = computed(() =>
-    CATEGORIES.map((category) => ({ ...category, count: this.state.entries.filter((entry) => entry.category === category.id).length })).filter(
+  protected readonly sections = computed(() => [
+    {
+      id: 'foundations' as const,
+      label: 'Foundations',
+      icon: 'ph ph-palette',
+      description: 'Tipografía, color, radios, espaciado, sombras e iconos con sus tokens reales.',
+      count: FOUNDATION_SECTIONS.length,
+    },
+    ...CATEGORIES.map((category) => ({ ...category, count: this.state.entries.filter((entry) => entry.category === category.id).length })).filter(
       (section) => section.count > 0,
     ),
-  );
+  ]);
 
   protected readonly figures = computed(() => {
     const entries = this.state.entries;

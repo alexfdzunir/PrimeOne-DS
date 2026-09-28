@@ -3,6 +3,7 @@ import { CanvasComponent } from './canvas/canvas.component';
 import { ControlsPanelComponent } from './controls/controls-panel.component';
 import { ExplorerState } from './explorer-state';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FoundationsComponent } from './pages/foundations.component';
 import { HomeComponent } from './pages/home.component';
 import { SectionComponent } from './pages/section.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -14,7 +15,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
  */
 @Component({
   selector: 'po-root',
-  imports: [NavbarComponent, SidebarComponent, CanvasComponent, ControlsPanelComponent, HomeComponent, SectionComponent],
+  imports: [NavbarComponent, SidebarComponent, CanvasComponent, ControlsPanelComponent, HomeComponent, FoundationsComponent, SectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'po-shell',
@@ -31,6 +32,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     @switch (state.view().kind) {
       @case ('home') {
         <po-home class="po-shell__stage" />
+      }
+      @case ('foundations') {
+        <po-foundations class="po-shell__stage" />
       }
       @case ('section') {
         <po-section class="po-shell__stage" />
