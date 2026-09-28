@@ -167,6 +167,11 @@ const PANELMENU_CSS = `
 .p-panelmenu-content > ul:not([class]) { margin: 0; padding: 0; list-style: none; }
 `;
 
+/** AutoComplete option: the part that matches the typed text is in the primary colour (`po-autocomplete-match` in the item template). */
+const AUTOCOMPLETE_CSS = `
+.p-autocomplete-option .po-autocomplete-match { color: var(--p-primary-color); }
+`;
+
 /** Breadcrumb separator (and default item icon) at the 14px of Figma. */
 const BREADCRUMB_CSS = `
 .p-breadcrumb-item-icon svg, .p-breadcrumb-separator svg { width: 0.875rem; height: 0.875rem; }
@@ -266,7 +271,7 @@ const RADIUS_FOUNDATIONS: ThemeRadius = {
  */
 const COMPONENTS = {
   accordion: { header: { toggleIcon: { color: '{primary.color}', activeColor: '{primary.color}' } }, css: ACCORDION_CSS },
-  autocomplete: { list: { gap: '0.25rem' } },
+  autocomplete: { list: { gap: '0.25rem' }, css: AUTOCOMPLETE_CSS },
   avatar: {
     root: { fontSize: '0.75rem' },
     lg: { fontSize: '0.875rem', icon: { size: '1.25rem' }, group: { offset: '-0.75rem' } },

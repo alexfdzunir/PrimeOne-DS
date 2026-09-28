@@ -74,10 +74,17 @@ const meta: Meta = {
     onHide: { action: 'onHide', table: { category: 'Eventos' } },
   },
   render: (args) => ({
-    props: { ...args, value: null, suggestions: [] as City[], search: function (this: { suggestions: City[] }, event: { query: string }) {
+    props: { ...args, value: null, query: '', suggestions: [] as City[], search: function (this: { query: string; suggestions: City[] }, event: { query: string }) {
+      this.query = event.query;
       this.suggestions = CITIES.filter((city) => city.name.toLowerCase().includes(event.query.toLowerCase()));
     } },
-    template: `<p-autocomplete [(ngModel)]="value" [suggestions]="suggestions" (completeMethod)="search($event)" optionLabel="name"${bind(args, INPUTS)} (onSelect)="onSelect($event)" (onUnselect)="onUnselect($event)" (onAdd)="onAdd($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onDropdownClick)="onDropdownClick($event)" (onClear)="onClear($event)" (onInputKeydown)="onInputKeydown($event)" (onKeyUp)="onKeyUp($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" />`,
+    // The typed text is highlighted in each option (po-autocomplete-match, primary colour in the DS presets)
+    template: `<p-autocomplete [(ngModel)]="value" [suggestions]="suggestions" (completeMethod)="search($event)" optionLabel="name"${bind(args, INPUTS)} (onSelect)="onSelect($event)" (onUnselect)="onUnselect($event)" (onAdd)="onAdd($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onDropdownClick)="onDropdownClick($event)" (onClear)="onClear($event)" (onInputKeydown)="onInputKeydown($event)" (onKeyUp)="onKeyUp($event)" (onShow)="onShow($event)" (onHide)="onHide($event)">
+  <ng-template #item let-city>
+    @let at = city.name.toLowerCase().indexOf(query.toLowerCase());
+    <span>{{ city.name.slice(0, at) }}<span class="po-autocomplete-match">{{ city.name.slice(at, at + query.length) }}</span>{{ city.name.slice(at + query.length) }}</span>
+  </ng-template>
+</p-autocomplete>`,
   }),
 };
 
