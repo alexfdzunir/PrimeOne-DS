@@ -45,21 +45,24 @@ export interface Product {
   quantity: number;
   status: string;
   severity: Severity;
+  /** Precio en euros y valoración de 1 a 5 (DataView). */
+  price: number;
+  rating: number;
 }
 
 export const PRODUCTS: Product[] = [
-  { code: 'A-101', name: 'Álgebra lineal', category: 'Matemáticas', quantity: 42, status: 'Activa', severity: 'success' },
-  { code: 'A-102', name: 'Cálculo', category: 'Matemáticas', quantity: 38, status: 'Activa', severity: 'success' },
-  { code: 'B-201', name: 'Programación I', category: 'Informática', quantity: 64, status: 'Completa', severity: 'info' },
-  { code: 'B-202', name: 'Bases de datos', category: 'Informática', quantity: 12, status: 'Últimas plazas', severity: 'warn' },
-  { code: 'B-203', name: 'Redes', category: 'Informática', quantity: 0, status: 'Cerrada', severity: 'danger' },
-  { code: 'C-301', name: 'Marketing digital', category: 'Empresa', quantity: 27, status: 'Activa', severity: 'success' },
-  { code: 'C-302', name: 'Finanzas', category: 'Empresa', quantity: 8, status: 'Últimas plazas', severity: 'warn' },
-  { code: 'D-401', name: 'Psicología del desarrollo', category: 'Educación', quantity: 51, status: 'Activa', severity: 'success' },
-  { code: 'D-402', name: 'Didáctica', category: 'Educación', quantity: 33, status: 'Completa', severity: 'info' },
-  { code: 'E-501', name: 'Derecho civil', category: 'Derecho', quantity: 19, status: 'Activa', severity: 'success' },
-  { code: 'E-502', name: 'Derecho penal', category: 'Derecho', quantity: 0, status: 'Cerrada', severity: 'danger' },
-  { code: 'F-601', name: 'Anatomía', category: 'Salud', quantity: 45, status: 'Activa', severity: 'success' },
+  { code: 'A-101', name: 'Álgebra lineal', category: 'Matemáticas', quantity: 42, status: 'Activa', severity: 'success', price: 240, rating: 5 },
+  { code: 'A-102', name: 'Cálculo', category: 'Matemáticas', quantity: 38, status: 'Activa', severity: 'success', price: 240, rating: 4 },
+  { code: 'B-201', name: 'Programación I', category: 'Informática', quantity: 64, status: 'Completa', severity: 'info', price: 300, rating: 5 },
+  { code: 'B-202', name: 'Bases de datos', category: 'Informática', quantity: 12, status: 'Últimas plazas', severity: 'warn', price: 300, rating: 4 },
+  { code: 'B-203', name: 'Redes', category: 'Informática', quantity: 0, status: 'Cerrada', severity: 'danger', price: 270, rating: 3 },
+  { code: 'C-301', name: 'Marketing digital', category: 'Empresa', quantity: 27, status: 'Activa', severity: 'success', price: 210, rating: 5 },
+  { code: 'C-302', name: 'Finanzas', category: 'Empresa', quantity: 8, status: 'Últimas plazas', severity: 'warn', price: 210, rating: 4 },
+  { code: 'D-401', name: 'Psicología del desarrollo', category: 'Educación', quantity: 51, status: 'Activa', severity: 'success', price: 180, rating: 5 },
+  { code: 'D-402', name: 'Didáctica', category: 'Educación', quantity: 33, status: 'Completa', severity: 'info', price: 180, rating: 4 },
+  { code: 'E-501', name: 'Derecho civil', category: 'Derecho', quantity: 19, status: 'Activa', severity: 'success', price: 330, rating: 4 },
+  { code: 'E-502', name: 'Derecho penal', category: 'Derecho', quantity: 0, status: 'Cerrada', severity: 'danger', price: 330, rating: 3 },
+  { code: 'F-601', name: 'Anatomía', category: 'Salud', quantity: 45, status: 'Activa', severity: 'success', price: 360, rating: 5 },
 ];
 
 export const MENU_ITEMS: MenuItem[] = [
