@@ -262,7 +262,13 @@ export const FOUNDATION_SECTIONS = [
 
       <section id="iconos" class="po-found__section">
         <h2>Iconos</h2>
-        <p class="po-muted">Phosphor Icons en tres pesos: <code>ph</code> (regular), <code>ph-bold</code> y <code>ph-fill</code>.</p>
+        <div class="po-found__icons-head">
+          <p class="po-muted">Phosphor Icons en tres pesos: <code>ph</code> (regular), <code>ph-bold</code> y <code>ph-fill</code>.</p>
+          <a class="po-found__link" href="https://phosphoricons.com/" target="_blank" rel="noopener">
+            <i class="ph ph-magnifying-glass" aria-hidden="true"></i> Ver librería de Phosphor Icons
+            <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
+          </a>
+        </div>
         @for (weight of iconWeights; track weight) {
           <div class="po-found__icons">
             <code>{{ weight }}</code>
@@ -363,6 +369,22 @@ export const FOUNDATION_SECTIONS = [
     .po-found__shadow > span { height: 80px; margin-bottom: 8px; border-radius: 10px; background: var(--p-content-background); border: 1px solid var(--p-content-border-color); }
 
     /* Icons */
+    .po-found__icons-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+    .po-found__icons-head p { margin: 0; }
+    .po-found__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid var(--p-primary-color);
+      border-radius: 999px;
+      color: var(--p-primary-color);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 150ms, color 150ms;
+    }
+    .po-found__link:hover { background: var(--p-primary-color); color: var(--p-primary-contrast-color); }
     .po-found__icons { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--p-content-border-color); }
     .po-found__icons code { width: 64px; color: var(--p-text-muted-color); }
     .po-found__icons i { font-size: 1.5rem; }
