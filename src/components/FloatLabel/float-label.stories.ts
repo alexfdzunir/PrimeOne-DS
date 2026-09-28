@@ -32,7 +32,7 @@ const meta: Meta = {
     template: `
       <div style="padding-top: 1rem">
         <p-floatlabel${bind(args, INPUTS)}>
-          <input pInputText id="po-float" [(ngModel)]="value" [invalid]="invalid" [disabled]="disabled" autocomplete="off" />
+          <input pInputText id="po-float" [(ngModel)]="value" [invalid]="invalid" [disabled]="disabled" autocomplete="off" [style]="{ minWidth: '20rem' }" />
           <label for="po-float">{{ label }}</label>
         </p-floatlabel>
       </div>

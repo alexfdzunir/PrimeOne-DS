@@ -66,7 +66,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, cities: CITIES, value: null },
-    template: `<p-select [(ngModel)]="value" [options]="cities" optionLabel="name" [style]="{ minWidth: '16rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClick)="onClick($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" (onClear)="onClear($event)" />`,
+    template: `<p-select [(ngModel)]="value" [options]="cities" optionLabel="name" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClick)="onClick($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" (onClear)="onClear($event)" />`,
   }),
 };
 

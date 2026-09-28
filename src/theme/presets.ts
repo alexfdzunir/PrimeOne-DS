@@ -167,9 +167,18 @@ const PANELMENU_CSS = `
 .p-panelmenu-content > ul:not([class]) { margin: 0; padding: 0; list-style: none; }
 `;
 
-/** AutoComplete option: the part that matches the typed text is in the primary colour (`po-autocomplete-match` in the item template). */
+/**
+ * AutoComplete: the input fills the component whatever its width (Aura only stretches it when fluid), and the part of
+ * an option that matches the typed text is in the primary colour (`po-autocomplete-match` in the item template).
+ */
 const AUTOCOMPLETE_CSS = `
+.p-autocomplete > .p-autocomplete-input { flex: 1 1 auto; }
 .p-autocomplete-option .po-autocomplete-match { color: var(--p-primary-color); }
+`;
+
+/** Password: the input fills the component whatever its width (Aura only stretches it when fluid). */
+const PASSWORD_CSS = `
+.p-password > .p-password-input { flex: 1 1 auto; }
 `;
 
 /** Breadcrumb separator (and default item icon) at the 14px of Figma. */
@@ -291,6 +300,7 @@ const COMPONENTS = {
   menu: { css: DANGER_CSS },
   menubar: { css: DANGER_CSS },
   panelmenu: { submenu: { indent: '1.5rem' }, css: PANELMENU_CSS + DANGER_CSS },
+  password: { css: PASSWORD_CSS },
   speeddial: { css: DANGER_CSS },
   stepper: {
     step: { padding: '0.625rem', gap: '27px' },

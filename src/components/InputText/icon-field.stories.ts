@@ -28,7 +28,7 @@ const meta: Meta = {
     template: `
       <p-iconfield${bind(args, INPUTS)}>
         <p-inputicon [class]="icon" />
-        <input pInputText [(ngModel)]="value" [placeholder]="placeholder" />
+        <input pInputText [(ngModel)]="value" [placeholder]="placeholder" [style]="{ minWidth: '20rem' }" />
       </p-iconfield>
     `,
   }),

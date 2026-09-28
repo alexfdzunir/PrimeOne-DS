@@ -19,7 +19,7 @@ const meta: Meta = {
     props: { ...args, value: '' },
     template: `
       <p-iftalabel>
-        <input pInputText id="po-ifta" [(ngModel)]="value" autocomplete="off" />
+        <input pInputText id="po-ifta" [(ngModel)]="value" autocomplete="off" [style]="{ minWidth: '20rem' }" />
         <label for="po-ifta">{{ label }}</label>
       </p-iftalabel>
     `,

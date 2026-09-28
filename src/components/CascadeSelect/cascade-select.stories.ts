@@ -57,7 +57,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, countries: COUNTRIES, value: null },
-    template: `<p-cascadeselect [(ngModel)]="value" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '16rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onGroupChange)="onGroupChange($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" (onClear)="onClear($event)" (onBeforeShow)="onBeforeShow($event)" (onBeforeHide)="onBeforeHide($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" />`,
+    template: `<p-cascadeselect [(ngModel)]="value" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onGroupChange)="onGroupChange($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" (onClear)="onClear($event)" (onBeforeShow)="onBeforeShow($event)" (onBeforeHide)="onBeforeHide($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" />`,
   }),
 };
 

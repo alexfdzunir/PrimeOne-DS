@@ -31,7 +31,7 @@ const meta: Meta = {
   render: (args) => ({
     props: { ...args, value: '' },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 20rem">
+      <div style="display: flex; flex-direction: column; gap: 0.5rem" [style.max-width]="fluid ? null : '20rem'">
         @if (label) {
           <label for="po-inputtext">{{ label }}</label>
         }

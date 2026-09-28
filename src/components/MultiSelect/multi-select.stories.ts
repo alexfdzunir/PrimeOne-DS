@@ -81,7 +81,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, cities: CITIES, value: [] },
-    template: `<p-multiselect [(ngModel)]="value" [options]="cities" optionLabel="name" [style]="{ minWidth: '16rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClick)="onClick($event)" (onClear)="onClear($event)" (onPanelShow)="onPanelShow($event)" (onPanelHide)="onPanelHide($event)" (onRemove)="onRemove($event)" (onSelectAllChange)="onSelectAllChange($event)" />`,
+    template: `<p-multiselect [(ngModel)]="value" [options]="cities" optionLabel="name" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClick)="onClick($event)" (onClear)="onClear($event)" (onPanelShow)="onPanelShow($event)" (onPanelHide)="onPanelHide($event)" (onRemove)="onRemove($event)" (onSelectAllChange)="onSelectAllChange($event)" />`,
   }),
 };
 

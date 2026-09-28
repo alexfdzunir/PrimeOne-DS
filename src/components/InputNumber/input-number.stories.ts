@@ -62,7 +62,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, value: 1500 },
-    template: `<p-inputnumber [(ngModel)]="value"${bind(args, INPUTS)} (onInput)="onInput($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onKeyDown)="onKeyDown($event)" (onClear)="onClear($event)" />`,
+    template: `<p-inputnumber [(ngModel)]="value" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onInput)="onInput($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onKeyDown)="onKeyDown($event)" (onClear)="onClear($event)" />`,
   }),
 };
 

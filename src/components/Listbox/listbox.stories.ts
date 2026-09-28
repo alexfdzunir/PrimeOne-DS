@@ -64,7 +64,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, cities: CITIES, value: null },
-    template: `<p-listbox [(ngModel)]="value" [options]="cities" optionLabel="name" [style]="{ width: '16rem' }"${bind(args, INPUTS)} (onChange)="onChange($event)" (onClick)="onClick($event)" (onDblClick)="onDblClick($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onSelectAllChange)="onSelectAllChange($event)" (onDrop)="onDrop($event)" />`,
+    template: `<p-listbox [(ngModel)]="value" [options]="cities" optionLabel="name" [style.width]="fluid ? null : '20rem'"${bind(args, INPUTS)} (onChange)="onChange($event)" (onClick)="onClick($event)" (onDblClick)="onDblClick($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onSelectAllChange)="onSelectAllChange($event)" (onDrop)="onDrop($event)" />`,
   }),
 };
 

@@ -86,7 +86,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, value: null },
-    template: `<p-datepicker [(ngModel)]="value"${bind(args, INPUTS)} (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClose)="onClose($event)" (onSelect)="onSelect($event)" (onClear)="onClear($event)" (onInput)="onInput($event)" (onTodayClick)="onTodayClick($event)" (onClearClick)="onClearClick($event)" (onMonthChange)="onMonthChange($event)" (onYearChange)="onYearChange($event)" (onClickOutside)="onClickOutside($event)" (onShow)="onShow($event)" />`,
+    template: `<p-datepicker [(ngModel)]="value" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClose)="onClose($event)" (onSelect)="onSelect($event)" (onClear)="onClear($event)" (onInput)="onInput($event)" (onTodayClick)="onTodayClick($event)" (onClearClick)="onClearClick($event)" (onMonthChange)="onMonthChange($event)" (onYearChange)="onYearChange($event)" (onClickOutside)="onClickOutside($event)" (onShow)="onShow($event)" />`,
   }),
 };
 

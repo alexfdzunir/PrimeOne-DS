@@ -62,7 +62,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, nodes: TREE_NODES, value: null },
-    template: `<p-treeselect [(ngModel)]="value" [options]="nodes" [style]="{ minWidth: '16rem' }"${bind(args, INPUTS)} (onNodeExpand)="onNodeExpand($event)" (onNodeCollapse)="onNodeCollapse($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" (onClear)="onClear($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onNodeUnselect)="onNodeUnselect($event)" (onNodeSelect)="onNodeSelect($event)" />`,
+    template: `<p-treeselect [(ngModel)]="value" [options]="nodes" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onNodeExpand)="onNodeExpand($event)" (onNodeCollapse)="onNodeCollapse($event)" (onShow)="onShow($event)" (onHide)="onHide($event)" (onClear)="onClear($event)" (onFilter)="onFilter($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onNodeUnselect)="onNodeUnselect($event)" (onNodeSelect)="onNodeSelect($event)" />`,
   }),
 };
 

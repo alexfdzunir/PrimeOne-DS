@@ -79,7 +79,7 @@ const meta: Meta = {
       this.suggestions = CITIES.filter((city) => city.name.toLowerCase().includes(event.query.toLowerCase()));
     } },
     // The typed text is highlighted in each option (po-autocomplete-match, primary colour in the DS presets)
-    template: `<p-autocomplete [(ngModel)]="value" [suggestions]="suggestions" (completeMethod)="search($event)" optionLabel="name"${bind(args, INPUTS)} (onSelect)="onSelect($event)" (onUnselect)="onUnselect($event)" (onAdd)="onAdd($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onDropdownClick)="onDropdownClick($event)" (onClear)="onClear($event)" (onInputKeydown)="onInputKeydown($event)" (onKeyUp)="onKeyUp($event)" (onShow)="onShow($event)" (onHide)="onHide($event)">
+    template: `<p-autocomplete [(ngModel)]="value" [suggestions]="suggestions" (completeMethod)="search($event)" optionLabel="name" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onSelect)="onSelect($event)" (onUnselect)="onUnselect($event)" (onAdd)="onAdd($event)" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onDropdownClick)="onDropdownClick($event)" (onClear)="onClear($event)" (onInputKeydown)="onInputKeydown($event)" (onKeyUp)="onKeyUp($event)" (onShow)="onShow($event)" (onHide)="onHide($event)">
   <ng-template #item let-city>
     @let at = city.name.toLowerCase().indexOf(query.toLowerCase());
     <span>{{ city.name.slice(0, at) }}<span class="po-autocomplete-match">{{ city.name.slice(at, at + query.length) }}</span>{{ city.name.slice(at + query.length) }}</span>

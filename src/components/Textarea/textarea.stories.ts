@@ -32,7 +32,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, value: '' },
-    template: `<textarea pTextarea [(ngModel)]="value" [placeholder]="placeholder" [rows]="rows" [disabled]="disabled"${bind(args, INPUTS)} (onResize)="onResize($event)"></textarea>`,
+    template: `<textarea pTextarea [(ngModel)]="value" [placeholder]="placeholder" [rows]="rows" [disabled]="disabled" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onResize)="onResize($event)"></textarea>`,
   }),
 };
 

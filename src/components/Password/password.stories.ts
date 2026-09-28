@@ -48,7 +48,7 @@ const meta: Meta = {
   },
   render: (args) => ({
     props: { ...args, value: '' },
-    template: `<p-password [(ngModel)]="value"${bind(args, INPUTS)} (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClear)="onClear($event)" />`,
+    template: `<p-password [(ngModel)]="value" [style]="{ minWidth: '20rem' }"${bind(args, INPUTS)} (onFocus)="onFocus($event)" (onBlur)="onBlur($event)" (onClear)="onClear($event)" />`,
   }),
 };
 
