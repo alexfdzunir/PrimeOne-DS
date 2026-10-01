@@ -47,6 +47,7 @@
   align-items: center;
   min-height: 0;
   background: var(--aem-color-surface-tertiary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
 }
 .aem-distributor__item--solid::after { content: none; }
 .aem-distributor__item--solid:hover { background: var(--aem-color-surface-interactive-fill-secondary-hover); }

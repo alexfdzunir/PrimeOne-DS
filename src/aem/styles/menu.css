@@ -53,8 +53,8 @@
 }
 
 .aem-menu__item:hover,
-.aem-menu__item.is-active { background: var(--aem-color-surface-interactive-fill-primary-hover); }
-.aem-menu__item[aria-selected='true'] { background: var(--aem-color-surface-interactive-fill-primary-active); }
+.aem-menu__item.is-active { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-on-fill, inherit); }
+.aem-menu__item[aria-selected='true'] { background: var(--aem-color-surface-interactive-fill-primary-active); color: var(--aem-color-text-on-fill, inherit); }
 .aem-menu__item:focus-visible {
   outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
   outline-offset: calc(var(--aem-size-border-width-focus) * -1);

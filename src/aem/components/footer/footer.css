@@ -16,6 +16,7 @@
   gap: var(--aem-unit-12) var(--aem-unit-32);
   padding: var(--aem-unit-16) var(--aem-layout-section-horizontal-padding);
   background: var(--aem-color-surface-tertiary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
 }
 .aem-footer__contact a {
   display: inline-flex;

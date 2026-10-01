@@ -98,9 +98,9 @@
   cursor: pointer;
 }
 .aem-megamenu__section i { display: none; color: var(--aem-color-icon-link-primary-default); }
-.aem-megamenu__section:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); }
-.aem-megamenu__section[aria-selected='true'] { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-link-primary-default); }
-.aem-megamenu__section[aria-selected='true'] i { display: block; }
+.aem-megamenu__section:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-on-fill, inherit); }
+.aem-megamenu__section[aria-selected='true'] { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-on-fill, var(--aem-color-text-link-primary-default)); }
+.aem-megamenu__section[aria-selected='true'] i { display: block; color: var(--aem-color-text-on-fill, var(--aem-color-icon-link-primary-default)); }
 
 .aem-megamenu__panel {
   display: flex;
@@ -137,7 +137,7 @@
   gap: var(--aem-unit-08);
   padding: var(--aem-unit-16) var(--aem-unit-24);
   background: var(--aem-color-surface-tertiary);
-  color: var(--aem-color-text-inverse-primary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
   font-size: var(--aem-typography-small-1-size);
   text-decoration: none;
 }

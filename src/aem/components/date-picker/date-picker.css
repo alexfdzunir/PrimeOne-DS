@@ -19,7 +19,7 @@
   line-height: 1;
   cursor: pointer;
 }
-.aem-datepicker__toggle:hover { color: var(--aem-color-icon-link-secondary-hover); }
+.aem-datepicker__toggle:hover { color: var(--aem-color-text-on-fill, var(--aem-color-icon-link-secondary-hover)); }
 
 .aem-calendar {
   position: absolute;
@@ -57,7 +57,7 @@
   font-size: var(--aem-size-icon-xs);
   cursor: pointer;
 }
-.aem-calendar__nav:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-icon-link-secondary-hover); }
+.aem-calendar__nav:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-on-fill, var(--aem-color-icon-link-secondary-hover)); }
 
 .aem-calendar__title {
   padding: var(--aem-unit-02) var(--aem-unit-04);
@@ -99,7 +99,7 @@
   font: var(--aem-typography-weight-medium) var(--aem-typography-label-2-size) / var(--aem-typography-label-2-line-height) var(--aem-typography-family);
   cursor: pointer;
 }
-.aem-calendar__day:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-link-secondary-hover); }
+.aem-calendar__day:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-on-fill, var(--aem-color-text-link-secondary-hover)); }
 .aem-calendar__day:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: calc(var(--aem-size-border-width-focus) * -1); }
 .aem-calendar__day--outside { color: var(--aem-color-text-subtle); }
 .aem-calendar__day--today { color: var(--aem-color-text-link-primary-default); }
@@ -112,5 +112,5 @@
   border-radius: var(--aem-size-border-radius-full);
   background: var(--aem-color-surface-tertiary);
 }
-.aem-calendar__day[aria-pressed='true'] { background: var(--aem-color-surface-interactive-fill-primary-active); color: var(--aem-color-text-link-secondary-active); }
+.aem-calendar__day[aria-pressed='true'] { background: var(--aem-color-surface-interactive-fill-primary-active); color: var(--aem-color-text-on-fill, var(--aem-color-text-link-secondary-active)); }
 .aem-calendar__day:disabled { color: var(--aem-color-text-system-disabled-main); cursor: not-allowed; background: none; }

@@ -41,7 +41,7 @@
 
 /* Multiple: a checkbox per option */
 .aem-dropdown--multiple .aem-menu__item[aria-selected='true'] { background: none; }
-.aem-dropdown--multiple .aem-menu__item:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); }
+.aem-dropdown--multiple .aem-menu__item:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-on-fill, inherit); }
 .aem-menu__check {
   display: grid;
   flex-shrink: 0;
@@ -57,7 +57,7 @@
 .aem-menu__item[aria-selected='true'] .aem-menu__check {
   background: var(--aem-color-surface-tertiary);
   box-shadow: none;
-  color: var(--aem-color-icon-inverse-primary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-icon-inverse-primary));
 }
 
 /* Without a value the label stays in the middle, also on focus or open (Figma Focus and Expanded) */

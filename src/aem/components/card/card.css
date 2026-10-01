@@ -157,7 +157,7 @@
   border: 0;
   border-radius: var(--aem-size-border-radius-full);
   background: var(--aem-color-surface-interactive-fill-secondary-default);
-  color: var(--aem-color-icon-inverse-primary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-icon-inverse-primary));
   font-size: var(--aem-size-icon-xxs);
   cursor: pointer;
 }

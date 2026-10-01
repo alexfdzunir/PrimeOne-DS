@@ -499,6 +499,9 @@
 
 /* Dark mode: semantic tokens on their inverse values (core palettes and component sizes do not change) */
 .aem-dark {
+  /* Derived (not in Figma): text and icons on the light fills (tertiary surface, interactive fills), which turn
+     light sky blue here. Components read it with their light-mode colour as fallback. */
+  --aem-color-text-on-fill: var(--aem-color-neutral-100);
   --aem-color-background-primary: var(--aem-color-blue-100);
   --aem-color-background-secondary: var(--aem-color-blue-200);
   --aem-color-surface-primary: var(--aem-color-surface-inverse-primary);

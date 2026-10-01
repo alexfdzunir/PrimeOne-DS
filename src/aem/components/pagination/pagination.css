@@ -44,7 +44,7 @@
 .aem-pagination__page:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-01); }
 .aem-pagination__page[aria-current='page'] {
   background: var(--aem-color-surface-tertiary);
-  color: var(--aem-color-text-inverse-primary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
 }
 
 .aem-pagination__ellipsis {

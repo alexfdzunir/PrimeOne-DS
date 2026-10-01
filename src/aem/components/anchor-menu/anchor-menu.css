@@ -48,6 +48,6 @@
 .aem-anchor-menu__link:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: calc(var(--aem-size-border-width-focus) * -1); }
 .aem-anchor-menu__link[aria-current='true'] {
   background: var(--aem-color-surface-tertiary);
-  color: var(--aem-color-text-inverse-primary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
 }
 .aem-anchor-menu__link[aria-disabled='true'] { color: var(--aem-color-text-system-disabled-main); pointer-events: none; }

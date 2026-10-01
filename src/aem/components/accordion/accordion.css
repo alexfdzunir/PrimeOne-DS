@@ -58,7 +58,7 @@
 
 .aem-accordion__trigger:hover { color: var(--aem-color-text-link-secondary-hover); }
 .aem-accordion__trigger:hover .aem-accordion__toggle { background: var(--aem-color-specific-button-ghost-hover); }
-.aem-accordion__trigger[aria-expanded='true'] .aem-accordion__toggle { background: var(--aem-color-surface-interactive-fill-primary-active); }
+.aem-accordion__trigger[aria-expanded='true'] .aem-accordion__toggle { background: var(--aem-color-surface-interactive-fill-primary-active); color: var(--aem-color-text-on-fill, var(--aem-color-specific-button-ghost-on-surface)); }
 
 .aem-accordion__trigger:focus-visible {
   outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);

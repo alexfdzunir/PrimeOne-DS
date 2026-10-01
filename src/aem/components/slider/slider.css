@@ -43,7 +43,7 @@
   padding: 0 var(--aem-unit-08);
   border-radius: var(--aem-size-border-radius-full);
   background: var(--aem-color-surface-tertiary);
-  color: var(--aem-color-text-inverse-primary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
   transform: translateX(-50%);
 }
 
