@@ -26,8 +26,8 @@ export function collectTokens(): TokenRecord[] {
   const names = new Set<string>();
   const visit = (rules: CSSRuleList) => {
     for (const rule of Array.from(rules)) {
-      if (rule instanceof CSSStyleRule && rule.style.cssText.includes('var(--p-') && applies(rule.selectorText)) {
-        for (const match of rule.style.cssText.matchAll(/var\((--p-[\w-]+)/g)) names.add(match[1]);
+      if (rule instanceof CSSStyleRule && /var\(--(p|aem)-/.test(rule.style.cssText) && applies(rule.selectorText)) {
+        for (const match of rule.style.cssText.matchAll(/var\((--(?:p|aem)-[\w-]+)/g)) names.add(match[1]);
       }
       const nested = (rule as CSSGroupingRule).cssRules;
       if (nested?.length) visit(nested);
@@ -41,9 +41,12 @@ export function collectTokens(): TokenRecord[] {
     }
   }
 
+  // An AEM component lists its own tokens only (the frame chrome still uses PrimeNG ones)
+  const aem = [...names].some((name) => name.startsWith('--aem-'));
   const computed = getComputedStyle(document.documentElement);
   return [...names]
+    .filter((cssVar) => !aem || cssVar.startsWith('--aem-'))
     .sort()
-    .map((cssVar) => ({ cssVar, name: cssVar.slice(4).replace(/-/g, '/'), value: computed.getPropertyValue(cssVar).trim() }))
+    .map((cssVar) => ({ cssVar, name: cssVar.replace(/^--(p|aem)-/, '').replace(/-/g, '/'), value: computed.getPropertyValue(cssVar).trim() }))
     .filter((token) => token.value !== '');
 }

@@ -1,7 +1,7 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
 import { usePreset } from '@primeuix/themes';
 import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../../src/theme/presets';
-import { CATEGORIES, type CategoryGroup, type CategoryId, type ComponentEntry, type EventRecord, type ExplorerView, type MeasureData, type RenderedStory, type SchemeId, type ThemeId, type TokenRecord, type ViewportId } from './model';
+import { CATEGORIES, DESIGN_SYSTEMS, type CategoryGroup, type CategoryId, type ComponentEntry, type DesignSystemId, type EventRecord, type ExplorerView, type MeasureData, type RenderedStory, type SchemeId, type ThemeId, type TokenRecord, type ViewportId } from './model';
 import { buildRegistry } from './registry';
 
 const PRESETS = { estudiantes: PrimeOneEstudiantes, prodi: PrimeOneProdi, foundations: PrimeOneFoundations };
@@ -36,8 +36,13 @@ export class ExplorerState {
   readonly entries: ComponentEntry[] = buildRegistry();
 
   readonly query = signal('');
-  /** Home by default; `?s=` opens a section and `?c=` a component. */
-  readonly view = signal<ExplorerView>({ kind: 'home' });
+  /** Design system on show: PrimeOne (Angular) or AEM Portales (HTML/CSS/JS). `?ds=aem`. */
+  readonly ds = signal<DesignSystemId>('prime-one');
+  readonly designSystem = computed(() => DESIGN_SYSTEMS.find((d) => d.id === this.ds()) ?? DESIGN_SYSTEMS[0]);
+  /** Components of the design system on show. */
+  readonly dsEntries = computed(() => this.entries.filter((e) => e.ds === this.ds()));
+  /** General home (design system picker) by default; `?ds=` opens a design system, `?s=` a section, `?c=` a component. */
+  readonly view = signal<ExplorerView>({ kind: 'portal' });
   /** Section of Foundations last picked (a new object each time, so picking it again scrolls again). */
   readonly foundationsTarget = signal<{ id: string } | null>(null);
   readonly selectedId = signal(this.entries[0]?.id ?? '');
@@ -64,7 +69,7 @@ export class ExplorerState {
   /** Catalogue filtered by the search text, grouped by category (empty groups removed). */
   readonly groups = computed<CategoryGroup[]>(() => {
     const q = normalize(this.query());
-    return CATEGORIES.map((category) => ({
+    return CATEGORIES.filter((category) => category.ds === this.ds()).map((category) => ({
       ...category,
       entries: this.entries.filter((e) => e.category === category.id && (!q || normalize(e.title).includes(q) || normalize(category.label).includes(q))),
     })).filter((group) => group.entries.length > 0);
@@ -102,7 +107,8 @@ export class ExplorerState {
     effect(() => {
       const view = this.view();
       const url = new URL(location.href);
-      for (const key of ['c', 'p', 's']) url.searchParams.delete(key);
+      for (const key of ['ds', 'c', 'p', 's']) url.searchParams.delete(key);
+      if (view.kind !== 'portal') url.searchParams.set('ds', this.ds());
       if (view.kind === 'foundations') url.searchParams.set('s', 'foundations');
       if (view.kind === 'section') url.searchParams.set('s', view.id);
       if (view.kind === 'component') {
@@ -121,10 +127,26 @@ export class ExplorerState {
     // Another component: measure its root again
     this.inspect.update((inspect) => ({ ...inspect, index: null, hover: null }));
     this.closeCatalogIfCompact();
+    this.ds.set(entry.ds);
     this.view.set({ kind: 'component' });
     this.selectedId.set(entry.id);
     this.applyPreset('Default');
     this.events.set([]);
+  }
+
+  /** Switches design system and opens its home. */
+  setDesignSystem(id: DesignSystemId): void {
+    if (id === this.ds() && this.view().kind === 'home') return;
+    this.ds.set(id);
+    this.query.set('');
+    this.goHome();
+  }
+
+  /** General home: the design systems to choose from. */
+  goPortal(): void {
+    this.closeCatalogIfCompact();
+    this.query.set('');
+    this.view.set({ kind: 'portal' });
   }
 
   goHome(): void {
@@ -141,6 +163,8 @@ export class ExplorerState {
 
   openSection(id: CategoryId): void {
     this.closeCatalogIfCompact();
+    const category = CATEGORIES.find((c) => c.id === id);
+    if (category) this.ds.set(category.ds);
     this.view.set({ kind: 'section', id });
   }
 
@@ -211,18 +235,22 @@ export class ExplorerState {
 
   private readUrl(): void {
     const params = new URLSearchParams(location.search);
+    this.ds.set(DESIGN_SYSTEMS.find((d) => d.id === params.get('ds'))?.id ?? 'prime-one');
     const id = params.get('c');
     const section = CATEGORIES.find((c) => c.id === params.get('s'));
-    if (id && this.entries.some((e) => e.id === id)) {
-      if (id !== this.selectedId()) this.events.set([]);
-      this.selectedId.set(id);
+    const entry = id ? this.entries.find((e) => e.id === id) : undefined;
+    if (entry) {
+      if (entry.id !== this.selectedId()) this.events.set([]);
+      this.ds.set(entry.ds);
+      this.selectedId.set(entry.id);
       this.view.set({ kind: 'component' });
     } else if (params.get('s') === 'foundations') {
       this.view.set({ kind: 'foundations' });
     } else if (section) {
+      this.ds.set(section.ds);
       this.view.set({ kind: 'section', id: section.id });
     } else {
-      this.view.set({ kind: 'home' });
+      this.view.set(params.has('ds') ? { kind: 'home' } : { kind: 'portal' });
     }
     this.applyPreset(params.get('p') ?? 'Default');
   }
@@ -230,7 +258,7 @@ export class ExplorerState {
 
 /** The page a URL points to, ignoring the preset. */
 function pageKey(url: URL): string {
-  return `${url.searchParams.get('c') ?? ''}|${url.searchParams.get('s') ?? ''}`;
+  return `${url.searchParams.get('ds') ?? ''}|${url.searchParams.get('c') ?? ''}|${url.searchParams.get('s') ?? ''}`;
 }
 
 function normalize(text: string): string {

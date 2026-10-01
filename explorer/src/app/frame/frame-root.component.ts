@@ -99,6 +99,8 @@ export class FrameRootComponent {
       if (!request) return;
       usePreset(PRESETS[request.theme]);
       document.documentElement.classList.toggle('po-dark', request.scheme === 'dark');
+      // AEM Portales: its own dark mode (semantic tokens on their inverse values)
+      document.documentElement.classList.toggle('aem-dark', request.scheme === 'dark' && this.entry()?.ds === 'aem');
       this.scheduleTokens();
       this.scheduleMeasure();
     });

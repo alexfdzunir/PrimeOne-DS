@@ -1,10 +1,11 @@
 import type { ArgType, Meta, StoryObj } from '../shims/storybook-angular';
 import { groupControls, repeatsAppearance } from './controls/control-groups';
-import { CATEGORIES, type CategoryId, type ComponentEntry, type ControlDef, type ControlKind, type EventDef, type PresetDef } from './model';
+import { CATEGORIES, type ComponentEntry, type ControlDef, type ControlKind, type EventDef, type PresetDef } from './model';
 import { STORY_MODULES } from './stories-index';
 
 const KINDS: ControlKind[] = ['boolean', 'text', 'number', 'select', 'inline-radio', 'color'];
 const CATEGORY_ORDER = CATEGORIES.map((c) => c.id);
+const AEM_PREFIX = 'AEM';
 
 function slug(text: string): string {
   return text
@@ -26,10 +27,14 @@ function controlKind(argType: ArgType): ControlKind | undefined {
   return KINDS.includes(control as ControlKind) ? (control as ControlKind) : undefined;
 }
 
-function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, codeImports: string[]): ComponentEntry {
+function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, codeImports: string[], sources?: ComponentEntry['sources']): ComponentEntry {
   const meta = mod['default'] as Meta;
-  const [category, ...rest] = meta.title.split('/');
+  // `AEM/<section>/<name>` for AEM Portales, `<section>/<name>` for PrimeOne
+  const segments = meta.title.split('/');
+  const ds = segments[0] === AEM_PREFIX ? 'aem' : 'prime-one';
+  const [category, ...rest] = ds === 'aem' ? segments.slice(1) : segments;
   const title = rest.join('/') || category;
+  const categoryDef = CATEGORIES.find((c) => c.ds === ds && c.key === category) ?? CATEGORIES.find((c) => c.ds === ds && c.key === 'Misc');
   const argTypes = meta.argTypes ?? {};
 
   const controls: ControlDef[] = [];
@@ -69,10 +74,13 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
 
   const entry: ComponentEntry = {
     id: slug(meta.title),
+    ds,
+    sources,
     title,
-    category: (CATEGORY_ORDER.includes(category as CategoryId) ? category : 'Misc') as CategoryId,
+    category: categoryDef?.id ?? CATEGORIES.filter((c) => c.ds === ds).at(-1)!.id,
     description: docs?.description?.component,
-    figmaUrl,
+    // PrimeOne takes it from Code Connect (`*.figma.ts`); AEM stories give it in `parameters.figmaUrl`
+    figmaUrl: figmaUrl ?? meta.parameters?.['figmaUrl'],
     codeImports,
     layout: meta.parameters?.['layout'] ?? 'padded',
     height: docs?.story?.height,
@@ -100,7 +108,7 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
 
 /** All components of the DS, in catalogue order. */
 export function buildRegistry(): ComponentEntry[] {
-  return STORY_MODULES.map(({ module, figmaUrl, imports }) => toEntry(module as Record<string, unknown>, figmaUrl, imports)).sort(
+  return STORY_MODULES.map(({ module, figmaUrl, imports, sources }) => toEntry(module as Record<string, unknown>, figmaUrl, imports, sources)).sort(
     (a, b) => CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category) || a.title.localeCompare(b.title, 'es'),
   );
 }

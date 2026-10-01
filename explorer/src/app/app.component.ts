@@ -3,8 +3,10 @@ import { CanvasComponent } from './canvas/canvas.component';
 import { ControlsPanelComponent } from './controls/controls-panel.component';
 import { ExplorerState } from './explorer-state';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AemFoundationsComponent } from './pages/aem-foundations.component';
 import { FoundationsComponent } from './pages/foundations.component';
 import { HomeComponent } from './pages/home.component';
+import { PortalComponent } from './pages/portal.component';
 import { SectionComponent } from './pages/section.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
@@ -15,26 +17,34 @@ import { SidebarComponent } from './sidebar/sidebar.component';
  */
 @Component({
   selector: 'po-root',
-  imports: [NavbarComponent, SidebarComponent, CanvasComponent, ControlsPanelComponent, HomeComponent, FoundationsComponent, SectionComponent],
+  imports: [NavbarComponent, SidebarComponent, CanvasComponent, ControlsPanelComponent, HomeComponent, PortalComponent, FoundationsComponent, AemFoundationsComponent, SectionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'po-shell',
-    '[class.po-shell--catalog-closed]': '!state.catalogOpen()',
+    // The general home has no catalogue: it only picks a design system
+    '[class.po-shell--catalog-closed]': "!state.catalogOpen() || state.view().kind === 'portal'",
     '[class.po-shell--panel-closed]': '!panelShown()',
     '[class.po-shell--compact]': 'state.compact()',
     '(document:keydown.escape)': 'state.compact() && state.closeDrawers()',
   },
   template: `
     <po-navbar class="po-shell__navbar" />
-    <div class="po-shell__side po-shell__side--catalog" [attr.inert]="state.catalogOpen() ? null : ''">
+    <div class="po-shell__side po-shell__side--catalog" [attr.inert]="state.catalogOpen() && state.view().kind !== 'portal' ? null : ''">
       <po-sidebar />
     </div>
     @switch (state.view().kind) {
+      @case ('portal') {
+        <po-portal class="po-shell__stage" />
+      }
       @case ('home') {
         <po-home class="po-shell__stage" />
       }
       @case ('foundations') {
-        <po-foundations class="po-shell__stage" />
+        @if (state.ds() === 'aem') {
+          <po-aem-foundations class="po-shell__stage" />
+        } @else {
+          <po-foundations class="po-shell__stage" />
+        }
       }
       @case ('section') {
         <po-section class="po-shell__stage" />

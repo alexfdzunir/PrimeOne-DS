@@ -5,7 +5,7 @@ import { Select } from 'primeng/select';
 import { SelectButton } from 'primeng/selectbutton';
 import { Tooltip } from 'primeng/tooltip';
 import { ExplorerState } from '../explorer-state';
-import { THEMES } from '../model';
+import { DESIGN_SYSTEMS, THEMES } from '../model';
 import { UnirLogoComponent } from './unir-logo.component';
 
 /** Global bar: column toggles, brand, theme and colour scheme. */
@@ -15,47 +15,76 @@ import { UnirLogoComponent } from './unir-logo.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="po-navbar__start">
-      <p-button
-        icon="ph ph-sidebar-simple"
-        variant="text"
-        severity="secondary"
-        [rounded]="true"
-        [ariaLabel]="state.catalogOpen() ? 'Ocultar catálogo' : 'Mostrar catálogo'"
-        [pTooltip]="state.catalogOpen() ? 'Ocultar catálogo' : 'Mostrar catálogo'"
-        tooltipPosition="bottom"
-        [attr.aria-pressed]="state.catalogOpen()"
-        (onClick)="state.catalogOpen.set(!state.catalogOpen())"
-      />
-      <a class="po-navbar__brand" href="./" aria-label="PrimeOne Design System, inicio" (click)="goHome($event)">
+      @if (state.view().kind !== 'portal') {
+        <p-button
+          icon="ph ph-sidebar-simple"
+          variant="text"
+          severity="secondary"
+          [rounded]="true"
+          [ariaLabel]="state.catalogOpen() ? 'Ocultar catálogo' : 'Mostrar catálogo'"
+          [pTooltip]="state.catalogOpen() ? 'Ocultar catálogo' : 'Mostrar catálogo'"
+          tooltipPosition="bottom"
+          [attr.aria-pressed]="state.catalogOpen()"
+          (onClick)="state.catalogOpen.set(!state.catalogOpen())"
+        />
+      }
+      <a class="po-navbar__brand" href="./" aria-label="Design Systems de Proeduca, inicio" (click)="goHome($event)">
         <po-unir-logo />
         <span class="po-navbar__divider" aria-hidden="true"></span>
-        <span class="po-navbar__title"><strong>PrimeOne</strong> Design System</span>
       </a>
+      <!-- Design system on show: PrimeOne (Angular) or AEM Portales (HTML/CSS/JS); none on the general home -->
+      @if (state.view().kind === 'portal') {
+        <span class="po-navbar__title po-navbar__portal"><strong>Design Systems</strong></span>
+      } @else {
+        <p-select
+          class="po-navbar__ds"
+          [options]="designSystems"
+          optionLabel="name"
+          optionValue="id"
+          size="small"
+          ariaLabel="Sistema de diseño"
+          appendTo="body"
+          [ngModel]="state.ds()"
+          (ngModelChange)="state.setDesignSystem($event)"
+        >
+          <ng-template #selectedItem let-ds>
+            <span class="po-navbar__title"><strong>{{ ds.name }}</strong><span class="po-navbar__suffix"> Design System</span></span>
+          </ng-template>
+          <ng-template #item let-ds>
+            <span class="po-navbar__ds-option">
+              <strong>{{ ds.name }}</strong>
+              <small>{{ ds.stack }}</small>
+            </span>
+          </ng-template>
+        </p-select>
+      }
     </div>
 
     <div class="po-navbar__end">
-      <p-selectbutton
-        class="po-navbar__themes"
-        [options]="themes"
-        optionLabel="label"
-        optionValue="id"
-        size="small"
-        [allowEmpty]="false"
-        ariaLabel="Tema"
-        [ngModel]="state.theme()"
-        (ngModelChange)="state.theme.set($event)"
-      />
-      <p-select
-        class="po-navbar__themes-compact"
-        [options]="themes"
-        optionLabel="label"
-        optionValue="id"
-        size="small"
-        ariaLabel="Tema"
-        appendTo="body"
-        [ngModel]="state.theme()"
-        (ngModelChange)="state.theme.set($event)"
-      />
+      @if (state.designSystem().themed && state.view().kind !== 'portal') {
+        <p-selectbutton
+          class="po-navbar__themes"
+          [options]="themes"
+          optionLabel="label"
+          optionValue="id"
+          size="small"
+          [allowEmpty]="false"
+          ariaLabel="Tema"
+          [ngModel]="state.theme()"
+          (ngModelChange)="state.theme.set($event)"
+        />
+        <p-select
+          class="po-navbar__themes-compact"
+          [options]="themes"
+          optionLabel="label"
+          optionValue="id"
+          size="small"
+          ariaLabel="Tema"
+          appendTo="body"
+          [ngModel]="state.theme()"
+          (ngModelChange)="state.theme.set($event)"
+        />
+      }
       <p-button
         [icon]="state.scheme() === 'dark' ? 'ph ph-sun' : 'ph ph-moon'"
         variant="text"
@@ -141,6 +170,35 @@ import { UnirLogoComponent } from './unir-logo.component';
       font-weight: 700;
     }
 
+    /* The switcher reads as the brand title: no field chrome until hovered */
+    :host ::ng-deep .po-navbar__ds.p-select {
+      min-width: 0;
+      border-color: transparent;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    :host ::ng-deep .po-navbar__ds.p-select:not(.p-disabled):hover,
+    :host ::ng-deep .po-navbar__ds.p-select.p-focus {
+      border-color: var(--p-content-border-color);
+      background: var(--p-content-hover-background);
+    }
+
+    :host ::ng-deep .po-navbar__ds .p-select-label {
+      padding-inline-start: 6px;
+      color: var(--p-text-color);
+    }
+
+    .po-navbar__ds-option {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .po-navbar__ds-option small {
+      color: var(--p-text-muted-color);
+    }
+
     .po-navbar__divider {
       width: 1px;
       height: 24px;
@@ -185,7 +243,7 @@ import { UnirLogoComponent } from './unir-logo.component';
     }
 
     @media (max-width: 900px) {
-      .po-navbar__title,
+      .po-navbar__suffix,
       .po-navbar__brand .po-navbar__divider {
         display: none;
       }
@@ -253,11 +311,12 @@ import { UnirLogoComponent } from './unir-logo.component';
 export class NavbarComponent {
   protected readonly state = inject(ExplorerState);
   protected readonly themes = THEMES;
+  protected readonly designSystems = DESIGN_SYSTEMS;
 
   /** In-app navigation; a modified click still opens the home in a new tab. */
   protected goHome(event: MouseEvent): void {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
     event.preventDefault();
-    this.state.goHome();
+    this.state.goPortal();
   }
 }

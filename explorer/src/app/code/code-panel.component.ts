@@ -3,12 +3,23 @@ import { Button } from 'primeng/button';
 import { ExplorerState } from '../explorer-state';
 import type { BoxMeasure } from '../model';
 import { htmlSnippet, tsSnippet } from '../snippet';
+import { formatCss } from './format-css';
+import { tokenizeTs } from './format-ts';
 import { CodeViewComponent } from './code-view.component';
 import { MeasureViewComponent } from './measure-view.component';
 import { TokensViewComponent } from './tokens-view.component';
 import { linesToText } from './tokens';
 
-type TabId = 'html' | 'ts' | 'tokens' | 'measure';
+type TabId = 'html' | 'ts' | 'css' | 'js' | 'tokens' | 'measure';
+
+const TAB_DEFS: Record<TabId, { label: string; icon: string; panel: string }> = {
+  html: { label: 'HTML', icon: 'ph ph-file-html', panel: 'Plantilla HTML' },
+  ts: { label: 'TypeScript', icon: 'ph ph-file-ts', panel: 'Componente TypeScript' },
+  css: { label: 'CSS', icon: 'ph ph-file-css', panel: 'Estilos CSS' },
+  js: { label: 'JS', icon: 'ph ph-file-js', panel: 'JavaScript' },
+  tokens: { label: 'Tokens', icon: 'ph ph-swatches', panel: 'Tokens' },
+  measure: { label: 'Medidas', icon: 'ph ph-ruler', panel: 'Medidas' },
+};
 
 const TAB_KEY = 'po-explorer.code-tab';
 const HEIGHT_KEY = 'po-explorer.code-height';
@@ -38,13 +49,13 @@ const KEY_STEP = 24;
     ></div>
     <header class="po-code__bar">
       <div class="po-code__tabs" role="tablist" aria-label="Lenguaje del código">
-        @for (tab of tabs; track tab.id) {
+        @for (tab of tabs(); track tab.id) {
           <button
             type="button"
             role="tab"
             class="po-code__tab"
-            [class.po-code__tab--active]="tab.id === active()"
-            [attr.aria-selected]="tab.id === active()"
+            [class.po-code__tab--active]="tab.id === current()"
+            [attr.aria-selected]="tab.id === current()"
             [attr.aria-controls]="'po-code-' + tab.id"
             (click)="select(tab.id)"
           >
@@ -76,16 +87,16 @@ const KEY_STEP = 24;
         />
       </div>
     </header>
-    @if (active() === 'tokens') {
+    @if (current() === 'tokens') {
       <po-tokens-view role="tabpanel" id="po-code-tokens" [tokens]="state.tokens()" />
-    } @else if (active() === 'measure') {
+    } @else if (current() === 'measure') {
       <po-measure-view role="tabpanel" id="po-code-measure" />
     } @else {
       <po-code-view
         role="tabpanel"
-        [id]="'po-code-' + active()"
+        [id]="'po-code-' + current()"
         [lines]="lines()"
-        [label]="active() === 'html' ? 'Plantilla HTML' : 'Componente TypeScript'"
+        [label]="panelLabel()"
       />
     }
   `,
@@ -205,21 +216,34 @@ export class CodePanelComponent {
   readonly closed = output<void>();
 
   protected readonly state = inject(ExplorerState);
-  protected readonly tabs: { id: TabId; label: string; icon: string }[] = [
-    { id: 'html', label: 'HTML', icon: 'ph ph-file-html' },
-    { id: 'ts', label: 'TypeScript', icon: 'ph ph-file-ts' },
-    { id: 'tokens', label: 'Tokens', icon: 'ph ph-swatches' },
-    { id: 'measure', label: 'Medidas', icon: 'ph ph-ruler' },
-  ];
+  /** PrimeOne: HTML and TypeScript. AEM Portales: HTML, CSS and, when the component has behaviour, JS. */
+  protected readonly tabs = computed(() => {
+    const entry = this.state.selected();
+    const ids: TabId[] = entry.ds === 'aem' ? ['html', 'css', ...(entry.sources?.js ? (['js'] as const) : []), 'tokens', 'measure'] : ['html', 'ts', 'tokens', 'measure'];
+    return ids.map((id) => ({ id, ...TAB_DEFS[id] }));
+  });
   protected readonly minHeight = MIN_HEIGHT;
-  protected readonly active = signal<TabId>(((['html', 'ts', 'tokens', 'measure'] as const).find((tab) => tab === read(TAB_KEY)) ?? 'html') as TabId);
+  protected readonly active = signal<TabId>((Object.keys(TAB_DEFS) as TabId[]).find((tab) => tab === read(TAB_KEY)) ?? 'html');
+  /** The chosen tab when the component has it (TypeScript is PrimeOne only, CSS and JS AEM only), HTML otherwise. */
+  protected readonly current = computed<TabId>(() => (this.tabs().some((tab) => tab.id === this.active()) ? this.active() : 'html'));
+  protected readonly panelLabel = computed(() => TAB_DEFS[this.current()].panel);
   protected readonly height = signal(Number(read(HEIGHT_KEY)) || DEFAULT_HEIGHT);
   protected readonly maxHeight = signal(MIN_HEIGHT);
   protected readonly copied = signal(false);
 
-  protected readonly lines = computed(() =>
-    this.active() === 'ts' ? tsSnippet(this.state.selected()) : htmlSnippet(this.state.selected(), this.state.rendered(), this.state.args()),
-  );
+  protected readonly lines = computed(() => {
+    const entry = this.state.selected();
+    switch (this.current()) {
+      case 'ts':
+        return tsSnippet(entry);
+      case 'css':
+        return formatCss(entry.sources?.css ?? '');
+      case 'js':
+        return (entry.sources?.js ?? '').split('\n').map(tokenizeTs);
+      default:
+        return htmlSnippet(entry, this.state.rendered(), this.state.args());
+    }
+  });
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private copyTimer?: ReturnType<typeof setTimeout>;
@@ -227,7 +251,7 @@ export class CodePanelComponent {
   constructor() {
     // The measure overlay lives on the stage only while the Medidas tab is open
     effect(() => {
-      const enabled = this.active() === 'measure';
+      const enabled = this.current() === 'measure';
       untracked(() => this.state.inspect.update((inspect) => ({ ...inspect, enabled })));
     });
     inject(DestroyRef).onDestroy(() => {
@@ -245,9 +269,9 @@ export class CodePanelComponent {
   protected async copy(): Promise<void> {
     try {
       const text =
-        this.active() === 'tokens'
+        this.current() === 'tokens'
           ? this.state.tokens().map((t) => `${t.name}: ${t.value}`).join('\n')
-          : this.active() === 'measure'
+          : this.current() === 'measure'
             ? measureText(this.state.measure()?.box ?? null)
             : linesToText(this.lines());
       await navigator.clipboard.writeText(text);

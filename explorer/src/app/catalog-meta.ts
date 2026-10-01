@@ -1,3 +1,5 @@
+import type { DesignSystemId } from './model';
+
 /** Icon (Phosphor name) and one-line summary of each component for the home and section pages, by story title. */
 const META: Record<string, [icon: string, summary: string]> = {
   // Button
@@ -117,6 +119,11 @@ const META: Record<string, [icon: string, summary: string]> = {
   Topbar: ['align-top', 'Barra superior de página.'],
 };
 
+/** Same for AEM Portales, by story title. */
+const AEM_META: Record<string, [icon: string, summary: string]> = {
+  Button: ['cursor-click', 'Primario, secundario, ghost y outlined en tres tamaños, con icono, peligro y sobre fondo oscuro.'],
+};
+
 export interface ComponentMeta {
   /** Phosphor icon class. */
   icon: string;
@@ -124,7 +131,7 @@ export interface ComponentMeta {
 }
 
 /** Components without an entry fall back to the section icon and no summary. */
-export function componentMeta(title: string, fallbackIcon: string): ComponentMeta {
-  const meta = META[title];
+export function componentMeta(title: string, fallbackIcon: string, ds: DesignSystemId = 'prime-one'): ComponentMeta {
+  const meta = (ds === 'aem' ? AEM_META : META)[title];
   return meta ? { icon: `ph ph-${meta[0]}`, summary: meta[1] } : { icon: fallbackIcon, summary: '' };
 }

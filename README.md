@@ -46,20 +46,31 @@ La tipografía es Proeduca Sans (`src/fonts/`, pesos 200 a 800 con cursivas). El
 
 `p-editor` no se reexporta desde `prime-one-ds`: PrimeNG carga `quill` bajo demanda y quien lo use debe instalarlo (`npm install quill`).
 
+## AEM Portales
+
+El mismo paquete incluye el sistema de diseño de los portales en Adobe Experience Manager ([Figma](https://www.figma.com/design/hT9BgF8wE5lXM54ldUcy9H/Design-System---AEM-Portales)), sin framework: HTML con clases BEM, CSS y JavaScript sin dependencias.
+
+- `src/aem/styles/tokens.css`: las variables de Figma como variables CSS `--aem-*` (core, semantic y responsive size: móvil por defecto, tablet desde 768px y escritorio desde 1280px), sombras y degradados.
+- `src/aem/styles/typography.css`: los estilos de texto de Figma como clases (`.aem-headline-2`, `.aem-body`, `.aem-label-1`...).
+- `src/aem/components/<componente>/`: el CSS de cada componente (`button.css`: `.aem-button` con `--secondary`, `--ghost`, `--outlined`, `--sm`, `--lg`, `--icon-only`, `--danger`) y su story con el HTML.
+- Modo oscuro: la clase `aem-dark` en `<html>` o en un contenedor lleva los tokens semánticos a sus valores inverse de Figma (los de las variantes On-Inverse); `--inverse` los fuerza en una sección oscura de una página clara.
+
+Una página de AEM incluye `aem/aem.css` del paquete (`node_modules/prime-one-ds/aem/aem.css`) y la fuente Proeduca Sans; las clases se usan directamente en las plantillas HTL.
+
 ## Storybook
 
 Cada componente tiene una story con controles generados desde su API real (inputs de PrimeNG 21 y de los componentes `prime-one-*`). La barra superior permite cambiar de tema (Estudiantes, Prodi, Foundations) y de modo (claro u oscuro). Los eventos aparecen en el panel Actions.
 
 ## Explorador
 
-App Angular propia (`explorer/`) para enseñar el DS: navbar con tema (Estudiantes, Prodi, Foundations) y modo claro u oscuro, catálogo a la izquierda, el componente real en el centro y el panel de control a la derecha (las dos columnas laterales se pliegan). Cada componente muestra sus variantes, todas sus propiedades, el registro de eventos y el código listo para copiar (HTML y TypeScript) con los valores actuales.
+App Angular propia (`explorer/`) para enseñar los sistemas de diseño. Arranca en una home general donde se elige PrimeOne o AEM Portales (el logo vuelve a ella; `?ds=prime-one` o `?ds=aem` abre cada uno). Para cada sistema: navbar con tema (Estudiantes, Prodi, Foundations) y modo claro u oscuro, catálogo a la izquierda, el componente real en el centro y el panel de control a la derecha (las dos columnas laterales se pliegan). Cada componente muestra sus variantes, todas sus propiedades, el registro de eventos y el código listo para copiar (HTML y TypeScript) con los valores actuales.
 
 - Arranca en una home (hero con las cifras del DS y las secciones del catálogo). Cada sección tiene una vista general con una ficha visual por componente (`?s=Form`); el componente se abre con `?c=<id>`. Atrás y adelante del navegador funcionan entre páginas. Iconos y resúmenes de las fichas en `explorer/src/app/catalog-meta.ts`.
 - Foundations (`?s=foundations`) es una sección más: ficha en la home y grupo en el catálogo con un acceso a cada apartado. Muestra los tokens reales del tema y modo activos, leídos de las variables CSS: tipografía (familia, pesos y la escala de estilos de Figma con `--p-typography-*`), paletas de color (primario, superficie y severidades), tokens semánticos (texto, contenido, resaltado, campos, acciones negativas, foco), radios primitivos y por rol, espaciado (`--p-scale-*`), sombras e iconos. Pulsar un token copia su `var()`.
 - El componente se renderiza en un iframe con el ancho del dispositivo elegido (escritorio, tablet o móvil), así que sus media queries responden como en un dispositivo real.
 - La propia app es responsive: por debajo de 1024px el catálogo y el panel de control pasan a paneles que se abren desde el navbar.
 - El dispositivo sigue a la ventana: por debajo de 1024px la vista pasa a tablet y por debajo de 768px a móvil, con el tema en un desplegable. Se puede cambiar a mano hasta el siguiente salto de ancho.
-- El panel de código tiene cuatro pestañas: HTML, TypeScript, Tokens y Medidas. Medidas dibuja las cotas sobre el componente real (tamaño, padding, tamaño de cada hijo y gaps, atravesando envoltorios) y, al pasar el ratón por cualquier elemento anidado, su tamaño y sus distancias a los bordes y muestra la caja del elemento elegido como en Figma (margen, borde, radios, padding, contenido, layout y tipografía), en tiempo real. Tokens lista las variables del DS que usa el componente renderizado (nombre al estilo Figma, `stepper/step/number/active/background`, variable CSS y valor en el tema y modo activos), con filtro y copia.
+- El panel de código tiene cuatro pestañas: HTML, TypeScript (CSS y, si lo hay, JS en AEM), Tokens y Medidas. Medidas dibuja las cotas sobre el componente real (tamaño, padding, tamaño de cada hijo y gaps, atravesando envoltorios) y, al pasar el ratón por cualquier elemento anidado, su tamaño y sus distancias a los bordes y muestra la caja del elemento elegido como en Figma (margen, borde, radios, padding, contenido, layout y tipografía), en tiempo real. Tokens lista las variables del DS que usa el componente renderizado (nombre al estilo Figma, `stepper/step/number/active/background`, variable CSS y valor en el tema y modo activos), con filtro y copia.
 - Usa las stories como fuente única (`src/components/**/*.stories.ts`); `scripts/generate-explorer-index.mjs` genera el índice al arrancar o compilar.
 - Las plantillas de las stories se compilan en el navegador (JIT). Por eso la build de producción no optimiza los scripts: esa optimización elimina los metadatos de los NgModules (`FormsModule`, `TableModule`...) que el compilador necesita.
 

@@ -37,6 +37,10 @@ export type LayoutKind = 'padded' | 'fullscreen' | 'centered';
 export interface ComponentEntry {
   /** URL-safe id, e.g. `form-select`. */
   id: string;
+  /** Design system the component belongs to (`AEM/...` story titles are AEM). */
+  ds: DesignSystemId;
+  /** Source files shown in the code panel for HTML/CSS/JS design systems (AEM). */
+  sources?: { css?: string; js?: string };
   title: string;
   category: CategoryId;
   description?: string;
@@ -58,10 +62,65 @@ export interface ComponentEntry {
   render: (args: Record<string, unknown>, handlers: Record<string, (payload: unknown) => void>) => RenderedStory;
 }
 
-export type CategoryId = 'Button' | 'Form' | 'Data' | 'Panel' | 'Overlay' | 'Menu' | 'Messages' | 'Media' | 'Misc' | 'Proeduca';
+export type CategoryId =
+  | 'Button'
+  | 'Form'
+  | 'Data'
+  | 'Panel'
+  | 'Overlay'
+  | 'Menu'
+  | 'Messages'
+  | 'Media'
+  | 'Misc'
+  | 'Proeduca'
+  | 'aem-buttons'
+  | 'aem-inputs'
+  | 'aem-status'
+  | 'aem-messaging'
+  | 'aem-content'
+  | 'aem-navigation'
+  | 'aem-modules';
+
+export type DesignSystemId = 'prime-one' | 'aem';
+
+export interface DesignSystemDef {
+  id: DesignSystemId;
+  /** Short name for the switcher. */
+  name: string;
+  /** Technology of the components, for the home. */
+  stack: string;
+  description: string;
+  figmaUrl: string;
+  /** PrimeNG themes (Estudiantes, Prodi, Foundations) and dark mode apply. */
+  themed: boolean;
+}
+
+export const DESIGN_SYSTEMS: DesignSystemDef[] = [
+  {
+    id: 'prime-one',
+    name: 'PrimeOne',
+    stack: 'Angular · PrimeNG 21',
+    description:
+      'Componentes Angular sobre PrimeNG 21 con los temas de Proeduca, conectados a Figma con Code Connect. Un único lenguaje visual para Estudiantes, Prodi y Foundations, en claro y oscuro.',
+    figmaUrl: 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne',
+    themed: true,
+  },
+  {
+    id: 'aem',
+    name: 'AEM Portales',
+    stack: 'HTML · CSS · JS',
+    description:
+      'Componentes y módulos de los portales en Adobe Experience Manager: HTML con clases BEM, CSS con los tokens de Figma y JavaScript sin dependencias, listos para llevar a los componentes de AEM.',
+    figmaUrl: 'https://www.figma.com/design/hT9BgF8wE5lXM54ldUcy9H/Design-System---AEM-Portales',
+    themed: false,
+  },
+];
 
 export interface CategoryDef {
   id: CategoryId;
+  ds: DesignSystemId;
+  /** Second segment of the story title for AEM (`AEM/Buttons/Button`), the first one otherwise. */
+  key: string;
   label: string;
   /** Phosphor icon class, e.g. `ph ph-textbox`. */
   icon: string;
@@ -70,20 +129,27 @@ export interface CategoryDef {
 }
 
 export const CATEGORIES: CategoryDef[] = [
-  { id: 'Button', label: 'Botones', icon: 'ph ph-cursor-click', description: 'Acciones principales y secundarias: botones, split buttons y speed dial.' },
-  { id: 'Form', label: 'Formulario', icon: 'ph ph-textbox', description: 'Campos de entrada, selección y etiquetas para construir formularios.' },
-  { id: 'Data', label: 'Datos', icon: 'ph ph-table', description: 'Tablas, listas, árboles y paginación para mostrar y ordenar información.' },
-  { id: 'Panel', label: 'Paneles', icon: 'ph ph-layout', description: 'Contenedores y estructura: cards, pestañas, acordeones y separadores.' },
-  { id: 'Overlay', label: 'Superposición', icon: 'ph ph-stack', description: 'Capas sobre el contenido: diálogos, drawers, popovers y confirmaciones.' },
-  { id: 'Menu', label: 'Menús', icon: 'ph ph-list', description: 'Navegación: breadcrumb, menubar, menú contextual, mega menú y dock.' },
-  { id: 'Messages', label: 'Mensajes', icon: 'ph ph-chat-circle-dots', description: 'Mensajes en línea y notificaciones toast por nivel de gravedad.' },
-  { id: 'Media', label: 'Media', icon: 'ph ph-image', description: 'Imágenes, galerías, carruseles y comparadores de imágenes.' },
-  { id: 'Misc', label: 'Varios', icon: 'ph ph-puzzle-piece', description: 'Avatares, badges, chips, tags, indicadores de progreso y utilidades.' },
-  { id: 'Proeduca', label: 'Proeduca', icon: 'ph ph-graduation-cap', description: 'Patrones propios de Proeduca: chat IA, agenda, tareas, navegación móvil y campos.' },
+  { id: 'Button', ds: 'prime-one', key: 'Button', label: 'Botones', icon: 'ph ph-cursor-click', description: 'Acciones principales y secundarias: botones, split buttons y speed dial.' },
+  { id: 'Form', ds: 'prime-one', key: 'Form', label: 'Formulario', icon: 'ph ph-textbox', description: 'Campos de entrada, selección y etiquetas para construir formularios.' },
+  { id: 'Data', ds: 'prime-one', key: 'Data', label: 'Datos', icon: 'ph ph-table', description: 'Tablas, listas, árboles y paginación para mostrar y ordenar información.' },
+  { id: 'Panel', ds: 'prime-one', key: 'Panel', label: 'Paneles', icon: 'ph ph-layout', description: 'Contenedores y estructura: cards, pestañas, acordeones y separadores.' },
+  { id: 'Overlay', ds: 'prime-one', key: 'Overlay', label: 'Superposición', icon: 'ph ph-stack', description: 'Capas sobre el contenido: diálogos, drawers, popovers y confirmaciones.' },
+  { id: 'Menu', ds: 'prime-one', key: 'Menu', label: 'Menús', icon: 'ph ph-list', description: 'Navegación: breadcrumb, menubar, menú contextual, mega menú y dock.' },
+  { id: 'Messages', ds: 'prime-one', key: 'Messages', label: 'Mensajes', icon: 'ph ph-chat-circle-dots', description: 'Mensajes en línea y notificaciones toast por nivel de gravedad.' },
+  { id: 'Media', ds: 'prime-one', key: 'Media', label: 'Media', icon: 'ph ph-image', description: 'Imágenes, galerías, carruseles y comparadores de imágenes.' },
+  { id: 'Misc', ds: 'prime-one', key: 'Misc', label: 'Varios', icon: 'ph ph-puzzle-piece', description: 'Avatares, badges, chips, tags, indicadores de progreso y utilidades.' },
+  { id: 'Proeduca', ds: 'prime-one', key: 'Proeduca', label: 'Proeduca', icon: 'ph ph-graduation-cap', description: 'Patrones propios de Proeduca: chat IA, agenda, tareas, navegación móvil y campos.' },
+  { id: 'aem-buttons', ds: 'aem', key: 'Buttons', label: 'Botones', icon: 'ph ph-cursor-click', description: 'Botones, botón de descarga y botón flotante (FAB).' },
+  { id: 'aem-inputs', ds: 'aem', key: 'Inputs', label: 'Entradas y selección', icon: 'ph ph-textbox', description: 'Campos de texto, búsqueda, desplegables, filtros, chips, casillas, radios, toggles y sliders.' },
+  { id: 'aem-status', ds: 'aem', key: 'Status', label: 'Indicadores y estado', icon: 'ph ph-spinner-gap', description: 'Indicadores de carga y etiquetas de estado.' },
+  { id: 'aem-messaging', ds: 'aem', key: 'Messaging', label: 'Mensajes', icon: 'ph ph-chat-circle-dots', description: 'Notificaciones y ticker de avisos.' },
+  { id: 'aem-content', ds: 'aem', key: 'Content', label: 'Contenido', icon: 'ph ph-cards', description: 'Acordeones, avatares, cards, tablas y listas.' },
+  { id: 'aem-navigation', ds: 'aem', key: 'Navigation', label: 'Navegación', icon: 'ph ph-compass', description: 'Menú de anclas, breadcrumb, paginación y pestañas.' },
+  { id: 'aem-modules', ds: 'aem', key: 'Modules', label: 'Módulos', icon: 'ph ph-squares-four', description: 'Bloques de página: hero, banners, formularios, testimonios, cabecera y pie.' },
 ];
 
 /** What the stage shows: the home, the overview of a section or the selected component. */
-export type ExplorerView = { kind: 'home' } | { kind: 'foundations' } | { kind: 'section'; id: CategoryId } | { kind: 'component' };
+export type ExplorerView = { kind: 'portal' } | { kind: 'home' } | { kind: 'foundations' } | { kind: 'section'; id: CategoryId } | { kind: 'component' };
 
 export interface CategoryGroup extends CategoryDef {
   entries: ComponentEntry[];

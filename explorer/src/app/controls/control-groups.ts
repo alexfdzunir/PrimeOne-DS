@@ -306,6 +306,9 @@ const ELEMENTS = new Set([
   'legalCheck',
   'marketingCheck',
   'grouped',
+  'prefixIcon',
+  'suffixIcon',
+  'iconOnly',
 ]);
 
 const STATE = new Set([
@@ -350,10 +353,15 @@ const STATE = new Set([
   'draggable',
   'resizable',
   'sticky',
+  'danger',
 ]);
 
 /** Names of the boolean args (elements and state). */
 const FLAG_NAMES: Record<string, string> = {
+  prefixIcon: 'Icono delante',
+  suffixIcon: 'Icono detrás',
+  iconOnly: 'Solo icono',
+  danger: 'Peligro',
   showClear: 'Botón limpiar',
   showHeader: 'Cabecera',
   showFooter: 'Pie',

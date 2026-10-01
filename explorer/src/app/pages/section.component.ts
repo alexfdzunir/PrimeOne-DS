@@ -322,9 +322,13 @@ export class SectionComponent {
     const view = this.state.view();
     return CATEGORIES.find((c) => view.kind === 'section' && c.id === view.id) ?? CATEGORIES[0];
   });
-  private readonly index = computed(() => CATEGORIES.indexOf(this.section()));
-  protected readonly previous = computed(() => CATEGORIES[this.index() - 1]);
-  protected readonly next = computed(() => CATEGORIES[this.index() + 1]);
+  /** Sections of the same design system that have components, for the previous and next links. */
+  private readonly siblings = computed(() =>
+    CATEGORIES.filter((c) => c.ds === this.section().ds && this.state.entries.some((e) => e.category === c.id)),
+  );
+  private readonly index = computed(() => this.siblings().indexOf(this.section()));
+  protected readonly previous = computed(() => this.siblings()[this.index() - 1]);
+  protected readonly next = computed(() => this.siblings()[this.index() + 1]);
 
   protected readonly cards = computed(() =>
     this.state.entries
@@ -332,7 +336,7 @@ export class SectionComponent {
       .map((entry) => ({
         id: entry.id,
         title: entry.title,
-        ...componentMeta(entry.title, this.section().icon),
+        ...componentMeta(entry.title, this.section().icon, entry.ds),
         variants: entry.presets.length,
         figma: !!entry.figmaUrl,
       })),

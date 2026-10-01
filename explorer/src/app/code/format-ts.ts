@@ -48,8 +48,8 @@ export function formatTs(entry: ComponentEntry): Line[] {
   return source.map(tokenizeTs);
 }
 
-/** Minimal TypeScript highlighter for the generated lines. */
-function tokenizeTs(line: string): Line {
+/** Minimal TypeScript (and JavaScript) highlighter for one line. */
+export function tokenizeTs(line: string): Line {
   const tokens: Token[] = [];
   const pattern = /(\s+)|(\/\/.*$)|('(?:[^'\\]|\\.)*')|(@\w+)|([A-Za-z_$][\w$]*)(\s*:)?|(.)/g;
   for (const match of line.matchAll(pattern)) {

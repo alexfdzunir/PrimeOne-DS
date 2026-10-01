@@ -4,6 +4,7 @@ import { InputIcon } from 'primeng/inputicon';
 import { InputText } from 'primeng/inputtext';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, type CategoryId } from '../model';
+import { AEM_FOUNDATION_SECTIONS } from '../pages/aem-foundations.component';
 import { FOUNDATION_SECTIONS } from '../pages/foundations.component';
 
 const COLLAPSED_KEY = 'po-explorer.collapsed';
@@ -94,7 +95,7 @@ const GROUP_IDS: GroupId[] = ['foundations', ...CATEGORIES.map((category) => cat
             >
               <i class="ph ph-palette" aria-hidden="true"></i>
               <span>Foundations</span>
-              <span class="po-sidebar__group-count">{{ foundationSections.length }}</span>
+              <span class="po-sidebar__group-count">{{ foundationSections().length }}</span>
             </button>
           </h2>
           <div
@@ -103,7 +104,7 @@ const GROUP_IDS: GroupId[] = ['foundations', ...CATEGORIES.map((category) => cat
             [attr.inert]="isOpen('foundations') ? null : ''"
           >
             <ul class="po-sidebar__items" id="po-group-foundations">
-              @for (section of foundationSections; track section.id) {
+              @for (section of foundationSections(); track section.id) {
                 @let active = state.view().kind === 'foundations' && state.foundationsTarget()?.id === section.id;
                 <li>
                   <button
@@ -177,7 +178,7 @@ const GROUP_IDS: GroupId[] = ['foundations', ...CATEGORIES.map((category) => cat
     </nav>
 
     <footer class="po-sidebar__footer">
-      <span>PrimeNG 21 · Angular 21</span>
+      <span>{{ state.designSystem().stack }}</span>
       <a href="https://github.com/alexfdzunir/PrimeOne-DS" target="_blank" rel="noopener" aria-label="Repositorio en GitHub" title="Repositorio en GitHub">
         <i class="ph ph-github-logo" aria-hidden="true"></i>
       </a>
@@ -512,9 +513,11 @@ export class SidebarComponent {
   protected readonly state = inject(ExplorerState);
 
   /** Folded categories, remembered per browser. While searching every group with results is open. */
-  protected readonly foundationSections = FOUNDATION_SECTIONS;
+  protected readonly foundationSections = computed(() => (this.state.ds() === 'aem' ? AEM_FOUNDATION_SECTIONS : FOUNDATION_SECTIONS));
   private readonly collapsed = signal<ReadonlySet<GroupId>>(readCollapsed());
-  protected readonly allCollapsed = computed(() => GROUP_IDS.every((id) => this.collapsed().has(id)));
+  /** Groups on show: Foundations and the sections of the design system. */
+  private readonly visibleGroups = computed<GroupId[]>(() => ['foundations', ...this.state.groups().map((group) => group.id)]);
+  protected readonly allCollapsed = computed(() => this.visibleGroups().every((id) => this.collapsed().has(id)));
 
   private readonly injector = inject(Injector);
   private readonly search = viewChild.required<ElementRef<HTMLInputElement>>('search');

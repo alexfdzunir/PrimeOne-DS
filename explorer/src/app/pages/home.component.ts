@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, THEMES } from '../model';
+import { AEM_FOUNDATION_SECTIONS } from './aem-foundations.component';
 import { FOUNDATION_SECTIONS } from './foundations.component';
 
-const FIGMA_URL = 'https://www.figma.com/design/lWpcnToQVkqEqFifm67QaG/Design-system---PrimeOne';
+/** Figma variables of AEM Portales (core, semantic and responsive size). */
+const AEM_VARIABLES = 409;
 const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
 
 /** Landing of the explorer: brand hero with the key figures, and the sections of the catalogue. */
@@ -16,16 +18,13 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
       <div class="po-hero__inner">
         <div class="po-hero__copy">
           <span class="po-hero__eyebrow"><i class="ph ph-graduation-cap" aria-hidden="true"></i> Proeduca · UNIR</span>
-          <h1>PrimeOne <span>Design System</span></h1>
-          <p class="po-hero__lead">
-            Componentes Angular sobre PrimeNG 21 con los temas de Proeduca, conectados a Figma con Code Connect. Un único
-            lenguaje visual para Estudiantes, Prodi y Foundations, en claro y oscuro.
-          </p>
+          <h1>{{ state.designSystem().name }} <span>Design System</span></h1>
+          <p class="po-hero__lead">{{ state.designSystem().description }}</p>
           <div class="po-hero__actions">
-            <button type="button" class="po-cta po-cta--solid" (click)="state.openSection(firstSection)">
+            <button type="button" class="po-cta po-cta--solid" (click)="state.openSection(firstSection())">
               Explorar componentes <i class="ph ph-arrow-right" aria-hidden="true"></i>
             </button>
-            <a class="po-cta po-cta--ghost" [href]="figmaUrl" target="_blank" rel="noopener">
+            <a class="po-cta po-cta--ghost" [href]="state.designSystem().figmaUrl" target="_blank" rel="noopener">
               <i class="ph ph-figma-logo" aria-hidden="true"></i> Abrir en Figma
             </a>
             <a class="po-cta po-cta--ghost" [href]="repoUrl" target="_blank" rel="noopener">
@@ -73,7 +72,7 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
         </ul>
       </section>
 
-      <footer class="po-home__footer">PrimeOne Design System · PrimeNG 21 · Angular 21</footer>
+      <footer class="po-home__footer">{{ state.designSystem().name }} Design System · {{ state.designSystem().stack }}</footer>
     </div>
   `,
   styles: `
@@ -454,7 +453,7 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
 })
 export class HomeComponent {
   protected readonly state = inject(ExplorerState);
-  protected readonly firstSection = CATEGORIES[0].id;
+  protected readonly firstSection = computed(() => this.sections().find((s) => s.id !== 'foundations')?.id ?? CATEGORIES[0].id);
   /** Hero mosaic: section and component icons, one solid tile and a few empty ones for rhythm. */
   protected readonly heroTiles = [
     { kind: 'ghost', icon: '' },
@@ -470,7 +469,6 @@ export class HomeComponent {
     { kind: 'ghost', icon: '' },
     { kind: 'glass', icon: 'ph ph-image' },
   ];
-  protected readonly figmaUrl = FIGMA_URL;
   protected readonly repoUrl = REPO_URL;
 
   protected readonly sections = computed(() => [
@@ -479,20 +477,20 @@ export class HomeComponent {
       label: 'Foundations',
       icon: 'ph ph-palette',
       description: 'Tipografía, color, radios, espaciado, sombras e iconos con sus tokens reales.',
-      count: FOUNDATION_SECTIONS.length,
+      count: (this.state.ds() === 'aem' ? AEM_FOUNDATION_SECTIONS : FOUNDATION_SECTIONS).length,
     },
-    ...CATEGORIES.map((category) => ({ ...category, count: this.state.entries.filter((entry) => entry.category === category.id).length })).filter(
-      (section) => section.count > 0,
-    ),
+    ...CATEGORIES.filter((category) => category.ds === this.state.ds())
+      .map((category) => ({ ...category, count: this.state.dsEntries().filter((entry) => entry.category === category.id).length }))
+      .filter((section) => section.count > 0),
   ]);
 
   protected readonly figures = computed(() => {
-    const entries = this.state.entries;
+    const entries = this.state.dsEntries();
     return [
       { label: 'Componentes', value: entries.length },
       { label: 'Secciones', value: this.sections().length },
       { label: 'Variantes', value: entries.reduce((total, entry) => total + entry.presets.length, 0) },
-      { label: 'Temas', value: THEMES.length },
+      this.state.ds() === 'aem' ? { label: 'Variables', value: AEM_VARIABLES } : { label: 'Temas', value: THEMES.length },
     ];
   });
 }
