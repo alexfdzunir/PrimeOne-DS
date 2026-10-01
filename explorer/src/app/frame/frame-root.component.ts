@@ -44,9 +44,9 @@ function post(message: Outgoing): void {
       :host(.po-frame--padded), :host(.po-frame--centered) { padding: 16px; }
     }
     /* Room for the measures drawn outside the component: widths above, per-child lanes to the right and below */
-    :host(.po-frame--measuring) { padding: 40px 160px 96px 24px; }
+    :host(.po-frame--measuring) { padding: 40px 200px 96px 24px; }
     @media (max-width: 599px) {
-      :host(.po-frame--measuring) { padding: 40px 128px 96px 16px; }
+      :host(.po-frame--measuring) { padding: 40px 160px 96px 16px; }
     }
   `,
 })

@@ -238,7 +238,7 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
   const gaps = kids.slice(1).map((b, i) => ({ a: kids[i], b, gap: row ? b.left - kids[i].right : b.top - kids[i].bottom })).filter((g) => g.gap >= 1);
   const showKids = kids.length > 1 || (kids.length === 1 && (Math.abs(kids[0].width - r.width) > 1 || Math.abs(kids[0].height - r.height) > 1));
   const lanes = [showKids, gaps.length > 0];
-  const laneAt = (n: number) => (row ? y + r.height + 14 + n * 24 : x + r.width + 12 + n * 44);
+  const laneAt = (n: number) => (row ? y + r.height + 14 + n * 24 : x + r.width + 12 + n * 56);
   const laneKids = laneAt(0);
   const laneGaps = laneAt(lanes[0] ? 1 : 0);
   const laneTotal = row ? y - 18 : laneAt(lanes.filter(Boolean).length);
@@ -281,7 +281,8 @@ function drawOverlay(target: Element | undefined, hovered: Element | undefined):
   box(layer, side, y, 0, r.height, `border-left:1px solid ${PINK};`);
   box(layer, side - 4, y, 8, 0, `border-top:1px solid ${PINK};`);
   box(layer, side - 4, y + r.height, 8, 0, `border-top:1px solid ${PINK};`);
-  pill(layer, side, y + r.height / 2, `${fmt(r.height)}px`, PINK);
+  // Beside its line, so it never covers the per-child lanes
+  pill(layer, side + 6, y + r.height / 2, `${fmt(r.height)}px`, PINK, 'left');
 
   if (hovered) drawHovered(layer, hovered, target, sx, sy);
 }
