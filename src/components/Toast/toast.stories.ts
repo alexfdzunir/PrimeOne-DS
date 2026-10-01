@@ -16,8 +16,6 @@ const meta: Meta = {
   },
   args: {
     severity: 'info',
-    summary: 'Información',
-    detail: 'Los cambios se han guardado correctamente.',
     life: 3000,
     sticky: false,
     onClose: fn(),
@@ -27,8 +25,8 @@ const meta: Meta = {
     preventOpenDuplicates: { control: 'boolean', description: 'It does not add the new message if there is already a toast displayed with the same content' },
     preventDuplicates: { control: 'boolean', description: 'Displays only once a message with the same content.' },
     severity: { control: 'select', options: ['success', 'info', 'warn', 'error', 'secondary', 'contrast'] },
-    summary: { control: 'text' },
-    detail: { control: 'text' },
+    summary: { control: 'text', description: 'Vacío: el título de ejemplo de cada color (Cambios guardados, Atención, Error...).' },
+    detail: { control: 'text', description: 'Vacío: el mensaje de ejemplo de cada color.' },
     life: { control: 'number' },
     sticky: { control: 'boolean' },
     onClose: { action: 'onClose', table: { category: 'Eventos' } },
@@ -46,10 +44,10 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {};
-export const Success: Story = { args: { severity: 'success', summary: 'Guardado' } };
-export const Warn: Story = { args: { severity: 'warn', summary: 'Atención', detail: 'Tu sesión caducará en 5 minutos.' } };
-export const Error: Story = { args: { severity: 'error', summary: 'Error', detail: 'No se han podido guardar los cambios.' } };
-export const Secondary: Story = { args: { severity: 'secondary', summary: 'Aviso', detail: 'Hay una nueva versión del temario.' } };
-export const Contrast: Story = { args: { severity: 'contrast', summary: 'Aviso', detail: 'Hay una nueva versión del temario.' } };
+export const Success: Story = { args: { severity: 'success' } };
+export const Warn: Story = { args: { severity: 'warn' } };
+export const Error: Story = { args: { severity: 'error' } };
+export const Secondary: Story = { args: { severity: 'secondary' } };
+export const Contrast: Story = { args: { severity: 'contrast' } };
 export const Sticky: Story = { args: { sticky: true } };
 export const BottomCenter: Story = { args: { position: 'bottom-center' } };

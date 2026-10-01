@@ -41,6 +41,18 @@ export class ConfirmTrigger {
   }
 }
 
+type ToastSeverity = 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast';
+
+/** Example message per severity, used when the summary or the detail are left empty. */
+const TOAST_TEXTS: Record<ToastSeverity, { summary: string; detail: string }> = {
+  success: { summary: 'Cambios guardados', detail: 'Los cambios se han guardado correctamente.' },
+  info: { summary: 'Información', detail: 'Hay una nueva versión del temario disponible.' },
+  warn: { summary: 'Atención', detail: 'Tu sesión caducará en 5 minutos.' },
+  error: { summary: 'Error', detail: 'No se han podido guardar los cambios. Inténtalo de nuevo.' },
+  secondary: { summary: 'Aviso', detail: 'Tienes 3 tareas pendientes esta semana.' },
+  contrast: { summary: 'Recordatorio', detail: 'El examen de Álgebra lineal es mañana a las 10:00.' },
+};
+
 @Component({
   selector: 'po-toast-trigger',
   imports: [Button],
@@ -49,18 +61,20 @@ export class ConfirmTrigger {
 export class ToastTrigger {
   private readonly messages = inject(MessageService);
 
-  readonly severity = input<'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast'>('info');
-  readonly summary = input('Información');
-  readonly detail = input('Los cambios se han guardado correctamente.');
+  readonly severity = input<ToastSeverity>('info');
+  /** Empty: the example text of the severity. */
+  readonly summary = input<string | undefined>();
+  readonly detail = input<string | undefined>();
   readonly life = input(3000);
   readonly sticky = input(false);
   readonly closable = input(true);
 
   protected show(): void {
+    const severity = this.severity() ?? 'info';
     this.messages.add({
-      severity: this.severity(),
-      summary: this.summary(),
-      detail: this.detail(),
+      severity,
+      summary: this.summary() || TOAST_TEXTS[severity].summary,
+      detail: this.detail() || TOAST_TEXTS[severity].detail,
       life: this.life(),
       sticky: this.sticky(),
       closable: this.closable(),
