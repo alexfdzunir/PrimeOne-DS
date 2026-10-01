@@ -1,0 +1,169 @@
+/*
+ * AEM Button (Figma "button"). Severity: primary (default), --secondary, --ghost, --outlined. Size: --sm, MD
+ * (default), --lg. Modifiers: --icon-only, --danger, --inverse (on a dark surface). Disabled with the `disabled`
+ * attribute or `aria-disabled="true"`. Inside `.aem-dark` every button takes the --inverse look. Primary and secondary darken on hover and press with an overlay layer.
+ */
+
+.aem-button {
+  --aem-button-bg: var(--aem-color-surface-accent);
+  --aem-button-color: var(--aem-color-text-inverse-primary);
+  --aem-button-border: transparent;
+  --aem-button-layer: transparent;
+  --aem-button-focus: var(--aem-color-state-focus-main);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-12) var(--aem-unit-16);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-sm);
+  background: var(--aem-button-bg);
+  color: var(--aem-button-color);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-unit-20);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  isolation: isolate;
+  /* The outline of the outlined severity is drawn inside, so every severity keeps the Figma height */
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-button-border);
+  transition: background-color 150ms, color 150ms, box-shadow 150ms;
+}
+
+/* Hover and pressed layer over the fill */
+.aem-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--aem-button-layer);
+  pointer-events: none;
+}
+
+.aem-button:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-button-focus);
+  outline-offset: var(--aem-unit-01);
+}
+
+.aem-button__icon {
+  flex-shrink: 0;
+  font-size: var(--aem-size-icon-sm);
+  line-height: 1;
+}
+
+/* Sizes */
+.aem-button--sm {
+  padding: var(--aem-unit-08) var(--aem-unit-12);
+  font-size: var(--aem-typography-label-2-size);
+}
+
+.aem-button--lg {
+  padding: var(--aem-unit-16);
+  border-radius: var(--aem-size-border-radius-md);
+}
+
+.aem-button--icon-only { padding: var(--aem-unit-12); }
+.aem-button--icon-only.aem-button--sm { padding: var(--aem-unit-08); }
+.aem-button--icon-only.aem-button--lg { padding: var(--aem-unit-16); }
+
+/* Primary */
+.aem-button:not(:disabled, [aria-disabled='true']):hover { --aem-button-layer: var(--aem-color-surface-interactive-layer-hover); }
+.aem-button:not(:disabled, [aria-disabled='true']):active { --aem-button-layer: var(--aem-color-surface-interactive-layer-active); }
+
+/* Secondary */
+.aem-button--secondary { --aem-button-bg: var(--aem-color-surface-tertiary); }
+
+/* Ghost */
+.aem-button--ghost {
+  --aem-button-bg: transparent;
+  --aem-button-color: var(--aem-color-specific-button-ghost-on-surface);
+}
+.aem-button--ghost:not(:disabled, [aria-disabled='true']):hover { --aem-button-layer: transparent; --aem-button-bg: var(--aem-color-specific-button-ghost-hover); }
+.aem-button--ghost:not(:disabled, [aria-disabled='true']):active { --aem-button-layer: transparent; --aem-button-bg: var(--aem-color-specific-button-ghost-active); }
+
+/* Outlined */
+.aem-button--outlined {
+  --aem-button-bg: transparent;
+  --aem-button-color: var(--aem-color-specific-button-ghost-on-surface);
+  --aem-button-border: var(--aem-color-specific-button-outlined-enabled);
+}
+.aem-button--outlined:not(:disabled, [aria-disabled='true']):hover {
+  --aem-button-layer: transparent;
+  --aem-button-bg: var(--aem-color-specific-button-outlined-hover);
+  --aem-button-border: var(--aem-color-specific-button-outlined-hover);
+  --aem-button-color: var(--aem-color-text-inverse-primary);
+}
+.aem-button--outlined:not(:disabled, [aria-disabled='true']):active {
+  --aem-button-layer: transparent;
+  --aem-button-bg: var(--aem-color-specific-button-outlined-active);
+  --aem-button-border: var(--aem-color-specific-button-outlined-active);
+  --aem-button-color: var(--aem-color-text-inverse-primary);
+}
+
+/* Danger: solid red; ghost and outlined turn solid on hover */
+.aem-button--danger { --aem-button-bg: var(--aem-color-surface-system-error-strong); }
+.aem-button--danger.aem-button--ghost { --aem-button-bg: transparent; --aem-button-color: var(--aem-color-text-system-error-main); }
+.aem-button--danger.aem-button--outlined {
+  --aem-button-bg: transparent;
+  --aem-button-color: var(--aem-color-text-system-error-main);
+  --aem-button-border: var(--aem-color-icon-system-error-main);
+}
+.aem-button--danger:is(.aem-button--ghost, .aem-button--outlined):not(:disabled, [aria-disabled='true']):is(:hover, :active) {
+  --aem-button-bg: var(--aem-color-surface-system-error-strong);
+  --aem-button-border: var(--aem-color-surface-system-error-strong);
+  --aem-button-color: var(--aem-color-text-inverse-primary);
+}
+.aem-button--danger:is(.aem-button--ghost, .aem-button--outlined):not(:disabled, [aria-disabled='true']):active {
+  --aem-button-layer: var(--aem-color-surface-interactive-layer-active);
+}
+
+/* On inverse (dark) surfaces. Text on the white fills is the light text primary (neutral 100), also in dark mode */
+:is(.aem-button--inverse, .aem-dark .aem-button) { --aem-button-focus: var(--aem-color-state-focus-inverse); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--secondary:not(.aem-button--danger, :disabled, [aria-disabled='true']) {
+  --aem-button-bg: var(--aem-color-specific-button-secondary-enabled);
+  --aem-button-color: var(--aem-color-neutral-100);
+}
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--secondary:not(.aem-button--danger, :disabled, [aria-disabled='true']):hover { --aem-button-layer: transparent; --aem-button-bg: var(--aem-color-specific-button-secondary-hover); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--secondary:not(.aem-button--danger, :disabled, [aria-disabled='true']):active { --aem-button-layer: transparent; --aem-button-bg: var(--aem-color-specific-button-secondary-active); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--ghost:not(.aem-button--danger, :disabled, [aria-disabled='true']) { --aem-button-color: var(--aem-color-specific-button-ghost-inverse-on-surface); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--ghost:not(.aem-button--danger, :disabled, [aria-disabled='true']):hover { --aem-button-bg: var(--aem-color-specific-button-ghost-inverse-hover); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--ghost:not(.aem-button--danger, :disabled, [aria-disabled='true']):active { --aem-button-bg: var(--aem-color-specific-button-ghost-inverse-active); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--outlined:not(.aem-button--danger, :disabled, [aria-disabled='true']) {
+  --aem-button-color: var(--aem-color-specific-button-outlined-inverse-enabled);
+  --aem-button-border: var(--aem-color-specific-button-outlined-inverse-enabled);
+}
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--outlined:not(.aem-button--danger, :disabled, [aria-disabled='true']):hover {
+  --aem-button-bg: var(--aem-color-specific-button-outlined-inverse-hover);
+  --aem-button-border: var(--aem-color-specific-button-outlined-inverse-hover);
+  --aem-button-color: var(--aem-color-neutral-100);
+}
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--outlined:not(.aem-button--danger, :disabled, [aria-disabled='true']):active {
+  --aem-button-bg: var(--aem-color-specific-button-outlined-inverse-active);
+  --aem-button-border: var(--aem-color-specific-button-outlined-inverse-active);
+  --aem-button-color: var(--aem-color-neutral-100);
+}
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--danger.aem-button--ghost { --aem-button-color: var(--aem-color-text-system-error-inverse); }
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--danger.aem-button--outlined {
+  --aem-button-color: var(--aem-color-text-system-error-inverse);
+  --aem-button-border: var(--aem-color-border-system-error-inverse);
+}
+
+/* Disabled */
+.aem-button:is(:disabled, [aria-disabled='true']) {
+  --aem-button-bg: var(--aem-color-surface-system-disabled-main);
+  --aem-button-color: var(--aem-color-text-system-disabled-main);
+  --aem-button-border: transparent;
+  cursor: not-allowed;
+}
+.aem-button:is(.aem-button--ghost, .aem-button--outlined):is(:disabled, [aria-disabled='true']) { --aem-button-bg: transparent; }
+.aem-button--outlined:is(:disabled, [aria-disabled='true']) { --aem-button-border: var(--aem-color-border-system-disabled-main); }
+:is(.aem-button--inverse, .aem-dark .aem-button):is(:disabled, [aria-disabled='true']) {
+  --aem-button-bg: var(--aem-color-surface-system-disabled-inverse);
+  --aem-button-color: var(--aem-color-text-system-disabled-inverse);
+}
+:is(.aem-button--inverse, .aem-dark .aem-button).aem-button--outlined:is(:disabled, [aria-disabled='true']) { --aem-button-border: var(--aem-color-border-system-disabled-inverse); }

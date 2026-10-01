@@ -22,6 +22,7 @@
               "node_modules/@phosphor-icons/web/src/bold/style.css",
               "node_modules/@phosphor-icons/web/src/fill/style.css",
               "src/fonts/proeduca-sans.css",
+              "src/aem/aem.css",
               ".storybook/preview.css"
             ]
           }
@@ -39,6 +40,7 @@
               "node_modules/@phosphor-icons/web/src/bold/style.css",
               "node_modules/@phosphor-icons/web/src/fill/style.css",
               "src/fonts/proeduca-sans.css",
+              "src/aem/aem.css",
               ".storybook/preview.css"
             ]
           }
@@ -64,6 +66,7 @@
               "node_modules/@phosphor-icons/web/src/bold/style.css",
               "node_modules/@phosphor-icons/web/src/fill/style.css",
               "src/fonts/proeduca-sans.css",
+              "src/aem/aem.css",
               "explorer/src/styles.css"
             ],
             "allowedCommonJsDependencies": [

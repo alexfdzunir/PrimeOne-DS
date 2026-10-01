@@ -1,0 +1,64 @@
+/*
+ * AEM Portales text styles (Figma "Display", "Headline", "Body", "Small", "Label" and "Caption"), with the
+ * responsive sizes of tokens.css. Use the class on any element: `<h2 class="aem-headline-2">`.
+ */
+
+.aem-display-1,
+.aem-display-2,
+.aem-display-3,
+.aem-display-4,
+.aem-headline-1,
+.aem-headline-2,
+.aem-headline-3,
+.aem-headline-4,
+.aem-headline-5,
+.aem-headline-6,
+.aem-body,
+.aem-body-strong,
+.aem-small-1,
+.aem-small-1-strong,
+.aem-small-2,
+.aem-small-2-strong,
+.aem-label-1,
+.aem-label-2,
+.aem-label-3,
+.aem-label-3-uppercase,
+.aem-caption,
+.aem-caption-strong {
+  margin: 0;
+  font-family: var(--aem-typography-family);
+  letter-spacing: var(--aem-typography-letter-spacing-0);
+}
+
+.aem-display-1 { font-size: var(--aem-typography-display-1-size); line-height: var(--aem-typography-display-1-line-height); font-weight: var(--aem-typography-weight-regular); letter-spacing: var(--aem-typography-letter-spacing--2); }
+.aem-display-2 { font-size: var(--aem-typography-display-2-size); line-height: var(--aem-typography-display-2-line-height); font-weight: var(--aem-typography-weight-regular); letter-spacing: var(--aem-typography-letter-spacing--2); }
+.aem-display-3 { font-size: var(--aem-typography-display-3-size); line-height: var(--aem-typography-display-3-line-height); font-weight: var(--aem-typography-weight-regular); letter-spacing: var(--aem-typography-letter-spacing--1); }
+.aem-display-4 { font-size: var(--aem-typography-display-4-size); line-height: var(--aem-typography-display-4-line-height); font-weight: var(--aem-typography-weight-medium); letter-spacing: var(--aem-typography-letter-spacing--1); }
+
+.aem-headline-1 { font-size: var(--aem-typography-headline-1-size); line-height: var(--aem-typography-headline-1-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-headline-2 { font-size: var(--aem-typography-headline-2-size); line-height: var(--aem-typography-headline-2-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-headline-3 { font-size: var(--aem-typography-headline-3-size); line-height: var(--aem-typography-headline-3-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-headline-4 { font-size: var(--aem-typography-headline-4-size); line-height: var(--aem-typography-headline-4-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-headline-5 { font-size: var(--aem-typography-headline-5-size); line-height: var(--aem-typography-headline-5-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-headline-6 { font-size: var(--aem-typography-headline-6-size); line-height: var(--aem-typography-headline-6-line-height); font-weight: var(--aem-typography-weight-medium); }
+
+.aem-body,
+.aem-body-strong { font-size: var(--aem-typography-body-size); line-height: var(--aem-typography-body-line-height); font-weight: var(--aem-typography-weight-regular); }
+.aem-body-strong { font-weight: var(--aem-typography-weight-bold); }
+
+.aem-small-1,
+.aem-small-1-strong { font-size: var(--aem-typography-small-1-size); line-height: var(--aem-typography-small-1-line-height); font-weight: var(--aem-typography-weight-regular); }
+.aem-small-1-strong { font-weight: var(--aem-typography-weight-bold); }
+.aem-small-2,
+.aem-small-2-strong { font-size: var(--aem-typography-small-2-size); line-height: var(--aem-typography-small-2-line-height); font-weight: var(--aem-typography-weight-regular); }
+.aem-small-2-strong { font-weight: var(--aem-typography-weight-bold); }
+
+.aem-label-1 { font-size: var(--aem-typography-label-1-size); line-height: var(--aem-typography-label-1-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-label-2 { font-size: var(--aem-typography-label-2-size); line-height: var(--aem-typography-label-2-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-label-3,
+.aem-label-3-uppercase { font-size: var(--aem-typography-label-3-size); line-height: var(--aem-typography-label-3-line-height); font-weight: var(--aem-typography-weight-medium); }
+.aem-label-3-uppercase { letter-spacing: var(--aem-typography-letter-spacing-1); text-transform: uppercase; }
+
+.aem-caption,
+.aem-caption-strong { font-size: var(--aem-typography-caption-size); line-height: var(--aem-typography-caption-line-height); font-weight: var(--aem-typography-weight-regular); }
+.aem-caption-strong { font-weight: var(--aem-typography-weight-bold); }

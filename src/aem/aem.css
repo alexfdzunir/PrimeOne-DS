@@ -1,0 +1,4 @@
+/* AEM Portales design system: tokens, text styles and components. Include this file once in the page. */
+@import './styles/tokens.css';
+@import './styles/typography.css';
+@import './components/button/button.css';
