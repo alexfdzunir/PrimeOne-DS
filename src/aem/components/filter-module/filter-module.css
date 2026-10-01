@@ -1,0 +1,32 @@
+/*
+ * AEM Filter Module (Figma "filters"): search button and filter dropdowns in a row, then the selected chips with
+ * "Borrar filtros" and the results count. The dropdowns are the Filter component (dropdown.js).
+ */
+
+.aem-filter-module {
+  display: grid;
+  gap: var(--aem-unit-16);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-filter-module__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--aem-unit-08);
+}
+
+.aem-filter-module__selected {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--aem-unit-08);
+}
+
+.aem-filter-module__results {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+.aem-filter-module__results strong { color: var(--aem-color-text-primary); font-weight: var(--aem-typography-weight-medium); }

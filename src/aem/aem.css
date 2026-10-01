@@ -3,6 +3,7 @@
 @import './styles/typography.css';
 @import './styles/field.css';
 @import './styles/menu.css';
+@import './styles/brand.css';
 
 /* Buttons */
 @import './components/button/button.css';
@@ -44,3 +45,29 @@
 @import './components/breadcrumb/breadcrumb.css';
 @import './components/pagination/pagination.css';
 @import './components/tabs/tabs.css';
+
+/* Modules */
+@import './components/section-module/section-module.css';
+@import './components/navigation-header/navigation-header.css';
+@import './components/hero/hero.css';
+@import './components/hero-home/hero-home.css';
+@import './components/accelerator/accelerator.css';
+@import './components/key-data/key-data.css';
+@import './components/distribution-bar/distribution-bar.css';
+@import './components/distributor/distributor.css';
+@import './components/card-block/card-block.css';
+@import './components/banner/banner.css';
+@import './components/content-block/content-block.css';
+@import './components/featured-data/featured-data.css';
+@import './components/featured-text/featured-text.css';
+@import './components/filter-module/filter-module.css';
+@import './components/comparison-block/comparison-block.css';
+@import './components/list-block/list-block.css';
+@import './components/accordion-block/accordion-block.css';
+@import './components/testimonial/testimonial.css';
+@import './components/form/form.css';
+@import './components/modal/modal.css';
+@import './components/share-banner/share-banner.css';
+@import './components/sticky-button/sticky-button.css';
+@import './components/thank-you/thank-you.css';
+@import './components/footer/footer.css';

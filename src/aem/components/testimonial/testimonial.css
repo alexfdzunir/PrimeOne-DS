@@ -1,0 +1,31 @@
+/*
+ * AEM Testimonial (Figma "testimonial"): module heading and a carousel (carousel.js) of quotes, each one with the
+ * quote mark, the text and the profile of the student (avatar, name and programme).
+ */
+
+.aem-testimonial {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-24);
+  width: 24rem;
+  max-width: 85vw;
+  margin: 0;
+  padding: var(--aem-unit-24);
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-surface-primary);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-testimonial__mark { color: var(--aem-color-icon-accent); font-size: var(--aem-unit-32); }
+
+.aem-testimonial__quote {
+  flex: 1;
+  margin: 0;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+
+.aem-testimonial__profile { display: flex; align-items: center; gap: var(--aem-unit-12); }
+.aem-testimonial__name { display: block; color: var(--aem-color-text-primary); font-size: var(--aem-typography-label-1-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-unit-20); font-style: normal; }
+.aem-testimonial__role { display: block; color: var(--aem-color-text-secondary); font-size: var(--aem-typography-caption-size); line-height: var(--aem-typography-caption-line-height); }

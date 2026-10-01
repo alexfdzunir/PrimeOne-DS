@@ -1,0 +1,15 @@
+/*
+ * AEM Accordion Block (Figma "accordion block"): module heading beside (desktop) or above (mobile) an Accordion,
+ * the frequent questions of a programme page.
+ */
+
+.aem-accordion-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--aem-unit-24) var(--aem-unit-48);
+  align-items: start;
+}
+
+@media (max-width: 1023.98px) {
+  .aem-accordion-block { grid-template-columns: minmax(0, 1fr); }
+}

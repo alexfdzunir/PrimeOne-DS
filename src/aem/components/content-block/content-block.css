@@ -1,0 +1,79 @@
+/*
+ * AEM Content Block (Figma "content-block", "content/image-gallery" and "content/logo-gallery"): editorial
+ * columns in the Figma layouts (full, 40/60, 60/40, 50/50, 33/33/33) with image (12px radius) and rich text;
+ * image galleries (one, two or mosaic) and logo galleries. Columns stack on mobile.
+ */
+
+.aem-content-block {
+  display: grid;
+  grid-template-columns: var(--aem-content-columns, minmax(0, 1fr));
+  gap: var(--aem-unit-32);
+  align-items: start;
+  font-family: var(--aem-typography-family);
+}
+.aem-content-block--40-60 { --aem-content-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.aem-content-block--60-40 { --aem-content-columns: minmax(0, 3fr) minmax(0, 2fr); }
+.aem-content-block--50-50 { --aem-content-columns: repeat(2, minmax(0, 1fr)); }
+.aem-content-block--33 { --aem-content-columns: repeat(3, minmax(0, 1fr)); }
+
+.aem-content-block__media {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--aem-size-border-radius-md);
+}
+.aem-content-block--50-50 .aem-content-block__media,
+.aem-content-block--33 .aem-content-block__media { aspect-ratio: 16 / 10; }
+.aem-content-block__media > * { width: 100%; height: 100%; object-fit: cover; }
+
+/* Rich text (the AEM text component) */
+.aem-rich-text {
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+.aem-rich-text > :first-child { margin-top: 0; }
+.aem-rich-text > :last-child { margin-bottom: 0; }
+.aem-rich-text :is(h2, h3) { margin: 0 0 var(--aem-unit-16); color: var(--aem-color-text-primary); font-weight: var(--aem-typography-weight-medium); }
+.aem-rich-text h2 { font-size: var(--aem-typography-headline-3-size); line-height: var(--aem-typography-headline-3-line-height); }
+.aem-rich-text h3 { font-size: var(--aem-typography-headline-5-size); line-height: var(--aem-typography-headline-5-line-height); }
+.aem-rich-text p { margin: 0 0 var(--aem-unit-16); }
+.aem-rich-text a { color: var(--aem-color-text-link-primary-default); }
+.aem-rich-text strong { color: var(--aem-color-text-primary); font-weight: var(--aem-typography-weight-bold); }
+
+/* Image gallery */
+.aem-gallery {
+  display: grid;
+  grid-template-columns: repeat(var(--aem-gallery-columns, 1), minmax(0, 1fr));
+  gap: var(--aem-unit-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.aem-gallery > li { overflow: hidden; border-radius: var(--aem-size-border-radius-md); aspect-ratio: 16 / 9; }
+.aem-gallery > li > * { width: 100%; height: 100%; object-fit: cover; }
+.aem-gallery--2 { --aem-gallery-columns: 2; }
+.aem-gallery--mosaic { --aem-gallery-columns: 3; grid-template-rows: repeat(2, 13.5rem); }
+.aem-gallery--mosaic > li { aspect-ratio: auto; }
+.aem-gallery--mosaic > li:first-child { grid-row: span 2; }
+.aem-gallery--mosaic > li:last-child { grid-column: span 2; }
+
+/* Logo gallery */
+.aem-logos {
+  display: grid;
+  grid-template-columns: repeat(var(--aem-logos-columns, 6), minmax(0, 8rem));
+  gap: var(--aem-unit-40);
+  justify-content: start;
+  margin: 0;
+  padding: var(--aem-unit-16) 0;
+  list-style: none;
+}
+.aem-logos > li { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; height: 3.75rem; }
+.aem-logos img { max-width: 100%; max-height: 100%; }
+
+@media (max-width: 767.98px) {
+  .aem-content-block { --aem-content-columns: minmax(0, 1fr); }
+  .aem-gallery--mosaic { --aem-gallery-columns: 2; grid-template-rows: none; }
+  .aem-gallery--mosaic > li { aspect-ratio: 4 / 3; }
+  .aem-gallery--mosaic > li:first-child { grid-row: auto; }
+  .aem-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--aem-unit-24); }
+}

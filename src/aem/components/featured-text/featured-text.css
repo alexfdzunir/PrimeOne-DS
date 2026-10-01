@@ -1,0 +1,32 @@
+/*
+ * AEM Featured Text (Figma "featured-text"): highlighted note with an accent rule on the left, an accent icon,
+ * the title in the accent colour, text, an optional partner logo and an outlined button.
+ */
+
+.aem-featured-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aem-unit-16);
+  max-width: 61.25rem;
+  padding: var(--aem-unit-08) 0 var(--aem-unit-08) var(--aem-unit-20);
+  border-left: var(--aem-size-border-width-strong) solid var(--aem-color-text-accent);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-featured-text__icon { color: var(--aem-color-icon-accent); font-size: var(--aem-size-icon-lg); line-height: 1; }
+
+.aem-featured-text__title {
+  margin: 0;
+  color: var(--aem-color-text-accent);
+  font-size: var(--aem-typography-headline-5-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-5-line-height);
+}
+
+.aem-featured-text__text {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}

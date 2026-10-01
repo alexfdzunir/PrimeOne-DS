@@ -167,3 +167,34 @@
   --aem-button-color: var(--aem-color-text-system-disabled-inverse);
 }
 :is(.aem-button--inverse, .aem-dark .aem-button).aem-button--outlined:is(:disabled, [aria-disabled='true']) { --aem-button-border: var(--aem-color-border-system-disabled-inverse); }
+
+/*
+ * Link button (Figma "link-button"): text link with optional icons, primary (default), --secondary or --danger;
+ * MD (default, Label 1) or --sm (Label 2). Inverse on dark surfaces.
+ */
+.aem-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aem-unit-04);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--aem-color-text-link-primary-default);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-unit-20);
+  text-decoration: none;
+  cursor: pointer;
+}
+.aem-link-button i { font-size: var(--aem-size-icon-xs); }
+.aem-link-button:hover { color: var(--aem-color-text-link-primary-hover); }
+.aem-link-button:active { color: var(--aem-color-text-link-primary-active); }
+.aem-link-button:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); border-radius: var(--aem-size-border-radius-xs); }
+.aem-link-button--secondary { color: var(--aem-color-text-link-secondary-default); }
+.aem-link-button--secondary:hover { color: var(--aem-color-text-link-secondary-hover); }
+.aem-link-button--danger { color: var(--aem-color-text-system-error-main); }
+.aem-link-button--sm { font-size: var(--aem-typography-label-2-size); }
+:is(.aem-link-button--inverse, .aem-brand .aem-link-button) { color: var(--aem-color-text-link-inverse-primary-default); }
+:is(.aem-link-button--inverse, .aem-brand .aem-link-button):hover { color: var(--aem-color-text-link-inverse-primary-hover); }
+.aem-link-button[aria-disabled='true'] { color: var(--aem-color-text-system-disabled-main); pointer-events: none; }

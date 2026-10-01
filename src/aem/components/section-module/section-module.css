@@ -1,0 +1,79 @@
+/*
+ * Page section of AEM Portales (Figma "section_module" and the "pairings-text" heading of every module): full
+ * width band with the responsive section padding (64/80px vertical, 16/32/48px horizontal) and a 1280px content
+ * column. Background primary (default, white), --secondary (light grey) or --accent; --flush drops the top padding.
+ * `.aem-heading` is the shared module heading: pretitle, title, second headline, text and link.
+ */
+
+.aem-section {
+  padding: var(--aem-layout-section-vertical-padding) var(--aem-layout-section-horizontal-padding);
+  background: var(--aem-color-background-primary);
+  color: var(--aem-color-text-primary);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-section--secondary { background: var(--aem-color-background-secondary); }
+.aem-section--accent { background: var(--aem-color-background-accent); }
+.aem-section--flush { padding-top: 0; }
+
+.aem-section__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-40);
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+/* Module heading */
+.aem-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-32);
+  max-width: 61.25rem;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-heading__titles,
+.aem-heading__body {
+  display: flex;
+  flex-direction: column;
+}
+.aem-heading__titles { gap: var(--aem-unit-12); }
+.aem-heading__body { gap: var(--aem-unit-20); }
+.aem-heading__body:empty { display: none; }
+
+.aem-heading__pretitle {
+  margin: 0;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+}
+
+.aem-heading__title {
+  margin: 0;
+  font-size: var(--aem-typography-headline-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-2-line-height);
+}
+
+.aem-heading__subtitle {
+  margin: 0;
+  font-size: var(--aem-typography-headline-4-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-4-line-height);
+}
+
+.aem-heading__text {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+.aem-heading__text strong { color: var(--aem-color-text-primary); font-weight: var(--aem-typography-weight-bold); }
+
+/* On the brand blue */
+.aem-brand .aem-heading__pretitle { color: var(--aem-color-text-inverse-subtle); }
+.aem-brand :is(.aem-heading__title, .aem-heading__subtitle) { color: var(--aem-color-text-inverse-primary); }
+.aem-brand .aem-heading__text { color: var(--aem-color-text-inverse-secondary); }
+.aem-brand .aem-heading__text strong { color: var(--aem-color-text-inverse-primary); }

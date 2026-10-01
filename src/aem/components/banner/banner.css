@@ -1,0 +1,51 @@
+/*
+ * AEM Banner (Figma "banner"): rounded block inside a section. --brand (default) over the brand blue with the
+ * curve and a white button; --content in light grey; --image with a photo beside the text; --contact in light grey
+ * with the contact links or a newsletter form on the right.
+ */
+
+.aem-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--aem-unit-40);
+  padding: var(--aem-unit-32);
+  border-radius: var(--aem-size-border-radius-lg);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-banner--content,
+.aem-banner--contact { background: var(--aem-color-surface-primary); color: var(--aem-color-text-primary); }
+
+.aem-banner__actions { display: flex; flex-wrap: wrap; gap: var(--aem-unit-16); }
+
+/* Image: photo beside the text */
+.aem-banner--image {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  padding: 0;
+  overflow: hidden;
+  background: var(--aem-color-surface-primary);
+}
+.aem-banner--image .aem-banner__media { align-self: stretch; min-height: 20rem; }
+.aem-banner--image .aem-banner__body { display: flex; flex-direction: column; gap: var(--aem-unit-40); padding: var(--aem-unit-32); }
+
+/* Contact: text and the contact side */
+.aem-banner--contact { grid-template-columns: minmax(0, 1fr) minmax(0, 28.5rem); align-items: start; }
+.aem-banner__contact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-16);
+  padding: var(--aem-unit-24);
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-surface-secondary);
+}
+.aem-banner__form { display: flex; gap: var(--aem-unit-08); align-items: flex-start; }
+.aem-banner__form .aem-field-host { flex: 1; }
+
+@media (max-width: 767.98px) {
+  .aem-banner { padding: var(--aem-unit-24); }
+  .aem-banner--image,
+  .aem-banner--contact { grid-template-columns: minmax(0, 1fr); }
+  .aem-banner--image { padding: 0; }
+  .aem-banner__form { flex-direction: column; align-items: stretch; }
+}

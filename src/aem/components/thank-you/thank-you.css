@@ -1,0 +1,31 @@
+/*
+ * AEM Thank You Module (Figma "thank-you"): page shown after a form, with the breadcrumb, title, text, the contact
+ * links and an image beside the text (below it on mobile).
+ */
+
+.aem-thank-you {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--aem-unit-32) var(--aem-unit-48);
+  align-items: center;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-thank-you__content { display: grid; gap: var(--aem-unit-16); justify-items: start; }
+
+.aem-thank-you__title {
+  margin: 0;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-headline-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-1-line-height);
+}
+
+.aem-thank-you__text { margin: 0; color: var(--aem-color-text-secondary); font-size: var(--aem-typography-body-size); line-height: var(--aem-typography-body-line-height); }
+
+.aem-thank-you__contacts { display: flex; flex-wrap: wrap; gap: var(--aem-unit-12) var(--aem-unit-24); margin: 0; padding: 0; list-style: none; }
+
+.aem-thank-you__media { overflow: hidden; aspect-ratio: 4 / 3; border-radius: var(--aem-size-border-radius-md); }
+.aem-thank-you__media > * { width: 100%; height: 100%; object-fit: cover; }
+
+@media (max-width: 767.98px) { .aem-thank-you { grid-template-columns: minmax(0, 1fr); } }

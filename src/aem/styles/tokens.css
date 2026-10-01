@@ -392,7 +392,7 @@
   --aem-shadow-default-above: 0px -8px 12px 0px rgb(20 23 31 / 0.1);
   --aem-shadow-default-bellow: 0px 8px 12px 0px rgb(20 23 31 / 0.1);
   --aem-shadow-default-general: 0px 0px 48px 0px rgb(20 23 31 / 0.2);
-  --aem-gradient-gradient: linear-gradient(0deg, #14171f00 0%, #14171f 100%);
+  --aem-gradient-gradient: linear-gradient(180deg, #14171f00 0%, #14171f 100%);
   --aem-gradient-gradient-soft: linear-gradient(0deg, #14171f0d 25%, #14171f 75%);
 
   /* responsive size: Mobile */

@@ -1,0 +1,58 @@
+/*
+ * AEM Modal (Figma "modal"): native <dialog> with the dark overlay, close button, title and a content area that
+ * scrolls when it is longer than the screen; optional footer with actions. modal.js opens it from any
+ * `[data-aem-modal-open="<id>"]` and closes it from `[data-aem-modal-close]` or a click on the overlay.
+ */
+
+.aem-modal {
+  width: min(40rem, calc(100vw - 2 * var(--aem-unit-16)));
+  max-height: calc(100dvh - 2 * var(--aem-unit-32));
+  padding: 0;
+  border: 0;
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-background-primary);
+  box-shadow: var(--aem-shadow-default-general);
+  color: var(--aem-color-text-primary);
+  font-family: var(--aem-typography-family);
+}
+.aem-modal[open] { display: flex; flex-direction: column; }
+.aem-modal::backdrop { background: rgb(20 23 31 / 0.6); }
+
+/* Inline preview (`--static`): the same box shown in the page, for docs and the explorer */
+.aem-modal--static { position: static; display: flex; flex-direction: column; margin: 0 auto; }
+
+.aem-modal__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--aem-unit-16);
+  padding: var(--aem-unit-24) var(--aem-unit-24) var(--aem-unit-16);
+}
+
+.aem-modal__title {
+  margin: 0;
+  font-size: var(--aem-typography-headline-4-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-4-line-height);
+}
+
+.aem-modal__body {
+  flex: 1;
+  min-height: 0;
+  padding: 0 var(--aem-unit-24) var(--aem-unit-24);
+  overflow-y: auto;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+.aem-modal__body > :first-child { margin-top: 0; }
+.aem-modal__body > :last-child { margin-bottom: 0; }
+
+.aem-modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-16) var(--aem-unit-24);
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
+}

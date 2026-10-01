@@ -1,0 +1,74 @@
+/*
+ * AEM Card Block (Figma "card_block") and the shared carousel: module heading and a row of cards that scrolls
+ * sideways (scroll snap), with a progress bar and arrows. carousel.js moves it and updates the bar; it also
+ * drives the Hero Home and Testimonial carousels (`data-aem-carousel`).
+ */
+
+.aem-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-24);
+  min-width: 0;
+}
+
+.aem-carousel__track {
+  display: flex;
+  gap: var(--aem-unit-16);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.aem-carousel__track::-webkit-scrollbar { display: none; }
+.aem-carousel__track > * { flex-shrink: 0; scroll-snap-align: start; }
+.aem-carousel__track:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-04); }
+
+.aem-carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+}
+
+.aem-carousel__progress {
+  position: relative;
+  flex: 1;
+  height: var(--aem-unit-02);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-border-subtle);
+}
+.aem-carousel__bar {
+  position: absolute;
+  inset: 0 auto 0 var(--aem-carousel-start, 0%);
+  width: var(--aem-carousel-size, 25%);
+  border-radius: inherit;
+  background: var(--aem-color-surface-inverse-secondary);
+  transition: left 200ms;
+}
+
+.aem-carousel__prev,
+.aem-carousel__next {
+  display: grid;
+  place-items: center;
+  width: var(--aem-unit-24);
+  height: var(--aem-unit-24);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--aem-color-icon-link-primary-default);
+  font-size: var(--aem-size-icon-sm);
+  cursor: pointer;
+}
+.aem-carousel__prev { margin-left: var(--aem-unit-08); }
+.aem-carousel__next { padding-left: var(--aem-unit-08); width: auto; border-left: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle); }
+.aem-carousel__prev:disabled,
+.aem-carousel__next:disabled { color: var(--aem-color-icon-system-disabled-main); cursor: default; }
+.aem-carousel__prev:focus-visible,
+.aem-carousel__next:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); border-radius: var(--aem-size-border-radius-xs); }
+
+/* Over the brand blue */
+.aem-carousel__controls--inverse .aem-carousel__progress { background: var(--aem-color-border-inverse-subtle); }
+.aem-carousel__controls--inverse .aem-carousel__bar { background: var(--aem-color-neutral-1000); }
+.aem-carousel__controls--inverse :is(.aem-carousel__prev, .aem-carousel__next) { color: var(--aem-color-icon-inverse-primary); border-color: var(--aem-color-border-inverse-subtle); }
+.aem-carousel__controls--inverse :is(.aem-carousel__prev, .aem-carousel__next):disabled { color: var(--aem-color-icon-system-disabled-inverse); }
+
+.aem-card-block .aem-carousel__track > .aem-card { width: 18.5rem; max-width: 80vw; }

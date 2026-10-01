@@ -1,0 +1,121 @@
+/*
+ * AEM Hero (Figma "hero_module"): blue brand band with the curve, breadcrumb, pretitle, title and text, and a
+ * block per type: --ficha (key data in a glass box), --distributor (glass tiles to the sections), --event (tags,
+ * speakers and a meta bar with modality, date, time and share) and --news (tags and date).
+ */
+
+.aem-hero {
+  padding: 0 var(--aem-layout-section-horizontal-padding);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-40);
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: var(--aem-unit-16) 0 var(--aem-unit-56);
+}
+
+.aem-hero__inner > .aem-breadcrumb { margin-bottom: var(--aem-unit-08); }
+
+.aem-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-16);
+  max-width: 38rem;
+}
+
+.aem-hero__pretitle {
+  margin: 0;
+  color: var(--aem-color-text-inverse-primary);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+}
+
+.aem-hero__title {
+  margin: 0;
+  font-size: var(--aem-typography-headline-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-1-line-height);
+}
+
+.aem-hero__text {
+  margin: 0;
+  color: var(--aem-color-text-inverse-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+
+/* Glass surfaces over the blue */
+.aem-glass {
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-transparent-neutral-1000-10);
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-color-border-inverse-subtle);
+  backdrop-filter: blur(10px);
+}
+
+/* Ficha: key data */
+.aem-hero__data {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  margin: 0;
+  padding: var(--aem-unit-12);
+}
+.aem-hero__data > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  padding: 0 var(--aem-unit-12);
+  border-left: var(--aem-size-border-width-default) solid var(--aem-color-border-inverse-subtle);
+}
+.aem-hero__data > div:first-child { border-left: 0; }
+.aem-hero__data dt { color: var(--aem-color-text-inverse-subtle); font-size: var(--aem-typography-small-1-size); line-height: var(--aem-typography-small-1-line-height); }
+.aem-hero__data dd { margin: 0; font-size: var(--aem-typography-small-1-size); line-height: var(--aem-typography-small-1-line-height); }
+
+/* Distributor: tiles */
+.aem-hero__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--aem-unit-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.aem-hero__tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-24);
+  padding: var(--aem-unit-16);
+  color: var(--aem-color-text-inverse-primary);
+  font-size: var(--aem-typography-headline-6-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-6-line-height);
+  text-decoration: none;
+  transition: background-color 150ms;
+}
+.aem-hero__tile i { font-size: var(--aem-size-icon-md); }
+.aem-hero__tile:hover { background: var(--aem-color-transparent-neutral-1000-20); }
+.aem-hero__tile:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-inverse); outline-offset: var(--aem-unit-02); }
+
+/* Event: speakers and meta bar */
+.aem-hero__speakers {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  font-size: var(--aem-typography-small-1-size);
+}
+.aem-hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--aem-unit-16);
+  padding-top: var(--aem-unit-16);
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-inverse-subtle);
+}
+.aem-hero__meta .aem-tag-set .aem-tag { color: var(--aem-color-text-inverse-primary); --aem-tag-icon: var(--aem-color-icon-inverse-primary); }
+.aem-hero .aem-tag-set > li + li::before { border-color: var(--aem-color-border-inverse-subtle); }
+.aem-hero :is(.aem-category-tag, .aem-state-tag) { color: var(--aem-color-text-inverse-primary); }

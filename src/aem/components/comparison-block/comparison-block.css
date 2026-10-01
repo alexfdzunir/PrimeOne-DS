@@ -1,0 +1,55 @@
+/*
+ * AEM Comparison Block (Figma "comparison"): columns that compare options side by side, each one with a headline,
+ * a short text and a list split by dividers. Columns wrap when they get narrower than 14rem.
+ */
+
+.aem-comparison {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--aem-unit-24);
+  margin: 0;
+  padding: 0;
+  font-family: var(--aem-typography-family);
+  list-style: none;
+}
+
+.aem-comparison__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-12);
+  padding: var(--aem-unit-24);
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-surface-primary);
+}
+
+.aem-comparison__title {
+  margin: 0;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-headline-6-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-6-line-height);
+}
+
+.aem-comparison__text {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+
+.aem-comparison__list {
+  margin: var(--aem-unit-04) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.aem-comparison__list li {
+  display: flex;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-12) 0;
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+.aem-comparison__list i { flex-shrink: 0; color: var(--aem-color-icon-accent); font-size: var(--aem-size-icon-sm); }
+

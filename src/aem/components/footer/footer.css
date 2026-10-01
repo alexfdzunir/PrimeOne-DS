@@ -1,0 +1,96 @@
+/*
+ * AEM Footer (Figma "footer"): blue contact bar (phone, email, chat) over the dark footer with the logo, link
+ * columns, accreditation logos, social links and the legal row. Columns wrap on tablet and stack on mobile.
+ */
+
+.aem-footer {
+  font-family: var(--aem-typography-family);
+  color: var(--aem-color-text-inverse-primary);
+}
+
+.aem-footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aem-unit-12) var(--aem-unit-32);
+  padding: var(--aem-unit-16) var(--aem-layout-section-horizontal-padding);
+  background: var(--aem-color-surface-tertiary);
+}
+.aem-footer__contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  color: inherit;
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  text-decoration: none;
+}
+.aem-footer__contact i { font-size: var(--aem-size-icon-sm); }
+
+.aem-footer__main {
+  display: grid;
+  gap: var(--aem-unit-32);
+  padding: var(--aem-unit-48) var(--aem-layout-section-horizontal-padding) var(--aem-unit-24);
+  background: var(--aem-color-surface-inverse-primary);
+}
+
+.aem-footer__inner { width: 100%; max-width: 77.5rem; margin: 0 auto; }
+
+.aem-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--aem-unit-32) var(--aem-unit-24);
+}
+
+.aem-footer__title {
+  margin: 0 0 var(--aem-unit-12);
+  font-size: var(--aem-typography-headline-6-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-6-line-height);
+}
+
+.aem-footer__links { display: grid; gap: var(--aem-unit-08); margin: 0; padding: 0; list-style: none; }
+.aem-footer__links a,
+.aem-footer__legal a {
+  color: var(--aem-color-text-inverse-secondary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+  text-decoration: none;
+}
+.aem-footer a:hover { color: var(--aem-color-text-inverse-primary); text-decoration: underline; }
+.aem-footer a:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-inverse); outline-offset: var(--aem-unit-02); }
+
+.aem-footer__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--aem-unit-16);
+  padding-top: var(--aem-unit-24);
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-inverse-subtle);
+}
+
+.aem-footer__logos { display: flex; flex-wrap: wrap; gap: var(--aem-unit-16); }
+.aem-footer__logos .aem-logo-placeholder { opacity: 0.8; }
+
+.aem-footer__social { display: flex; gap: var(--aem-unit-08); margin: 0; padding: 0; list-style: none; }
+.aem-footer__social a {
+  display: grid;
+  place-items: center;
+  width: var(--aem-unit-40);
+  height: var(--aem-unit-40);
+  border-radius: 50%;
+  background: var(--aem-color-transparent-neutral-1000-10);
+  color: var(--aem-color-text-inverse-primary);
+  font-size: var(--aem-size-icon-sm);
+}
+
+.aem-footer__legal { display: flex; flex-wrap: wrap; gap: var(--aem-unit-08) var(--aem-unit-24); margin: 0; padding: 0; list-style: none; }
+.aem-footer__copy { margin: 0; color: var(--aem-color-text-inverse-secondary); font-size: var(--aem-typography-caption-size); line-height: var(--aem-typography-caption-line-height); }
+
+@media (max-width: 1023.98px) { .aem-footer__columns { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 575.98px) {
+  .aem-footer__columns { grid-template-columns: minmax(0, 1fr); }
+  .aem-footer__contact { justify-content: flex-start; flex-direction: column; align-items: flex-start; }
+}

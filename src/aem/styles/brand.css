@@ -1,0 +1,54 @@
+/*
+ * Brand surfaces of AEM Portales: the blue background with the brand curve of the portals heroes and banners
+ * (Figma ".brand-vector"), and the grey image placeholder of the file.
+ */
+
+.aem-brand {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--aem-color-background-tertiary);
+  color: var(--aem-color-text-inverse-primary);
+}
+
+.aem-brand::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: min(68.75rem, 70%);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1100 518' preserveAspectRatio='xMinYMin slice'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='721.115' y1='401' x2='190.615' y2='-49' gradientUnits='userSpaceOnUse'%3E%3Cstop offset='0.37' stop-color='%230D61F2'/%3E%3Cstop offset='1' stop-color='%230A4EC2' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M73.6146 -16C77.1388 -14.6096 109.416 -1.67517 155.902 24.2985C182.946 39.4058 209.694 56.0678 235.419 73.8204C267.66 96.0747 298.444 120.175 326.915 145.457C350.05 165.992 372.038 187.651 392.263 209.836C414.61 234.326 435.363 260.076 453.955 286.36C473.178 313.533 490.545 341.94 505.568 370.783C557.312 470.123 583.68 578.375 583.935 692.547L584.793 1098.98' stroke='url(%23g)' stroke-width='400' stroke-miterlimit='10' fill='none'/%3E%3C/svg%3E") left top / cover no-repeat;
+  pointer-events: none;
+}
+
+/* Image placeholder (Figma grey with the image icon) */
+.aem-placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 6rem;
+  background: var(--aem-color-neutral-900);
+  color: var(--aem-color-neutral-600);
+  font-size: var(--aem-size-icon-xl);
+}
+.aem-dark .aem-placeholder { background: var(--aem-color-blue-300); color: var(--aem-color-blue-700); }
+
+/* Logo placeholder */
+.aem-logo-placeholder {
+  display: grid;
+  place-items: center;
+  width: 8rem;
+  max-width: 100%;
+  height: 3.75rem;
+  background: var(--aem-color-neutral-900);
+  color: var(--aem-color-neutral-500);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-body-size);
+}
+
+/* UNIR logo (inline SVG from the stories helpers or the brand files) */
+.aem-logo { display: block; height: 1.75rem; width: auto; }
+.aem-logo__mark { fill: var(--aem-color-brand-primary-black); }
+.aem-logo__tagline { fill: var(--aem-color-brand-primary-blue); }
+:is(.aem-logo--inverse, .aem-dark .aem-logo) :is(.aem-logo__mark, .aem-logo__tagline) { fill: var(--aem-color-neutral-1000); }

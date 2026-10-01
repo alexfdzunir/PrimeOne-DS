@@ -1,0 +1,30 @@
+/*
+ * AEM Share Banner (Figma "share"): grey bar with a label, the social share links and a "copy link" button that
+ * confirms with a check (share-banner.js).
+ */
+
+.aem-share {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--aem-unit-12) var(--aem-unit-24);
+  padding: var(--aem-unit-16) var(--aem-unit-24);
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-surface-primary);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-share__label {
+  margin: 0;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-headline-6-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-6-line-height);
+}
+
+.aem-share__links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--aem-unit-08); margin: 0; padding: 0; list-style: none; }
+
+.aem-share__copy .aem-share__done { display: none; }
+.aem-share__copy.is-copied .aem-share__done { display: inline; }
+.aem-share__copy.is-copied .aem-share__idle { display: none; }

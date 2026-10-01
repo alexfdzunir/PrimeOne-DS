@@ -1,0 +1,44 @@
+/*
+ * AEM List Block (Figma "list-block"): bulleted list in up to four columns, then an outlined button and a link
+ * with the count of the rest of the items.
+ */
+
+.aem-list-block {
+  display: grid;
+  gap: var(--aem-unit-24);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-list-block__list {
+  columns: var(--aem-list-block-columns, 4) 12rem;
+  column-gap: var(--aem-unit-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aem-list-block__list li {
+  position: relative;
+  break-inside: avoid;
+  padding: 0 0 var(--aem-unit-12) var(--aem-unit-20);
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+.aem-list-block__list li::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--aem-typography-body-line-height) / 2 - var(--aem-unit-04));
+  left: var(--aem-unit-04);
+  width: var(--aem-unit-08);
+  height: var(--aem-unit-08);
+  border-radius: 50%;
+  background: var(--aem-color-icon-accent);
+}
+
+.aem-list-block__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--aem-unit-16) var(--aem-unit-24);
+}

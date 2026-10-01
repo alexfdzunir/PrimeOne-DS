@@ -1,0 +1,29 @@
+/*
+ * AEM Key Data (Figma "key-data-module"): blue band (tertiary background) with the programme key data in Small 1,
+ * title in inverse subtle and value in white, separated by vertical rules. It wraps on narrow screens.
+ */
+
+.aem-key-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--aem-unit-16);
+  margin: 0;
+  padding: var(--aem-unit-16) var(--aem-layout-section-horizontal-padding);
+  background: var(--aem-color-background-tertiary);
+  color: var(--aem-color-text-inverse-primary);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+
+.aem-key-data > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  padding-left: var(--aem-unit-16);
+  border-left: var(--aem-size-border-width-default) solid var(--aem-color-border-inverse-subtle);
+}
+.aem-key-data > div:first-child { padding-left: 0; border-left: 0; }
+
+.aem-key-data dt { color: var(--aem-color-text-inverse-subtle); }
+.aem-key-data dd { margin: 0; }
