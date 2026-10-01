@@ -79,7 +79,8 @@ export type CategoryId =
   | 'aem-messaging'
   | 'aem-content'
   | 'aem-navigation'
-  | 'aem-modules';
+  | 'aem-modules'
+  | 'aem-pages';
 
 export type DesignSystemId = 'prime-one' | 'aem';
 
@@ -146,6 +147,7 @@ export const CATEGORIES: CategoryDef[] = [
   { id: 'aem-content', ds: 'aem', key: 'Content', label: 'Contenido', icon: 'ph ph-cards', description: 'Acordeones, avatares, cards, tablas y listas.' },
   { id: 'aem-navigation', ds: 'aem', key: 'Navigation', label: 'Navegación', icon: 'ph ph-compass', description: 'Menú de anclas, breadcrumb, paginación y pestañas.' },
   { id: 'aem-modules', ds: 'aem', key: 'Modules', label: 'Módulos', icon: 'ph ph-squares-four', description: 'Bloques de página: hero, banners, formularios, testimonios, cabecera y pie.' },
+  { id: 'aem-pages', ds: 'aem', key: 'Pages', label: 'Páginas', icon: 'ph ph-browsers', description: 'Plantillas de página del portal y de las landings montadas con los módulos, en sus breakpoints.' },
 ];
 
 /** What the stage shows: the home, the overview of a section or the selected component. */
@@ -211,6 +213,14 @@ export const THEMES: { id: ThemeId; label: string }[] = [
   { id: 'estudiantes', label: 'Estudiantes' },
   { id: 'prodi', label: 'Prodi' },
   { id: 'foundations', label: 'Foundations' },
+];
+
+/** Breakpoints of the AEM page templates (Figma frames Desktop 1920, Desktop 1280, Tablet 768 and Mobile 375). */
+export const PAGE_BREAKPOINTS: { width: number; label: string; icon: string }[] = [
+  { width: 1920, label: 'Escritorio 1920', icon: 'ph ph-monitor' },
+  { width: 1280, label: 'Escritorio 1280', icon: 'ph ph-desktop' },
+  { width: 768, label: 'Tablet 768', icon: 'ph ph-device-tablet' },
+  { width: 375, label: 'Móvil 375', icon: 'ph ph-device-mobile' },
 ];
 
 export const VIEWPORTS: { id: ViewportId; label: string; icon: string; width?: number }[] = [

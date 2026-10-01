@@ -4,7 +4,7 @@ import { Button } from 'primeng/button';
 import { SelectButton } from 'primeng/selectbutton';
 import { Tooltip } from 'primeng/tooltip';
 import { ExplorerState } from '../explorer-state';
-import { CATEGORIES, VIEWPORTS } from '../model';
+import { CATEGORIES, PAGE_BREAKPOINTS, VIEWPORTS } from '../model';
 import { CodePanelComponent } from '../code/code-panel.component';
 import { StoryFrameComponent } from './story-frame.component';
 
@@ -39,6 +39,21 @@ const CODE_PANEL_KEY = 'po-explorer.code';
         </div>
       </div>
       <div class="po-canvas__tools">
+        @if (isPage()) {
+          <p-selectbutton
+            [options]="breakpoints"
+            optionValue="width"
+            size="small"
+            [allowEmpty]="false"
+            ariaLabel="Breakpoint de la página"
+            [ngModel]="pageWidth()"
+            (ngModelChange)="pageWidth.set($event)"
+          >
+            <ng-template #item let-item>
+              <span class="po-canvas__breakpoint" [pTooltip]="item.label" tooltipPosition="bottom"><i [class]="item.icon"></i>{{ item.width }}</span>
+            </ng-template>
+          </p-selectbutton>
+        } @else {
         <p-selectbutton
           [options]="viewports"
           optionValue="id"
@@ -52,6 +67,7 @@ const CODE_PANEL_KEY = 'po-explorer.code';
             <i [class]="item.icon" [pTooltip]="item.label" tooltipPosition="bottom" [attr.aria-label]="item.label"></i>
           </ng-template>
         </p-selectbutton>
+        }
         <p-button
           label="Código"
           icon="ph ph-code"
@@ -63,6 +79,18 @@ const CODE_PANEL_KEY = 'po-explorer.code';
           [attr.aria-pressed]="showCode()"
           (onClick)="toggleCode()"
         />
+        @if (isPage()) {
+          <p-button
+            [icon]="fullscreen() ? 'ph ph-arrows-in' : 'ph ph-arrows-out'"
+            variant="text"
+            severity="secondary"
+            size="small"
+            [ariaLabel]="fullscreen() ? 'Salir de pantalla completa' : 'Ver a pantalla completa'"
+            [pTooltip]="fullscreen() ? 'Salir de pantalla completa' : 'Ver a pantalla completa'"
+            tooltipPosition="bottom"
+            (onClick)="toggleFullscreen()"
+          />
+        }
       </div>
     </header>
 
@@ -79,9 +107,11 @@ const CODE_PANEL_KEY = 'po-explorer.code';
     }
 
     <section class="po-canvas__stage po-scroll" #stage>
-      <div class="po-canvas__frame" [style.width]="frameWidth()" #frame>
-        <span class="po-canvas__width">{{ measuredWidth() }} px</span>
-        <po-story-frame [minHeight]="frameMinHeight()" />
+      <div class="po-canvas__sizer" [class.po-canvas__sizer--page]="isPage()" [style.width.px]="pageSize()?.width" [style.height.px]="pageSize()?.height">
+        <div class="po-canvas__frame" [style.width]="frameWidth()" [style.transform]="pageSize() ? 'scale(' + scale() + ')' : null" [style.--po-page-scale]="scale()" #frame>
+          <span class="po-canvas__width">{{ measuredWidth() }} px{{ isPage() && scale() < 1 ? ' · ' + scalePercent() + ' %' : '' }}</span>
+          <po-story-frame [minHeight]="frameMinHeight()" />
+        </div>
       </div>
     </section>
 
@@ -199,6 +229,32 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       transition: width 200ms ease;
     }
 
+    /* Pages: the frame keeps the real breakpoint width and is scaled down to fit; the sizer takes the scaled box */
+    .po-canvas__sizer--page {
+      margin: 0 auto;
+    }
+
+    .po-canvas__sizer--page .po-canvas__frame {
+      margin: 0;
+      transform-origin: 0 0;
+      transition: none;
+    }
+
+    .po-canvas__sizer--page .po-canvas__width {
+      top: auto;
+      bottom: 100%;
+      transform-origin: 100% 100%;
+      transform: scale(calc(1 / var(--po-page-scale, 1)));
+    }
+
+    .po-canvas__breakpoint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-variant-numeric: tabular-nums;
+    }
+
     .po-canvas__frame po-story-frame {
       overflow: hidden;
       border-radius: inherit;
@@ -257,15 +313,29 @@ const CODE_PANEL_KEY = 'po-explorer.code';
 export class CanvasComponent {
   protected readonly state = inject(ExplorerState);
   protected readonly viewports = VIEWPORTS;
+  protected readonly breakpoints = PAGE_BREAKPOINTS;
+  /** Page templates: chosen breakpoint (real width of the iframe). */
+  protected readonly pageWidth = signal(1280);
+  protected readonly isPage = computed(() => this.state.selected().category === 'aem-pages');
 
   protected readonly showCode = signal(readCodePanel());
+  protected readonly fullscreen = signal(false);
   protected readonly measuredWidth = signal(0);
 
   /** Inner height of the stage: the preview fills it so overlays and dropdowns have room. */
   private readonly stageHeight = signal(0);
-  protected readonly frameMinHeight = computed(() => Math.max(parseInt(this.state.selected().height ?? '240', 10) || 240, this.stageHeight()));
+  private readonly stageWidth = signal(0);
+  private readonly frameHeight = signal(0);
+  /** Pages wider than the stage are scaled down to fit (2px of frame border). */
+  protected readonly scale = computed(() => (this.stageWidth() ? Math.min(1, this.stageWidth() / (this.pageWidth() + 2)) : 1));
+  protected readonly scalePercent = computed(() => Math.round(this.scale() * 100));
+  protected readonly pageSize = computed(() =>
+    this.isPage() ? { width: Math.floor((this.pageWidth() + 2) * this.scale()), height: Math.ceil((this.frameHeight() + 2) * this.scale()) } : null,
+  );
+  protected readonly frameMinHeight = computed(() => this.isPage() ? 240 : Math.max(parseInt(this.state.selected().height ?? '240', 10) || 240, this.stageHeight()));
   protected readonly categoryLabel = computed(() => CATEGORIES.find((c) => c.id === this.state.selected().category)?.label ?? '');
   protected readonly frameWidth = computed(() => {
+    if (this.isPage()) return `${this.pageWidth()}px`;
     const width = VIEWPORTS.find((v) => v.id === this.state.viewport())?.width;
     // A device wider than the stage is clamped to the space there is
     return width ? `min(${width}px, calc(100% - 2px))` : 'min(calc(100% - 2px), 1200px)';
@@ -287,12 +357,20 @@ export class CanvasComponent {
       this.state.selectedId();
       this.stage().nativeElement.scrollTop = 0;
     });
+    const onFullscreen = () => this.fullscreen.set(document.fullscreenElement === this.stage().nativeElement);
+    document.addEventListener('fullscreenchange', onFullscreen);
+    destroyRef.onDestroy(() => document.removeEventListener('fullscreenchange', onFullscreen));
     afterNextRender(() => {
       const observer = new ResizeObserver((entries) => {
         for (const entry of entries) {
-          if (entry.target === this.frame().nativeElement) this.measuredWidth.set(Math.round(entry.contentRect.width));
-          // 24px padding on each side of the stage, 2px of frame border
-          else this.stageHeight.set(Math.max(0, Math.floor(entry.contentRect.height) - 2));
+          if (entry.target === this.frame().nativeElement) {
+            this.measuredWidth.set(Math.round(entry.contentRect.width));
+            this.frameHeight.set(Math.round(entry.contentRect.height));
+          } else {
+            // 24px padding on each side of the stage, 2px of frame border
+            this.stageHeight.set(Math.max(0, Math.floor(entry.contentRect.height) - 2));
+            this.stageWidth.set(Math.floor(entry.contentRect.width));
+          }
         }
       });
       observer.observe(this.frame().nativeElement);
@@ -304,6 +382,12 @@ export class CanvasComponent {
   protected openFigma(): void {
     const url = this.state.selected().figmaUrl;
     if (url) window.open(url, '_blank', 'noopener');
+  }
+
+  /** Pages: the stage (with the breakpoint scaled to the screen) fills the screen. */
+  protected toggleFullscreen(): void {
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else void this.stage().nativeElement.requestFullscreen();
   }
 
   protected toggleCode(): void {

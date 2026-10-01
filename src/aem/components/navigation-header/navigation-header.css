@@ -44,6 +44,7 @@
 }
 
 .aem-header__item {
+  display: block;
   padding: var(--aem-unit-08) 0;
   border: 0;
   background: none;
@@ -147,7 +148,7 @@
 @media (max-width: 1023.98px) {
   .aem-header__utility { display: none; }
   .aem-header__main { justify-content: space-between; gap: var(--aem-unit-16); }
-  .aem-header__main > .aem-button { display: none; }
+  .aem-header__main > .aem-button:not(.aem-header__burger) { display: none; }
   .aem-header__burger { display: inline-flex; }
   .aem-header__nav {
     position: absolute;

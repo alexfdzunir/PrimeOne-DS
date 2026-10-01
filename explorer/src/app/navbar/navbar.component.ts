@@ -106,7 +106,7 @@ import { UnirLogoComponent } from './unir-logo.component';
       >
         <i class="ph ph-github-logo"></i>
       </a>
-      @if (state.view().kind === 'component') {
+      @if (state.hasControls()) {
         <span class="po-navbar__divider" aria-hidden="true"></span>
         <p-button
           icon="ph ph-sliders-horizontal"

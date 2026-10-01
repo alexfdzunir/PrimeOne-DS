@@ -63,5 +63,5 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 })
 export class AppComponent {
   protected readonly state = inject(ExplorerState);
-  protected readonly panelShown = computed(() => this.state.panelOpen() && this.state.view().kind === 'component');
+  protected readonly panelShown = computed(() => this.state.panelOpen() && this.state.hasControls());
 }

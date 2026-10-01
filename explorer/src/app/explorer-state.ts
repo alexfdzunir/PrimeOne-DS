@@ -65,6 +65,8 @@ export class ExplorerState {
   readonly compact = signal(false);
 
   readonly selected = computed(() => this.entries.find((e) => e.id === this.selectedId()) ?? this.entries[0]);
+  /** The control panel is for components: page templates have nothing to configure. */
+  readonly hasControls = computed(() => this.view().kind === 'component' && this.selected().category !== 'aem-pages');
 
   /** Catalogue filtered by the search text, grouped by category (empty groups removed). */
   readonly groups = computed<CategoryGroup[]>(() => {

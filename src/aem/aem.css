@@ -4,6 +4,7 @@
 @import './styles/field.css';
 @import './styles/menu.css';
 @import './styles/brand.css';
+@import './styles/page.css';
 
 /* Buttons */
 @import './components/button/button.css';

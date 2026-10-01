@@ -176,6 +176,7 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   'Sticky Button': ['hand-tap', 'Barra fija inferior en móvil.'],
   'Thank You': ['confetti', 'Agradecimiento tras enviar un formulario.'],
   Footer: ['rows-plus-bottom', 'Pie con contacto, enlaces y redes.'],
+  Home: ['house', 'Home del portal con buscador, oferta, eventos y actualidad.'],
 };
 
 export interface ComponentMeta {

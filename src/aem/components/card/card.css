@@ -165,3 +165,7 @@
 .aem-media-button:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); }
 .aem-media-button--sm { width: 2.25rem; height: 2.25rem; }
 .aem-media-button--lg { width: 3.5rem; height: 3.5rem; font-size: var(--aem-size-icon-xs); }
+
+/* Date tag over the image (event cards) and an icon in place of the image */
+.aem-card__media > .aem-date-tag { position: absolute; top: var(--aem-unit-16); left: var(--aem-unit-16); }
+.aem-card__icon { color: var(--aem-color-icon-accent); font-size: var(--aem-size-icon-lg); }

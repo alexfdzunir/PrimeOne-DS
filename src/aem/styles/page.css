@@ -1,0 +1,51 @@
+/*
+ * AEM page templates (Figma "Pages · Templates · Design System · AEM"): the layouts that join the modules in a
+ * page. Card grids, the search bar over the home hero and the featured block of the home.
+ */
+
+.aem-page {
+  background: var(--aem-color-background-primary);
+  font-family: var(--aem-typography-family);
+}
+
+/* Responsive card grid: as many columns of at least --aem-grid-min as fit */
+.aem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--aem-grid-min, 16rem)), 1fr));
+  gap: var(--aem-unit-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.aem-grid > li { display: flex; }
+.aem-grid > li > * { flex: 1; }
+
+/* Search bar over the bottom edge of the home hero (below it on mobile) */
+.aem-page__search {
+  position: relative;
+  z-index: 1;
+  max-width: 80rem;
+  margin: calc(var(--aem-unit-40) * -1) auto 0;
+  padding: 0 var(--aem-layout-section-horizontal-padding);
+  box-sizing: content-box;
+}
+
+@media (max-width: 767.98px) {
+  .aem-page__search { margin-top: 0; padding-top: var(--aem-unit-16); }
+}
+
+/* Featured: one large card beside a grid of four text cards */
+.aem-featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--aem-unit-24);
+}
+.aem-featured > .aem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 1023.98px) {
+  .aem-featured { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 575.98px) {
+  .aem-featured > .aem-grid { grid-template-columns: minmax(0, 1fr); }
+}

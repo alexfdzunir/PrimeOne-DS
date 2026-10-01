@@ -219,7 +219,8 @@ export class CodePanelComponent {
   /** PrimeOne: HTML and TypeScript. AEM Portales: HTML, CSS and, when the component has behaviour, JS. */
   protected readonly tabs = computed(() => {
     const entry = this.state.selected();
-    const ids: TabId[] = entry.ds === 'aem' ? ['html', 'css', ...(entry.sources?.js ? (['js'] as const) : []), 'tokens', 'measure'] : ['html', 'ts', 'tokens', 'measure'];
+    // Pages are compositions of modules: only their HTML
+    const ids: TabId[] = entry.category === 'aem-pages' ? ['html'] : entry.ds === 'aem' ? ['html', 'css', ...(entry.sources?.js ? (['js'] as const) : []), 'tokens', 'measure'] : ['html', 'ts', 'tokens', 'measure'];
     return ids.map((id) => ({ id, ...TAB_DEFS[id] }));
   });
   protected readonly minHeight = MIN_HEIGHT;

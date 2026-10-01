@@ -48,6 +48,7 @@ const entries = [];
 const roots = [
   { dir: componentsDir, rel: 'src/components', aem: false },
   { dir: join(root, 'src/aem/components'), rel: 'src/aem/components', aem: true },
+  { dir: join(root, 'src/aem/pages'), rel: 'src/aem/pages', aem: true },
 ];
 for (const { dir: rootDir, rel, aem } of roots) {
   for (const folder of readdirSync(rootDir, { withFileTypes: true })) {
