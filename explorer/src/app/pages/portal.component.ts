@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, DESIGN_SYSTEMS, type DesignSystemId } from '../model';
+import { AemBrandCurveComponent } from './aem-brand-curve.component';
 
 /** Look of each design system card: preview colours and the icons of its mosaic. */
 const LOOK: Record<DesignSystemId, { tag: string; icons: string[]; cta: string }> = {
@@ -19,6 +20,7 @@ const LOOK: Record<DesignSystemId, { tag: string; icons: string[]; cta: string }
 /** General home: the design systems of Proeduca, each one opening its own catalogue. */
 @Component({
   selector: 'po-portal',
+  imports: [AemBrandCurveComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'po-page po-scroll' },
   template: `
@@ -39,6 +41,9 @@ const LOOK: Record<DesignSystemId, { tag: string; icons: string[]; cta: string }
           <li>
             <button type="button" class="po-portal__card" [class]="'po-portal__card po-portal__card--' + ds.id" (click)="state.setDesignSystem(ds.id)">
               <span class="po-portal__preview" aria-hidden="true">
+                @if (ds.id === 'aem') {
+                  <po-aem-curve class="po-portal__curve" />
+                }
                 @for (icon of ds.look.icons; track icon; let i = $index) {
                   <span class="po-portal__tile" [class.po-portal__tile--solid]="i === 2"><i [class]="icon"></i></span>
                 }
@@ -166,6 +171,8 @@ const LOOK: Record<DesignSystemId, { tag: string; icons: string[]; cta: string }
     }
 
     .po-portal__preview {
+      position: relative;
+      overflow: hidden;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       gap: 12px;
@@ -173,8 +180,23 @@ const LOOK: Record<DesignSystemId, { tag: string; icons: string[]; cta: string }
       background: linear-gradient(135deg, var(--po-portal-from) 0%, var(--po-portal-to) 100%);
     }
 
+    /* Both blue: PrimeOne with the grid of its hero, AEM Portales flat blue 400 with the brand curve of the portals */
     .po-portal__card--prime-one { --po-portal-from: #0a4ec2; --po-portal-to: #3d81f5; --po-portal-accent: #0d61f2; }
-    .po-portal__card--aem { --po-portal-from: #052761; --po-portal-to: #e01e5d; --po-portal-accent: #e01e5d; }
+    .po-portal__card--prime-one .po-portal__preview {
+      background:
+        linear-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+        linear-gradient(90deg, rgb(255 255 255 / 0.08) 1px, transparent 1px) 0 0 / 24px 24px,
+        linear-gradient(135deg, var(--po-portal-from) 0%, var(--po-portal-to) 100%);
+    }
+    .po-portal__card--aem { --po-portal-accent: #0a4ec2; }
+    .po-portal__card--aem .po-portal__preview { background: #0a4ec2; }
+
+    .po-portal__curve {
+      position: absolute;
+      inset: 0 0 0 30%;
+    }
+
+    .po-portal__tile { position: relative; }
 
     .po-portal__tile {
       display: grid;

@@ -1,0 +1,57 @@
+/*
+ * AEM Pagination (Figma "pagination-module", "pag-set" and "pag-item"): ghost arrows (small icon-only buttons) and
+ * 32px page numbers in Label 2 with link colours; the current page is solid blue and long ranges fold into "...".
+ * As a module (--bar) it spans the page with a bottom rule. pagination.js moves between pages.
+ */
+
+.aem-pagination {
+  display: flex;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-pagination--bar {
+  padding: var(--aem-unit-12) var(--aem-layout-section-horizontal-padding);
+  background: var(--aem-color-background-primary);
+  box-shadow: inset 0 calc(var(--aem-size-border-width-default) * -1) var(--aem-color-border-subtle);
+}
+
+.aem-pagination__list {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.aem-pagination__page {
+  display: grid;
+  place-items: center;
+  min-width: var(--aem-unit-32);
+  height: var(--aem-unit-32);
+  padding: 0 var(--aem-unit-08);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-sm);
+  background: none;
+  color: var(--aem-color-text-link-secondary-default);
+  font: var(--aem-typography-weight-medium) var(--aem-typography-label-2-size) / var(--aem-typography-label-2-line-height) var(--aem-typography-family);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.aem-pagination__page:hover { color: var(--aem-color-text-link-secondary-hover); }
+.aem-pagination__page:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-01); }
+.aem-pagination__page[aria-current='page'] {
+  background: var(--aem-color-surface-tertiary);
+  color: var(--aem-color-text-inverse-primary);
+}
+
+.aem-pagination__ellipsis {
+  display: grid;
+  place-items: center;
+  min-width: var(--aem-unit-32);
+  color: var(--aem-color-text-link-secondary-default);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+}

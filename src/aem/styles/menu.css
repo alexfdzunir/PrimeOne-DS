@@ -1,0 +1,67 @@
+/*
+ * Option menu of the AEM dropdowns, filters, search suggestions and date picker (Figma "dropdown-menu-card"):
+ * white card with the shadow below, 44px items in Small 1 with a subtle divider, optional category headers.
+ */
+
+.aem-menu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + var(--aem-unit-04));
+  left: 0;
+  min-width: 100%;
+  max-height: 13rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-background-primary);
+  box-shadow: var(--aem-shadow-default-bellow);
+  list-style: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--aem-color-state-overlay-medium) transparent;
+}
+
+.aem-menu[hidden] { display: none; }
+
+.aem-menu__category {
+  padding: var(--aem-unit-12) var(--aem-unit-12) 0;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-unit-20);
+}
+
+.aem-menu__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-12);
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+  cursor: pointer;
+}
+
+.aem-menu__item + .aem-menu__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: var(--aem-unit-12);
+  left: var(--aem-unit-12);
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
+}
+
+.aem-menu__item:hover,
+.aem-menu__item.is-active { background: var(--aem-color-surface-interactive-fill-primary-hover); }
+.aem-menu__item[aria-selected='true'] { background: var(--aem-color-surface-interactive-fill-primary-active); }
+.aem-menu__item:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: calc(var(--aem-size-border-width-focus) * -1);
+  border-radius: var(--aem-size-border-radius-sm);
+}
+.aem-menu__item mark {
+  background: none;
+  color: inherit;
+  font-weight: var(--aem-typography-weight-bold);
+}

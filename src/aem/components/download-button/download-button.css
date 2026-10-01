@@ -1,0 +1,104 @@
+/*
+ * AEM Download Button (Figma "download-button"): file icon, label and file type. Size LG (default) or --sm;
+ * --link drops the box (Type=Link-Button). Disabled with aria-disabled="true".
+ */
+
+.aem-download {
+  --aem-download-border: var(--aem-color-border-link-primary-default);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  min-width: 0;
+  padding: var(--aem-unit-16);
+  border-radius: var(--aem-size-border-radius-md);
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-download-border);
+  color: var(--aem-color-text-link-secondary-default);
+  font-family: var(--aem-typography-family);
+  text-decoration: none;
+  transition: background-color 150ms, box-shadow 150ms, color 150ms;
+}
+
+.aem-download__icon {
+  flex-shrink: 0;
+  color: var(--aem-color-icon-link-primary-default);
+  /* 40px in Figma (32px in SM): between the icon sizes lg and xl */
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.aem-download__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  min-width: 0;
+}
+
+.aem-download__label {
+  font-size: var(--aem-typography-small-1-size);
+  font-weight: var(--aem-typography-weight-bold);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+
+.aem-download__meta {
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-label-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-3-line-height);
+  letter-spacing: var(--aem-typography-letter-spacing-1);
+  text-transform: uppercase;
+}
+
+.aem-download:hover {
+  --aem-download-border: var(--aem-color-border-link-primary-hover);
+  background: var(--aem-color-surface-interactive-layer-inverse-hover);
+  color: var(--aem-color-text-link-secondary-hover);
+}
+
+.aem-download:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-01);
+}
+
+/* SM */
+.aem-download--sm {
+  padding: var(--aem-unit-12) var(--aem-unit-08);
+  border-radius: var(--aem-size-border-radius-sm);
+}
+.aem-download--sm .aem-download__icon { font-size: var(--aem-size-icon-lg); }
+.aem-download--sm .aem-download__label {
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+}
+
+/* Link button: no box, link colours */
+.aem-download--link {
+  padding: 0 var(--aem-unit-08) 0 0;
+  box-shadow: none;
+  color: var(--aem-color-text-link-primary-default);
+}
+.aem-download--link:hover {
+  background: none;
+  color: var(--aem-color-text-link-primary-hover);
+}
+
+/* Disabled */
+.aem-download[aria-disabled='true'] {
+  --aem-download-border: transparent;
+  background: var(--aem-color-surface-system-disabled-main);
+  color: var(--aem-color-text-system-disabled-main);
+  pointer-events: none;
+}
+.aem-download[aria-disabled='true'] :is(.aem-download__icon, .aem-download__meta) { color: var(--aem-color-text-system-disabled-main); }
+.aem-download--link[aria-disabled='true'] { background: none; }
+
+/* Set of download buttons (Figma "download-button-set"): one or two columns */
+.aem-download-set {
+  display: grid;
+  grid-template-columns: repeat(var(--aem-download-columns, 1), minmax(0, 1fr));
+  gap: var(--aem-unit-16);
+}
+.aem-download-set--2 { --aem-download-columns: 2; }
+@media (max-width: 767.98px) { .aem-download-set--2 { --aem-download-columns: 1; } }

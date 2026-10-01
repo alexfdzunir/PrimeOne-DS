@@ -1,4 +1,46 @@
-/* AEM Portales design system: tokens, text styles and components. Include this file once in the page. */
+/* AEM Portales design system: tokens, text styles, shared form styles and components. Include this file once in the page. */
 @import './styles/tokens.css';
 @import './styles/typography.css';
+@import './styles/field.css';
+@import './styles/menu.css';
+
+/* Buttons */
 @import './components/button/button.css';
+@import './components/download-button/download-button.css';
+@import './components/fab/fab.css';
+
+/* Inputs and selection */
+@import './components/chip/chip.css';
+@import './components/checkbox/checkbox.css';
+@import './components/radio/radio.css';
+@import './components/toggle/toggle.css';
+@import './components/input-text/input-text.css';
+@import './components/text-area/text-area.css';
+@import './components/search/search.css';
+@import './components/dropdown/dropdown.css';
+@import './components/filter/filter.css';
+@import './components/date-picker/date-picker.css';
+@import './components/slider/slider.css';
+
+/* Indicators and status */
+@import './components/progress-spinner/progress-spinner.css';
+@import './components/tag/tag.css';
+@import './components/tag-set/tag-set.css';
+@import './components/date-tag/date-tag.css';
+
+/* Messaging */
+@import './components/notification/notification.css';
+@import './components/ticker/ticker.css';
+
+/* Content display */
+@import './components/accordion/accordion.css';
+@import './components/avatar/avatar.css';
+@import './components/card/card.css';
+@import './components/data-table/data-table.css';
+@import './components/list/list.css';
+
+/* Navigation */
+@import './components/anchor-menu/anchor-menu.css';
+@import './components/breadcrumb/breadcrumb.css';
+@import './components/pagination/pagination.css';
+@import './components/tabs/tabs.css';

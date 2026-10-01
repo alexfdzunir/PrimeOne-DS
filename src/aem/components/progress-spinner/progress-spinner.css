@@ -1,0 +1,34 @@
+/*
+ * AEM Progress Spinner (Figma "progress-spinner"): ring 80px (LG, default) or 20px (--sm) whose arc runs around
+ * the subtle track. On dark surfaces --inverse, and inside .aem-dark it is inverse by itself.
+ */
+
+.aem-spinner {
+  --aem-spinner-size: 5rem;
+  --aem-spinner-arc: var(--aem-color-surface-tertiary);
+  --aem-spinner-track: var(--aem-color-border-subtle);
+
+  display: inline-block;
+  width: var(--aem-spinner-size);
+  height: var(--aem-spinner-size);
+  border-radius: var(--aem-size-border-radius-full);
+  background: conic-gradient(var(--aem-spinner-arc) 0 30%, var(--aem-spinner-track) 30% 100%);
+  /* Ring 10% of the radius thick (Figma inner radius 0.9) */
+  mask: radial-gradient(farthest-side, transparent calc(90% - 0.5px), #000 90%);
+  animation: aem-spinner 900ms linear infinite;
+}
+
+.aem-spinner--sm { --aem-spinner-size: 1.25rem; mask: radial-gradient(farthest-side, transparent calc(80% - 0.5px), #000 80%); }
+
+:is(.aem-spinner--inverse, .aem-dark .aem-spinner) {
+  --aem-spinner-arc: var(--aem-color-icon-inverse-primary);
+  --aem-spinner-track: var(--aem-color-border-inverse-subtle);
+}
+
+@keyframes aem-spinner {
+  to { transform: rotate(1turn); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aem-spinner { animation-duration: 3s; }
+}

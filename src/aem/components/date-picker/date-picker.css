@@ -1,0 +1,116 @@
+/*
+ * AEM Date Picker (Figma "date-picker" and its calendar assets): a field with a calendar icon that opens a month
+ * calendar with month and year steppers, weekday row and 32px days (today with a dot, selected in the active
+ * fill, days of the next and previous months in subtle text). date-picker.js builds the calendar.
+ */
+
+.aem-datepicker { position: relative; width: 100%; }
+
+.aem-datepicker__toggle {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  height: var(--aem-unit-20);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--aem-color-icon-subtle);
+  font-size: var(--aem-size-icon-sm);
+  line-height: 1;
+  cursor: pointer;
+}
+.aem-datepicker__toggle:hover { color: var(--aem-color-icon-link-secondary-hover); }
+
+.aem-calendar {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + var(--aem-unit-04));
+  left: 0;
+  width: 17.25rem;
+  border-radius: var(--aem-size-border-radius-sm);
+  background: var(--aem-color-background-primary);
+  box-shadow: var(--aem-shadow-default-bellow);
+  font-family: var(--aem-typography-family);
+}
+.aem-calendar[hidden] { display: none; }
+
+.aem-calendar__head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.aem-calendar__stepper {
+  display: flex;
+  align-items: center;
+}
+
+.aem-calendar__nav {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--aem-size-border-radius-xs);
+  background: none;
+  color: var(--aem-color-icon-link-secondary-default);
+  font-size: var(--aem-size-icon-xs);
+  cursor: pointer;
+}
+.aem-calendar__nav:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-icon-link-secondary-hover); }
+
+.aem-calendar__title {
+  padding: var(--aem-unit-02) var(--aem-unit-04);
+  color: var(--aem-color-text-link-secondary-default);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+  text-transform: capitalize;
+}
+
+.aem-calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0 0 var(--aem-unit-08);
+}
+
+.aem-calendar__weekday {
+  display: grid;
+  place-items: center;
+  height: 2rem;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  text-transform: uppercase;
+}
+
+.aem-calendar__day {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--aem-size-border-radius-xs);
+  background: none;
+  color: var(--aem-color-text-link-secondary-default);
+  font: var(--aem-typography-weight-medium) var(--aem-typography-label-2-size) / var(--aem-typography-label-2-line-height) var(--aem-typography-family);
+  cursor: pointer;
+}
+.aem-calendar__day:hover { background: var(--aem-color-surface-interactive-fill-primary-hover); color: var(--aem-color-text-link-secondary-hover); }
+.aem-calendar__day:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: calc(var(--aem-size-border-width-focus) * -1); }
+.aem-calendar__day--outside { color: var(--aem-color-text-subtle); }
+.aem-calendar__day--today { color: var(--aem-color-text-link-primary-default); }
+.aem-calendar__day--today::after {
+  content: '';
+  position: absolute;
+  bottom: var(--aem-unit-04);
+  width: var(--aem-unit-04);
+  height: var(--aem-unit-04);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-tertiary);
+}
+.aem-calendar__day[aria-pressed='true'] { background: var(--aem-color-surface-interactive-fill-primary-active); color: var(--aem-color-text-link-secondary-active); }
+.aem-calendar__day:disabled { color: var(--aem-color-text-system-disabled-main); cursor: not-allowed; background: none; }

@@ -1,0 +1,61 @@
+/*
+ * AEM Floating Button (Figma "floating-button"): secondary blue action that floats over the page with the general
+ * shadow. Size LG (default, 56px) or --md (48px); --icon-only for a square button. Fixed at the bottom right with
+ * --fixed. Hover and press darken it with the overlay layer, as the Button.
+ */
+
+.aem-fab {
+  --aem-fab-layer: transparent;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-16);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-surface-tertiary);
+  box-shadow: var(--aem-shadow-default-general);
+  color: var(--aem-color-text-inverse-primary);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-unit-24);
+  white-space: nowrap;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+.aem-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--aem-fab-layer);
+}
+
+.aem-fab:hover { --aem-fab-layer: var(--aem-color-surface-interactive-layer-hover); }
+.aem-fab:active { --aem-fab-layer: var(--aem-color-surface-interactive-layer-active); }
+.aem-fab:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-01);
+}
+
+.aem-fab__icon {
+  font-size: var(--aem-size-icon-md);
+  line-height: 1;
+}
+
+.aem-fab--md {
+  padding: var(--aem-unit-12);
+  border-radius: var(--aem-size-border-radius-sm);
+}
+
+.aem-fab--fixed {
+  position: fixed;
+  right: var(--aem-layout-section-horizontal-padding);
+  bottom: var(--aem-unit-24);
+  z-index: 20;
+}

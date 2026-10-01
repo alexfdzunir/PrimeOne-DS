@@ -1,0 +1,67 @@
+/*
+ * AEM Tag Set (Figma "tag-set", "category-tag" and "state-tag"): row of uppercase category tags (links when
+ * interactive) and the modality state tag (dot + text), separated by 16px rules.
+ */
+
+.aem-tag-set {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  margin: 0;
+  padding: 0;
+  font-family: var(--aem-typography-family);
+  list-style: none;
+}
+
+.aem-tag-set > li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+}
+
+.aem-tag-set > li + li::before {
+  content: '';
+  width: var(--aem-unit-16);
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
+}
+
+.aem-category-tag,
+.aem-state-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aem-unit-04);
+  padding: var(--aem-unit-02) 0;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-label-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-3-line-height);
+  letter-spacing: var(--aem-typography-letter-spacing-1);
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+a.aem-category-tag { color: var(--aem-color-text-link-primary-default); }
+a.aem-category-tag:hover { color: var(--aem-color-text-link-secondary-active); }
+a.aem-category-tag:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); border-radius: var(--aem-size-border-radius-xs); }
+
+.aem-state-tag::before {
+  content: '';
+  width: var(--aem-unit-04);
+  height: var(--aem-unit-04);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-state-tag-dot, var(--aem-color-specific-state-tag-icon-online));
+}
+.aem-state-tag--live { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-live); }
+.aem-state-tag--online { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-online); }
+.aem-state-tag--presencial { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-presencial); }
+.aem-state-tag--finalizado { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-finalizado); }
+
+/* Inverse (dark surfaces) */
+:is(.aem-tag-set--inverse, .aem-dark .aem-tag-set) :is(.aem-category-tag, .aem-state-tag) { color: var(--aem-color-text-inverse-primary); }
+:is(.aem-tag-set--inverse, .aem-dark .aem-tag-set) > li + li::before { border-color: var(--aem-color-border-inverse-subtle); }
+:is(.aem-tag-set--inverse, .aem-dark .aem-tag-set) .aem-state-tag--live { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-inverse-live); }
+:is(.aem-tag-set--inverse, .aem-dark .aem-tag-set) .aem-state-tag--online { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-inverse-online); }
+:is(.aem-tag-set--inverse, .aem-dark .aem-tag-set) .aem-state-tag--presencial { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-inverse-presencial); }
+:is(.aem-tag-set--inverse, .aem-dark .aem-tag-set) .aem-state-tag--finalizado { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-inverse-finalizado); }

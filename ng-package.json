@@ -7,7 +7,12 @@
   "assets": [
     {
       "input": "src/aem",
-      "glob": "**/*.css",
+      "glob": "**/*.{css,js}",
+      "output": "aem"
+    },
+    {
+      "input": "src/aem",
+      "glob": "aem.d.ts",
       "output": "aem"
     }
   ]

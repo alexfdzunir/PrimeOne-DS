@@ -4,6 +4,7 @@ import { PrimeOneEstudiantes, PrimeOneFoundations, PrimeOneProdi } from '../../.
 import { describe } from '../explorer-state';
 import { collectTokens } from './collect-tokens';
 import { clearOverlay, measure, trackPointer } from './measure';
+import { initAem } from '../../../../src/aem/aem.js';
 import type { ComponentEntry, RenderedStory } from '../model';
 import { buildRegistry } from '../registry';
 import { StoryHostComponent } from '../story-host.component';
@@ -129,6 +130,8 @@ export class FrameRootComponent {
       const mutations = new MutationObserver((records) => {
         const own = (node: Node) => node instanceof Element && (node.id === 'po-measure-overlay' || !!node.closest('#po-measure-overlay'));
         if (records.every((r) => own(r.target) || [...Array.from(r.addedNodes), ...Array.from(r.removedNodes)].some(own))) return;
+        // AEM Portales components get their behaviour (each one initialises once)
+        if (this.entry()?.ds === 'aem') initAem(document);
         schedule();
         this.scheduleTokens();
         this.scheduleMeasure();

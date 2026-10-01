@@ -1,0 +1,24 @@
+/*
+ * AEM Input Text (Figma "input-text"), on the shared field of styles/field.css: floating label, optional icon on
+ * the right and supporting text. Validation with aem-field-host--success (Figma "Filled") or --invalid, disabled
+ * with aem-field-host--disabled. --phone adds the country prefix box (Type=Phone).
+ */
+
+.aem-input { width: 100%; max-width: 100%; }
+
+.aem-input--phone .aem-input__row {
+  display: flex;
+  gap: var(--aem-unit-04);
+}
+
+.aem-input__prefix {
+  flex: 0 0 auto;
+  min-width: 3.5rem;
+  justify-content: center;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+}
+
+.aem-input--phone .aem-input__row > .aem-field:last-child { flex: 1; }

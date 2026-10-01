@@ -1,0 +1,105 @@
+/*
+ * AEM Radio Button (Figma "radio-button" and "radio-item"): native input with a 16px circle; selected, it fills
+ * blue with a white dot. Same structure and modifiers as the Checkbox: --sm, --invalid, disabled inputs.
+ */
+
+.aem-radio {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-radio__legend {
+  padding: 0;
+  margin-bottom: var(--aem-unit-04);
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-3-line-height);
+}
+
+.aem-radio__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--aem-unit-04);
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+  cursor: pointer;
+}
+
+.aem-radio--sm .aem-radio__item {
+  font-size: var(--aem-typography-caption-size);
+  line-height: var(--aem-typography-caption-line-height);
+}
+
+.aem-radio__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.aem-radio__circle {
+  --aem-radio-border: var(--aem-color-border-link-primary-default);
+  --aem-radio-fill: transparent;
+  --aem-radio-dot: transparent;
+
+  position: relative;
+  flex-shrink: 0;
+  width: var(--aem-unit-16);
+  height: var(--aem-unit-16);
+  margin: var(--aem-unit-02);
+  border-radius: var(--aem-size-border-radius-full);
+  background: radial-gradient(circle, var(--aem-radio-dot) 0 var(--aem-unit-04), var(--aem-radio-fill) calc(var(--aem-unit-04) + 0.5px));
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-radio-border);
+}
+
+.aem-radio--sm .aem-radio__circle { margin-block: 0; }
+
+.aem-radio__item:hover .aem-radio__circle { --aem-radio-border: var(--aem-color-border-link-primary-hover); }
+
+.aem-radio__input:focus-visible + .aem-radio__circle {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-02);
+}
+
+.aem-radio__input:checked + .aem-radio__circle {
+  --aem-radio-border: transparent;
+  --aem-radio-fill: var(--aem-color-surface-tertiary);
+  --aem-radio-dot: var(--aem-color-surface-secondary);
+}
+
+.aem-radio__item:hover .aem-radio__input:checked:not(:disabled) + .aem-radio__circle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, transparent 0 var(--aem-unit-04), var(--aem-color-surface-interactive-layer-hover) calc(var(--aem-unit-04) + 0.5px));
+}
+
+.aem-radio--invalid .aem-radio__input:not(:checked) + .aem-radio__circle { --aem-radio-border: var(--aem-color-border-system-error-main); }
+
+.aem-radio__item:has(.aem-radio__input:disabled) {
+  color: var(--aem-color-text-system-disabled-main);
+  cursor: not-allowed;
+}
+.aem-radio__input:disabled + .aem-radio__circle { --aem-radio-border: var(--aem-color-border-system-disabled-main); }
+.aem-radio__input:disabled:checked + .aem-radio__circle {
+  --aem-radio-fill: var(--aem-color-surface-system-disabled-main);
+  --aem-radio-dot: var(--aem-color-icon-system-disabled-main);
+}
+
+.aem-radio__supporting {
+  margin: 0;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+}
+.aem-radio--invalid .aem-radio__supporting { color: var(--aem-color-text-system-error-main); }

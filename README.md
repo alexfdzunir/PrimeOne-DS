@@ -52,10 +52,12 @@ El mismo paquete incluye el sistema de diseño de los portales en Adobe Experien
 
 - `src/aem/styles/tokens.css`: las variables de Figma como variables CSS `--aem-*` (core, semantic y responsive size: móvil por defecto, tablet desde 768px y escritorio desde 1280px), sombras y degradados.
 - `src/aem/styles/typography.css`: los estilos de texto de Figma como clases (`.aem-headline-2`, `.aem-body`, `.aem-label-1`...).
-- `src/aem/components/<componente>/`: el CSS de cada componente (`button.css`: `.aem-button` con `--secondary`, `--ghost`, `--outlined`, `--sm`, `--lg`, `--icon-only`, `--danger`) y su story con el HTML.
+- `src/aem/styles/field.css` y `menu.css`: la caja compartida de los campos (etiqueta flotante, validación, deshabilitado) y el menú de opciones de desplegables, filtros, buscador y calendario.
+- `src/aem/components/<componente>/`: el CSS de cada componente, su JavaScript cuando tiene comportamiento y su story con el HTML. Componentes: Button, Download Button, Floating Button; Chip, Checkbox, Radio Button, Toggle, Input Text, Text Area, Search, Dropdown, Filter, Date Picker, Slider; Progress Spinner, Tag, Tag Set, Date Tag; Notification, Ticker; Accordion, Avatar, Card, Data Table, List; Anchor Menu, Breadcrumb, Pagination, Tabs.
+- `src/aem/aem.js`: `initAem()` da comportamiento a todos los componentes de la página (acordeón, pestañas, desplegables y filtros, buscador, calendario, slider, chips, paginación, menú de anclas, contador del área de texto) sin dependencias. Se puede llamar de nuevo tras añadir HTML: cada componente se inicializa una vez.
 - Modo oscuro: la clase `aem-dark` en `<html>` o en un contenedor lleva los tokens semánticos a sus valores inverse de Figma (los de las variantes On-Inverse); `--inverse` los fuerza en una sección oscura de una página clara.
 
-Una página de AEM incluye `aem/aem.css` del paquete (`node_modules/prime-one-ds/aem/aem.css`) y la fuente Proeduca Sans; las clases se usan directamente en las plantillas HTL.
+Una página de AEM incluye `aem/aem.css` y `aem/aem.js` del paquete (`node_modules/prime-one-ds/aem/`), la fuente Proeduca Sans y los iconos de Phosphor (los del fichero de Figma); las clases se usan directamente en las plantillas HTL y `initAem()` se llama al cargar la página.
 
 ## Storybook
 

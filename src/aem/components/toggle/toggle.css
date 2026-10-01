@@ -1,0 +1,103 @@
+/*
+ * AEM Toggle (Figma "toggle" and "toggle-item"): native checkbox with role="switch". 40x24 track, 20px white
+ * handle with a cross (off) or a check (on). Optional label above (Label 3).
+ */
+
+.aem-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-toggle__label {
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-3-line-height);
+}
+
+.aem-toggle__control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+  cursor: pointer;
+}
+
+.aem-toggle__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.aem-toggle__track {
+  --aem-toggle-fill: var(--aem-color-specific-toggle-surface-enabled);
+
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: var(--aem-unit-40);
+  height: var(--aem-unit-24);
+  padding: var(--aem-unit-02);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-toggle-fill);
+  isolation: isolate;
+  transition: background-color 150ms;
+}
+
+.aem-toggle__track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+}
+.aem-toggle__control:hover .aem-toggle__input:not(:disabled) + .aem-toggle__track::after { background: var(--aem-color-surface-interactive-layer-hover); z-index: 0; }
+
+.aem-toggle__handle {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--aem-unit-20);
+  height: var(--aem-unit-20);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-secondary);
+  color: var(--aem-color-icon-subtle);
+  font-size: var(--aem-size-icon-xxs);
+  transition: transform 150ms;
+}
+
+.aem-toggle__handle i { line-height: 1; }
+.aem-toggle__on { display: none; }
+
+.aem-toggle__input:checked + .aem-toggle__track { --aem-toggle-fill: var(--aem-color-surface-tertiary); }
+.aem-toggle__input:checked + .aem-toggle__track .aem-toggle__handle {
+  transform: translateX(var(--aem-unit-16));
+  color: var(--aem-color-icon-link-primary-active);
+}
+.aem-toggle__input:checked + .aem-toggle__track .aem-toggle__on { display: block; }
+.aem-toggle__input:checked + .aem-toggle__track .aem-toggle__off { display: none; }
+
+.aem-toggle__input:focus-visible + .aem-toggle__track {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-01);
+}
+
+.aem-toggle__control:has(.aem-toggle__input:disabled) {
+  color: var(--aem-color-text-system-disabled-main);
+  cursor: not-allowed;
+}
+.aem-toggle__input:disabled + .aem-toggle__track { --aem-toggle-fill: var(--aem-color-surface-system-disabled-main); }
+.aem-toggle__input:disabled + .aem-toggle__track .aem-toggle__handle { color: var(--aem-color-icon-system-disabled-main); }
+
+@media (prefers-reduced-motion: reduce) {
+  .aem-toggle__handle, .aem-toggle__track { transition: none; }
+}

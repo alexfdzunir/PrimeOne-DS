@@ -557,6 +557,30 @@
   --aem-color-border-system-info-main: var(--aem-color-border-system-info-inverse);
   --aem-color-state-focus-main: var(--aem-color-state-focus-inverse);
 
+  /* Not in Figma (no dark collection): soft system fills, fields, chips, tags and tabs on dark, from the same palettes */
+  --aem-color-surface-system-success-soft: var(--aem-color-jade-200);
+  --aem-color-surface-system-error-soft: var(--aem-color-red-200);
+  --aem-color-surface-system-warning-soft: var(--aem-color-orange-200);
+  --aem-color-surface-system-info-soft: var(--aem-color-blue-300);
+  --aem-color-specific-input-surface-enabled: var(--aem-color-transparent-neutral-1000-10);
+  --aem-color-specific-input-surface-hover: var(--aem-color-transparent-neutral-1000-20);
+  --aem-color-specific-input-surface-focus: var(--aem-color-transparent-neutral-1000-20);
+  --aem-color-specific-chip-border-enabled: var(--aem-color-border-inverse-primary);
+  --aem-color-specific-chip-border-hover: var(--aem-color-sky-700);
+  --aem-color-specific-chip-border-selected: var(--aem-color-sky-700);
+  --aem-color-specific-chip-content-enabled: var(--aem-color-neutral-900);
+  --aem-color-specific-chip-content-hover: var(--aem-color-sky-700);
+  --aem-color-specific-chip-surface-selected-secondary: var(--aem-color-transparent-neutral-1000-20);
+  --aem-color-specific-chip-content-selected-secondary: var(--aem-color-neutral-1000);
+  --aem-color-specific-tag-surface: var(--aem-color-transparent-neutral-1000-10);
+  --aem-color-specific-tag-text: var(--aem-color-neutral-900);
+  --aem-color-specific-tag-icon: var(--aem-color-neutral-800);
+  --aem-color-specific-tab-enabled: var(--aem-color-neutral-700);
+  --aem-color-specific-tab-hover: var(--aem-color-sky-700);
+  --aem-color-specific-tab-selected: var(--aem-color-sky-700);
+  --aem-color-specific-button-ghost-on-surface: var(--aem-color-specific-button-ghost-inverse-on-surface);
+  --aem-color-specific-button-ghost-hover: var(--aem-color-specific-button-ghost-inverse-hover);
+
   color-scheme: dark;
   background-color: var(--aem-color-background-primary);
   color: var(--aem-color-text-primary);

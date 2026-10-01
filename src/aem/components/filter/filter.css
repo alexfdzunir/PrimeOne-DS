@@ -1,0 +1,72 @@
+/*
+ * AEM Filter (Figma "filter-item"): pill button that opens a list of options (shared menu, dropdown.js). Prefix
+ * icon, text and caret; with choices the text darkens and multiple choices show their count. --column is the
+ * plain variant for side filter panels.
+ */
+
+.aem-filter {
+  position: relative;
+  display: inline-flex;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-filter__trigger {
+  padding: var(--aem-unit-12) var(--aem-unit-16);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-full);
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.aem-filter__icon,
+.aem-filter__caret {
+  flex-shrink: 0;
+  color: var(--aem-color-icon-subtle);
+  font-size: var(--aem-size-icon-sm);
+  line-height: 1;
+}
+.aem-filter__trigger { min-height: 2.75rem; }
+.aem-filter__trigger .aem-filter__icon,
+.aem-filter__trigger .aem-filter__caret { margin-block: -0.1875rem; }
+
+/* Open: link colours and the caret turned */
+.aem-filter__trigger.is-open {
+  --aem-field-bg: var(--aem-color-specific-input-surface-enabled);
+  --aem-field-border: var(--aem-color-border-link-primary-hover);
+  --aem-field-border-width: var(--aem-size-border-width-default);
+  color: var(--aem-color-text-link-secondary-default);
+}
+.aem-filter__trigger.is-open :is(.aem-filter__icon, .aem-filter__caret) { color: var(--aem-color-icon-link-secondary-default); }
+.aem-filter__trigger.is-open .aem-filter__caret { transform: rotate(180deg); }
+.aem-filter__trigger:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-01); }
+
+/* With choices (Uniselection / Multiselection) */
+.aem-filter__trigger.has-value {
+  --aem-field-border: var(--aem-color-border-link-primary-hover);
+  color: var(--aem-color-text-primary);
+}
+.aem-filter__trigger.has-value :is(.aem-filter__icon, .aem-filter__caret) { color: var(--aem-color-icon-primary); }
+
+.aem-filter .aem-menu { min-width: 18.75rem; }
+
+/* Column: plain row for filter panels */
+.aem-filter--column { display: flex; }
+.aem-filter--column .aem-filter__trigger {
+  width: 100%;
+  padding: var(--aem-unit-08) 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--aem-color-specific-tab-enabled);
+}
+.aem-filter--column .aem-filter__trigger > span { flex: 1; text-align: start; }
+
+.aem-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aem-unit-08);
+}

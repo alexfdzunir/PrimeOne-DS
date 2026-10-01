@@ -1,0 +1,25 @@
+/*
+ * AEM Ticker (Figma "ticker"): full width dark blue bar under the header with the modality and short info tags of
+ * the programme, separated by rules. Side padding follows the section layout tokens; it scrolls sideways when it
+ * does not fit.
+ */
+
+.aem-ticker {
+  display: flex;
+  align-items: center;
+  min-height: var(--aem-unit-40);
+  padding: 0 var(--aem-layout-section-horizontal-padding);
+  overflow-x: auto;
+  background: var(--aem-color-surface-inverse-primary);
+  scrollbar-width: none;
+}
+
+.aem-ticker .aem-tag-set {
+  flex-wrap: nowrap;
+  padding: var(--aem-unit-08) 0;
+}
+
+.aem-ticker :is(.aem-category-tag, .aem-state-tag, .aem-tag) { color: var(--aem-color-text-inverse-primary); }
+.aem-ticker .aem-tag { --aem-tag-icon: var(--aem-color-icon-inverse-primary); }
+.aem-ticker .aem-tag-set > li + li::before { border-color: var(--aem-color-border-inverse-subtle); }
+.aem-ticker .aem-state-tag--online { --aem-state-tag-dot: var(--aem-color-specific-state-tag-icon-inverse-online); }

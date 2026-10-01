@@ -1,0 +1,53 @@
+/*
+ * AEM Anchor Menu (Figma "anchor-menu_module", "anchor-set" and "anchor-item"): pill bar of in-page links on a
+ * light grey track; the current section is solid blue. As a module it spans the page with the section padding;
+ * --floating sticks under the top of the page. It scrolls sideways when it does not fit; anchor-menu.js marks the
+ * section in view.
+ */
+
+.aem-anchor-menu {
+  padding: var(--aem-unit-24) var(--aem-layout-section-horizontal-padding) var(--aem-unit-08);
+  background: var(--aem-color-background-primary);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-anchor-menu--floating {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  padding-block: var(--aem-unit-16);
+  background: transparent;
+}
+
+.aem-anchor-menu__list {
+  display: inline-flex;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-primary);
+  backdrop-filter: blur(10px);
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.aem-anchor-menu__link {
+  display: block;
+  padding: var(--aem-unit-12) var(--aem-unit-16);
+  border-radius: var(--aem-size-border-radius-full);
+  color: var(--aem-color-text-link-secondary-default);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.aem-anchor-menu__link:hover { color: var(--aem-color-text-link-secondary-hover); }
+.aem-anchor-menu__link:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: calc(var(--aem-size-border-width-focus) * -1); }
+.aem-anchor-menu__link[aria-current='true'] {
+  background: var(--aem-color-surface-tertiary);
+  color: var(--aem-color-text-inverse-primary);
+}
+.aem-anchor-menu__link[aria-disabled='true'] { color: var(--aem-color-text-system-disabled-main); pointer-events: none; }

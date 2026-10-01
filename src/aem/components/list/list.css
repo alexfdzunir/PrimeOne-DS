@@ -1,0 +1,73 @@
+/*
+ * AEM List (Figma "list-item" and the list sets): unordered with 8px round bullets, ordered with subtle numbers,
+ * or with 24px icons. MD (default, Body) or --sm (Small 1); --interactive turns the items into links. Nested
+ * lists keep the indent.
+ */
+
+.aem-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-08);
+  margin: 0;
+  padding: 0;
+  color: var(--aem-color-text-secondary);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+  list-style: none;
+  counter-reset: aem-list;
+}
+
+.aem-list > li {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--aem-unit-08);
+  counter-increment: aem-list;
+}
+
+/* Unordered: 8px dot centred on the first line */
+.aem-list:not(.aem-list--ordered, .aem-list--icon) > li::before {
+  content: '';
+  flex-shrink: 0;
+  width: var(--aem-unit-08);
+  height: var(--aem-unit-08);
+  margin-block: calc((var(--aem-typography-body-line-height) - var(--aem-unit-08)) / 2);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-icon-subtle);
+}
+
+.aem-list--ordered > li::before {
+  content: counter(aem-list) '.';
+  flex-shrink: 0;
+  min-width: 0.8125rem;
+  color: var(--aem-color-text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.aem-list__icon {
+  flex-shrink: 0;
+  color: var(--aem-color-icon-accent-soft);
+  font-size: var(--aem-size-icon-md);
+  line-height: 1;
+}
+
+.aem-list .aem-list { margin-top: var(--aem-unit-08); }
+.aem-list > li > div { display: flex; flex-direction: column; }
+
+/* SM */
+.aem-list--sm {
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+.aem-list--sm:not(.aem-list--ordered, .aem-list--icon) > li::before { margin-block: calc((var(--aem-typography-small-1-line-height) - var(--aem-unit-08)) / 2); }
+.aem-list--sm .aem-list__icon { font-size: var(--aem-size-icon-sm); }
+
+/* Interactive: links */
+.aem-list--interactive a {
+  color: var(--aem-color-text-link-secondary-default);
+  text-decoration: none;
+}
+.aem-list--interactive a:hover { color: var(--aem-color-text-link-secondary-hover); text-decoration: underline; }
+.aem-list--interactive a:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); border-radius: var(--aem-size-border-radius-xs); }
+.aem-list--interactive:not(.aem-list--ordered, .aem-list--icon) > li::before { background: var(--aem-color-icon-link-primary-default); }

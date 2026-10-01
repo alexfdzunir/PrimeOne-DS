@@ -1,0 +1,49 @@
+/*
+ * AEM Data Table (Figma "data-table" and its table assets): header in Body Strong, cells in Body with 12px padding
+ * and a subtle rule between rows; --striped greys the even rows; links in Body Strong. Wrapped in a scroll box so
+ * it scrolls sideways on narrow screens.
+ */
+
+.aem-table-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.aem-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--aem-color-text-secondary);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+
+.aem-table caption {
+  padding-bottom: var(--aem-unit-08);
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+  text-align: start;
+}
+
+.aem-table :is(th, td) {
+  padding: var(--aem-unit-12);
+  border-bottom: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
+  text-align: start;
+  vertical-align: top;
+}
+
+.aem-table th {
+  color: var(--aem-color-text-primary);
+  font-weight: var(--aem-typography-weight-bold);
+}
+
+.aem-table--striped tbody tr:nth-child(even) { background: var(--aem-color-surface-primary); }
+
+.aem-table a {
+  color: var(--aem-color-text-link-primary-default);
+  font-weight: var(--aem-typography-weight-bold);
+  text-decoration: none;
+}
+.aem-table a:hover { color: var(--aem-color-text-link-primary-hover); text-decoration: underline; }
+.aem-table a:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); border-radius: var(--aem-size-border-radius-xs); }

@@ -9,5 +9,5 @@
     "compilationMode": "partial"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.figma.ts", "src/figma/**", "src/**/*.stories.ts", "src/stories/**"]
+  "exclude": ["src/**/*.figma.ts", "src/figma/**", "src/**/*.stories.ts", "src/stories/**", "src/aem/stories/**"]
 }

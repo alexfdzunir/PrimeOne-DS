@@ -1,0 +1,167 @@
+/*
+ * AEM Card (Figma "card-master", "card-product" and "media-button"): image on top and a content panel that
+ * overlaps it by 16px, with pretitle, title (link colours), body text and a footer with tags and an arrow button.
+ * MD (default) or --lg; panel --secondary (white) instead of the light grey; --product for the compact programme
+ * card with the accelerator tag. The whole card is a link through the title (stretched link).
+ */
+
+.aem-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 25rem;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-card__media {
+  position: relative;
+  height: 15rem;
+  overflow: hidden;
+  border-radius: var(--aem-size-border-radius-lg) var(--aem-size-border-radius-lg) 0 0;
+  background: var(--aem-color-surface-inverse-secondary);
+}
+
+.aem-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder until there is a photo: brand blue with the curve of the portals */
+.aem-card__media--placeholder {
+  background:
+    radial-gradient(120% 140% at 110% -20%, var(--aem-color-blue-500) 0 45%, transparent 46%),
+    linear-gradient(135deg, var(--aem-color-blue-300), var(--aem-color-blue-400));
+}
+
+.aem-card__caption {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-48) var(--aem-unit-12) var(--aem-unit-32);
+  background: var(--aem-gradient-gradient);
+  color: var(--aem-color-text-inverse-secondary);
+  font-size: var(--aem-typography-caption-size);
+  line-height: var(--aem-typography-caption-line-height);
+}
+
+.aem-card__play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -75%); }
+
+.aem-card__body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--aem-unit-24);
+  margin-top: calc(var(--aem-unit-16) * -1);
+  padding: var(--aem-unit-24) var(--aem-unit-16) var(--aem-unit-16);
+  border-radius: var(--aem-size-border-radius-md);
+  background: var(--aem-color-surface-primary);
+}
+
+.aem-card--secondary .aem-card__body { background: var(--aem-color-surface-secondary); }
+
+.aem-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-12);
+}
+
+.aem-card__pretitle {
+  margin: 0;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+}
+
+.aem-card__title {
+  margin: 0;
+  font-size: var(--aem-typography-headline-6-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-6-line-height);
+}
+
+.aem-card__link {
+  color: var(--aem-color-text-link-secondary-default);
+  text-decoration: none;
+}
+/* Stretched link: the whole card is clickable */
+.aem-card__link::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--aem-unit-16) * -1) 0 0;
+  z-index: 1;
+}
+.aem-card:has(.aem-card__media) .aem-card__link::after { top: -15rem; }
+.aem-card:hover .aem-card__link { color: var(--aem-color-text-link-secondary-hover); }
+.aem-card__link:focus-visible { outline: none; }
+.aem-card:has(.aem-card__link:focus-visible) {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-04);
+  border-radius: var(--aem-size-border-radius-lg);
+}
+
+.aem-card__description {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+
+.aem-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--aem-unit-08);
+  margin-top: auto;
+}
+
+.aem-card__arrow {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-left: auto;
+  border-radius: var(--aem-size-border-radius-sm);
+  color: var(--aem-color-specific-button-ghost-on-surface);
+  font-size: var(--aem-size-icon-sm);
+  transition: background-color 150ms;
+}
+.aem-card:hover .aem-card__arrow { background: var(--aem-color-specific-button-ghost-hover); }
+
+/* LG */
+.aem-card--lg .aem-card__media { height: 20rem; }
+.aem-card--lg .aem-card__title { font-size: var(--aem-typography-headline-5-size); line-height: var(--aem-typography-headline-5-line-height); }
+.aem-card--lg .aem-card__description { font-size: var(--aem-typography-body-size); line-height: var(--aem-typography-body-line-height); }
+.aem-card--lg .aem-card__link::after { top: -20rem; }
+
+/* Product: compact programme card */
+.aem-card--product { max-width: 16rem; }
+.aem-card--product .aem-card__media { height: 9.875rem; border-radius: var(--aem-size-border-radius-md) var(--aem-size-border-radius-md) 0 0; }
+.aem-card--product .aem-card__body { gap: var(--aem-unit-20); padding: var(--aem-unit-16) var(--aem-unit-16) var(--aem-unit-12); }
+.aem-card--product .aem-card__link::after { top: -9.875rem; }
+.aem-card--product > .aem-tag { position: absolute; top: var(--aem-unit-08); left: var(--aem-unit-08); }
+
+/* Media button (play) */
+.aem-media-button {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-interactive-fill-secondary-default);
+  color: var(--aem-color-icon-inverse-primary);
+  font-size: var(--aem-size-icon-xxs);
+  cursor: pointer;
+}
+.aem-media-button:hover { background: var(--aem-color-surface-interactive-fill-secondary-hover); }
+.aem-media-button:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); }
+.aem-media-button--sm { width: 2.25rem; height: 2.25rem; }
+.aem-media-button--lg { width: 3.5rem; height: 3.5rem; font-size: var(--aem-size-icon-xs); }

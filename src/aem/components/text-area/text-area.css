@@ -1,0 +1,63 @@
+/*
+ * AEM Text Area (Figma "text-area"), on the shared field: 128px box with the floating label on top, optional icon,
+ * resize handle and a footer with supporting text and character count (text-area.js keeps it up to date).
+ */
+
+.aem-textarea .aem-field {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--aem-unit-02);
+  min-height: 8rem;
+  padding: var(--aem-unit-12);
+}
+
+.aem-textarea .aem-field:focus-within,
+.aem-textarea .aem-field:has(.aem-field__input:not(:placeholder-shown)) { padding-block: var(--aem-unit-12); }
+
+.aem-textarea__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--aem-unit-16);
+}
+
+.aem-textarea__label {
+  flex: 1;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+  transition: font-size 150ms, line-height 150ms;
+}
+
+.aem-textarea .aem-field:focus-within .aem-textarea__label,
+.aem-textarea .aem-field:has(.aem-field__input:not(:placeholder-shown)) .aem-textarea__label {
+  font-size: var(--aem-typography-label-3-size);
+  line-height: var(--aem-typography-label-3-line-height);
+}
+
+.aem-textarea .aem-field__icon { font-size: var(--aem-size-icon-sm); }
+
+.aem-textarea .aem-field__input {
+  flex: 1;
+  min-height: 4.5rem;
+  resize: vertical;
+  font-size: var(--aem-typography-small-1-size);
+  font-weight: var(--aem-typography-weight-regular);
+  line-height: var(--aem-typography-small-1-line-height);
+  opacity: 1;
+}
+
+.aem-textarea__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--aem-unit-08);
+}
+
+.aem-textarea__count {
+  flex-shrink: 0;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,51 @@
+/*
+ * AEM Tabs (Figma "tabs-module", "tabs-set" and "tab-item"): Label 1 tabs 16px apart, grey until hover or
+ * selection; the selected tab is blue with a 2px underline. LG (default, 54px) or --sm (38px). As a module (--bar)
+ * the rule spans the page. tabs.js follows the ARIA tabs pattern (arrows, Home, End).
+ */
+
+.aem-tabs { font-family: var(--aem-typography-family); }
+
+.aem-tabs__list {
+  display: flex;
+  gap: var(--aem-unit-16);
+  overflow-x: auto;
+  box-shadow: inset 0 calc(var(--aem-size-border-width-default) * -1) var(--aem-color-border-subtle);
+  scrollbar-width: none;
+}
+
+.aem-tabs--bar .aem-tabs__list {
+  padding: 0 var(--aem-layout-section-horizontal-padding);
+  background: var(--aem-color-background-primary);
+}
+
+.aem-tabs__tab {
+  flex-shrink: 0;
+  padding: var(--aem-unit-20) 0;
+  border: 0;
+  background: none;
+  color: var(--aem-color-specific-tab-enabled);
+  font: var(--aem-typography-weight-medium) var(--aem-typography-label-1-size) / var(--aem-typography-label-1-line-height) var(--aem-typography-family);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.aem-tabs__tab:hover { color: var(--aem-color-specific-tab-hover); }
+.aem-tabs__tab:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: calc(var(--aem-size-border-width-focus) * -1); border-radius: var(--aem-size-border-radius-xs); }
+.aem-tabs__tab[aria-selected='true'] {
+  color: var(--aem-color-specific-tab-selected);
+  box-shadow: inset 0 calc(var(--aem-size-border-width-strong) * -1) var(--aem-color-specific-tab-selected);
+}
+.aem-tabs__tab:disabled { color: var(--aem-color-text-system-disabled-main); cursor: not-allowed; }
+
+.aem-tabs--sm .aem-tabs__tab { padding-block: var(--aem-unit-12); }
+
+.aem-tabs__panel {
+  padding: var(--aem-unit-24) 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+.aem-tabs--bar .aem-tabs__panel { padding-inline: var(--aem-layout-section-horizontal-padding); }
+.aem-tabs__panel[hidden] { display: none; }
+.aem-tabs__panel:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-04); }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ExplorerState } from '../explorer-state';
 import { CATEGORIES, THEMES } from '../model';
+import { AemBrandCurveComponent } from './aem-brand-curve.component';
 import { AEM_FOUNDATION_SECTIONS } from './aem-foundations.component';
 import { FOUNDATION_SECTIONS } from './foundations.component';
 
@@ -11,10 +12,15 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
 /** Landing of the explorer: brand hero with the key figures, and the sections of the catalogue. */
 @Component({
   selector: 'po-home',
+  imports: [AemBrandCurveComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'po-page po-scroll' },
   template: `
-    <header class="po-hero">
+    <header class="po-hero" [class.po-hero--aem]="state.ds() === 'aem'">
+      @if (state.ds() === 'aem') {
+        <!-- AEM Portales: the brand curve of the portals hero instead of the PrimeOne grid and mosaic -->
+        <po-aem-curve class="po-hero__curve" />
+      }
       <div class="po-hero__inner">
         <div class="po-hero__copy">
           <span class="po-hero__eyebrow"><i class="ph ph-graduation-cap" aria-hidden="true"></i> Proeduca · UNIR</span>
@@ -32,7 +38,7 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
             </a>
           </div>
         </div>
-        <div class="po-hero__art" aria-hidden="true">
+        <div class="po-hero__art" [class.po-hero__art--hidden]="state.ds() === 'aem'" aria-hidden="true">
           @for (tile of heroTiles; track $index) {
             <span class="po-hero__tile" [class]="'po-hero__tile--' + tile.kind" [style.--po-delay]="$index * -0.7 + 's'">
               @if (tile.icon) {
@@ -125,6 +131,28 @@ const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
     }
 
     /* Decorative mosaic of glass tiles with DS icons; alternate columns are offset and every tile floats */
+    /* AEM Portales: flat blue 400 with the brand curve on the right, no grid */
+    .po-hero--aem,
+    :host-context(html.po-dark) .po-hero--aem {
+      background: #0a4ec2;
+    }
+
+    .po-hero--aem::before {
+      display: none;
+    }
+
+    .po-hero__curve {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(1100px, 62%);
+    }
+
+    .po-hero__art--hidden {
+      visibility: hidden;
+    }
+
     .po-hero__art {
       display: grid;
       grid-template-columns: repeat(4, 84px);

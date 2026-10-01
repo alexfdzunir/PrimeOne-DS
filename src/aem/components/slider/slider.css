@@ -1,0 +1,105 @@
+/*
+ * AEM Slider (Figma "slider"): question, minimum and maximum with the value in a blue bubble over the thumb, and
+ * an 8px track (filled blue up to the value) with a 2x24px thumb and step dots. Native range input; slider.js
+ * moves the bubble and the fill (--aem-slider-pct).
+ */
+
+.aem-slider {
+  --aem-slider-pct: 50%;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-08);
+  padding: var(--aem-unit-16) 0;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-slider__label {
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-small-1-size);
+  font-weight: var(--aem-typography-weight-bold);
+  line-height: var(--aem-typography-small-1-line-height);
+}
+
+.aem-slider__scale {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 1.75rem;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-1-line-height);
+}
+
+.aem-slider__bubble {
+  position: absolute;
+  left: var(--aem-slider-pct);
+  display: grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding: 0 var(--aem-unit-08);
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-tertiary);
+  color: var(--aem-color-text-inverse-primary);
+  transform: translateX(-50%);
+}
+
+.aem-slider__input {
+  --aem-slider-track: var(--aem-unit-08);
+
+  width: 100%;
+  height: var(--aem-unit-24);
+  margin: 0;
+  background: transparent;
+  appearance: none;
+  cursor: pointer;
+}
+
+.aem-slider__input::-webkit-slider-runnable-track {
+  height: var(--aem-slider-track);
+  background:
+    linear-gradient(var(--aem-color-surface-tertiary), var(--aem-color-surface-tertiary)) 0 0 / var(--aem-slider-pct) 100% no-repeat,
+    var(--aem-color-surface-primary);
+}
+.aem-slider__input::-moz-range-track { height: var(--aem-slider-track); background: var(--aem-color-surface-primary); }
+.aem-slider__input::-moz-range-progress { height: var(--aem-slider-track); background: var(--aem-color-surface-tertiary); }
+
+.aem-slider__input::-webkit-slider-thumb {
+  width: var(--aem-unit-02);
+  height: var(--aem-unit-24);
+  margin-top: calc((var(--aem-slider-track) - var(--aem-unit-24)) / 2);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-interactive-fill-secondary-default);
+  appearance: none;
+}
+.aem-slider__input::-moz-range-thumb {
+  width: var(--aem-unit-02);
+  height: var(--aem-unit-24);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-surface-interactive-fill-secondary-default);
+}
+
+.aem-slider__input:hover::-webkit-slider-thumb { background: var(--aem-color-surface-interactive-fill-secondary-hover); }
+.aem-slider__input:hover::-moz-range-thumb { background: var(--aem-color-surface-interactive-fill-secondary-hover); }
+
+.aem-slider__input:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-04);
+  border-radius: var(--aem-size-border-radius-xs);
+}
+
+/* Disabled */
+.aem-slider--disabled :is(.aem-slider__label, .aem-slider__scale) { color: var(--aem-color-text-system-disabled-main); }
+.aem-slider--disabled .aem-slider__bubble { background: var(--aem-color-surface-system-disabled-main); color: var(--aem-color-text-system-disabled-main); }
+.aem-slider__input:disabled { cursor: not-allowed; }
+.aem-slider__input:disabled::-webkit-slider-runnable-track {
+  background:
+    linear-gradient(var(--aem-color-icon-system-disabled-main), var(--aem-color-icon-system-disabled-main)) 0 0 / var(--aem-slider-pct) 100% no-repeat,
+    var(--aem-color-surface-system-disabled-main);
+}
+.aem-slider__input:disabled::-webkit-slider-thumb { background: var(--aem-color-icon-system-disabled-main); }

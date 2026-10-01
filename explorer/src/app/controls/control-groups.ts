@@ -309,6 +309,10 @@ const ELEMENTS = new Set([
   'prefixIcon',
   'suffixIcon',
   'iconOnly',
+  'suggestions',
+  'bar',
+  'shadow',
+  'group',
 ]);
 
 const STATE = new Set([
@@ -354,10 +358,25 @@ const STATE = new Set([
   'resizable',
   'sticky',
   'danger',
+  'checked',
+  'compact',
+  'single',
 ]);
 
 /** Names of the boolean args (elements and state). */
 const FLAG_NAMES: Record<string, string> = {
+  showSubtext: 'Tipo de archivo',
+  showSupporting: 'Texto de ayuda',
+  showCategory: 'Categoría',
+  showState: 'Estado',
+  showPlay: 'Botón de vídeo',
+  checked: 'Marcado',
+  group: 'Grupo',
+  compact: 'Compacto',
+  suggestions: 'Sugerencias',
+  single: 'Uno abierto',
+  bar: 'A todo el ancho',
+  shadow: 'Sombra',
   prefixIcon: 'Icono delante',
   suffixIcon: 'Icono detrás',
   iconOnly: 'Solo icono',

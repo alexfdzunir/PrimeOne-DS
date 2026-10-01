@@ -1,0 +1,117 @@
+/*
+ * AEM Checkbox (Figma "checkbox" and "check-item"): native input with a 16px box (inside a 20px area, 4px radius).
+ * Size LG (default, Small 1) or --sm (Caption). Group label, supporting text, --invalid and disabled inputs.
+ * Indeterminate with `data-indeterminate` (checkbox.js sets the property).
+ */
+
+.aem-checkbox {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-checkbox__legend {
+  padding: 0;
+  margin-bottom: var(--aem-unit-04);
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-3-line-height);
+}
+
+.aem-checkbox__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--aem-unit-04);
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-small-1-size);
+  line-height: var(--aem-typography-small-1-line-height);
+  cursor: pointer;
+}
+
+.aem-checkbox--sm .aem-checkbox__item {
+  font-size: var(--aem-typography-caption-size);
+  line-height: var(--aem-typography-caption-line-height);
+}
+
+.aem-checkbox__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.aem-checkbox__box {
+  --aem-checkbox-border: var(--aem-color-border-link-primary-default);
+  --aem-checkbox-fill: transparent;
+
+  position: relative;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--aem-unit-16);
+  height: var(--aem-unit-16);
+  margin: var(--aem-unit-02);
+  border-radius: var(--aem-size-border-radius-xs);
+  background: var(--aem-checkbox-fill);
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-checkbox-border);
+  color: var(--aem-color-icon-inverse-primary);
+  font-size: var(--aem-size-icon-xxs);
+  isolation: isolate;
+}
+
+.aem-checkbox--sm .aem-checkbox__box { margin-block: 0; }
+
+.aem-checkbox__box i { display: none; line-height: 1; }
+
+.aem-checkbox__item:hover .aem-checkbox__box { --aem-checkbox-border: var(--aem-color-border-link-primary-hover); }
+
+.aem-checkbox__input:focus-visible + .aem-checkbox__box {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-02);
+}
+
+.aem-checkbox__input:is(:checked, :indeterminate) + .aem-checkbox__box {
+  --aem-checkbox-border: transparent;
+  --aem-checkbox-fill: var(--aem-color-surface-tertiary);
+}
+.aem-checkbox__input:checked:not(:indeterminate) + .aem-checkbox__box .aem-checkbox__check,
+.aem-checkbox__input:indeterminate + .aem-checkbox__box .aem-checkbox__minus { display: block; }
+
+/* Hover over a checked box: the overlay layer */
+.aem-checkbox__item:hover .aem-checkbox__input:is(:checked, :indeterminate):not(:disabled) + .aem-checkbox__box::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--aem-color-surface-interactive-layer-hover);
+}
+
+/* Invalid */
+.aem-checkbox--invalid .aem-checkbox__input:not(:checked) + .aem-checkbox__box { --aem-checkbox-border: var(--aem-color-border-system-error-main); }
+
+/* Disabled */
+.aem-checkbox__item:has(.aem-checkbox__input:disabled) {
+  color: var(--aem-color-text-system-disabled-main);
+  cursor: not-allowed;
+}
+.aem-checkbox__input:disabled + .aem-checkbox__box { --aem-checkbox-border: var(--aem-color-border-system-disabled-main); }
+.aem-checkbox__input:disabled:is(:checked, :indeterminate) + .aem-checkbox__box {
+  --aem-checkbox-fill: var(--aem-color-surface-system-disabled-main);
+  color: var(--aem-color-icon-system-disabled-main);
+}
+
+.aem-checkbox__supporting {
+  margin: 0;
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+}
+.aem-checkbox--invalid .aem-checkbox__supporting { color: var(--aem-color-text-system-error-main); }

@@ -1,0 +1,88 @@
+/*
+ * AEM Notification (Figma "notification"): success (default), --error, --warning or --info. LG (default) with
+ * icon, title, description and link button; --sm keeps only the icon and title in a compact bar.
+ */
+
+.aem-notification {
+  --aem-notification-bg: var(--aem-color-surface-system-success-soft);
+  --aem-notification-border: var(--aem-color-border-system-success-main);
+  --aem-notification-accent: var(--aem-color-text-system-success-main);
+  --aem-notification-icon: var(--aem-color-icon-system-success-main);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-16);
+  padding: var(--aem-unit-20);
+  border-radius: var(--aem-size-border-radius-lg);
+  background: var(--aem-notification-bg);
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-notification-border);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-notification__head {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-08);
+}
+
+.aem-notification__icon {
+  flex-shrink: 0;
+  color: var(--aem-notification-icon);
+  font-size: var(--aem-size-icon-lg);
+  line-height: 1;
+}
+
+.aem-notification__title {
+  margin: 0;
+  color: var(--aem-notification-accent);
+  font-size: var(--aem-typography-headline-4-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-4-line-height);
+}
+
+.aem-notification__text {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+
+.aem-notification__link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: var(--aem-unit-04);
+  color: var(--aem-color-text-link-primary-default);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-unit-20);
+  text-decoration: none;
+}
+.aem-notification__link i { font-size: var(--aem-size-icon-xs); }
+.aem-notification__link:hover { color: var(--aem-color-text-link-primary-hover); }
+.aem-notification__link:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-02); border-radius: var(--aem-size-border-radius-xs); }
+
+.aem-notification--error {
+  --aem-notification-bg: var(--aem-color-surface-system-error-soft);
+  --aem-notification-border: var(--aem-color-border-system-error-main);
+  --aem-notification-accent: var(--aem-color-text-system-error-main);
+  --aem-notification-icon: var(--aem-color-icon-system-error-main);
+}
+.aem-notification--warning {
+  --aem-notification-bg: var(--aem-color-surface-system-warning-soft);
+  --aem-notification-border: var(--aem-color-border-system-warning-main);
+  --aem-notification-accent: var(--aem-color-text-system-warning-main);
+  --aem-notification-icon: var(--aem-color-icon-system-warning-strong);
+}
+.aem-notification--info {
+  --aem-notification-bg: var(--aem-color-surface-system-info-soft);
+  --aem-notification-border: var(--aem-color-border-system-info-main);
+  --aem-notification-accent: var(--aem-color-text-system-info-main);
+  --aem-notification-icon: var(--aem-color-icon-system-info-main);
+}
+
+/* SM: one line */
+.aem-notification--sm {
+  padding: var(--aem-unit-08) var(--aem-unit-12);
+  border-radius: var(--aem-size-border-radius-md);
+}

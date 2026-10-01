@@ -121,7 +121,35 @@ const META: Record<string, [icon: string, summary: string]> = {
 
 /** Same for AEM Portales, by story title. */
 const AEM_META: Record<string, [icon: string, summary: string]> = {
-  Button: ['cursor-click', 'Primario, secundario, ghost y outlined en tres tamaños, con icono, peligro y sobre fondo oscuro.'],
+  Button: ['cursor-click', 'Primario, secundario, ghost y outlined en tres tamaños, con icono y peligro.'],
+  'Download Button': ['file-arrow-down', 'Descarga de documentos con su tipo de archivo, solo o en grupo.'],
+  'Floating Button': ['chat-circle-dots', 'Acción principal flotante de la página.'],
+  Chip: ['tag-simple', 'Filtros y opciones que se activan al pulsarlos.'],
+  Checkbox: ['check-square', 'Casillas de selección múltiple.'],
+  'Radio Button': ['radio-button', 'Elección única entre varias opciones.'],
+  Toggle: ['toggle-right', 'Interruptor de activado o desactivado.'],
+  'Input Text': ['textbox', 'Campo de texto con etiqueta flotante y validación.'],
+  'Text Area': ['text-align-left', 'Texto largo con contador de caracteres.'],
+  Search: ['magnifying-glass', 'Buscador con sugerencias.'],
+  Dropdown: ['caret-circle-down', 'Desplegable de opción única o múltiple.'],
+  Filter: ['funnel', 'Filtros en píldora para listados.'],
+  'Date Picker': ['calendar-blank', 'Fecha con calendario desplegable.'],
+  Slider: ['sliders-horizontal', 'Valor numérico en un rango.'],
+  'Progress Spinner': ['spinner-gap', 'Indicador de carga.'],
+  Tag: ['tag', 'Etiqueta informativa con icono.'],
+  'Tag Set': ['tag-chevron', 'Modalidad y categorías de un contenido.'],
+  'Date Tag': ['calendar-check', 'Fecha de un evento con su modalidad.'],
+  Notification: ['bell-ringing', 'Avisos de éxito, error, aviso e información.'],
+  Ticker: ['ticket', 'Datos clave del programa bajo la cabecera.'],
+  Accordion: ['rows', 'Preguntas y contenido plegable.'],
+  Avatar: ['user-circle', 'Personas, solas o en grupo.'],
+  Card: ['cards', 'Noticias, eventos y programas con imagen.'],
+  'Data Table': ['table', 'Tablas de datos con cabecera y enlaces.'],
+  List: ['list-bullets', 'Listas con viñetas, números o iconos.'],
+  'Anchor Menu': ['list-dashes', 'Navegación por las secciones de la página.'],
+  Breadcrumb: ['caret-double-right', 'Ruta de la página actual.'],
+  Pagination: ['dots-three', 'Navegación entre páginas de resultados.'],
+  Tabs: ['tabs', 'Contenido organizado en pestañas.'],
 };
 
 export interface ComponentMeta {

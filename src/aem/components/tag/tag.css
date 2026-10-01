@@ -1,0 +1,63 @@
+/*
+ * AEM Info Tag (Figma "info-tag"): small label with an optional icon. Severity primary (default, info soft),
+ * --highlight (accent) or --subtle; --plain drops the fill (Fill=False). Inside .aem-dark or with --inverse it
+ * takes the inverse fill.
+ */
+
+.aem-tag {
+  --aem-tag-bg: var(--aem-color-surface-system-info-soft);
+  --aem-tag-color: var(--aem-color-text-primary);
+  --aem-tag-icon: var(--aem-color-icon-primary);
+
+  display: inline-flex;
+  align-items: center;
+  padding: var(--aem-unit-04);
+  border-radius: var(--aem-size-border-radius-sm);
+  background: var(--aem-tag-bg);
+  color: var(--aem-tag-color);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+  white-space: nowrap;
+}
+
+.aem-tag__icon {
+  color: var(--aem-tag-icon);
+  font-size: var(--aem-size-icon-xs);
+  line-height: 1;
+}
+
+.aem-tag__text { padding: 0 var(--aem-unit-04); }
+
+.aem-tag--highlight {
+  --aem-tag-bg: var(--aem-color-surface-accent);
+  --aem-tag-color: var(--aem-color-text-inverse-primary);
+  --aem-tag-icon: var(--aem-color-icon-inverse-primary);
+}
+
+.aem-tag--subtle {
+  --aem-tag-bg: var(--aem-color-specific-tag-surface);
+  --aem-tag-color: var(--aem-color-specific-tag-text);
+  --aem-tag-icon: var(--aem-color-specific-tag-icon);
+}
+
+.aem-tag--accelerator {
+  --aem-tag-bg: var(--aem-color-surface-inverse-accent);
+  --aem-tag-color: var(--aem-color-neutral-100);
+}
+
+.aem-tag--plain {
+  padding-inline: 0;
+  background: none;
+}
+.aem-tag--plain.aem-tag--highlight {
+  --aem-tag-color: var(--aem-color-text-accent);
+  --aem-tag-icon: var(--aem-color-icon-accent);
+}
+
+:is(.aem-tag--inverse, .aem-dark .aem-tag):not(.aem-tag--highlight, .aem-tag--accelerator) {
+  --aem-tag-bg: var(--aem-color-specific-tag-inverse-surface-primary);
+  --aem-tag-color: var(--aem-color-text-inverse-primary);
+  --aem-tag-icon: var(--aem-color-icon-inverse-primary);
+}

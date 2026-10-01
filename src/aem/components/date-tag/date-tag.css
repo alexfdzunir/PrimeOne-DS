@@ -1,0 +1,62 @@
+/*
+ * AEM Date Tag (Figma "date-tag"): event date card with the modality state tag, the day in Display 4 and the month
+ * and time. --range for day ranges; --past (Time=Past) folds it into one line.
+ */
+
+.aem-date-tag {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--aem-unit-02);
+  padding: var(--aem-unit-04) var(--aem-unit-08) var(--aem-unit-08);
+  border-radius: var(--aem-size-border-radius-sm);
+  background: var(--aem-color-surface-secondary);
+  box-shadow: var(--aem-shadow-default-bellow);
+  color: var(--aem-color-text-primary);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-date-tag__date {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-04);
+}
+
+.aem-date-tag__day {
+  font-size: var(--aem-typography-display-4-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: 1.875rem;
+  letter-spacing: var(--aem-typography-letter-spacing--1);
+}
+
+.aem-date-tag__dash {
+  font-size: var(--aem-typography-headline-4-size);
+  font-weight: var(--aem-typography-weight-medium);
+}
+
+.aem-date-tag__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+}
+
+.aem-date-tag__month {
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+}
+
+.aem-date-tag__time {
+  color: var(--aem-color-text-subtle);
+  font-size: var(--aem-typography-label-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-3-line-height);
+}
+
+/* Past: one line */
+.aem-date-tag--past .aem-date-tag__date { gap: var(--aem-unit-04); }
+.aem-date-tag--past :is(.aem-date-tag__day, .aem-date-tag__month) {
+  font-size: var(--aem-typography-label-3-size);
+  line-height: var(--aem-typography-label-3-line-height);
+  letter-spacing: 0;
+}
+.aem-date-tag--past .aem-date-tag__meta { flex-direction: row; }

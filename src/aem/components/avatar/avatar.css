@@ -1,0 +1,48 @@
+/*
+ * AEM Avatar (Figma "avatar" and "avatar-item"): round photo 40px (MD, default) or 24px (--sm) with a white
+ * outline, or a counter (+NN). --shadow swaps the outline for the shadow below. In a group they overlap 16px
+ * (8px in SM).
+ */
+
+.aem-avatar {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--aem-unit-40);
+  height: var(--aem-unit-40);
+  overflow: hidden;
+  border-radius: var(--aem-size-border-radius-full);
+  background: var(--aem-color-background-secondary);
+  box-shadow: 0 0 0 var(--aem-size-border-width-default) var(--aem-color-transparent-neutral-1000-95);
+  color: var(--aem-color-text-accent-soft);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-small-2-size);
+  font-weight: var(--aem-typography-weight-bold);
+  line-height: var(--aem-typography-small-2-line-height);
+}
+
+.aem-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Initials while there is no photo */
+.aem-avatar--initials {
+  background: var(--aem-color-blue-950);
+  color: var(--aem-color-blue-500);
+  font-size: var(--aem-typography-label-1-size);
+  font-weight: var(--aem-typography-weight-medium);
+}
+
+.aem-avatar--sm { width: var(--aem-unit-24); height: var(--aem-unit-24); font-size: var(--aem-typography-label-3-size); }
+.aem-avatar--shadow { box-shadow: var(--aem-shadow-default-bellow); }
+
+.aem-avatar-group {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.aem-avatar-group > * + * { margin-left: calc(var(--aem-unit-16) * -1); }
+.aem-avatar-group--sm > * + * { margin-left: calc(var(--aem-unit-08) * -1); }

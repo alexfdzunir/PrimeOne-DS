@@ -1,0 +1,77 @@
+/*
+ * AEM Chip (Figma "chip"): filter or choice pill. Secondary (default, 28px, Label 2) or --primary (40px, Label 1).
+ * Selected with aria-pressed="true": filled, with a close icon. Disabled with the `disabled` attribute.
+ */
+
+.aem-chip {
+  --aem-chip-border: var(--aem-color-specific-chip-border-enabled);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: var(--aem-unit-08) var(--aem-unit-12);
+  border: 0;
+  border-radius: var(--aem-size-border-radius-full);
+  background: transparent;
+  box-shadow: inset 0 0 0 var(--aem-size-border-width-default) var(--aem-chip-border);
+  color: var(--aem-color-specific-chip-content-enabled);
+  font-family: var(--aem-typography-family);
+  font-size: var(--aem-typography-label-2-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-label-2-line-height);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 150ms, box-shadow 150ms, color 150ms;
+}
+
+.aem-chip__icon {
+  display: none;
+  font-size: var(--aem-size-icon-xxs);
+  line-height: 1;
+}
+
+.aem-chip:hover {
+  --aem-chip-border: var(--aem-color-specific-chip-border-hover);
+  color: var(--aem-color-specific-chip-content-hover);
+}
+
+.aem-chip:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-01);
+}
+
+.aem-chip[aria-pressed='true'] {
+  --aem-chip-border: var(--aem-color-specific-chip-border-selected);
+  gap: var(--aem-unit-04);
+  background: var(--aem-color-specific-chip-surface-selected-secondary);
+  color: var(--aem-color-specific-chip-content-selected-secondary);
+}
+.aem-chip[aria-pressed='true'] .aem-chip__icon { display: inline; }
+
+/* Primary: larger, solid blue when selected */
+.aem-chip--primary {
+  padding: var(--aem-unit-12) var(--aem-unit-16);
+  font-size: var(--aem-typography-label-1-size);
+  line-height: var(--aem-typography-label-1-line-height);
+}
+.aem-chip--primary .aem-chip__icon { font-size: var(--aem-size-icon-sm); margin-block: -0.1875rem; }
+.aem-chip--primary[aria-pressed='true'] {
+  --aem-chip-border: transparent;
+  background: var(--aem-color-specific-chip-surface-selected-primary);
+  color: var(--aem-color-specific-chip-content-selected-primary);
+}
+
+.aem-chip:disabled {
+  --aem-chip-border: var(--aem-color-border-system-disabled-main);
+  background: transparent;
+  color: var(--aem-color-text-system-disabled-main);
+  cursor: not-allowed;
+}
+
+/* Group of chips */
+.aem-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--aem-unit-08);
+}

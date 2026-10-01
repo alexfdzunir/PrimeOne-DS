@@ -1,0 +1,61 @@
+/*
+ * AEM Search (Figma "search-item"): pill field with a magnifying glass. --compact starts as a 44px icon and opens
+ * to 184px on focus; the clear button shows with text; suggestions use the shared menu (styles/menu.css).
+ */
+
+.aem-search {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-search .aem-field {
+  padding: var(--aem-unit-12) var(--aem-unit-16);
+  border-radius: var(--aem-size-border-radius-full);
+}
+.aem-search .aem-field:focus-within { padding-block: var(--aem-unit-08); min-height: 2.75rem; }
+
+.aem-search__icon {
+  flex-shrink: 0;
+  color: var(--aem-color-icon-subtle);
+  font-size: var(--aem-size-icon-sm);
+  line-height: 1;
+}
+.aem-search:has(.aem-search__input:not(:placeholder-shown)) .aem-search__icon { color: var(--aem-color-icon-primary); }
+
+.aem-search__input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--aem-color-text-primary);
+  font: var(--aem-typography-weight-medium) var(--aem-typography-label-1-size) / var(--aem-typography-label-1-line-height) var(--aem-typography-family);
+}
+.aem-search__input::placeholder { color: var(--aem-color-text-subtle); }
+.aem-search__input::-webkit-search-cancel-button { display: none; }
+
+.aem-search__clear {
+  display: none;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--aem-color-icon-link-secondary-default);
+  font-size: var(--aem-size-icon-xs);
+  line-height: 1;
+  cursor: pointer;
+}
+.aem-search__clear:hover { color: var(--aem-color-icon-link-secondary-hover); }
+.aem-search:has(.aem-search__input:not(:placeholder-shown)) .aem-search__clear { display: block; }
+
+/* Compact: only the icon until it gets focus or text */
+.aem-search--compact { width: auto; }
+.aem-search--compact .aem-field { width: 2.75rem; padding-inline: var(--aem-unit-12); transition: width 200ms; }
+.aem-search--compact .aem-search__input { width: 0; }
+.aem-search--compact:is(:focus-within, :has(.aem-search__input:not(:placeholder-shown))) .aem-field { width: 11.5rem; padding-inline: var(--aem-unit-16); }
+
+.aem-search .aem-menu { min-width: 18.75rem; }

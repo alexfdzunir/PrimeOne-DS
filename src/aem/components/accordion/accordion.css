@@ -1,0 +1,94 @@
+/*
+ * AEM Accordion (Figma "accordion-set" and "accordion-item"): items with a bottom rule; the header has the title
+ * (Headline 5, link colours), an optional info tag and a 36px ghost toggle with plus or minus. MD (default) or
+ * --sm (Headline 6). accordion.js opens and closes the panels (aria-expanded).
+ */
+
+.aem-accordion {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--aem-typography-family);
+}
+
+.aem-accordion__item { box-shadow: inset 0 calc(var(--aem-size-border-width-default) * -1) var(--aem-color-border-subtle); }
+
+.aem-accordion__heading { margin: 0; }
+
+.aem-accordion__trigger {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-20);
+  width: 100%;
+  padding: var(--aem-unit-16) 0;
+  border: 0;
+  background: none;
+  color: var(--aem-color-text-link-secondary-default);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.aem-accordion__title {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--aem-unit-12);
+  min-width: 0;
+  font-size: var(--aem-typography-headline-5-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-5-line-height);
+}
+
+.aem-accordion__toggle {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--aem-size-border-radius-sm);
+  color: var(--aem-color-specific-button-ghost-on-surface);
+  font-size: var(--aem-size-icon-sm);
+  transition: background-color 150ms;
+}
+
+.aem-accordion__toggle .ph-minus,
+.aem-accordion__trigger[aria-expanded='true'] .aem-accordion__toggle .ph-plus { display: none; }
+.aem-accordion__trigger[aria-expanded='true'] .aem-accordion__toggle .ph-minus { display: block; }
+
+.aem-accordion__trigger:hover { color: var(--aem-color-text-link-secondary-hover); }
+.aem-accordion__trigger:hover .aem-accordion__toggle { background: var(--aem-color-specific-button-ghost-hover); }
+.aem-accordion__trigger[aria-expanded='true'] .aem-accordion__toggle { background: var(--aem-color-surface-interactive-fill-primary-active); }
+
+.aem-accordion__trigger:focus-visible {
+  outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main);
+  outline-offset: var(--aem-unit-02);
+  border-radius: var(--aem-size-border-radius-sm);
+}
+
+.aem-accordion__trigger:disabled { color: var(--aem-color-text-system-disabled-main); cursor: not-allowed; }
+.aem-accordion__trigger:disabled .aem-accordion__toggle { background: none; color: var(--aem-color-icon-system-disabled-main); }
+
+.aem-accordion__panel {
+  padding: 0 var(--aem-unit-64) var(--aem-unit-32) 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-body-size);
+  line-height: var(--aem-typography-body-line-height);
+}
+.aem-accordion__panel[hidden] { display: none; }
+.aem-accordion__panel > :first-child { margin-top: 0; }
+.aem-accordion__panel > :last-child { margin-bottom: 0; }
+
+/* SM */
+.aem-accordion--sm .aem-accordion__trigger { padding: var(--aem-unit-12) 0; }
+.aem-accordion--sm .aem-accordion__title {
+  font-size: var(--aem-typography-headline-6-size);
+  line-height: var(--aem-typography-headline-6-line-height);
+}
+
+@media (max-width: 767.98px) {
+  .aem-accordion__panel { padding-right: 0; }
+}
+
+/* Dark: the open toggle fill is light (sky), so its icon goes dark */
+:is(.aem-dark .aem-accordion) .aem-accordion__trigger[aria-expanded='true'] .aem-accordion__toggle { color: var(--aem-color-neutral-100); }
