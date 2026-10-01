@@ -25,7 +25,10 @@ export function initSearch(root = document) {
         item.hidden = !match;
         if (match) {
           shown++;
-          item.replaceChildren(label.slice(0, at), Object.assign(document.createElement('mark'), { textContent: label.slice(at, at + query.length) }), label.slice(at + query.length));
+          // One span, so the gap of the flex item does not split the text around the match
+          const text = document.createElement('span');
+          text.append(label.slice(0, at), Object.assign(document.createElement('mark'), { textContent: label.slice(at, at + query.length) }), label.slice(at + query.length));
+          item.replaceChildren(text);
         }
       });
       menu.hidden = shown === 0;

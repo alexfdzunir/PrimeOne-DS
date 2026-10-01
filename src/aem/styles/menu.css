@@ -43,6 +43,9 @@
   cursor: pointer;
 }
 
+/* `display: flex` would override the hidden attribute (filtered suggestions) */
+.aem-menu__item[hidden] { display: none; }
+
 .aem-menu__item + .aem-menu__item::before {
   content: '';
   position: absolute;
