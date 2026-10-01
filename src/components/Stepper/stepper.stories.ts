@@ -1,10 +1,11 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { Stepper, StepList, Step, StepPanels, StepPanel, StepItem } from 'primeng/stepper';
 import { Button } from 'primeng/button';
+import { PrimeOneStepListCenter } from './step-list-center';
 
 const meta: Meta = {
   title: 'Panel/Stepper',
-  decorators: [moduleMetadata({ imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, Button] })],
+  decorators: [moduleMetadata({ imports: [Stepper, StepList, Step, StepPanels, StepPanel, StepItem, Button, PrimeOneStepListCenter] })],
   parameters: {
     controls: { expanded: true },
     storyOrder: ['Default', 'Linear', 'Vertical'],
@@ -47,7 +48,7 @@ const meta: Meta = {
             </p-step-item>
           }
         } @else {
-          <p-step-list>
+          <p-step-list poCenterActive>
             @for (step of steps; track step.value) {
               <p-step [value]="step.value">{{ step.label }}</p-step>
             }

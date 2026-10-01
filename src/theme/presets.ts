@@ -136,6 +136,11 @@ const STEPPER_CSS = `
 .p-stepitem:has(~ .p-stepitem-active) .p-step-number { border-color: var(--p-primary-color); color: transparent; font-size: 0; }
 .p-step:has(~ .p-step-active) .p-step-number::before,
 .p-stepitem:has(~ .p-stepitem-active) .p-step-number::before { content: "\\e182"; font-family: "Phosphor"; font-size: 1rem; line-height: 1; color: var(--p-primary-color); }
+/* Mobile: steps closer together; the list scrolls (poCenterActive keeps the active step centred) */
+@media (max-width: 575.98px) {
+  .p-steplist { scrollbar-width: none; }
+  .p-steplist .p-step { flex: 0 0 auto; gap: 0.5rem; padding-inline: 0.25rem; }
+}
 `;
 
 /**
