@@ -304,3 +304,65 @@ export function eventCard(image: string, date: { day: string; month: string; yea
   const tag = `<div class="${cx('aem-date-tag', state === 'finalizado' && 'aem-date-tag--past')}"><span class="aem-state-tag aem-state-tag--${state}">${label}</span><span class="aem-date-tag__date"><span class="aem-date-tag__day">${date.day}</span><span class="aem-date-tag__meta"><span class="aem-date-tag__month">${date.month}</span><span class="aem-date-tag__time">${date.year}</span></span></span></div>`;
   return card({ title, text, fill: 'empty', image, overlay: tag, tags });
 }
+
+/** Pagination (pagination.js builds the page buttons). */
+export function pagination(page: number, pages: number): string {
+  return `<nav class="aem-pagination" aria-label="Paginación" data-pages="${pages}" data-page="${page}">
+  <ul class="aem-pagination__list">
+    <li><button class="aem-button aem-button--ghost aem-button--sm aem-button--icon-only" type="button" aria-label="Página anterior" data-aem-page="prev">${icon('caret-left', 'aem-button__icon')}</button></li>
+    <li><button class="aem-button aem-button--ghost aem-button--sm aem-button--icon-only" type="button" aria-label="Página siguiente" data-aem-page="next">${icon('caret-right', 'aem-button__icon')}</button></li>
+  </ul>
+</nav>`;
+}
+
+/** Newsletter banner (banner contact): heading beside the subscription form. */
+export function newsletter(title: string, text: string): string {
+  const input = (label: string, type = 'text') => `<div class="aem-field-host aem-input"><label class="aem-field"><span class="aem-field__control"><input class="aem-field__input" type="${type}" placeholder=" " /><span class="aem-field__label">${label}</span></span></label></div>`;
+  return `<div class="aem-banner aem-banner--contact">
+${indent(heading({ title, text }), 2)}
+  <form class="aem-banner__contact aem-form" action="#">
+    ${input('Nombre')}
+    ${input('Apellidos')}
+    <div class="aem-form__full">${input('Email', 'email')}</div>
+    <label class="aem-checkbox__item aem-form__full"><input class="aem-checkbox__input" type="checkbox" /><span class="aem-checkbox__box">${icon('check', 'aem-checkbox__check', 'bold')}${icon('minus', 'aem-checkbox__minus', 'bold')}</span><span>Deseo recibir información, también por WhatsApp, de UNIR y otras empresas educativas del Grupo Proeduca.</span></label>
+    <p class="aem-form__legal aem-form__full" tabindex="0">UNIVERSIDAD INTERNACIONAL DE LA RIOJA, S.A.U. (en adelante, "UNIR"), tratará los datos de carácter personal que usted ha proporcionado con la finalidad de: atender a su solicitud de información, reclamación, duda o sugerencia que realice sobre los productos y/o servicios ofrecidos por UNIR.</p>
+    <button class="aem-button aem-form__full" type="submit">Suscríbete gratis</button>
+  </form>
+</div>`;
+}
+
+/** Overlapping speaker photos for a caption. */
+export const speakers = (photos: string[]) => `<span class="aem-avatar-group">${photos.map((p) => `<span class="aem-avatar"><img src="${p}" alt="" /></span>`).join('')}</span>`;
+
+/** Tabs of the magazine: the portal areas. */
+export const MAGAZINE_TABS = ['Portada', 'Educación', 'Derecho', 'Ciencias Políticas y RRII', 'Empresa', 'Marketing', 'Ingeniería', 'Diseño', 'Artes', 'Música', 'Humanidades', 'Salud', 'CC. Sociales'];
+
+/** Closing sections shared by the listing pages: educational proposal and videos. */
+export const closing = () => [
+  section(
+    grid(
+      (
+        [
+          ['monitor', 'Docencia 100% Online', 'Nuestra metodología te permite estudiar sin desplazarte mediante un modelo de aprendizaje personalizado'],
+          ['chalkboard-teacher', 'Clases en directo', 'Nuestros profesores imparten 4.000 horas de clases online a la semana. Puedes asistir en directo o verlas en otro momento'],
+          ['users', 'Mentor - UNIR', 'En UNIR nunca estarás solo. Un tutor realizará un seguimiento individualizado y te ayudará en todo lo que necesites'],
+        ] as [string, string, string][]
+      ).map(([name, title, text]) => card({ icon: name, title, text })),
+      '20rem',
+    ),
+    { flush: true, heading: { title: 'UNIR, una propuesta educativa única' } },
+  ),
+  section(
+    grid(
+      (
+        [
+          ['video-fuerza-2', 'La fuerza que necesitas'],
+          ['video-graduacion-2', 'Graduación España 2024'],
+          ['video-acompanamiento-2', 'Acompañamiento personalizado'],
+        ] as [string, string][]
+      ).map(([file, title]) => card({ title, fill: 'image', image: pageImg(file), play: true, mediaHeight: '28.3125rem' })),
+      '20rem',
+    ),
+    { flush: true, heading: { title: 'Conoce UNIR' } },
+  ),
+];

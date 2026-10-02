@@ -198,3 +198,8 @@
 /* Info tag over the image and a logo in place of the icon (press cards) */
 .aem-card__media > .aem-tag { position: absolute; top: var(--aem-unit-16); left: var(--aem-unit-16); }
 .aem-card__logo { display: block; align-self: flex-start; width: auto; height: 2.8125rem; margin-bottom: var(--aem-unit-12); }
+
+/* News and events (Surface Fill=Empty): title up to 4 lines and text up to 3, as in the Figma pages */
+.aem-card--empty .aem-card__title { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 4; }
+.aem-card--empty .aem-card__description { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.aem-card__caption .aem-avatar-group { flex-shrink: 0; }
