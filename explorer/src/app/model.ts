@@ -50,6 +50,8 @@ export interface ComponentEntry {
   layout: LayoutKind;
   /** Suggested minimum height of the stage, from the story parameters. */
   height?: string;
+  /** Position in its section (`parameters.order`); entries without it go after, by title. */
+  order?: number;
   controls: ControlDef[];
   events: EventDef[];
   /** `Default` first. */

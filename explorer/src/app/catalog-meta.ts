@@ -177,6 +177,7 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   'Thank You': ['confetti', 'Agradecimiento tras enviar un formulario.'],
   Footer: ['rows-plus-bottom', 'Pie con contacto, enlaces y redes.'],
   Home: ['house', 'Home del portal con buscador, oferta, eventos y actualidad.'],
+  'Ficha MBA': ['graduation-cap', 'Ficha de programa con formulario lateral, plan de estudios y claustro.'],
 };
 
 export interface ComponentMeta {

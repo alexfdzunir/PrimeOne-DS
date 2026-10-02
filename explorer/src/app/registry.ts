@@ -84,6 +84,7 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
     codeImports,
     layout: meta.parameters?.['layout'] ?? 'padded',
     height: docs?.story?.height,
+    order: meta.parameters?.['order'],
     controls,
     events,
     presets,
@@ -109,6 +110,9 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
 /** All components of the DS, in catalogue order. */
 export function buildRegistry(): ComponentEntry[] {
   return STORY_MODULES.map(({ module, figmaUrl, imports, sources }) => toEntry(module as Record<string, unknown>, figmaUrl, imports, sources)).sort(
-    (a, b) => CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category) || a.title.localeCompare(b.title, 'es'),
+    (a, b) =>
+      CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category) ||
+      (a.order ?? Infinity) - (b.order ?? Infinity) ||
+      a.title.localeCompare(b.title, 'es'),
   );
 }

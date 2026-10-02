@@ -22,9 +22,9 @@
 }
 .aem-footer__contacts-title {
   margin: 0;
-  font-size: var(--aem-typography-headline-4-size);
+  font-size: var(--aem-typography-headline-5-size);
   font-weight: var(--aem-typography-weight-medium);
-  line-height: var(--aem-typography-headline-4-line-height);
+  line-height: var(--aem-typography-headline-5-line-height);
 }
 .aem-footer__contacts-links { display: flex; flex-wrap: wrap; gap: var(--aem-unit-12) var(--aem-unit-32); margin: 0; padding: 0; list-style: none; }
 

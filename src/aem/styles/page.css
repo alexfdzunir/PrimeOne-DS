@@ -52,3 +52,10 @@
 
 /* Cards fill their grid cell (the Card caps its width at 400px on its own) */
 :is(.aem-grid, .aem-featured) .aem-card { max-width: none; }
+
+/* Programme page (Figma "Ficha"): content column beside the 320px sticky request form; the form goes below on tablet */
+.aem-page__aside-layout { display: grid; grid-template-columns: minmax(0, 1fr) 20rem; }
+.aem-page__aside-layout > aside { position: relative; }
+@media (max-width: 1023.98px) {
+  .aem-page__aside-layout { grid-template-columns: minmax(0, 1fr); }
+}

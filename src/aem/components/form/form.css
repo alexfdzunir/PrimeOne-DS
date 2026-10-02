@@ -23,12 +23,11 @@
 .aem-form > .aem-form__full { grid-column: 1 / -1; }
 
 .aem-form__legal {
-  max-height: 6rem;
+  max-height: 3.25rem;
   margin: 0;
-  padding: var(--aem-unit-12);
+  padding: var(--aem-unit-12) 0 0;
   overflow-y: auto;
-  border: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
-  border-radius: var(--aem-size-border-radius-sm);
+  border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
   color: var(--aem-color-text-secondary);
   font-size: var(--aem-typography-caption-size);
   line-height: var(--aem-typography-caption-line-height);
@@ -38,3 +37,55 @@
 
 @media (max-width: 1023.98px) { .aem-form-module { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 575.98px) { .aem-form { grid-template-columns: minmax(0, 1fr); } }
+
+/*
+ * Sidebar form (Figma "form_contextual_portal", Type=Ficha): 320px column beside a programme page. Dark band
+ * with the offer (accelerator items), then the request form on the light grey, sticky while the page scrolls.
+ */
+.aem-form-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--aem-color-background-secondary);
+  font-family: var(--aem-typography-family);
+}
+
+.aem-form-panel__promo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-04);
+  margin: 0;
+  padding: var(--aem-unit-20) var(--aem-unit-24);
+  background: var(--aem-color-surface-inverse-primary);
+  color: var(--aem-color-text-inverse-primary);
+  list-style: none;
+}
+.aem-form-panel__promo li {
+  display: flex;
+  align-items: center;
+  gap: var(--aem-unit-04);
+  padding: var(--aem-unit-04) 0;
+  font-size: var(--aem-typography-label-2-size);
+  line-height: var(--aem-typography-label-2-line-height);
+}
+.aem-form-panel__promo i { font-size: var(--aem-size-icon-xs); }
+.aem-form-panel__promo .is-highlight { color: var(--aem-color-text-inverse-accent); }
+
+.aem-form-panel__body {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--aem-unit-20);
+  padding: var(--aem-unit-32) var(--aem-unit-24);
+}
+.aem-form-panel__title {
+  margin: 0;
+  color: var(--aem-color-text-primary);
+  font-size: var(--aem-typography-headline-3-size);
+  font-weight: var(--aem-typography-weight-medium);
+  line-height: var(--aem-typography-headline-3-line-height);
+}
+.aem-form-panel__fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--aem-unit-08); }
+.aem-form-panel__fields > :not(.aem-form-panel__half) { grid-column: 1 / -1; }
+.aem-form-panel .aem-button { width: 100%; }

@@ -8,7 +8,11 @@ export function initAnchorMenu(root = document) {
     const links = [...menu.querySelectorAll('.aem-anchor-menu__link')];
     const setCurrent = (link) => {
       links.forEach((other) => (other === link ? other.setAttribute('aria-current', 'true') : other.removeAttribute('aria-current')));
-      link.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      // Only the bar scrolls (scrollIntoView would also scroll the page)
+      const list = link.closest('.aem-anchor-menu__list') || menu;
+      const box = list.getBoundingClientRect();
+      const item = link.getBoundingClientRect();
+      if (item.left < box.left || item.right > box.right) list.scrollBy({ left: item.left - box.left - (box.width - item.width) / 2, behavior: 'smooth' });
     };
     links.forEach((link) => link.addEventListener('click', () => setCurrent(link)));
     const targets = links.map((link) => document.getElementById(decodeURIComponent((link.hash || '').slice(1)))).filter(Boolean);

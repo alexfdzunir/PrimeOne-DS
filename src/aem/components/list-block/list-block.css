@@ -49,3 +49,22 @@
   font-size: var(--aem-typography-label-1-size);
   line-height: var(--aem-typography-label-1-line-height);
 }
+
+/*
+ * Profile list (Figma "list/content-list"): people with an 84px photo, role, name and a short bio, split by
+ * dividers and grouped under a Headline 5 title (faculty of a programme).
+ */
+.aem-profiles { display: flex; flex-direction: column; gap: var(--aem-unit-40); font-family: var(--aem-typography-family); }
+.aem-profiles__group { display: flex; flex-direction: column; gap: var(--aem-unit-16); }
+.aem-profiles__title { margin: 0; color: var(--aem-color-text-primary); font-size: var(--aem-typography-headline-5-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-typography-headline-5-line-height); }
+.aem-profiles__list { margin: 0; padding: 0; list-style: none; }
+.aem-profile { display: flex; gap: var(--aem-unit-16); padding: var(--aem-unit-24) 0; }
+.aem-profile + .aem-profile { border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle); }
+.aem-profile__photo { flex-shrink: 0; width: 5.25rem; height: 5.25rem; overflow: hidden; border-radius: var(--aem-size-border-radius-sm); background: var(--aem-color-surface-primary); }
+.aem-profile__photo > * { display: block; width: 100%; height: 100%; object-fit: cover; }
+.aem-profile__body { display: flex; flex-direction: column; gap: var(--aem-unit-08); }
+.aem-profile__role { margin: 0; color: var(--aem-color-text-subtle); font-size: var(--aem-typography-label-2-size); line-height: var(--aem-unit-16); }
+.aem-profile__name { margin: 0; color: var(--aem-color-text-primary); font-size: var(--aem-typography-headline-6-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-typography-headline-6-line-height); }
+.aem-profile__name a { color: inherit; text-decoration: none; }
+.aem-profile__name a:hover { color: var(--aem-color-text-link-secondary-hover); }
+.aem-profile__text { margin: var(--aem-unit-08) 0 0; color: var(--aem-color-text-secondary); font-size: var(--aem-typography-label-2-size); line-height: var(--aem-typography-caption-line-height); }

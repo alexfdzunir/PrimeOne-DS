@@ -19,9 +19,9 @@
 .aem-testimonial__quote {
   margin: 0;
   color: var(--aem-color-text-primary);
-  font-size: var(--aem-typography-headline-2-size);
+  font-size: var(--aem-typography-headline-3-size);
   font-weight: var(--aem-typography-weight-medium);
-  line-height: var(--aem-typography-headline-2-line-height);
+  line-height: var(--aem-typography-headline-3-line-height);
 }
 
 .aem-testimonial__profile { display: flex; align-items: center; gap: var(--aem-unit-20); }
@@ -30,3 +30,17 @@
 .aem-testimonial__who { display: flex; flex-direction: column; gap: var(--aem-unit-08); }
 .aem-testimonial__name { color: var(--aem-color-text-primary); font-size: var(--aem-typography-headline-6-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-typography-headline-6-line-height); font-style: normal; }
 .aem-testimonial__role { color: var(--aem-color-text-secondary); font-size: var(--aem-typography-small-1-size); line-height: var(--aem-typography-small-1-line-height); }
+
+/*
+ * Reviews (Figma "testimonial-list"): average rating with stars and a list of reviews, each one with the quote in
+ * Headline 4, the stars and the name.
+ */
+.aem-reviews { display: flex; flex-direction: column; gap: var(--aem-unit-48); font-family: var(--aem-typography-family); }
+.aem-stars { display: flex; gap: var(--aem-unit-02); margin: 0; color: var(--aem-color-icon-link-primary-default); font-size: var(--aem-size-icon-xs); }
+.aem-reviews__summary { display: flex; flex-direction: column; gap: var(--aem-unit-12); }
+.aem-reviews__average { margin: 0; color: var(--aem-color-text-primary); font-size: var(--aem-typography-label-1-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-unit-20); }
+.aem-reviews__note { margin: calc(var(--aem-unit-08) * -1) 0 0; color: var(--aem-color-text-secondary); font-size: var(--aem-typography-caption-size); line-height: var(--aem-typography-caption-line-height); }
+.aem-reviews__list { display: flex; flex-direction: column; gap: var(--aem-unit-48); margin: 0; padding: 0; list-style: none; }
+.aem-review { display: flex; flex-direction: column; gap: var(--aem-unit-24); margin: 0; }
+.aem-review__quote { margin: 0; color: var(--aem-color-text-primary); font-size: var(--aem-typography-headline-4-size); line-height: var(--aem-typography-headline-4-line-height); }
+.aem-review__name { color: var(--aem-color-text-primary); font-size: var(--aem-typography-label-1-size); font-style: normal; font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-unit-20); }

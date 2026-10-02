@@ -176,6 +176,7 @@ const meta: Meta = {
   title: 'AEM/Pages/Home',
   parameters: {
     figmaUrl: pagesFigma('2006:44285'),
+    order: 0,
     layout: 'fullscreen',
     docs: {
       description: {

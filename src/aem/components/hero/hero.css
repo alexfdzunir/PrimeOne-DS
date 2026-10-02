@@ -60,9 +60,10 @@
 /* Ficha: key data */
 .aem-hero__data {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+  row-gap: var(--aem-unit-12);
   margin: 0;
-  padding: var(--aem-unit-12);
+  padding: var(--aem-unit-12) var(--aem-unit-04);
 }
 .aem-hero__data > div {
   display: flex;
