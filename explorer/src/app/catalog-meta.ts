@@ -180,6 +180,7 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   'Ficha MBA': ['graduation-cap', 'Ficha de programa con formulario lateral, plan de estudios y claustro.'],
   'Ficha Grado Educación': ['student', 'Ficha de grado con menciones, banner de oposiciones y claustro.'],
   Facultad: ['buildings', 'Facultad con áreas, oferta, eventos, actualidad y claustro.'],
+  'Área Estudio': ['books', 'Área de estudio con titulaciones destacadas, eventos y recursos.'],
 };
 
 export interface ComponentMeta {
