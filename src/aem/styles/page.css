@@ -59,3 +59,16 @@
 @media (max-width: 1023.98px) {
   .aem-page__aside-layout { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Article (news page): lead paragraph, figure with caption and body text in the 864px column */
+.aem-article { display: flex; flex-direction: column; gap: var(--aem-unit-24); max-width: 54rem; }
+.aem-article__lead { margin: 0; color: var(--aem-color-text-primary); font-size: var(--aem-typography-headline-4-size); line-height: var(--aem-typography-headline-4-line-height); }
+.aem-article__figure { margin: 0; }
+.aem-article__figure img { display: block; width: 100%; border-radius: var(--aem-size-border-radius-md); }
+.aem-article__figure figcaption { margin-top: var(--aem-unit-08); color: var(--aem-color-text-secondary); font-size: var(--aem-typography-caption-size); line-height: var(--aem-typography-caption-line-height); }
+.aem-article .aem-rich-text p { margin-bottom: var(--aem-unit-16); }
+/* Hero of a news page: author and date on the left, share on the right, under a rule */
+.aem-hero__byline { display: flex; align-items: center; justify-content: space-between; gap: var(--aem-unit-16); padding-top: var(--aem-unit-24); border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-inverse-subtle); color: var(--aem-color-text-inverse-primary); font-size: var(--aem-typography-label-1-size); }
+.aem-hero__byline > span { display: inline-flex; align-items: center; gap: var(--aem-unit-08); }
+.aem-carousel__track > .aem-gallery-slide { width: 24rem; max-width: 80vw; }
+.aem-gallery-slide img { aspect-ratio: 3 / 4; object-fit: cover; }

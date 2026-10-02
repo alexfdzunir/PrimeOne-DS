@@ -366,3 +366,50 @@ export const closing = () => [
     { flush: true, heading: { title: 'Conoce UNIR' } },
   ),
 ];
+
+/** Hero of a news page: breadcrumb, category, title and the author, date and share row. */
+export function newsHero(crumbs: string[], category: string, title: string, author: string, date: string): string {
+  return hero({
+    crumbs,
+    pretitle: category.toUpperCase(),
+    title,
+    after: `<div class="aem-hero__byline">
+  <span>${author} <span aria-hidden="true">|</span> ${icon('calendar-blank')} ${date}</span>
+  <button class="aem-link-button aem-link-button--inverse" type="button">Compártelo ${icon('export')}</button>
+</div>`,
+  });
+}
+
+/** Share banner of an article. */
+export function shareBanner(label: string): string {
+  return `<div class="aem-share">
+  <p class="aem-share__label">${label}</p>
+  <ul class="aem-share__links">
+${(
+  [
+    ['facebook-logo', 'Facebook'],
+    ['x-logo', 'X'],
+    ['linkedin-logo', 'LinkedIn'],
+    ['whatsapp-logo', 'WhatsApp'],
+  ] as [string, string][]
+)
+  .map(([name, net]) => `    <li><a class="aem-button aem-button--ghost aem-button--icon-only" href="#" aria-label="Compartir en ${net}">${icon(name, 'aem-button__icon')}</a></li>`)
+  .join('\n')}
+    <li><button class="aem-button aem-button--ghost aem-button--icon-only aem-share__copy" type="button" aria-label="Copiar enlace" data-aem-share-copy>${icon('link', 'aem-button__icon')}</button></li>
+  </ul>
+</div>`;
+}
+
+/** Sidebar form of a news page (Figma form_contextual_portal Type=Noticia). */
+export function newsFormPanel(): string {
+  return formPanel([])
+    .replace(/\s*<ul class="aem-form-panel__promo">\s*<\/ul>/, '')
+    .replace(/\s*<div class="aem-field-host aem-input"><label class="aem-field"><span class="aem-field__control"><input class="aem-field__input" type="text" placeholder=" " \/><span class="aem-field__label">Fecha de nacimiento<\/span>.*?<\/div>/, '')
+    .replace('<span class="aem-field__label">Código postal</span>', '<span class="aem-field__label">Provincia</span>')
+    .replace('<div class="aem-form-panel__fields">', `<div class="aem-form-panel__fields">
+      <div class="aem-field-host aem-dropdown" data-aem-dropdown><button class="aem-field aem-dropdown__trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="aem-field__control"><span class="aem-dropdown__value" data-aem-dropdown-value></span><span class="aem-field__label">Tipo de estudios</span></span>${icon('caret-down', 'aem-dropdown__caret')}</button></div>
+      <div class="aem-field-host aem-dropdown" data-aem-dropdown><button class="aem-field aem-dropdown__trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span class="aem-field__control"><span class="aem-dropdown__value" data-aem-dropdown-value></span><span class="aem-field__label">Título que te interesa</span></span>${icon('caret-down', 'aem-dropdown__caret')}</button></div>`);
+}
+
+/** Tabs of the news section. */
+export const NEWS_TABS = ['Toda la actualidad', 'Vida Académica', 'Estudiantes', 'Profesores', 'Investigación', 'Internacional', 'RSC', 'Cultura'];

@@ -183,6 +183,9 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   'Área Estudio': ['books', 'Área de estudio con titulaciones destacadas, eventos y recursos.'],
   Revista: ['newspaper', 'Portada de la revista con artículos y agenda.'],
   'Revista Categoría': ['newspaper-clipping', 'Categoría de la revista con artículos, paginación y newsletter.'],
+  Noticia: ['article', 'Noticia con entradilla, cuerpo, galería y formulario lateral.'],
+  Actualidad: ['broadcast', 'Portada de actualidad con noticias, agenda y compromiso social.'],
+  'Actualidad Categoría': ['list-dashes', 'Categoría de actualidad con rejilla de noticias y paginación.'],
 };
 
 export interface ComponentMeta {
