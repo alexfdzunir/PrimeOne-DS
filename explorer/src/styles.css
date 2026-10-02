@@ -66,6 +66,9 @@ html.po-frame-doc body {
 
 html.po-frame-doc {
   background: var(--p-content-background);
+  /* The iframe always has the height of its content: its own document never scrolls, so the wheel scrolls the
+     stage even while the height is catching up (images loading) */
+  overflow: hidden;
 }
 
 /* Shell: navbar on top of catalogue | stage | controls. The side columns collapse to 0. */
