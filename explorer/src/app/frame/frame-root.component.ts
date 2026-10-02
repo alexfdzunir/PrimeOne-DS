@@ -5,6 +5,7 @@ import { describe } from '../explorer-state';
 import { collectTokens } from './collect-tokens';
 import { clearOverlay, measure, trackPointer } from './measure';
 import { initAem } from '../../../../src/aem/aem.js';
+import { linkPages } from './page-links';
 import type { ComponentEntry, RenderedStory } from '../model';
 import { buildRegistry } from '../registry';
 import { StoryHostComponent } from '../story-host.component';
@@ -95,6 +96,16 @@ export class FrameRootComponent {
     window.addEventListener('message', onMessage);
     destroyRef.onDestroy(() => window.removeEventListener('message', onMessage));
 
+    // AEM page templates: a link to another template opens it in the explorer (new tab and modifiers keep the browser default)
+    const onClick = (event: MouseEvent) => {
+      const link = (event.target as Element | null)?.closest<HTMLElement>('[data-po-page]');
+      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      post({ type: 'navigate', id: link.dataset['poPage']! });
+    };
+    document.addEventListener('click', onClick);
+    destroyRef.onDestroy(() => document.removeEventListener('click', onClick));
+
     effect(() => {
       const request = this.request();
       if (!request) return;
@@ -132,6 +143,7 @@ export class FrameRootComponent {
         if (records.every((r) => own(r.target) || [...Array.from(r.addedNodes), ...Array.from(r.removedNodes)].some(own))) return;
         // AEM Portales components get their behaviour (each one initialises once)
         if (this.entry()?.ds === 'aem') initAem(document);
+        if (this.entry()?.category === 'aem-pages') linkPages(document, this.entry()!.id);
         schedule();
         this.scheduleTokens();
         this.scheduleMeasure();

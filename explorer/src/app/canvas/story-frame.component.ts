@@ -32,6 +32,7 @@ export class StoryFrameComponent {
       else if (data.type === 'event') this.state.logEvent(data.name, data.payload);
       else if (data.type === 'tokens') this.state.tokens.set(data.tokens);
       else if (data.type === 'measure') this.state.measure.set(data.data);
+      else if (data.type === 'navigate') this.navigate(data.id);
     };
     window.addEventListener('message', onMessage);
     inject(DestroyRef).onDestroy(() => window.removeEventListener('message', onMessage));
@@ -52,5 +53,14 @@ export class StoryFrameComponent {
       const message: InspectMessage = { source: 'po-explorer', type: 'inspect', ...this.state.inspect() };
       if (this.ready()) this.iframe().nativeElement.contentWindow?.postMessage(message, location.origin);
     });
+  }
+
+  /** Link between page templates: opens the other page from its top. */
+  private navigate(id: string): void {
+    this.state.select(id);
+    for (let el: HTMLElement | null = this.iframe().nativeElement.parentElement; el; el = el.parentElement) {
+      if (el.scrollTop) el.scrollTop = 0;
+    }
+    scrollTo({ top: 0 });
   }
 }

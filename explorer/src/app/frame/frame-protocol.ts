@@ -25,13 +25,14 @@ export interface InspectMessage {
   hover: number | null;
 }
 
-/** Frame -> explorer: lifecycle, content height, story events and the design tokens in use. */
+/** Frame -> explorer: lifecycle, content height, story events, the design tokens in use and links between page templates. */
 export type FrameMessage =
   | { source: 'po-frame'; type: 'ready' }
   | { source: 'po-frame'; type: 'size'; height: number }
   | { source: 'po-frame'; type: 'event'; name: string; payload: string }
   | { source: 'po-frame'; type: 'tokens'; tokens: TokenRecord[] }
-  | { source: 'po-frame'; type: 'measure'; data: MeasureData };
+  | { source: 'po-frame'; type: 'measure'; data: MeasureData }
+  | { source: 'po-frame'; type: 'navigate'; id: string };
 
 export function isFrameMode(): boolean {
   return new URLSearchParams(location.search).has('frame');
