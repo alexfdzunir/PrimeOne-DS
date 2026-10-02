@@ -186,6 +186,9 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   Noticia: ['article', 'Noticia con entradilla, cuerpo, galería y formulario lateral.'],
   Actualidad: ['broadcast', 'Portada de actualidad con noticias, agenda y compromiso social.'],
   'Actualidad Categoría': ['list-dashes', 'Categoría de actualidad con rejilla de noticias y paginación.'],
+  Distributiva: ['funnel', 'Oferta académica con filtros laterales y resultados.'],
+  Eventos: ['calendar-dots', 'Listado de eventos con filtros, tipos y eventos pasados.'],
+  'Evento Detalle': ['calendar-check', 'Detalle de evento con ponentes y formulario de inscripción.'],
 };
 
 export interface ComponentMeta {

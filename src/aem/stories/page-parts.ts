@@ -298,7 +298,7 @@ ${labels.map((label, i) => `    <button class="aem-tabs__tab" type="button" role
 }
 
 /** Event card (Surface Fill=Empty): image with the date tag, title, text and tags. */
-export function eventCard(image: string, date: { day: string; month: string; year: string; state?: 'online' | 'presencial' | 'finalizado' }, title: string, text: string, tags: string[]): string {
+export function eventCard(image: string | true, date: { day: string; month: string; year: string; state?: 'online' | 'presencial' | 'finalizado' }, title: string, text: string, tags: string[]): string {
   const state = date.state ?? 'online';
   const label = { online: 'Online', presencial: 'Presencial', finalizado: 'Finalizado' }[state];
   const tag = `<div class="${cx('aem-date-tag', state === 'finalizado' && 'aem-date-tag--past')}"><span class="aem-state-tag aem-state-tag--${state}">${label}</span><span class="aem-date-tag__date"><span class="aem-date-tag__day">${date.day}</span><span class="aem-date-tag__meta"><span class="aem-date-tag__month">${date.month}</span><span class="aem-date-tag__time">${date.year}</span></span></span></div>`;
@@ -413,3 +413,22 @@ export function newsFormPanel(): string {
 
 /** Tabs of the news section. */
 export const NEWS_TABS = ['Toda la actualidad', 'Vida Académica', 'Estudiantes', 'Profesores', 'Investigación', 'Internacional', 'RSC', 'Cultura'];
+
+/** Group of checkboxes in a filter sidebar: [label, checked][]. */
+export function filterGroup(title: string, options: [string, boolean?][]): string {
+  return `<details class="aem-listing__group" open>
+  <summary>${title} ${icon('caret-up')}</summary>
+  <fieldset class="aem-checkbox aem-checkbox--sm">
+    <legend class="aem-visually-hidden">${title}</legend>
+${options.map(([label, checked]) => `    <label class="aem-checkbox__item"><input class="aem-checkbox__input" type="checkbox"${checked ? ' checked' : ''} /><span class="aem-checkbox__box">${icon('check', 'aem-checkbox__check', 'bold')}${icon('minus', 'aem-checkbox__minus', 'bold')}</span><span>${label}</span></label>`).join('\n')}
+  </fieldset>
+</details>`;
+}
+
+/** Row of filters with search (Figma "filters_module", Type=Row): [label, icon][]. */
+export function filterRow(filters: string[]): string {
+  return `<div class="aem-section" style="padding-block: 0"><div class="aem-section__inner aem-filter-module"><div class="aem-filter-module__bar">
+  <button class="aem-button aem-button--secondary aem-button--icon-only" type="button" aria-label="Buscar">${icon('magnifying-glass', 'aem-button__icon')}</button>
+${filters.map((label) => `  <div class="aem-filter" data-aem-dropdown><button class="aem-field aem-filter__trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span>${label}</span>${icon('caret-down', 'aem-filter__caret')}</button></div>`).join('\n')}
+</div></div></div>`;
+}

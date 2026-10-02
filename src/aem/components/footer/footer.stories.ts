@@ -47,7 +47,8 @@ const meta: Meta = {
       ? `  <div class="aem-footer__contacts">
     <p class="aem-footer__contacts-title">Contacta con UNIR</p>
     <ul class="aem-footer__contacts-links">
-      <li><a class="aem-link-button" href="#">${icon('phone-call')} +34 941 209 743</a></li>
+      <li><a class="aem-link-button" href="#">${icon('phone')} +34 941 209 743</a></li>
+      <li><a class="aem-link-button" href="#">${icon('user')} ¿Te llamamos?</a></li>
       <li><a class="aem-link-button" href="#">${icon('envelope-simple-open')} info@unir.net</a></li>
     </ul>
   </div>\n`

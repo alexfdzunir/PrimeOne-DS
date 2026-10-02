@@ -72,3 +72,25 @@
 .aem-hero__byline > span { display: inline-flex; align-items: center; gap: var(--aem-unit-08); }
 .aem-carousel__track > .aem-gallery-slide { width: 24rem; max-width: 80vw; }
 .aem-gallery-slide img { aspect-ratio: 3 / 4; object-fit: cover; }
+
+/* Listing with filters (Figma "filters_module" sidebar + "filter-results_module"): 320px column of checkbox groups beside the results */
+.aem-listing { display: grid; grid-template-columns: 20rem minmax(0, 1fr); background: var(--aem-color-background-primary); }
+.aem-listing__filters { display: flex; flex-direction: column; gap: var(--aem-unit-24); padding: var(--aem-unit-40) var(--aem-unit-24) var(--aem-unit-40) var(--aem-layout-section-horizontal-padding); border-right: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle); }
+.aem-listing__title { margin: 0; color: var(--aem-color-text-primary); font-size: var(--aem-typography-headline-5-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-typography-headline-5-line-height); }
+.aem-listing__group > summary { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--aem-unit-12); color: var(--aem-color-text-primary); font-size: var(--aem-typography-label-1-size); font-weight: var(--aem-typography-weight-medium); cursor: pointer; list-style: none; }
+.aem-listing__group > summary::-webkit-details-marker { display: none; }
+.aem-listing__group > summary i { transition: transform 150ms; }
+.aem-listing__group:not([open]) > summary i { transform: rotate(180deg); }
+.aem-listing__results { display: flex; flex-direction: column; gap: var(--aem-unit-24); padding: var(--aem-unit-40) var(--aem-layout-section-horizontal-padding) var(--aem-unit-64) var(--aem-unit-40); }
+.aem-listing__count { margin: calc(var(--aem-unit-20) * -1) 0 0; color: var(--aem-color-text-secondary); font-size: var(--aem-typography-small-1-size); }
+.aem-listing__chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--aem-unit-08); }
+.aem-listing__chips .aem-link-button { margin-left: auto; }
+@media (max-width: 1023.98px) {
+  .aem-listing { grid-template-columns: minmax(0, 1fr); }
+  .aem-listing__filters { border-right: 0; border-bottom: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle); padding-right: var(--aem-layout-section-horizontal-padding); }
+  .aem-listing__results { padding-left: var(--aem-layout-section-horizontal-padding); }
+}
+.aem-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.aem-listing__results .aem-list > li { font-size: var(--aem-typography-small-1-size); line-height: var(--aem-typography-small-1-line-height); }
+.aem-listing__results .aem-list a { color: var(--aem-color-text-primary); text-decoration: none; }
+.aem-listing__results .aem-list a:hover { color: var(--aem-color-text-link-secondary-hover); text-decoration: underline; }

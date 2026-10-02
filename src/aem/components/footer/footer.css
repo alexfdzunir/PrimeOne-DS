@@ -1,5 +1,5 @@
 /*
- * AEM Footer (Figma "footer_module"): optional contact band ("Contacta con UNIR") over the dark footer: logo,
+ * AEM Footer (Figma "footer_module"): optional blue contact band ("Contacta con UNIR") over the dark footer: logo,
  * contact links on the left and three link columns on the right, the row of accreditation logos between two
  * rules, and the social links with the copyright at the bottom. Columns wrap on tablet and stack on mobile.
  */
@@ -17,9 +17,10 @@
   justify-content: space-between;
   gap: var(--aem-unit-16) var(--aem-unit-32);
   padding: var(--aem-unit-40) var(--aem-layout-section-horizontal-padding);
-  background: var(--aem-color-background-secondary);
-  color: var(--aem-color-text-primary);
+  background: var(--aem-color-surface-tertiary);
+  color: var(--aem-color-text-on-fill, var(--aem-color-text-inverse-primary));
 }
+.aem-footer__contacts .aem-link-button { color: inherit; }
 .aem-footer__contacts-title {
   margin: 0;
   font-size: var(--aem-typography-headline-5-size);
