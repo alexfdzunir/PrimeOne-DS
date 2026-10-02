@@ -23,8 +23,9 @@ ${indent(heading({ title: args['title'] }), 4)}
 ${ITEMS.slice(0, count).map((item) => `      <li>${item}</li>`).join('\n')}
     </ul>
     <div class="aem-list-block__actions">
-      <a class="aem-button aem-button--outlined" href="#">Ver todos los grados</a>
-      <a class="aem-link-button" href="#">Ver ${ITEMS.length - count + 20} resultados más ${icon('caret-right')}</a>
+      <a class="aem-button aem-button--outlined aem-button--lg" href="#">Ver todos los grados</a>
+      <a class="aem-link-button" href="#">Ver más resultados ${icon('caret-right')}</a>
+      <p class="aem-list-block__count">Has visto ${count} de ${count + 20} resultados</p>
     </div>
   </div>
 </section>`,

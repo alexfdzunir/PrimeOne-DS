@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--aem-unit-16);
-  max-width: 38rem;
+  max-width: 46.25rem;
 }
 
 .aem-hero__pretitle {

@@ -11,18 +11,20 @@
 
 .aem-hero-home__inner {
   display: grid;
-  grid-template-columns: minmax(0, 33rem) minmax(0, 1fr);
-  gap: var(--aem-unit-56);
+  grid-template-columns: minmax(0, 30.25rem) minmax(0, 1fr);
+  gap: var(--aem-unit-16);
   align-items: center;
   max-width: 80rem;
   margin: 0 auto;
-  padding: var(--aem-unit-56) 0;
+  padding: var(--aem-unit-56) 0 var(--aem-unit-96);
 }
 
 .aem-hero-home__content {
   display: flex;
   flex-direction: column;
-  gap: var(--aem-unit-24);
+  gap: var(--aem-unit-32);
+  min-height: 22.5rem;
+  padding-right: var(--aem-unit-64);
 }
 
 .aem-hero-home__title {
@@ -36,15 +38,15 @@
 .aem-hero-home__text {
   margin: 0;
   color: var(--aem-color-text-inverse-secondary);
-  font-size: var(--aem-typography-small-1-size);
-  line-height: var(--aem-typography-small-1-line-height);
+  font-size: var(--aem-typography-headline-6-size);
+  line-height: var(--aem-typography-headline-6-line-height);
 }
 
 .aem-hero-home__logos {
   display: flex;
   flex-wrap: wrap;
   gap: var(--aem-unit-24);
-  margin: var(--aem-unit-32) 0 0;
+  margin: auto 0 0;
   padding: 0;
   color: var(--aem-color-text-inverse-primary);
   font-size: var(--aem-typography-label-2-size);
@@ -53,6 +55,8 @@
 }
 .aem-hero-home__logos li { display: flex; align-items: center; gap: var(--aem-unit-08); }
 .aem-hero-home__logos i { font-size: var(--aem-size-icon-lg); }
+.aem-hero-home__logos li:has(img) { width: 5.875rem; height: 2.75rem; }
+.aem-hero-home__logos img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
 
 /* Featured cards */
 .aem-hero-home__cards { display: flex; flex-direction: column; gap: var(--aem-unit-16); min-width: 0; }
@@ -65,9 +69,9 @@
   justify-content: flex-end;
   gap: var(--aem-unit-08);
   height: 22.5rem;
-  padding: var(--aem-unit-16);
+  padding: var(--aem-unit-40) var(--aem-unit-16) var(--aem-unit-16);
   overflow: hidden;
-  border-radius: var(--aem-size-border-radius-md);
+  border-radius: var(--aem-size-border-radius-lg);
   color: var(--aem-color-text-inverse-primary);
   text-decoration: none;
   scroll-snap-align: start;
@@ -81,5 +85,7 @@
 .aem-feature-card:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-inverse); outline-offset: var(--aem-unit-02); }
 
 @media (max-width: 1023.98px) {
-  .aem-hero-home__inner { grid-template-columns: minmax(0, 1fr); }
+  .aem-hero-home__inner { grid-template-columns: minmax(0, 1fr); gap: var(--aem-unit-40); }
+  .aem-hero-home__content { min-height: 0; padding-right: 0; }
+  .aem-hero-home__inner { padding-bottom: var(--aem-unit-56); }
 }

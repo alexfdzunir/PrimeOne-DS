@@ -77,6 +77,16 @@
                 "glob": "favicon.svg",
                 "input": "explorer/src",
                 "output": "/"
+              },
+              {
+                "glob": "**/*.{png,jpg,webp,svg}",
+                "input": "src/aem/assets",
+                "output": "aem/assets"
+              },
+              {
+                "glob": "**/*.{png,jpg,webp,svg}",
+                "input": "src/aem/pages",
+                "output": "aem/pages"
               }
             ]
           },

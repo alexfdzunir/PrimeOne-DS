@@ -23,7 +23,7 @@ const meta: Meta = {
       ${icon('seal-check', 'aem-featured-text__icon')}
       <h3 class="aem-featured-text__title">${args['title']}</h3>
       <p class="aem-featured-text__text">${args['text']}</p>${args['showLogo'] ? `\n      <span class="aem-logo-placeholder">Logo</span>` : ''}
-      <a class="aem-button aem-button--outlined aem-button--sm" href="#">${args['button']}</a>
+      <a class="aem-button aem-button--outlined" href="#">${args['button']}</a>
     </div>
   </div>
 </section>`,

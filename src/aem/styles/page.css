@@ -49,3 +49,6 @@
 @media (max-width: 575.98px) {
   .aem-featured > .aem-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Cards fill their grid cell (the Card caps its width at 400px on its own) */
+:is(.aem-grid, .aem-featured) .aem-card { max-width: none; }

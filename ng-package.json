@@ -14,6 +14,11 @@
       "input": "src/aem",
       "glob": "aem.d.ts",
       "output": "aem"
+    },
+    {
+      "input": "src/aem/assets",
+      "glob": "**/*.{png,jpg,webp,svg}",
+      "output": "aem/assets"
     }
   ]
 }

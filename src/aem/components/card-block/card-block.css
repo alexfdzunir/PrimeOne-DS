@@ -21,12 +21,13 @@
 }
 .aem-carousel__track::-webkit-scrollbar { display: none; }
 .aem-carousel__track > * { flex-shrink: 0; scroll-snap-align: start; }
+.aem-carousel__track > [hidden] { display: none; }
 .aem-carousel__track:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-main); outline-offset: var(--aem-unit-04); }
 
 .aem-carousel__controls {
   display: flex;
   align-items: center;
-  gap: var(--aem-unit-08);
+  gap: var(--aem-unit-12);
 }
 
 .aem-carousel__progress {
@@ -49,17 +50,29 @@
 .aem-carousel__next {
   display: grid;
   place-items: center;
-  width: var(--aem-unit-24);
-  height: var(--aem-unit-24);
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
   padding: 0;
   border: 0;
+  border-radius: var(--aem-size-border-radius-sm);
   background: none;
   color: var(--aem-color-icon-link-primary-default);
   font-size: var(--aem-size-icon-sm);
   cursor: pointer;
 }
-.aem-carousel__prev { margin-left: var(--aem-unit-08); }
-.aem-carousel__next { padding-left: var(--aem-unit-08); width: auto; border-left: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle); }
+.aem-carousel__prev:not(:disabled):hover,
+.aem-carousel__next:not(:disabled):hover { background: var(--aem-color-specific-button-ghost-hover); }
+/* Figma "carousel-arrows": 36px buttons with a 24px divider between them */
+.aem-carousel__next { margin-left: calc(var(--aem-unit-04) * 2 + var(--aem-size-border-width-default) - var(--aem-unit-12)); }
+.aem-carousel__next::before {
+  content: '';
+  position: absolute;
+  top: 0.375rem;
+  bottom: 0.375rem;
+  left: calc((var(--aem-unit-04) + var(--aem-size-border-width-default)) * -1);
+  border-left: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
+}
 .aem-carousel__prev:disabled,
 .aem-carousel__next:disabled { color: var(--aem-color-icon-system-disabled-main); cursor: default; }
 .aem-carousel__prev:focus-visible,
@@ -68,7 +81,8 @@
 /* Over the brand blue */
 .aem-carousel__controls--inverse .aem-carousel__progress { background: var(--aem-color-border-inverse-subtle); }
 .aem-carousel__controls--inverse .aem-carousel__bar { background: var(--aem-color-neutral-1000); }
-.aem-carousel__controls--inverse :is(.aem-carousel__prev, .aem-carousel__next) { color: var(--aem-color-icon-inverse-primary); border-color: var(--aem-color-border-inverse-subtle); }
+.aem-carousel__controls--inverse :is(.aem-carousel__prev, .aem-carousel__next) { color: var(--aem-color-icon-inverse-primary); }
+.aem-carousel__controls--inverse .aem-carousel__next::before { border-color: var(--aem-color-border-inverse-subtle); }
 .aem-carousel__controls--inverse :is(.aem-carousel__prev, .aem-carousel__next):disabled { color: var(--aem-color-icon-system-disabled-inverse); }
 
-.aem-card-block .aem-carousel__track > .aem-card { width: 18.5rem; max-width: 80vw; }
+.aem-card-block .aem-carousel__track > .aem-card { width: 19.25rem; max-width: 80vw; }

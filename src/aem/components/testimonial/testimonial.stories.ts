@@ -14,27 +14,26 @@ const meta: Meta = {
     figmaUrl: figmaNode('9701:29996'),
     layout: 'fullscreen',
     controls: { expanded: true },
-    docs: { description: { component: 'Testimonios: cabecera del módulo y carrusel (`carousel.js`) de citas con el perfil del estudiante (`aem-testimonial`).' } },
+    docs: { description: { component: 'Testimonios: cabecera del módulo y carrusel (`carousel.js`) de una cita por vista con el perfil del estudiante (`aem-testimonials`, `aem-testimonial`).' } },
   },
   args: { title: 'Lo que dicen nuestros estudiantes', items: 4 },
   argTypes: { title: { control: 'text' }, items: { control: 'number' } },
   render: (args) => {
     const count = Math.max(1, Math.min(QUOTES.length, Number(args['items']) || 1));
     const quotes = QUOTES.slice(0, count).map(
-      ([initials, name, role, quote]) => `  <figure class="aem-testimonial">
-    ${icon('quotes', 'aem-testimonial__mark', 'fill')}
-    <blockquote class="aem-testimonial__quote">${quote}</blockquote>
+      ([, name, role, quote]) => `  <figure class="aem-testimonial">
+    <blockquote class="aem-testimonial__quote">“${quote}”</blockquote>
     <figcaption class="aem-testimonial__profile">
-      <span class="aem-avatar aem-avatar--initials" aria-hidden="true">${initials}</span>
-      <span><cite class="aem-testimonial__name">${name}</cite><span class="aem-testimonial__role">${role}</span></span>
+      <span class="aem-testimonial__photo"><span class="aem-placeholder">${icon('user')}</span></span>
+      <span class="aem-testimonial__who"><cite class="aem-testimonial__name">${name}</cite><span class="aem-testimonial__role">${role}</span></span>
     </figcaption>
   </figure>`,
     );
     return {
       template: `<section class="aem-section">
   <div class="aem-section__inner">
-${indent(heading({ title: args['title'] }), 4)}
-    <div class="aem-carousel" data-aem-carousel>
+${indent(heading({ title: args['title'], link: 'Ver todos los testimonios' }), 4)}
+    <div class="aem-carousel aem-testimonials" data-aem-carousel>
       <div class="aem-carousel__track" tabindex="0" aria-label="Testimonios">
 ${indent(quotes.join('\n'), 6)}
       </div>

@@ -5,8 +5,8 @@
 
 .aem-form-module {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-  gap: var(--aem-unit-32) var(--aem-unit-48);
+  grid-template-columns: minmax(0, 24rem) minmax(0, 1fr);
+  gap: var(--aem-unit-32) var(--aem-unit-56);
   align-items: start;
   font-family: var(--aem-typography-family);
 }
@@ -16,12 +16,10 @@
 .aem-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--aem-unit-16);
-  padding: var(--aem-unit-24);
-  border-radius: var(--aem-size-border-radius-md);
-  background: var(--aem-color-background-primary);
-  box-shadow: var(--aem-shadow-default-general);
+  gap: var(--aem-unit-08);
 }
+/* 20px between the fields, the consent, the legal text and the button */
+.aem-form > .aem-form__full { margin-top: var(--aem-unit-12); }
 .aem-form > .aem-form__full { grid-column: 1 / -1; }
 
 .aem-form__legal {
@@ -39,4 +37,4 @@
 .aem-form .aem-button { justify-self: start; }
 
 @media (max-width: 1023.98px) { .aem-form-module { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 575.98px) { .aem-form { grid-template-columns: minmax(0, 1fr); padding: var(--aem-unit-16); } }
+@media (max-width: 575.98px) { .aem-form { grid-template-columns: minmax(0, 1fr); } }

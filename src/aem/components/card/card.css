@@ -1,8 +1,10 @@
 /*
  * AEM Card (Figma "card-master", "card-product" and "media-button"): image on top and a content panel that
  * overlaps it by 16px, with pretitle, title (link colours), body text and a footer with tags and an arrow button.
- * MD (default) or --lg; panel --secondary (white) instead of the light grey; --product for the compact programme
- * card with the accelerator tag. The whole card is a link through the title (stretched link).
+ * MD (default) or --lg; Surface Fill: panel --secondary (white) instead of the light grey, --empty (no panel: text
+ * 24px under the image) or --image (the image fills the card, text and play button over it); --product for the
+ * compact programme card with the accelerator tag. `--aem-card-media-height` sets the image height (240px). The
+ * whole card is a link through the title (stretched link).
  */
 
 .aem-card {
@@ -15,7 +17,7 @@
 
 .aem-card__media {
   position: relative;
-  height: 15rem;
+  height: var(--aem-card-media-height, 15rem);
   overflow: hidden;
   border-radius: var(--aem-size-border-radius-lg) var(--aem-size-border-radius-lg) 0 0;
   background: var(--aem-color-surface-inverse-secondary);
@@ -41,7 +43,8 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--aem-unit-08);
-  padding: var(--aem-unit-48) var(--aem-unit-12) var(--aem-unit-32);
+  margin: 0;
+  padding: var(--aem-unit-48) var(--aem-unit-12) var(--aem-unit-24);
   background: var(--aem-gradient-gradient);
   color: var(--aem-color-text-inverse-secondary);
   font-size: var(--aem-typography-caption-size);
@@ -96,7 +99,7 @@
   inset: calc(var(--aem-unit-16) * -1) 0 0;
   z-index: 1;
 }
-.aem-card:has(.aem-card__media) .aem-card__link::after { top: -15rem; }
+.aem-card:has(.aem-card__media) .aem-card__link::after { top: calc(var(--aem-card-media-height, 15rem) * -1); }
 .aem-card:hover .aem-card__link { color: var(--aem-color-text-link-secondary-hover); }
 .aem-card__link:focus-visible { outline: none; }
 .aem-card:has(.aem-card__link:focus-visible) {
@@ -145,6 +148,7 @@
 .aem-card--product .aem-card__media { height: 9.875rem; border-radius: var(--aem-size-border-radius-md) var(--aem-size-border-radius-md) 0 0; }
 .aem-card--product .aem-card__body { gap: var(--aem-unit-20); padding: var(--aem-unit-16) var(--aem-unit-16) var(--aem-unit-12); }
 .aem-card--product .aem-card__link::after { top: -9.875rem; }
+.aem-card--product .aem-card__title { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 .aem-card--product > .aem-tag { position: absolute; top: var(--aem-unit-08); left: var(--aem-unit-08); }
 
 /* Media button (play) */
@@ -168,4 +172,29 @@
 
 /* Date tag over the image (event cards) and an icon in place of the image */
 .aem-card__media > .aem-date-tag { position: absolute; top: var(--aem-unit-16); left: var(--aem-unit-16); }
-.aem-card__icon { color: var(--aem-color-icon-accent); font-size: var(--aem-size-icon-lg); }
+.aem-card__icon { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; margin-bottom: calc(var(--aem-unit-20) - var(--aem-unit-08) - var(--aem-unit-08)); color: var(--aem-color-icon-link-primary-default); font-size: 2.625rem; }
+
+/* Without image (Figma Image=False): 16px padding, text 8px apart and 8px under the top */
+.aem-card:not(:has(.aem-card__media)) .aem-card__body { margin-top: 0; padding: var(--aem-unit-16); border-radius: var(--aem-size-border-radius-lg); }
+.aem-card:not(:has(.aem-card__media)) .aem-card__text { gap: var(--aem-unit-08); padding-top: var(--aem-unit-08); }
+
+/* Surface Fill=Empty: no panel, the text 24px under the rounded image */
+.aem-card--empty { gap: var(--aem-unit-24); }
+.aem-card--empty .aem-card__media { border-radius: var(--aem-size-border-radius-lg); }
+.aem-card--empty .aem-card__body { margin-top: 0; padding: 0; background: none; }
+.aem-card--empty .aem-card__link::after { inset: 0; }
+.aem-card--empty:has(.aem-card__media) .aem-card__link::after { top: 0; }
+
+/* Surface Fill=Image-Background: the image fills the card under a gradient, text at the bottom, play in the middle */
+.aem-card--image { min-height: var(--aem-card-media-height, 31.25rem); overflow: hidden; border-radius: var(--aem-size-border-radius-lg); isolation: isolate; }
+.aem-card--image .aem-card__media { position: absolute; inset: 0; z-index: -1; height: auto; border-radius: 0; }
+.aem-card--image .aem-card__media::after { content: ''; position: absolute; inset: 0; background: var(--aem-gradient-gradient); }
+.aem-card--image .aem-card__play { z-index: 1; transform: translate(-50%, -50%); }
+.aem-card--image .aem-card__body { justify-content: flex-end; margin-top: 0; padding: var(--aem-unit-40) var(--aem-unit-16) var(--aem-unit-16); background: none; }
+.aem-card--image :is(.aem-card__link, .aem-card__pretitle, .aem-card__description) { color: var(--aem-color-text-inverse-primary); }
+.aem-card--image .aem-card__link::after { inset: 0; }
+.aem-card--image:has(.aem-card__media) .aem-card__link::after { top: 0; }
+
+/* Info tag over the image and a logo in place of the icon (press cards) */
+.aem-card__media > .aem-tag { position: absolute; top: var(--aem-unit-16); left: var(--aem-unit-16); }
+.aem-card__logo { display: block; align-self: flex-start; width: auto; height: 2.8125rem; margin-bottom: var(--aem-unit-12); }

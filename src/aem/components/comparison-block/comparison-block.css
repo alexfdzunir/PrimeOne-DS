@@ -6,7 +6,7 @@
 .aem-comparison {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
-  gap: var(--aem-unit-24);
+  gap: var(--aem-unit-16);
   margin: 0;
   padding: 0;
   font-family: var(--aem-typography-family);

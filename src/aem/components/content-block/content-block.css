@@ -7,7 +7,7 @@
 .aem-content-block {
   display: grid;
   grid-template-columns: var(--aem-content-columns, minmax(0, 1fr));
-  gap: var(--aem-unit-32);
+  gap: var(--aem-unit-40);
   align-items: start;
   font-family: var(--aem-typography-family);
 }
@@ -15,6 +15,9 @@
 .aem-content-block--60-40 { --aem-content-columns: minmax(0, 3fr) minmax(0, 2fr); }
 .aem-content-block--50-50 { --aem-content-columns: repeat(2, minmax(0, 1fr)); }
 .aem-content-block--33 { --aem-content-columns: repeat(3, minmax(0, 1fr)); }
+/* Columns of the 50/50 and 33/33/33 layouts: 16px apart, their content 24px apart */
+.aem-content-block:is(.aem-content-block--50-50, .aem-content-block--33):has(> .aem-content-block__column) { gap: var(--aem-unit-16); }
+.aem-content-block__column { display: flex; flex-direction: column; gap: var(--aem-unit-24); }
 
 .aem-content-block__media {
   aspect-ratio: 1;
@@ -33,7 +36,7 @@
 }
 .aem-rich-text > :first-child { margin-top: 0; }
 .aem-rich-text > :last-child { margin-bottom: 0; }
-.aem-rich-text :is(h2, h3) { margin: 0 0 var(--aem-unit-16); color: var(--aem-color-text-primary); font-weight: var(--aem-typography-weight-medium); }
+.aem-rich-text :is(h2, h3) { margin: 0 0 var(--aem-unit-12); color: var(--aem-color-text-primary); font-weight: var(--aem-typography-weight-medium); }
 .aem-rich-text h2 { font-size: var(--aem-typography-headline-3-size); line-height: var(--aem-typography-headline-3-line-height); }
 .aem-rich-text h3 { font-size: var(--aem-typography-headline-5-size); line-height: var(--aem-typography-headline-5-line-height); }
 .aem-rich-text p { margin: 0 0 var(--aem-unit-16); }
@@ -60,14 +63,14 @@
 /* Logo gallery */
 .aem-logos {
   display: grid;
-  grid-template-columns: repeat(var(--aem-logos-columns, 6), minmax(0, 8rem));
-  gap: var(--aem-unit-40);
+  grid-template-columns: repeat(var(--aem-logos-columns, 6), minmax(0, 10.5rem));
+  gap: var(--aem-unit-08);
   justify-content: start;
   margin: 0;
   padding: var(--aem-unit-16) 0;
   list-style: none;
 }
-.aem-logos > li { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; height: 3.75rem; }
+.aem-logos > li { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; height: 5.6875rem; padding: var(--aem-unit-12); box-sizing: border-box; }
 .aem-logos img { max-width: 100%; max-height: 100%; }
 
 @media (max-width: 767.98px) {

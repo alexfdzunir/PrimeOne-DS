@@ -19,7 +19,7 @@
 .aem-section__inner {
   display: flex;
   flex-direction: column;
-  gap: var(--aem-unit-40);
+  gap: var(--aem-unit-32);
   max-width: 80rem;
   margin: 0 auto;
 }
@@ -41,6 +41,8 @@
 .aem-heading__titles { gap: var(--aem-unit-12); }
 .aem-heading__body { gap: var(--aem-unit-20); }
 .aem-heading__body:empty { display: none; }
+/* The link sits 20px under the text (Figma "Text + Link Button") */
+.aem-heading > .aem-link-button { align-self: flex-start; margin-top: calc(var(--aem-unit-20) - var(--aem-unit-32)); }
 
 .aem-heading__pretitle {
   margin: 0;

@@ -38,32 +38,47 @@ ${indent(items.join('\n'), 4)}
 
 /** Card (card-master): optional image, pretitle, linked title, text and footer link or tags. */
 export function card(parts: {
-  title: string;
+  title?: string;
   pretitle?: string;
   text?: string;
-  media?: boolean | string;
+  /** Image URL (or true for the brand placeholder). */
+  image?: string | boolean;
+  /** Caption over the bottom of the image. */
+  caption?: string;
+  /** Extra markup over the image (date tag, info tag). */
+  overlay?: string;
+  /** Image height, as `--aem-card-media-height`. */
+  mediaHeight?: string;
   link?: string;
   tags?: string[];
   icon?: string;
+  /** Logo image in place of the icon. */
+  logo?: [src: string, alt: string];
   play?: boolean;
+  fill?: 'secondary' | 'empty' | 'image';
   size?: 'lg';
-  secondary?: boolean;
 }): string {
-  const extra = typeof parts.media === 'string' ? `\n    ${parts.media}` : '';
-  const play = parts.play ? `\n    <button class="aem-media-button aem-card__play" type="button" aria-label="Reproducir vídeo">${icon('play', '', 'fill')}</button>` : '';
-  const media = parts.media ? `  <div class="aem-card__media aem-card__media--placeholder">${extra}${play}\n  </div>\n` : '';
+  const picture = typeof parts.image === 'string' ? `\n    <img src="${parts.image}" alt="" loading="lazy" />` : '';
+  const extras = [
+    parts.overlay && `\n    ${parts.overlay}`,
+    parts.caption && `\n    <p class="aem-card__caption">${parts.caption}</p>`,
+    parts.play && `\n    <button class="aem-media-button aem-card__play" type="button" aria-label="Reproducir vídeo">${icon('play', '', 'fill')}</button>`,
+  ].filter(Boolean).join('');
+  const media = parts.image ? `  <div class="${cx('aem-card__media', parts.image === true && 'aem-card__media--placeholder')}">${picture}${extras}\n  </div>\n` : '';
   const lines = [
     parts.icon && `      ${icon(parts.icon, 'aem-card__icon')}`,
+    parts.logo && `      <img class="aem-card__logo" src="${parts.logo[0]}" alt="${parts.logo[1]}" loading="lazy" />`,
     parts.pretitle && `      <p class="aem-card__pretitle">${parts.pretitle}</p>`,
-    `      <h3 class="aem-card__title"><a class="aem-card__link" href="#">${parts.title}</a></h3>`,
+    parts.title && `      <h3 class="aem-card__title"><a class="aem-card__link" href="#">${parts.title}</a></h3>`,
     parts.text && `      <p class="aem-card__description">${parts.text}</p>`,
   ].filter(Boolean);
   const footer = parts.tags
     ? `\n    <div class="aem-card__footer">\n      <ul class="aem-tag-set">\n${parts.tags.map((tag) => `        <li><span class="aem-category-tag">${tag}</span></li>`).join('\n')}\n      </ul>\n    </div>`
     : parts.link
-      ? `\n    <div class="aem-card__footer">\n      <span class="aem-link-button aem-link-button--sm">${parts.link} ${icon('caret-right')}</span>\n    </div>`
+      ? `\n    <div class="aem-card__footer">\n      <span class="aem-link-button aem-link-button--sm">${parts.link}</span>\n    </div>`
       : '';
-  return `<article class="${cx('aem-card', parts.size === 'lg' && 'aem-card--lg', parts.secondary && 'aem-card--secondary')}">
+  const style = parts.mediaHeight ? ` style="--aem-card-media-height: ${parts.mediaHeight}"` : '';
+  return `<article class="${cx('aem-card', parts.size === 'lg' && 'aem-card--lg', parts.fill && `aem-card--${parts.fill}`)}"${style}>
 ${media}  <div class="aem-card__body">
     <div class="aem-card__text">
 ${lines.join('\n')}

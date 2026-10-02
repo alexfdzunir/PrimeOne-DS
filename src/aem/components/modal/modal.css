@@ -5,7 +5,7 @@
  */
 
 .aem-modal {
-  width: min(40rem, calc(100vw - 2 * var(--aem-unit-16)));
+  width: min(61.5rem, calc(100vw - 2 * var(--aem-unit-16)));
   max-height: calc(100dvh - 2 * var(--aem-unit-32));
   padding: 0;
   border: 0;
@@ -22,12 +22,15 @@
 .aem-modal--static { position: static; display: flex; flex-direction: column; margin: 0 auto; }
 
 .aem-modal__header {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--aem-unit-16);
-  padding: var(--aem-unit-24) var(--aem-unit-24) var(--aem-unit-16);
+  padding: var(--aem-unit-56) var(--aem-unit-48) var(--aem-unit-24);
 }
+/* Close button in the top right corner (Figma: 24px icon inside the 56px top padding) */
+.aem-modal__header > .aem-button { position: absolute; top: var(--aem-unit-16); right: var(--aem-unit-16); }
 
 .aem-modal__title {
   margin: 0;
@@ -39,7 +42,7 @@
 .aem-modal__body {
   flex: 1;
   min-height: 0;
-  padding: 0 var(--aem-unit-24) var(--aem-unit-24);
+  padding: 0 var(--aem-unit-48) var(--aem-unit-40);
   overflow-y: auto;
   color: var(--aem-color-text-secondary);
   font-size: var(--aem-typography-body-size);
@@ -53,6 +56,6 @@
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: var(--aem-unit-08);
-  padding: var(--aem-unit-16) var(--aem-unit-24);
+  padding: var(--aem-unit-16) var(--aem-unit-48);
   border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
 }

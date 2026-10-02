@@ -13,8 +13,11 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--aem-unit-08);
+  gap: var(--aem-unit-04);
+  padding: var(--aem-unit-16) 0;
+  border-bottom: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle);
 }
+.aem-filter-module__bar > .aem-button { border-radius: var(--aem-size-border-radius-full); }
 
 .aem-filter-module__selected {
   display: flex;

@@ -73,5 +73,5 @@
 .aem-chip-group {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--aem-unit-08);
+  gap: var(--aem-unit-04);
 }

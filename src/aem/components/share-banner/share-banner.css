@@ -8,7 +8,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--aem-unit-12) var(--aem-unit-24);
+  gap: var(--aem-unit-08) var(--aem-unit-24);
   padding: var(--aem-unit-16) var(--aem-unit-24);
   border-radius: var(--aem-size-border-radius-md);
   background: var(--aem-color-surface-primary);
@@ -18,9 +18,9 @@
 .aem-share__label {
   margin: 0;
   color: var(--aem-color-text-primary);
-  font-size: var(--aem-typography-headline-6-size);
+  font-size: var(--aem-typography-label-1-size);
   font-weight: var(--aem-typography-weight-medium);
-  line-height: var(--aem-typography-headline-6-line-height);
+  line-height: var(--aem-typography-label-1-line-height);
 }
 
 .aem-share__links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--aem-unit-08); margin: 0; padding: 0; list-style: none; }

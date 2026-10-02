@@ -26,7 +26,7 @@ const meta: Meta = {
       '40-60': [media, TEXT],
       '60-40': [TEXT, media],
       '50-50': [media, TEXT],
-      '33': [media, media, media].map((m, i) => `<div>\n${m}\n<div class="aem-rich-text"><h3>${['Clases en directo', 'Tutor personal', 'Prácticas'][i]}</h3><p>Aprende a tu ritmo con el apoyo de profesionales en activo.</p></div>\n</div>`),
+      '33': [media, media, media].map((m, i) => `<div class="aem-content-block__column">\n${m}\n<div class="aem-rich-text"><h3>${['Clases en directo', 'Tutor personal', 'Prácticas'][i]}</h3><p>Aprende a tu ritmo con el apoyo de profesionales en activo.</p></div>\n</div>`),
     }[layout] ?? [TEXT];
     return {
       template: `<section class="aem-section">

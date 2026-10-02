@@ -1,17 +1,17 @@
 /*
- * AEM List Block (Figma "list-block"): bulleted list in up to four columns, then an outlined button and a link
- * with the count of the rest of the items.
+ * AEM List Block (Figma "list-block"): bulleted list in up to four columns, then an outlined button, a link to
+ * the rest of the items and the count of the ones shown.
  */
 
 .aem-list-block {
   display: grid;
-  gap: var(--aem-unit-24);
+  gap: var(--aem-unit-40);
   font-family: var(--aem-typography-family);
 }
 
 .aem-list-block__list {
   columns: var(--aem-list-block-columns, 4) 12rem;
-  column-gap: var(--aem-unit-24);
+  column-gap: var(--aem-unit-16);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -38,7 +38,14 @@
 
 .aem-list-block__actions {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--aem-unit-16) var(--aem-unit-24);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--aem-unit-12);
+}
+
+.aem-list-block__count {
+  margin: 0;
+  color: var(--aem-color-text-secondary);
+  font-size: var(--aem-typography-label-1-size);
+  line-height: var(--aem-typography-label-1-line-height);
 }
