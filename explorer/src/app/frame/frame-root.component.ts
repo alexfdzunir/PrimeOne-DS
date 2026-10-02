@@ -104,7 +104,13 @@ export class FrameRootComponent {
       post({ type: 'navigate', id: link.dataset['poPage']! });
     };
     document.addEventListener('click', onClick);
-    destroyRef.onDestroy(() => document.removeEventListener('click', onClick));
+    // Forms of the stories are not sent: a GET submit would replace `?frame=1` and load the whole explorer here
+    const onSubmit = (event: SubmitEvent) => event.preventDefault();
+    document.addEventListener('submit', onSubmit);
+    destroyRef.onDestroy(() => {
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('submit', onSubmit);
+    });
 
     effect(() => {
       const request = this.request();

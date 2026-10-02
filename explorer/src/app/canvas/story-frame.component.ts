@@ -6,7 +6,7 @@ import { cloneableArgs, type FrameMessage, type InspectMessage, type RenderMessa
 @Component({
   selector: 'po-story-frame',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<iframe #iframe src="./?frame=1" [title]="'Vista previa de ' + state.selected().title" [style.height.px]="height()"></iframe>`,
+  template: `<iframe #iframe src="./?frame=1" (load)="checkFrame()" [title]="'Vista previa de ' + state.selected().title" [style.height.px]="height()"></iframe>`,
   styles: `
     :host { display: block; }
     iframe { display: block; width: 100%; border: 0; background: var(--p-content-background); }
@@ -53,6 +53,19 @@ export class StoryFrameComponent {
       const message: InspectMessage = { source: 'po-explorer', type: 'inspect', ...this.state.inspect() };
       if (this.ready()) this.iframe().nativeElement.contentWindow?.postMessage(message, location.origin);
     });
+  }
+
+  /**
+   * The iframe must stay on `?frame=1`; if anything navigated it elsewhere (or the browser restored that URL
+   * on reload) it would show the whole explorer, so it goes back to the frame.
+   */
+  protected checkFrame(): void {
+    const frame = this.iframe().nativeElement;
+    const search = frame.contentWindow?.location.search ?? '';
+    if (!new URLSearchParams(search).has('frame')) {
+      this.ready.set(false);
+      frame.contentWindow?.location.replace('./?frame=1');
+    }
   }
 
   /** Link between page templates: opens the other page from its top. */
