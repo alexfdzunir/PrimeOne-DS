@@ -279,3 +279,28 @@ ${promo.map(([name, label, hl]) => `    <li${hl ? ' class="is-highlight"' : ''}>
   </form>
 </div>`;
 }
+
+/** Glass tiles of the distributor hero: [icon, label][]. */
+export function heroTiles(items: [string, string][]): string {
+  return `<ul class="aem-hero__tiles">
+${items.map(([name, label]) => `  <li><a class="aem-hero__tile aem-glass" href="#">${icon(name)}<span>${label}</span></a></li>`).join('\n')}
+</ul>`;
+}
+
+/** Tabs bar used as the navigation of a section of the portal (the first tab selected). */
+export function tabsNav(labels: string[]): string {
+  const id = nextId('aem-tabs');
+  return `<div class="aem-tabs aem-tabs--bar">
+  <div class="aem-tabs__list" role="tablist" aria-label="Secciones">
+${labels.map((label, i) => `    <button class="aem-tabs__tab" type="button" role="tab" id="${id}-t${i}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${label}</button>`).join('\n')}
+  </div>
+</div>`;
+}
+
+/** Event card (Surface Fill=Empty): image with the date tag, title, text and tags. */
+export function eventCard(image: string, date: { day: string; month: string; year: string; state?: 'online' | 'presencial' | 'finalizado' }, title: string, text: string, tags: string[]): string {
+  const state = date.state ?? 'online';
+  const label = { online: 'Online', presencial: 'Presencial', finalizado: 'Finalizado' }[state];
+  const tag = `<div class="${cx('aem-date-tag', state === 'finalizado' && 'aem-date-tag--past')}"><span class="aem-state-tag aem-state-tag--${state}">${label}</span><span class="aem-date-tag__date"><span class="aem-date-tag__day">${date.day}</span><span class="aem-date-tag__meta"><span class="aem-date-tag__month">${date.month}</span><span class="aem-date-tag__time">${date.year}</span></span></span></div>`;
+  return card({ title, text, fill: 'empty', image, overlay: tag, tags });
+}

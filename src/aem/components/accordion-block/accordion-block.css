@@ -9,4 +9,5 @@
   gap: var(--aem-unit-24);
 }
 /* As a section class: heading and accordion 24px apart */
+.aem-section.aem-accordion-block { display: block; }
 .aem-section.aem-accordion-block > .aem-section__inner { gap: var(--aem-unit-24); }

@@ -39,6 +39,8 @@
   font-weight: var(--aem-typography-weight-medium);
   line-height: var(--aem-typography-headline-5-line-height);
 }
+/* The tag sits at the end of the row, before the toggle (Figma accordion-item) */
+.aem-accordion__title > .aem-tag { margin-left: auto; }
 
 .aem-accordion__toggle {
   display: grid;
