@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { ExplorerState } from '../explorer-state';
-import { CATEGORIES, THEMES } from '../model';
+import { CATEGORIES, type CategoryId, THEMES } from '../model';
 import { AemBrandCurveComponent } from './aem-brand-curve.component';
 import { AEM_FOUNDATION_SECTIONS } from './aem-foundations.component';
 import { FOUNDATION_SECTIONS } from './foundations.component';
@@ -514,6 +514,17 @@ export class HomeComponent {
 
   protected readonly figures = computed(() => {
     const entries = this.state.dsEntries();
+    if (this.state.ds() === 'aem') {
+      const count = (id: CategoryId) => entries.filter((entry) => entry.category === id).length;
+      return [
+        { label: 'Componentes', value: entries.length - count('aem-modules') - count('aem-pages') },
+        { label: 'Módulos', value: count('aem-modules') },
+        { label: 'Páginas', value: count('aem-pages') },
+        { label: 'Secciones', value: this.sections().length },
+        { label: 'Variantes', value: entries.reduce((total, entry) => total + entry.presets.length, 0) },
+        { label: 'Variables', value: AEM_VARIABLES },
+      ];
+    }
     return [
       { label: 'Componentes', value: entries.length },
       { label: 'Secciones', value: this.sections().length },
