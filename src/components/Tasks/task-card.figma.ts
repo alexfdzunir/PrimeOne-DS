@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=19102-38374
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/Tasks/task-card.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/Tasks/task-card.ts
 // component=PrimeOneTaskCard
 import figma from 'figma'
 import { is } from '../../figma/helpers'

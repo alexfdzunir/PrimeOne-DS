@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9873-51891
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/featured-data/featured-data.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/featured-data/featured-data.css
 // component=aem-featured-data
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

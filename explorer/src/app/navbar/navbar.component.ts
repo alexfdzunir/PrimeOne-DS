@@ -97,7 +97,7 @@ import { UnirLogoComponent } from './unir-logo.component';
       />
       <a
         class="po-navbar__link"
-        href="https://github.com/alexfdzunir/PrimeOne-DS"
+        href="https://github.com/alexfdzunir/UNIR-Design-Systems"
         target="_blank"
         rel="noopener"
         aria-label="Repositorio en GitHub"

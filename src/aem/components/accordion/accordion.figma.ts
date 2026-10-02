@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9322-64892
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/accordion/accordion.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/accordion/accordion.css
 // component=aem-accordion
 import figma from 'figma'
 import { cls } from '../../../figma/aem'

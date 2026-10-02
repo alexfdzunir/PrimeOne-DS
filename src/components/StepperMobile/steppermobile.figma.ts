@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=12717-77340
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/StepperMobile/stepper-mobile.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/StepperMobile/stepper-mobile.ts
 // component=PrimeOneStepperMobile
 import figma from 'figma'
 

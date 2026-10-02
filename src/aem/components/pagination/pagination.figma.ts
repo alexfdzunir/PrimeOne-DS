@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9111-3815
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/pagination/pagination.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/pagination/pagination.css
 // component=aem-pagination
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

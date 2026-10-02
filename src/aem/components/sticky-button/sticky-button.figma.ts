@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=7104-14363
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/sticky-button/sticky-button.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/sticky-button/sticky-button.css
 // component=aem-sticky-button
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=16517-16736
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/share-banner/share-banner.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/share-banner/share-banner.css
 // component=aem-share-banner
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

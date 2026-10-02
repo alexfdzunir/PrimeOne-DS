@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=13549-29512
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/Inputchat/input-chat.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/Inputchat/input-chat.ts
 // component=PrimeOneInputChat
 import figma from 'figma'
 import { is } from '../../figma/helpers'

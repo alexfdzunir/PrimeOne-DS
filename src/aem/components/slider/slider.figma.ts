@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=16960-12445
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/slider/slider.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/slider/slider.css
 // component=aem-slider
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

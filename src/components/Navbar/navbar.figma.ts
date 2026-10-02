@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=14037-135115
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/Navbar/navbar.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/Navbar/navbar.ts
 // component=PrimeOneNavbar
 import figma from 'figma'
 import { is } from '../../figma/helpers'

@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9888-3741
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/footer/footer.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/footer/footer.css
 // component=aem-footer
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

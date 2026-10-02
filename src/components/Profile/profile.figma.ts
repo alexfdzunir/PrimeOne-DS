@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=14685-27237
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/Profile/profile.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/Profile/profile.ts
 // component=PrimeOneProfile
 import figma from 'figma'
 import { is } from '../../figma/helpers'

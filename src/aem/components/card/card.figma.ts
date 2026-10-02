@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9448-32740
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/card/card.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/card/card.css
 // component=aem-card
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

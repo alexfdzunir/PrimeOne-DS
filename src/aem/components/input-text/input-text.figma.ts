@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=6913-21369
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/input-text/input-text.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/input-text/input-text.css
 // component=aem-input
 import figma from 'figma'
 import { attr, flag, is } from '../../../figma/helpers'

@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=8600-716
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/fab/fab.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/fab/fab.css
 // component=aem-fab
 import figma from 'figma'
 import { attr, is } from '../../../figma/helpers'

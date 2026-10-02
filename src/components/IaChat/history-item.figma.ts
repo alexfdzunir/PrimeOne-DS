@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=18630-263959
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/IaChat/history-item.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/IaChat/history-item.ts
 // component=PrimeOneHistoryItem
 import figma from 'figma'
 import { is, jsText } from '../../figma/helpers'

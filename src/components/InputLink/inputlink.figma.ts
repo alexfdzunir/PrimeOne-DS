@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=12095-8334
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/InputLink/input-link.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/InputLink/input-link.ts
 // component=PrimeOneInputLink
 import figma from 'figma'
 import { attr, is, part } from '../../figma/helpers'

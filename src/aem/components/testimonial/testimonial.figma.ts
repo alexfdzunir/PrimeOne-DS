@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9701-29996
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/testimonial/testimonial.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/testimonial/testimonial.css
 // component=aem-testimonial
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

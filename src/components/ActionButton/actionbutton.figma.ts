@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=16606-22820
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/ActionButton/action-buttons.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/ActionButton/action-buttons.ts
 // component=PrimeOneActionButtons
 import figma from 'figma'
 

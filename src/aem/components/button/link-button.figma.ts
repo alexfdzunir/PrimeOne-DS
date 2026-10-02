@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=5178-12733
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/button/button.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/button/button.css
 // component=aem-link-button
 import figma from 'figma'
 import { attr, is } from '../../../figma/helpers'

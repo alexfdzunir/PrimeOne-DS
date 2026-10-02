@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=6484-7306
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/toggle/toggle.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/toggle/toggle.css
 // component=aem-toggle
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

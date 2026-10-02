@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=12532-122291
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/BottomBar/bottom-bar.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/BottomBar/bottom-bar.ts
 // component=PrimeOneBottomBar
 import figma from 'figma'
 import { is } from '../../figma/helpers'

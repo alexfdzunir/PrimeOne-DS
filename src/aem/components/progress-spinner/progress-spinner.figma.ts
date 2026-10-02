@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=7671-6862
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/progress-spinner/progress-spinner.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/progress-spinner/progress-spinner.css
 // component=aem-spinner
 import figma from 'figma'
 import { cls } from '../../../figma/aem'

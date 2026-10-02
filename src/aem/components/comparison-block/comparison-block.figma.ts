@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=21034-28885
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/comparison-block/comparison-block.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/comparison-block/comparison-block.css
 // component=aem-comparison-block
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

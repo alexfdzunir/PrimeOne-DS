@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=5968-10119
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/checkbox/checkbox.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/checkbox/checkbox.css
 // component=aem-checkbox
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

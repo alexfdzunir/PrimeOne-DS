@@ -7,7 +7,7 @@ import { FOUNDATION_SECTIONS } from './foundations.component';
 
 /** Figma variables of AEM Portales (core, semantic and responsive size). */
 const AEM_VARIABLES = 409;
-const REPO_URL = 'https://github.com/alexfdzunir/PrimeOne-DS';
+const REPO_URL = 'https://github.com/alexfdzunir/UNIR-Design-Systems';
 
 /** Landing of the explorer: brand hero with the key figures, and the sections of the catalogue. */
 @Component({

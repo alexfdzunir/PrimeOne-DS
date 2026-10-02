@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=19076-25641
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/card-block/card-block.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/card-block/card-block.css
 // component=aem-card-block
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

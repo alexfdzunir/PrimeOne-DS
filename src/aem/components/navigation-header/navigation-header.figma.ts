@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=10741-32866
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/navigation-header/navigation-header.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/navigation-header/navigation-header.css
 // component=aem-navigation-header
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

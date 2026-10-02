@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=12080-18079
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/InputPhone/input-phone.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/InputPhone/input-phone.ts
 // component=PrimeOneInputPhone
 import figma from 'figma'
 import { is } from '../../figma/helpers'

@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=8598-15445
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/download-button/download-button.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/download-button/download-button.css
 // component=aem-download
 import figma from 'figma'
 import { attr, firstText, is } from '../../../figma/helpers'

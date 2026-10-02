@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=5968-13325
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/text-area/text-area.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/text-area/text-area.css
 // component=aem-textarea
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

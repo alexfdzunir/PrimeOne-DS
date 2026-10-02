@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=12273-14312
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/Question/question.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/Question/question.ts
 // component=PrimeOneQuestion
 import figma from 'figma'
 import { attr, firstText, is, jsText } from '../../figma/helpers'

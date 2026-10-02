@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9993-48196
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/distribution-bar/distribution-bar.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/distribution-bar/distribution-bar.css
 // component=aem-distribution-bar
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

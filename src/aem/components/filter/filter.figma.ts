@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=7009-13428
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/filter/filter.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/filter/filter.css
 // component=aem-filter
 import figma from 'figma'
 import { attr, is } from '../../../figma/helpers'

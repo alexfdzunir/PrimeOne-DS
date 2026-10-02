@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=7796-14394
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/tag-set/tag-set.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/tag-set/tag-set.css
 // component=aem-tag-set
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

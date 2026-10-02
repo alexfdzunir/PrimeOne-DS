@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=15372-229767
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/BottomSheet/bottom-sheet.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/BottomSheet/bottom-sheet.ts
 // component=PrimeOneBottomSheet
 import figma from 'figma'
 import { firstText, slotCode } from '../../figma/helpers'

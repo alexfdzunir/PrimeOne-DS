@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9111-9533
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/tabs/tabs.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/tabs/tabs.css
 // component=aem-tabs
 import figma from 'figma'
 

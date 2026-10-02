@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=8420-9560
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/chip/chip.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/chip/chip.css
 // component=aem-chip
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

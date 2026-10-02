@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=10032-114764
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/anchor-menu/anchor-menu.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/anchor-menu/anchor-menu.css
 // component=aem-anchor-menu
 import figma from 'figma'
 import { cls } from '../../../figma/aem'

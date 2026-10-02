@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=6913-26550
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/dropdown/dropdown.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/dropdown/dropdown.css
 // component=aem-dropdown
 import figma from 'figma'
 import { attr, flag, is } from '../../../figma/helpers'

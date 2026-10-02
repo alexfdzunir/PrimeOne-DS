@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=6104-1373
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/radio/radio.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/radio/radio.css
 // component=aem-radio
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

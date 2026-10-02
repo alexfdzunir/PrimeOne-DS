@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=11559-9409
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/search/search.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/search/search.css
 // component=aem-search
 import figma from 'figma'
 import { flag, is } from '../../../figma/helpers'

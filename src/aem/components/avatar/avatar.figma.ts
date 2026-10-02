@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=8690-10249
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/avatar/avatar.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/avatar/avatar.css
 // component=aem-avatar
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

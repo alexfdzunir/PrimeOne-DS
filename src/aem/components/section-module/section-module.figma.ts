@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=19076-27437
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/section-module/section-module.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/section-module/section-module.css
 // component=aem-section-module
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=9333-4599
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/data-table/data-table.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/data-table/data-table.css
 // component=aem-table
 import figma from 'figma'
 import { is } from '../../../figma/helpers'

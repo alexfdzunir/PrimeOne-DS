@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=20074-7575
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/modal/modal.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/modal/modal.css
 // component=aem-modal
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

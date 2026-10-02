@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=8605-42607
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/notification/notification.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/notification/notification.css
 // component=aem-notification
 import figma from 'figma'
 import { cls } from '../../../figma/aem'

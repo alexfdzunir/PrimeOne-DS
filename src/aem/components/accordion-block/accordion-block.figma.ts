@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=19214-103642
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/accordion-block/accordion-block.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/accordion-block/accordion-block.css
 // component=aem-accordion-block
 import figma from 'figma'
 import { storyHtml } from '../../../figma/aem'

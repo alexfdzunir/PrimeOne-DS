@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=10431-64022
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/list/list.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/list/list.css
 // component=aem-list
 import figma from 'figma'
 import { cls } from '../../../figma/aem'

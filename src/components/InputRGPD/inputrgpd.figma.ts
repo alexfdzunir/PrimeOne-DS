@@ -1,5 +1,5 @@
 // url=<PRIMEONE>?node-id=12264-9078
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/components/InputRGPD/input-rgpd.ts
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/components/InputRGPD/input-rgpd.ts
 // component=PrimeOneInputRgpd
 import figma from 'figma'
 import { is } from '../../figma/helpers'

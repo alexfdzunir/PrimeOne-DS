@@ -1,5 +1,5 @@
 // url=<AEM>?node-id=7448-19133
-// source=https://github.com/alexfdzunir/PrimeOne-DS/blob/main/src/aem/components/ticker/ticker.css
+// source=https://github.com/alexfdzunir/UNIR-Design-Systems/blob/main/src/aem/components/ticker/ticker.css
 // component=aem-ticker
 import figma from 'figma'
 

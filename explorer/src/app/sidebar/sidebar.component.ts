@@ -179,7 +179,7 @@ const GROUP_IDS: GroupId[] = ['foundations', ...CATEGORIES.map((category) => cat
 
     <footer class="po-sidebar__footer">
       <span>{{ state.designSystem().stack }}</span>
-      <a href="https://github.com/alexfdzunir/PrimeOne-DS" target="_blank" rel="noopener" aria-label="Repositorio en GitHub" title="Repositorio en GitHub">
+      <a href="https://github.com/alexfdzunir/UNIR-Design-Systems" target="_blank" rel="noopener" aria-label="Repositorio en GitHub" title="Repositorio en GitHub">
         <i class="ph ph-github-logo" aria-hidden="true"></i>
       </a>
     </footer>
