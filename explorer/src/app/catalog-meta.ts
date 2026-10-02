@@ -189,6 +189,10 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   Distributiva: ['funnel', 'Oferta académica con filtros laterales y resultados.'],
   Eventos: ['calendar-dots', 'Listado de eventos con filtros, tipos y eventos pasados.'],
   'Evento Detalle': ['calendar-check', 'Detalle de evento con ponentes y formulario de inscripción.'],
+  Profesores: ['chalkboard-teacher', 'Claustro con rectorado, expertos y buscador de profesores.'],
+  'Profesor Detalle': ['identification-card', 'Ficha de profesor con formación, experiencia y estudios.'],
+  'Opinión': ['chat-centered-text', 'Opiniones de estudiantes con vídeos e historias de éxito.'],
+  'Opiniones Fichas': ['star', 'Opiniones y valoración de una titulación.'],
 };
 
 export interface ComponentMeta {

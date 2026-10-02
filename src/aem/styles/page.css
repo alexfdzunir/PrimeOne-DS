@@ -94,3 +94,13 @@
 .aem-listing__results .aem-list > li { font-size: var(--aem-typography-small-1-size); line-height: var(--aem-typography-small-1-line-height); }
 .aem-listing__results .aem-list a { color: var(--aem-color-text-primary); text-decoration: none; }
 .aem-listing__results .aem-list a:hover { color: var(--aem-color-text-link-secondary-hover); text-decoration: underline; }
+
+/* People grid (Figma "list/content-list" in columns): centred 84px photo, role and name */
+.aem-people { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--aem-unit-32) var(--aem-unit-16); margin: 0; padding: 0; list-style: none; font-family: var(--aem-typography-family); }
+.aem-people > li { display: flex; flex-direction: column; align-items: center; gap: var(--aem-unit-04); text-align: center; }
+.aem-people .aem-profile__photo { margin-bottom: var(--aem-unit-12); }
+/* Hero of a profile: 184px photo beside the name, role and bio */
+.aem-hero__profile { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); gap: var(--aem-unit-48); align-items: center; }
+.aem-hero__profile > img { width: 11.5rem; height: 11.5rem; object-fit: cover; border-radius: var(--aem-size-border-radius-lg); }
+@media (max-width: 767.98px) { .aem-hero__profile { grid-template-columns: minmax(0, 1fr); gap: var(--aem-unit-24); } }
+.aem-page__banner-image { display: block; width: 100%; height: 17.3125rem; object-fit: cover; }

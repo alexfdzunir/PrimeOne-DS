@@ -432,3 +432,10 @@ export function filterRow(filters: string[]): string {
 ${filters.map((label) => `  <div class="aem-filter" data-aem-dropdown><button class="aem-field aem-filter__trigger" type="button" aria-haspopup="listbox" aria-expanded="false"><span>${label}</span>${icon('caret-down', 'aem-filter__caret')}</button></div>`).join('\n')}
 </div></div></div>`;
 }
+
+/** People grid: [photo, role, name][]. */
+export function people(items: [string, string, string][]): string {
+  return `<ul class="aem-people">
+${items.map(([photo, role, name]) => `  <li><span class="aem-profile__photo"><img src="${photo}" alt="" loading="lazy" /></span>${role ? `<p class="aem-profile__role">${role}</p>` : ''}<p class="aem-profile__name"><a href="#">${name}</a></p></li>`).join('\n')}
+</ul>`;
+}
