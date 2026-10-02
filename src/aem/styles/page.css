@@ -19,6 +19,13 @@
 }
 .aem-grid > li { display: flex; }
 .aem-grid > li > * { flex: 1; }
+/* On mobile the grids of video cards and `--scroll` grids scroll sideways, as the carousels of Figma (cards at 85% of the screen) */
+@media (max-width: 767.98px) {
+  :is(.aem-grid--scroll, .aem-grid:has(> li > .aem-card--image)) { display: flex; gap: var(--aem-unit-16); margin-inline: calc(var(--aem-layout-section-horizontal-padding) * -1); padding-inline: var(--aem-layout-section-horizontal-padding); overflow-x: auto; scroll-padding-inline: var(--aem-layout-section-horizontal-padding); scroll-snap-type: x mandatory; scrollbar-width: none; }
+  :is(.aem-grid--scroll, .aem-grid:has(> li > .aem-card--image))::-webkit-scrollbar { display: none; }
+  :is(.aem-grid--scroll, .aem-grid:has(> li > .aem-card--image)) > li { flex: 0 0 85%; scroll-snap-align: start; }
+  :is(.aem-grid--scroll, .aem-grid:has(> li > .aem-card--image)) .aem-card { max-width: none; }
+}
 
 /* Search bar over the bottom edge of the home hero (below it on mobile) */
 .aem-page__search {
@@ -109,7 +116,7 @@
 .aem-offers { margin: 0; padding: 0; list-style: none; font-family: var(--aem-typography-family); }
 .aem-offer { position: relative; display: flex; flex-direction: column; gap: var(--aem-unit-12); padding: var(--aem-unit-32) 0; }
 .aem-offer + .aem-offer { border-top: var(--aem-size-border-width-default) solid var(--aem-color-border-subtle); }
-.aem-offer__logo { width: auto; height: 5.25rem; align-self: flex-start; }
+.aem-offer__logo { width: auto; max-width: 100%; height: 5.25rem; align-self: flex-start; object-fit: contain; object-position: left; }
 .aem-offer__title { display: flex; justify-content: space-between; gap: var(--aem-unit-16); margin: 0; font-size: var(--aem-typography-headline-6-size); font-weight: var(--aem-typography-weight-medium); line-height: var(--aem-typography-headline-6-line-height); }
 .aem-offer__title a { color: var(--aem-color-text-primary); text-decoration: none; }
 .aem-offer__title a::after { content: ''; position: absolute; inset: 0; }

@@ -1,7 +1,8 @@
 /*
  * AEM Footer (Figma "footer_module"): optional blue contact band ("Contacta con UNIR") over the dark footer: logo,
  * contact links on the left and three link columns on the right, the row of accreditation logos between two
- * rules, and the social links with the copyright at the bottom. Columns wrap on tablet and stack on mobile.
+ * rules, and the social links with the copyright at the bottom. Columns wrap on tablet; on mobile they fold into an
+ * accordion (footer.js toggles `aria-expanded` on the title button).
  */
 
 .aem-footer {
@@ -65,6 +66,11 @@
   line-height: var(--aem-typography-label-1-line-height);
 }
 
+/* The title is a toggle only on mobile */
+.aem-footer__toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: start; pointer-events: none; }
+.aem-footer__toggle i { display: none; font-size: var(--aem-size-icon-sm); transition: transform 150ms; }
+.aem-footer__toggle:focus-visible { outline: var(--aem-size-border-width-focus) solid var(--aem-color-state-focus-inverse); outline-offset: var(--aem-unit-02); }
+
 .aem-footer__links { display: flex; flex-direction: column; gap: var(--aem-unit-16); margin: 0; padding: 0; list-style: none; }
 .aem-footer__links a {
   display: block;
@@ -110,4 +116,16 @@
   .aem-footer__inner { grid-template-columns: minmax(0, 1fr); gap: var(--aem-unit-32); }
   .aem-footer__columns { justify-content: flex-start; }
   .aem-footer__copy { text-align: start; }
+}
+
+@media (max-width: 767.98px) {
+  .aem-footer__columns { flex-direction: column; gap: 0; }
+  .aem-footer__column { gap: 0; width: auto; border-bottom: var(--aem-size-border-width-default) solid var(--aem-color-border-inverse-subtle); }
+  .aem-footer__toggle { padding: var(--aem-unit-16) 0; pointer-events: auto; cursor: pointer; }
+  .aem-footer__toggle i { display: block; }
+  .aem-footer__toggle[aria-expanded='true'] i { transform: rotate(180deg); }
+  .aem-footer__column:has(.aem-footer__toggle[aria-expanded='false']) .aem-footer__links { display: none; }
+  .aem-footer__links { padding-bottom: var(--aem-unit-16); }
+  .aem-footer__logos { gap: var(--aem-unit-08); }
+  .aem-footer__logos li { width: calc(25% - var(--aem-unit-08)); height: 3rem; padding: var(--aem-unit-04); }
 }

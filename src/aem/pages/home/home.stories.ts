@@ -201,8 +201,8 @@ ${section(programs, { secondary: true, className: 'aem-card-block', heading: { t
 ${section(newsCarousel(NEWS, 'Actualidad académica'), { className: 'aem-card-block', heading: { title: 'Actualidad académica', link: 'Ver todas las noticias' } })}
 ${section(newsCarousel(RESEARCH, 'Investigación'), { flush: true, className: 'aem-card-block', heading: { title: 'Investigación', link: 'Ver todas las noticias' } })}
 ${section(grid(SOCIAL.map(([title, text]) => card({ title, text, link: 'Ver más' })), '20rem'), { flush: true, heading: { title: 'Compromiso social y cultural' } })}
-${section(grid(MEDIA.map(([file, ext, name, text]) => card({ logo: [img(file, ext), name], text, fill: 'secondary', link: '23/07/2025' })), '20rem'), { secondary: true, heading: { title: 'UNIR en los medios', text: 'Noticias, artículos, entrevistas y todo aquello que los medios de comunicación publican sobre UNIR y nuestros profesores, lo puedes ver aquí.', link: 'Descubre lo que dicen de nosotros' } })}
-${section(grid(PROPOSAL.map(([name, title, text]) => card({ icon: name, title, text })), '20rem'), { heading: { title: 'UNIR, una propuesta educativa única' } })}
+${section(grid(MEDIA.map(([file, ext, name, text]) => card({ logo: [img(file, ext), name], text, fill: 'secondary', link: '23/07/2025' })), '20rem', true), { secondary: true, heading: { title: 'UNIR en los medios', text: 'Noticias, artículos, entrevistas y todo aquello que los medios de comunicación publican sobre UNIR y nuestros profesores, lo puedes ver aquí.', link: 'Descubre lo que dicen de nosotros' } })}
+${section(grid(PROPOSAL.map(([name, title, text]) => card({ icon: name, title, text })), '20rem', true), { heading: { title: 'UNIR, una propuesta educativa única' } })}
 ${section(grid(VIDEOS.map(([file, title]) => card({ title, fill: 'image', image: img(file), play: true, mediaHeight: '28.3125rem' })), '20rem'), { flush: true, heading: { title: 'Conoce UNIR' } })}
 </main>
 ${moduleHtml(footer)}

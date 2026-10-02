@@ -38,7 +38,7 @@ const meta: Meta = {
     figmaUrl: figmaNode('9888:3741'),
     layout: 'fullscreen',
     controls: { expanded: true },
-    docs: { description: { component: 'Pie de los portales: banda de contacto opcional y pie oscuro con logo, vías de contacto, tres columnas de enlaces, sellos de acreditación (`aem/assets/footer`), redes sociales y copyright (`aem-footer`).' } },
+    docs: { description: { component: 'Pie de los portales: banda de contacto opcional y pie oscuro con logo, vías de contacto, tres columnas de enlaces, sellos de acreditación (`aem/assets/footer`), redes sociales y copyright (`aem-footer`). En móvil las columnas se pliegan en acordeón (`footer.js`).' } },
   },
   args: { showContact: false },
   argTypes: { showContact: { control: 'boolean', description: 'Banda "Contacta con UNIR".' } },
@@ -54,9 +54,9 @@ const meta: Meta = {
   </div>\n`
       : '';
     const columns = COLUMNS.map(
-      ([title, links]) => `        <nav class="aem-footer__column" aria-label="${title}">
-          <h2 class="aem-footer__title">${title}</h2>
-          <ul class="aem-footer__links">
+      ([title, links], i) => `        <nav class="aem-footer__column" aria-label="${title}">
+          <h2 class="aem-footer__title"><button class="aem-footer__toggle" type="button" aria-expanded="false" aria-controls="aem-footer-links-${i}">${title} ${icon('caret-down')}</button></h2>
+          <ul class="aem-footer__links" id="aem-footer-links-${i}">
 ${links.map((link) => `            <li><a href="#">${link}</a></li>`).join('\n')}
           </ul>
         </nav>`,

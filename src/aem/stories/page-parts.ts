@@ -87,9 +87,9 @@ ${lines.join('\n')}
 </article>`;
 }
 
-/** Grid of cards (`aem-grid`), each one in a list item. */
-export function grid(items: string[], min?: string): string {
-  return `<ul class="aem-grid"${min ? ` style="--aem-grid-min: ${min}"` : ''}>
+/** Grid of cards (`aem-grid`), each one in a list item; `scroll` turns it into a sideways carousel on mobile. */
+export function grid(items: string[], min?: string, scroll = false): string {
+  return `<ul class="${cx('aem-grid', scroll && 'aem-grid--scroll')}"${min ? ` style="--aem-grid-min: ${min}"` : ''}>
 ${items.map((item) => `  <li>\n${indent(item, 4)}\n  </li>`).join('\n')}
 </ul>`;
 }
@@ -349,6 +349,7 @@ export const closing = () => [
         ] as [string, string, string][]
       ).map(([name, title, text]) => card({ icon: name, title, text })),
       '20rem',
+      true,
     ),
     { flush: true, heading: { title: 'UNIR, una propuesta educativa única' } },
   ),

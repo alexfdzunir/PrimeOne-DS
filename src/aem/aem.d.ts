@@ -9,6 +9,7 @@ export declare const initCheckbox: Init;
 export declare const initChip: Init;
 export declare const initDatePicker: Init;
 export declare const initDropdown: Init;
+export declare const initFooter: Init;
 export declare const initModal: Init;
 export declare const initNavigationHeader: Init;
 export declare const initPagination: Init;

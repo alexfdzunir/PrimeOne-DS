@@ -12,6 +12,7 @@ import { initCheckbox } from './components/checkbox/checkbox.js';
 import { initChip } from './components/chip/chip.js';
 import { initDatePicker } from './components/date-picker/date-picker.js';
 import { initDropdown } from './components/dropdown/dropdown.js';
+import { initFooter } from './components/footer/footer.js';
 import { initModal } from './components/modal/modal.js';
 import { initNavigationHeader } from './components/navigation-header/navigation-header.js';
 import { initPagination } from './components/pagination/pagination.js';
@@ -29,6 +30,7 @@ export {
   initChip,
   initDatePicker,
   initDropdown,
+  initFooter,
   initModal,
   initNavigationHeader,
   initPagination,
@@ -47,6 +49,7 @@ export function initAem(root = document) {
   initChip(root);
   initDatePicker(root);
   initDropdown(root);
+  initFooter(root);
   initModal(root);
   initNavigationHeader(root);
   initPagination(root);
