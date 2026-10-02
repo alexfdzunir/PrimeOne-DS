@@ -59,7 +59,7 @@ function toEntry(mod: Record<string, unknown>, figmaUrl: string | undefined, cod
 
   const presets: PresetDef[] = Object.entries(mod)
     .filter(([key, value]) => key !== 'default' && value !== null && typeof value === 'object')
-    .map(([key, value]) => ({ id: key, name: key === 'Default' ? 'Por defecto' : humanize(key), args: (value as StoryObj).args ?? {} }))
+    .map(([key, value]) => ({ id: key, name: (value as StoryObj).name ?? (key === 'Default' ? 'Por defecto' : humanize(key)), args: (value as StoryObj).args ?? {} }))
     .sort((a, b) => {
       // Story order from the generator; module namespaces only expose exports alphabetically
       const order: string[] = meta.parameters?.['storyOrder'] ?? [];

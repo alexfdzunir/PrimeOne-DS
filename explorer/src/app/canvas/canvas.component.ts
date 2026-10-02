@@ -40,6 +40,18 @@ const CODE_PANEL_KEY = 'po-explorer.code';
       </div>
       <div class="po-canvas__tools">
         @if (isPage()) {
+          @if (state.selected().presets.length > 1) {
+            <p-selectbutton
+              [options]="state.selected().presets"
+              optionLabel="name"
+              optionValue="id"
+              size="small"
+              [allowEmpty]="false"
+              ariaLabel="Variante de la página"
+              [ngModel]="state.presetId()"
+              (ngModelChange)="state.applyPreset($event)"
+            />
+          }
           <p-selectbutton
             [options]="breakpoints"
             optionValue="width"

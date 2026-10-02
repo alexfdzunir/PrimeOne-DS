@@ -196,6 +196,14 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   Becas: ['hand-coins', 'Becas con logo, plazo y estado, preguntas y noticias.'],
   'Beca Detalle': ['seal-percent', 'Detalle de beca con requisitos, pasos y documentación.'],
   FAQs: ['question', 'Preguntas frecuentes por tema.'],
+  'Landing Distributiva': ['squares-four', 'Landing de un área con sus títulos.'],
+  'Landing Producto': ['rocket-launch', 'Landing de producto con calculadora de convalidaciones.'],
+  'Landing Comparativa': ['columns', 'Landing con dos programas enfrentados.'],
+  'Landing Derivativa': ['git-branch', 'Landing con programas alternativos.'],
+  'Landing Eventos': ['calendar-star', 'Landing de evento antes, durante y después.'],
+  'Landing Formularios': ['textbox', 'Formulario lateral y modales de las landings.'],
+  'Landing Cookies': ['cookie', 'Aviso y configuración de cookies.'],
+  'Error 404': ['warning-circle', 'Página no encontrada en cuatro propuestas.'],
 };
 
 export interface ComponentMeta {

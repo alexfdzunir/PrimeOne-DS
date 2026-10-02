@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/angular';
-import { cx, heading, icon, indent } from './helpers';
+import { cx, heading, icon, indent, unirLogo } from './helpers';
 
 /** HTML of a module story with its default args (plus overrides), to compose the page templates. */
 export function moduleHtml(meta: Meta, args: Record<string, unknown> = {}): string {
@@ -458,5 +458,206 @@ ${aside}
 </aside>
 </div>
 ${footerHtml}
+</div>`;
+}
+
+/** Hero of a landing (Figma hero_module Type=General or Distributor): optional UNIR logo, background photo and logo row, no breadcrumb. */
+export function landingHero(parts: { title: string; pretitle?: string; text?: string; image?: string; logo?: boolean; logos?: number }): string {
+  const logos = parts.logos ? `\n      <ul class="aem-hero__logos">${`<li><img src="${pageImg('logo-placeholder', 'png')}" alt="Logo" /></li>`.repeat(parts.logos)}</ul>` : '';
+  return `<section class="${cx('aem-hero', 'aem-brand', 'aem-hero--landing', parts.image && 'aem-hero--image')}"${parts.image ? ` style="--aem-hero-image: url('${parts.image}')"` : ''}>
+  <div class="aem-hero__inner">${parts.logo ? `\n    <a class="aem-hero__logo" href="#">${unirLogo('aem-logo--inverse')}</a>` : ''}
+    <div class="aem-hero__content">${parts.pretitle ? `\n      <p class="aem-hero__pretitle">${parts.pretitle}</p>` : ''}
+      <h1 class="aem-hero__title">${parts.title}</h1>${parts.text ? `\n      <p class="aem-hero__text">${parts.text}</p>` : ''}${logos}
+    </div>
+  </div>
+</section>`;
+}
+
+/** Footer of a landing: contact band, logo, accreditations and social links (no link columns). */
+export function landingFooter(footerHtml: string): string {
+  return footerHtml.replace(/\s*<ul class="aem-footer__contact">[\s\S]*?<\/ul>/, '').replace(/\s*<div class="aem-footer__columns">[\s\S]*?\n      <\/div>/, '');
+}
+
+/** Landing: content plus the optional sidebar form, and the landing footer. */
+export function landingPage(content: string[], footerHtml: string, aside?: string, top = ''): string {
+  return aside ? asidePage(top, content, aside, landingFooter(footerHtml)) : `<div class="aem-page">\n<main>\n${content.join('\n')}\n</main>\n${landingFooter(footerHtml)}\n</div>`;
+}
+
+/** Credit recognition calculator (Figma M13-Calculadora): options to tick and the estimated saving. */
+export function calculator(title: string, cta: string, options: string[], result: [label: string, value: string, unit: string, note: string]): string {
+  return `<section class="aem-calculator">
+  <div class="aem-calculator__inner">
+    <div class="aem-calculator__head">
+      <h2 class="aem-calculator__title">${title}</h2>
+      <div class="aem-calculator__cta">
+        <p>${cta}</p>
+        <a class="aem-calculator__go" href="#" aria-label="Contactar con un asesor">${icon('arrow-right')}</a>
+      </div>
+    </div>
+    <div class="aem-calculator__options">
+${options.map((o, i) => `      <label class="aem-calculator__option"><input type="checkbox"${i === 0 ? ' checked' : ''} /><span class="aem-calculator__check">${icon('check')}</span><span>${o}</span></label>`).join('\n')}
+      <div class="aem-calculator__result" aria-live="polite">
+        <span class="aem-calculator__label">${result[0]}</span>
+        <p class="aem-calculator__value">${result[1]}<span>${result[2]}</span></p>
+        <p class="aem-calculator__note">${result[3]}</p>
+      </div>
+    </div>
+  </div>
+</section>`;
+}
+
+/** Logo placeholder of the recognition cards. */
+export const logoPlaceholder: [string, string] = [pageImg('logo-placeholder', 'png'), 'Logo'];
+
+/** Featured figure next to its heading (Figma featured-data with one data-item, accent band). */
+export function stat(head: Parameters<typeof heading>[0], value: string, unit: string, caption: string): string {
+  return section(
+    `<p class="aem-stat__figure"><span class="aem-stat__value">${value}<span class="aem-stat__unit">${unit}</span></span><span class="aem-stat__caption">${caption}</span></p>`,
+    { heading: head, className: 'aem-section--accent aem-stat' },
+  );
+}
+
+/** Three cards with a framed image (Figma card-grid with image-set): [image, title, text]. */
+export function imageSetCards(items: [string, string, string][]): string {
+  return `<ul class="aem-image-set">
+${items.map(([image, title, text]) => `  <li>\n    <img src="${image}" alt="" loading="lazy" />\n    <h3>${title}</h3>\n    <p>${text}</p>\n  </li>`).join('\n')}
+</ul>`;
+}
+
+/** Closing sections shared by the landings: recognitions and the official university block. */
+export const landingClosing = () => [
+  section(
+    grid(
+      (
+        [
+          ['Universidad privada y en línea número 1 de España', 'Times Higher Education analiza 13 indicadores clave de 1.800 universidades y pone en valor nuestro espíritu internacional'],
+          ['Primera universidad online en España', 'Forbes destaca a UNIR como referente por su metodología y la experiencia interactiva que ofrece a sus estudiantes'],
+        ] as [string, string][]
+      ).map(([title, text]) => card({ logo: logoPlaceholder, title, text, fill: 'secondary' })),
+      '22rem',
+    ),
+    { secondary: true, heading: { title: 'Reconocidos por nuestra excelencia' } },
+  ),
+  section(
+    imageSetCards([
+      [pageImg('landing-eees'), 'Universidad oficial', 'UNIR es una universidad aprobada y autorizada por el Ministerio de Educación para conceder titulaciones oficiales con plena validez en España y en todo el Espacio Europeo de Educación Superior. (Ley 3/2008, de 13 de octubre)'],
+      [pageImg('landing-sedes'), 'Centros de exámenes', 'Te ofrecemos la posibilidad de hacer los exámenes finales en línea o de forma presencial. Con la primera opción podrás evaluarte desde casa y contarás con un equipo de apoyo. Para la segunda disponemos de sedes repartidas tanto en territorio nacional como internacional.'],
+      [pageImg('landing-titulo'), 'Titulación oficial', 'Obtendrás un título reconocido por el Ministerio de Educación de España y válido en todo el Espacio Europeo. Al finalizar el programa obtendrás un título oficial otorgado por la Universidad Internacional de La Rioja (UNIR), reconocido por el Ministerio de Educación y válido en todo el Espacio Europeo.'],
+    ]),
+    { heading: { pretitle: 'Internacional', title: 'Somos una universidad oficial, de referencia internacional' } },
+  ),
+];
+
+/** "UNIR, una propuesta educativa única" carousel of photo cards. */
+export const proposal = (secondary = true) =>
+  section(
+    carousel(
+      (
+        [
+          ['Estudia a tu ritmo, 100% online', 'Accede desde tu Campus online a clases en directo o en diferido, foros y recursos y examínate de forma online o presencial.'],
+          ['Aprende haciendo, no memorizando', 'Participarás en clases un 70% prácticas, con ejercicios individuales o en grupo, donde aprender es más dinámico y realista. Y si necesitas consultar la teoría, está siempre disponible en el Campus Virtual.'],
+          ['Titulación oficial', 'Obtendrás un título reconocido por el Ministerio de Educación de España y válido en todo el Espacio Europeo.'],
+          ['Nuevos modelos de aprendizaje en la universidad pública', 'Times Higher Education analiza 13 indicadores clave de 1.800 universidades y pone en valor nuestro espíritu internacional.'],
+        ] as [string, string][]
+      ).map(([title, text]) => card({ title, text, fill: 'image', image: pageImg('landing-propuesta'), mediaHeight: '22.5rem' })),
+      'Propuesta educativa',
+    ),
+    { secondary, className: 'aem-card-block', heading: { pretitle: 'Experiencia UNIR', title: 'UNIR, una propuesta educativa única', link: 'Contacta con tu asesor y personaliza tu forma de pago' } },
+  );
+
+/** Landing block: text with bullets next to a photo (content-block 60/40 or 40/60). */
+export function textImageBlock(image: string, imageFirst: boolean, pretitle: string, title: string): string {
+  const media = `<div class="aem-content-block__media"><img src="${image}" alt="" loading="lazy" /></div>`;
+  const text = `<div class="aem-content-block__column">
+${heading({ pretitle, title })}
+${richText(['La habilitación como profesor en Educación Secundaria, Bachillerato, Formación Profesional e Idiomas te abrirá nuevas oportunidades como:'], [
+  'Serás una pieza clave en el desarrollo cognitivo, intelectual, social y afectivo de tus alumnos',
+  'Diseñarás métodos de enseñanza innovadores',
+  'Especialízate en 7 menciones para ampliar tus oportunidades profesionales',
+])}
+</div>`;
+  return `<div class="aem-content-block aem-content-block--${imageFirst ? '40-60' : '60-40'}">\n${imageFirst ? `${media}\n${text}` : `${text}\n${media}`}\n</div>`;
+}
+
+/** Landing intro: study plan text and download. */
+export const studyPlan = (paragraphs: string[]) =>
+  section(`${richText(paragraphs)}\n${downloads([['Descarga ahora el Plan de estudios en PDF', 'Archivo.PDF']])}`, { heading: { title: 'Fórmate resolviendo casos reales con expertos' } });
+
+/** Students figure on the accent band. */
+export const studentsStat = (value: string, caption: string) =>
+  stat({ pretitle: 'Estudiantes', title: 'Más de 249.000 estudiantes como tú ya lo han logrado', text: 'Nuestro compromiso es tu éxito. Nos ajustamos a tus necesidades para ayudarte a alcanzar tus metas.' }, value, '%', caption);
+
+/** Student testimonial of the landings. */
+export const landingTestimonial = () =>
+  section(testimonials([['“Este máster me ha dotado de las herramientas didácticas y la seguridad profesional para llevar una clase a su máxima calidad y un aprendizaje que supera mis expectativas.”', 'Nuria Trigueros', 'Estudiante del Grado en Psicología']]));
+
+/** Credit recognition calculator of the landings. */
+export const landingCalculator = () =>
+  calculator(
+    'Ahorra tiempo y dinero con tu trayectoria',
+    'Contacta con tu asesor y recibe en menos de 24 h tu estudio de convalidaciones',
+    ['Tengo estudios inacabados relacionados', 'Tengo títulos previos relacionados', 'He trabajado en campos relacionados'],
+    ['Puedes ahorrarte hasta', '5', 'ECTS', 'Equivale a 1,5 asignaturas semestrales'],
+  );
+
+/** Financing options carousel. */
+export const financing = () =>
+  section(
+    carousel(
+      (
+        [
+          ['percent', 'Descuento por pronto pago', 'Ahorra un 5% por pago al contado del importe al matricularte con antelación y asegura tu plaza.'],
+          ['calendar-check', 'Pago fraccionado', 'Divide el importe de tu matrícula en cómodas mensualidades sin intereses.'],
+          ['hand-coins', 'Ayudas personalizadas', 'Consulta cuál es la mejor opción para ti. Nuestro equipo te informará de todas las alternativas.'],
+          ['graduation-cap', 'Becas', 'Accede a las becas y convenios con instituciones para reducir el coste de tus estudios.'],
+        ] as [string, string, string][]
+      ).map(([name, title, text]) => card({ icon: name, title, text, fill: 'secondary' })),
+      'Financiación',
+    ),
+    { secondary: true, className: 'aem-card-block', heading: { pretitle: 'Financiación', title: 'Tenemos opciones económicas para ti', link: 'Contacta con tu asesor y personaliza tu forma de pago' } },
+  );
+
+/** Sidebar form of the landings, with the call promo. */
+export const landingForm = () =>
+  formPanel([
+    ['clock', 'Abierta próxima convocatoria'],
+    ['lightning', 'Hasta 40% de descuento hasta el 15 de abril', true],
+    ['users', 'Plazas limitadas'],
+  ]);
+
+/** Text field of a form (Input Text); `full` spans both columns of `aem-form`. */
+export const formField = (label: string, type = 'text', full = false) =>
+  `<div class="${cx('aem-field-host', 'aem-input', full && 'aem-form__full')}"><label class="aem-field"><span class="aem-field__control"><input class="aem-field__input" type="${type}" placeholder=" " /><span class="aem-field__label">${label}</span></span></label></div>`;
+
+/** Dropdown field of a form; `disabled` until a previous choice is made. */
+export const formSelect = (label: string, value = '', options: { full?: boolean; disabled?: boolean } = {}) =>
+  `<div class="${cx('aem-field-host', 'aem-dropdown', options.full && 'aem-form__full', options.disabled && 'aem-field-host--disabled')}" data-aem-dropdown><button class="aem-field aem-dropdown__trigger${value ? ' has-value' : ''}" type="button" aria-haspopup="listbox" aria-expanded="false"${options.disabled ? ' disabled' : ''}><span class="aem-field__control"><span class="aem-dropdown__value" data-aem-dropdown-value>${value}</span><span class="aem-field__label">${label}</span></span>${icon('caret-down', 'aem-dropdown__caret')}</button></div>`;
+
+/** Phone field with its prefix. */
+export const formPhone = (prefix = '+34') =>
+  `<div class="aem-field-host aem-input aem-input--phone"><div class="aem-input__row"><span class="aem-field aem-input__prefix">${prefix}</span><label class="aem-field"><span class="aem-field__control"><input class="aem-field__input" type="tel" placeholder=" " /><span class="aem-field__label">Teléfono</span></span></label></div></div>`;
+
+/** Consent checkbox, legal text and submit button closing a form. */
+export const formEnd = (button: string) => `<label class="aem-checkbox__item aem-form__full">
+  <input class="aem-checkbox__input" type="checkbox" />
+  <span class="aem-checkbox__box">${icon('check', 'aem-checkbox__check', 'bold')}${icon('minus', 'aem-checkbox__minus', 'bold')}</span>
+  <span>Deseo recibir información, también por WhatsApp, de UNIR y otras empresas educativas del Grupo Proeduca.</span>
+</label>
+<p class="aem-form__legal aem-form__full" tabindex="0">UNIVERSIDAD INTERNACIONAL DE LA RIOJA, S.A.U. (en adelante, "UNIR"), tratará los datos de carácter personal que usted ha proporcionado con la finalidad de: atender a su solicitud de información, reclamación, duda o sugerencia que realice sobre los productos y/o servicios ofrecidos por UNIR, incluido por vía telefónica, o a través de WhatsApp, así como para mantenerle informado de nuestra actividad.</p>
+<button class="aem-button aem-button--secondary aem-form__full" type="submit">${button}</button>`;
+
+/** Modal shown open over the page (preview of the dialog with its overlay). */
+export function modalPreview(title: string, body: string, options: { size?: 'sm'; centered?: boolean } = {}): string {
+  const id = nextId('aem-modal');
+  return `<div class="aem-modal-preview">
+  <dialog class="${cx('aem-modal', 'aem-modal--static', options.size === 'sm' && 'aem-modal--sm', options.centered && 'aem-modal--centered')}" id="${id}" aria-labelledby="${id}-title" open>
+    <div class="aem-modal__header">
+      <h2 class="aem-modal__title" id="${id}-title">${title}</h2>
+      <button class="aem-button aem-button--ghost aem-button--icon-only aem-button--sm" type="button" aria-label="Cerrar" data-aem-modal-close>${icon('x', 'aem-button__icon')}</button>
+    </div>
+    <div class="aem-modal__body">
+${indent(body, 6)}
+    </div>
+  </dialog>
 </div>`;
 }

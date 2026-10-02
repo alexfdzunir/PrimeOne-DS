@@ -40,5 +40,7 @@ export interface Meta {
 }
 
 export interface StoryObj {
+  /** Display name of the story (its export name by default). */
+  name?: string;
   args?: Record<string, any>;
 }

@@ -40,6 +40,7 @@ const FOOTER: Rules = [
 
 /** Link buttons and buttons. */
 const ACTIONS: Rules = [
+  [/^Ir a la web$/, 'home'],
   [/eventos/i, 'eventos'],
   [/artículos/i, 'revista-categoria'],
   [/noticias/i, 'actualidad'],
@@ -66,7 +67,9 @@ const CARD_SECTIONS: Rules = [
   [/evento/i, 'evento-detalle'],
   [/compromiso social|investigación/i, 'facultad'],
   [/propuesta educativa|metodología/i, 'faqs'],
-  [/ranking|reconocimientos/i, 'opinion'],
+  [/ranking|reconocimientos|reconocidos/i, 'opinion'],
+  [/opciones económicas/i, 'becas'],
+  [/títulos|titulaciones|requisitos|te puede interesar/i, 'ficha-mba'],
 ];
 
 function match(rules: Rules, text: string): string | null {
@@ -84,7 +87,7 @@ function cardTarget(card: Element): string | null {
 
 function target(el: Element): string | null {
   const label = text(el);
-  if (el.matches('.aem-header__logo')) return 'home';
+  if (el.matches('.aem-header__logo, .aem-hero__logo, .aem-error__logo')) return 'home';
   if (el.matches('.aem-breadcrumb__link')) return match(BREADCRUMB, label);
   if (el.closest('.aem-megamenu')) return el.matches('.aem-megamenu__all') ? 'area-estudio' : /^Grado/.test(label) ? 'ficha-grado-educacion' : 'ficha-mba';
   if (el.closest('.aem-header')) return match(HEADER, label);
