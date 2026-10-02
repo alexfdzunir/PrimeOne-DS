@@ -1,0 +1,10 @@
+{
+  "codeConnect": {
+    "include": ["src/aem/**/*.figma.ts"],
+    "label": "AEM (HTML)",
+    "language": "html",
+    "documentUrlSubstitutions": {
+      "<AEM>": "https://www.figma.com/design/hT9BgF8wE5lXM54ldUcy9H/Design-System---AEM-Portales"
+    }
+  }
+}

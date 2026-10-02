@@ -7,6 +7,8 @@
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json",
     "figma:parse": "figma connect parse",
     "figma:publish": "figma connect publish",
+    "figma:parse:aem": "figma connect parse -c figma.aem.config.json",
+    "figma:publish:aem": "figma connect publish -c figma.aem.config.json",
     "storybook": "ng run prime-one-ds:storybook",
     "build-storybook": "ng run prime-one-ds:build-storybook",
     "explorer:index": "node scripts/generate-explorer-index.mjs",

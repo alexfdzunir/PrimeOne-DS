@@ -86,4 +86,10 @@ Las plantillas están junto a cada componente (`src/components/**/*.figma.ts`) y
 FIGMA_ACCESS_TOKEN=<token con permiso Code Connect> npm run figma:publish
 ```
 
+AEM Portales tiene su propia configuración (`figma.aem.config.json`, etiqueta «AEM (HTML)») y sus plantillas junto a cada componente y módulo (`src/aem/components/**/*.figma.ts`, helpers en `src/figma/aem.ts`). Los módulos reutilizan el `render` de su story, así el código de Figma es el mismo HTML que enseña el explorador:
+
+```bash
+FIGMA_ACCESS_TOKEN=<token con permiso Code Connect> npm run figma:publish:aem
+```
+
 El token necesita los scopes *Code Connect: Write* y *File content: Read* y acceso al fichero del DS. No lo guardes en el repositorio.
