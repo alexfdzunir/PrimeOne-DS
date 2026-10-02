@@ -439,3 +439,24 @@ export function people(items: [string, string, string][]): string {
 ${items.map(([photo, role, name]) => `  <li><span class="aem-profile__photo"><img src="${photo}" alt="" loading="lazy" /></span>${role ? `<p class="aem-profile__role">${role}</p>` : ''}<p class="aem-profile__name"><a href="#">${name}</a></p></li>`).join('\n')}
 </ul>`;
 }
+
+/** Generic sidebar form (Figma form_contextual_portal Type=General), Colombian portal. */
+export function generalFormPanel(): string {
+  return newsFormPanel().replace('<span class="aem-dropdown__value" data-aem-dropdown-value>España</span>', '<span class="aem-dropdown__value" data-aem-dropdown-value>Colombia</span>').replace('<span class="aem-field__label">Provincia</span>', '<span class="aem-field__label">Departamento</span>').replace('>+34<', '>+57<');
+}
+
+/** Page with the sidebar form. */
+export function asidePage(header: string, content: string[], aside: string, footerHtml: string): string {
+  return `<div class="aem-page">
+${header}
+<div class="aem-page__aside-layout">
+<main>
+${content.join('\n')}
+</main>
+<aside aria-label="Solicita información">
+${aside}
+</aside>
+</div>
+${footerHtml}
+</div>`;
+}

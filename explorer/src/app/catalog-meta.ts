@@ -193,6 +193,9 @@ const AEM_META: Record<string, [icon: string, summary: string]> = {
   'Profesor Detalle': ['identification-card', 'Ficha de profesor con formación, experiencia y estudios.'],
   'Opinión': ['chat-centered-text', 'Opiniones de estudiantes con vídeos e historias de éxito.'],
   'Opiniones Fichas': ['star', 'Opiniones y valoración de una titulación.'],
+  Becas: ['hand-coins', 'Becas con logo, plazo y estado, preguntas y noticias.'],
+  'Beca Detalle': ['seal-percent', 'Detalle de beca con requisitos, pasos y documentación.'],
+  FAQs: ['question', 'Preguntas frecuentes por tema.'],
 };
 
 export interface ComponentMeta {
